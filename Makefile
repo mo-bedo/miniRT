@@ -1,36 +1,25 @@
 # Set print to true to print full commands
-PRINT = true
-
+PRINT		=	false
 # Source files directory
-SRC_DIR		= srcs/
-
+SRC_DIR		= 	srcs/
 # Object files directory
-OBJ_DIR		= objs/
-
+OBJ_DIR		= 	objs/
 # Include files directory
-INC_DIR		= incs/
-
+INC_DIR		= 	incs/
 # Program name
-NAME	= minirt
-
+NAME		= 	minirt
 # Source files
-SRCS	= 	main.c
-
-
+SRCS		=	main.c
 # Compiler
-CC		= gcc
-
+CC			= 	gcc
 # Compiler flags
-CFLAGS	+= -fsanitize=undefined -fsanitize=address -Wall -Wextra -Werror
-
-CFLAGS	+= -I$(INC_DIR) -Imlx
+CFLAGS		+= 	-fsanitize=undefined -fsanitize=address -Wall -Wextra -Werror
+CFLAGS		+= 	-I$(INC_DIR) -Imlx
 
 # Generate source files with directory and object files
-SRCS	:= $(foreach file,$(SRCS),$(SRC_DIR)$(file))
-OBJS	= $(SRCS:$(SRC_DIR)%=$(OBJ_DIR)%.o)
-
-RM		= /bin/rm -rf
-
+SRCS		:=	$(foreach file,$(SRCS),$(SRC_DIR)$(file))
+OBJS		=	$(SRCS:$(SRC_DIR)%=$(OBJ_DIR)%.o)
+RM			=	/bin/rm -rf
 
 # Recipes
 all: $(NAME)
