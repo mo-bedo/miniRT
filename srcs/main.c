@@ -1,4 +1,16 @@
-#include "miniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/09/21 13:02:37 by mweitenb      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "main.h"
 #include "mlx.h"
 #include <math.h>
 #include <stdlib.h>
@@ -25,7 +37,7 @@ int circle(t_data *data)
 			}
 		}
 	}
-	return 1;
+	return (1);
 }
 
 int	main(void)

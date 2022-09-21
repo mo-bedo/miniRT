@@ -1,73 +1,55 @@
-# Set print to true to print full commands
-PRINT		=	false
-# Source files directory
-SRC_DIR		= 	srcs/
-# Object files directory
-OBJ_DIR		= 	objs/
-# Include files directory
-INC_DIR		= 	incs/
-# Program name
-NAME		= 	minirt
-# Source files
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: mweitenb <mweitenb@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/09/21 13:10:38 by mweitenb      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS	= 	main.c \
-			vector_math.c
+# VARIABLES
+NAME			:=	miniRT
+CFLAGS			:= 	-Wall -Wextra -Werror -Iincs -Imlx
+MLX				:=	-Lmlx -Iincs -lmlx -framework OpenGL -framework AppKit
+SANIT			:=	-fsanitize=address -fsanitize=undefined
+CC				:=	gcc
+PRINT			:=	#@
 
-# Compiler
-CC			= 	gcc
-# Compiler flags
-CFLAGS		+= 	-fsanitize=undefined -fsanitize=address -Wall -Wextra -Werror
-CFLAGS		+= 	-I$(INC_DIR) -Imlx
+# STATIC
+RM				:=	rm
+MKDIR_P			:=	mkdir -p
+INC_DIR			:=	./incs
+SRC_DIR			:=	./srcs
+OBJ_DIR			:=	./objs
+SRC				:=	main.c
 
-# Generate source files with directory and object files
-SRCS		:=	$(foreach file,$(SRCS),$(SRC_DIR)$(file))
-OBJS		=	$(SRCS:$(SRC_DIR)%=$(OBJ_DIR)%.o)
-RM			=	/bin/rm -rf
+OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
-# Recipes
-all: $(NAME)
+all				:	$(NAME)
 
-$(OBJ_DIR):
-	@mkdir $@
+$(NAME)			: 	$(OBJ)
+					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT)
 
-$(OBJS): | $(OBJ_DIR)
+$(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
+					$(PRINT)$(MKDIR_P) $(dir $@)
+					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@
 
-$(OBJS): $(OBJ_DIR)%.o: $(SRC_DIR)%
-ifeq ($(PRINT), true)
-	$(CC) $(CFLAGS) -c $< -o $@
-else
-	@echo "Compiling $^: "
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "✓"
-endif
+clean			: 
+					$(PRINT)$(RM) -rf $(OBJ_DIR)
 
-$(NAME): $(OBJS)
-ifeq ($(PRINT), true)
-	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-else
-	@echo "Assembling $(NAME)"
-	@$(CC) $(CFLAGS) $^ -o $@
-endif
+fclean			:	clean
+					$(PRINT)$(RM) -f $(NAME)
 
-clean:
-ifeq ($(PRINT), true)
-	$(RM) $(OBJ_DIR)
-else
-	@echo "Clean called"
-	@$(RM) $(OBJ_DIR)
-endif
+re				: 	fclean all
 
-fclean: clean
-ifeq ($(PRINT), true)
-	$(RM) $(NAME)
-else
-	@echo "Fclean called!"
-	@$(RM) $(NAME)
-endif
+test			:	re
+					./$(NAME)
 
-re: fclean all
+norm			:
+					@norminette $(SRC_DIR) $(INC_DIR)
 
-test: re
-	./$(NAME)
+.PHONY			:	all bonus clean fclean re norm test
 
-.PHONY: all clean fclean re test
