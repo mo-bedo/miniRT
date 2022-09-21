@@ -11,14 +11,6 @@ void	my_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	draw_line(t_data *data, int heigth, int length, int color)
-{
-	for (int i = 0; i < 300; i++)
-	{
-		my_pixel_put(data, heigth, length + i, color);
-	}
-}
-
 int circle(t_data *data)
 {
 	for (int i = 0; i < 400; i++)
