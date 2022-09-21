@@ -1,6 +1,14 @@
-# Set print to true to print full commands
-# PRINT		=	true
-
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: mweitenb <mweitenb@student.codam.nl>         +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/09/21 13:10:38 by mweitenb      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
 
 # VARIABLES
 NAME			:=	miniRT
@@ -8,6 +16,7 @@ CFLAGS			:= 	-Wall -Wextra -Werror -I$(INC_DIR) -Imlx
 MLX				:=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm
@@ -22,17 +31,17 @@ OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 all				:	$(NAME)
 
 $(NAME)			: 	$(OBJ)
-					$(CC) $(OBJ) $(MLX) -o $@ $(SANIT)
+					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT)
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
-					$(MKDIR_P) $(dir $@)
-					$(CC) $(CFLAGS) $(SANIT) -c $< -o $@
+					$(PRINT)$(MKDIR_P) $(dir $@)
+					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@
 
-clean			:
-					$(RM) -rf $(OBJ_DIR)
+clean			: 
+					$(PRINT)$(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-					$(RM) -f $(NAME)
+					$(PRINT)$(RM) -f $(NAME)
 
 re				: 	fclean all
 
@@ -43,16 +52,4 @@ norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
 
 .PHONY			:	all bonus clean fclean re norm test
-
-
-
-# Recipes
-
-
-
-
-
-# $(NAME): $(OBJS)
-#	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-
 
