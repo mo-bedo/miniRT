@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/21 18:50:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/21 18:52:59 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ static char	*get_next_line(int fd)
 	return (line);
 }
 
-// BUG: als scene.rt eindigt op \n -> neverending loop
+// BUG		: als scene.rt eindigt op \n -> neverending loop
+// TO DO	: controleren of scene file .rt extensie heeft
 static void	init(t_mlx	*mlx, char *input)
 {
 	int		rt_file = open(input, O_RDONLY);
