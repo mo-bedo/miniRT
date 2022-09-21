@@ -6,14 +6,14 @@
 #    By: mweitenb <mweitenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/21 13:10:38 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/09/21 16:03:35 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # VARIABLES
 NAME			:=	miniRT
-CFLAGS			:= 	-Wall -Wextra -Werror -I$(INC_DIR) -Imlx
-MLX				:=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS			:= 	-Iincs -Imlx #-Wall -Wextra -Werror
+MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
 PRINT			:=	@
@@ -24,7 +24,9 @@ MKDIR_P			:=	mkdir -p
 INC_DIR			:=	./incs
 SRC_DIR			:=	./srcs
 OBJ_DIR			:=	./objs
-SRC				:=	main.c
+SRC				:=	main.c \
+					parse_input.c \
+					utils.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
