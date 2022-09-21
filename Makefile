@@ -14,7 +14,8 @@ INC_DIR		= incs/
 NAME	= minirt
 
 # Source files
-SRCS	= 	main.c
+SRCS	= 	main.c \
+			vector_math.c
 
 
 # Compiler
