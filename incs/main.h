@@ -138,4 +138,4 @@ enum e_values{
 	MAX_COLOR		= 16777215
 };
 
-#endif
+#endif				// MAIN_H
