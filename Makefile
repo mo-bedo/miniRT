@@ -24,7 +24,9 @@ MKDIR_P			:=	mkdir -p
 INC_DIR			:=	./incs
 SRC_DIR			:=	./srcs
 OBJ_DIR			:=	./objs
-SRC				:=	main.c
+SRC				:=	main.c \
+					vector_math.c \
+					image_plane.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

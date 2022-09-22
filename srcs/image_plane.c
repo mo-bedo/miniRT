@@ -10,14 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_MATH_H
-# define VECTOR_MATH_H
+#include "main.h"
+#include <math.h>
 
-# include "main.h"
+// FOV meot / 2 en height en width ook (voor de berekeningen)
+// dit geldt alleen bij normal vector iets
+// aspect ratio = height / width
+// height of image plane = tan tot de macht -1 (FOV)
+// dus uitkomst van de atan(FOV) moet x 2 voor de echte hieght.
+// omdat r = h / w   is  w = r * h    dus met FOV en aspect ratio kan je het
+// image plane maken
 
-double	vector_magnitude(t_vec v);
-t_vec	vector_unit(t_vec v);
-double	vector_dot(t_vec v1, t_vec v2);
-double	angle_between_vector(t_vec v1, t_vec v2);
+t_image	parse_image_plane(double fov, int aspect_ratio)
+{
+	t_image	screen;
 
-#endif
+	screen.height = 2 * (atan(fov / 2));
+	screen.width = screen.height * aspect_ratio;
+	return (screen);
+}
