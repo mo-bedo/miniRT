@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "camera.h"
 #include "main.h"
 #include "mlx.h"
 #include "parse_input.h"
@@ -78,74 +79,66 @@ static char	*get_next_line(int fd)
 	return (line);
 }
 
-// BUG		: als scene.rt eindigt op \n -> neverending loop
-// TO DO	: controleren of scene file .rt extensie heeft
-static void	init(t_mlx	*mlx, char *input)
-{
-	int		rt_file = open(input, O_RDONLY);
-	char	*line;
-
-	while (1)
-	{
-		line = get_next_line(rt_file);
-		if (!line)
-			return ;
-		parse_input(mlx, line);
-		free(line);
-	}
-	// mlx->mlx = mlx_init();
-	// mlx->window = mlx_new_window(mlx->mlx,
-	// 		WINDOW_WIDTH, WINDOW_HEIGHT, "MiniRT");
-	// mlx->img.img = mlx_new_image(mlx->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// mlx->img.addr = mlx_get_data_addr(mlx->img.img,
-	// 		&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-	// init_data(mlx);
-	// mlx->display_menu = 1;
-}
+//// BUG		: als scene.rt eindigt op \n -> neverending loop
+//// TO DO	: controleren of scene file .rt extensie heeft
+//static void	init(t_mlx	*mlx, char *input)
+//{
+//	int		rt_file = open(input, O_RDONLY);
+//	char	*line;
+//
+//	while (1)
+//	{
+//		line = get_next_line(rt_file);
+//		if (!line)
+//			return ;
+//		parse_input(mlx, line);
+//		free(line);
+//	}
+//	// mlx->mlx = mlx_init();
+//	// mlx->window = mlx_new_window(mlx->mlx,
+//	// 		WINDOW_WIDTH, WINDOW_HEIGHT, "MiniRT");
+//	// mlx->img.img = mlx_new_image(mlx->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+//	// mlx->img.addr = mlx_get_data_addr(mlx->img.img,
+//	// 		&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
+//	// init_data(mlx);
+//	// mlx->display_menu = 1;
+//}
 
 int	main(int argc, char **argv)
 {
-	t_mlx			mlx;
+	void	*mlx;
+	void	*mlx_win;
+	t_img	img;
+	int width = 800;
+	int heigth = 600;
 
-	if (argc < 2)
-		error_message_and_exit("Please provide a scene description file");
-	init(&mlx, argv[1]);
-	exit(EXIT_SUCCESS);
+ 	mlx = mlx_init();
+ 	mlx_win = mlx_new_window(mlx, width, heigth, "my window");
+ 	img.img = mlx_new_image(mlx, width, heigth);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+
+	t_cam cam;
+
+	t_vec camera_origin;
+	camera_origin.x = -50.0;
+	camera_origin.y = 0;
+	camera_origin.z = 20;
+
+	t_vec camera_orientation;
+	camera_orientation.x = 0.0;
+	camera_orientation.y = 0.0;
+	camera_orientation.z = 1.0;
+
+	t_vec camera_upguide;
+	camera_upguide.x = 0.0;
+	camera_upguide.y = 1.0;
+	camera_upguide.z = 0.0;
+
+	int fov = 180;
+
+	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) width / (float) heigth);
+
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
+	return (0);
 }
-
-// static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-// {
-// 	char	*dst;
-// 	int		offset;
-
-// 	offset = (y * img->line_length + x * (img->bits_per_pixel / 8));
-// 	dst = &img->addr[offset];
-// 	*(unsigned int *)dst = color;
-// }
-
-// int	main(void)
-// {
-// 	void	*mlx;
-// 	void	*mlx_win;
-// 	t_data	img;
-// 	t_vec	v;
-
-// 	mlx = mlx_init();
-// 	mlx_win = mlx_new_window(mlx, 800, 600, "my window");
-// 	img.img = mlx_new_image(mlx, 800, 600);
-// 	img.address = mlx_get_data_addr(img.img, &img.bit_per_pixel, &img.line_length, &img.endian);
-// 	v.x = 10;
-// 	v.y = 15;
-// 	circle(&img);
-// //
-// //	draw_line(&img, 20, 30, 0x0000FF);
-// //	draw_line(&img, 21, 30, 0x0000FF);
-// //	draw_line(&img, 45, 30, 0x00FF00);
-// //	draw_line(&img, 46, 30, 0x00FF00);
-// //	draw_line(&img, 77, 30, 0xFF0000);
-// //	draw_line(&img, 78, 30, 0xFF0000);
-
-// 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-// 	mlx_loop(mlx);
-// 	return (0);
-// }

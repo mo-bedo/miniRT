@@ -54,6 +54,11 @@ double	vector_magnitude(t_vec v)
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
+double	vector_magnitude2(t_vec v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
 // omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted
 // magnitude

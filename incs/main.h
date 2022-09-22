@@ -65,6 +65,11 @@ typedef struct s_vec {
 	double	z;
 }	t_vec;
 
+typedef struct s_vec2 {
+	double	u;
+	double	v;
+}	t_vec2;
+
 typedef struct s_xyz
 {
 	float	x;
@@ -98,12 +103,18 @@ typedef struct s_light
 //	t_rgb	rgb;
 //}	t_sphere;
 
-typedef struct s_plane
-{
-	t_xyz	coordinates;
-	t_vec	orientation_vector;
-	t_rgb	rgb;
-}	t_plane;
+//typedef struct s_plane
+//{
+//	t_xyz	coordinates;
+//	t_vec	orientation_vector;
+//	t_rgb	rgb;
+//}	t_plane;
+
+typedef struct s_image {
+	int			width;
+	int			height;
+
+}	t_image;
 
 typedef struct s_cylinder
 {
@@ -114,27 +125,27 @@ typedef struct s_cylinder
 	t_rgb	rgb;
 }	t_cylinder;
 
-typedef struct s_data
-{
-	t_ambient_lightning	a;
-	t_camera			c;
-	t_light				l;
-	t_sphere			sp;
-	t_plane				pl;
-	t_cylinder			cy;
-}	t_data;
+//typedef struct s_data
+//{
+//	t_ambient_lightning	a;
+//	t_camera			c;
+//	t_light				l;
+//	t_sphere			sp;
+//	t_plane				pl;
+//	t_cylinder			cy;
+//}	t_data;
 
 // MASTER STRUCT OF STRUCTS
-typedef struct s_mlx {
-	// void			*mlx;
-	// void			*window;
-	// int				display_menu;
-	t_data			d;
-	// t_coordinates	c;
-	// t_img			img;
-	// t_menu			menu;
-	// t_colors		colors;
-}	t_mlx;
+//typedef struct s_mlx {
+//	// void			*mlx;
+//	// void			*window;
+//	// int				display_menu;
+//	t_data			d;
+//	// t_coordinates	c;
+//	// t_img			img;
+//	// t_menu			menu;
+//	// t_colors		colors;
+//}	t_mlx;
 
 enum e_values{
 	// WINDOW_HEIGHT	= 960,
@@ -143,9 +154,6 @@ enum e_values{
 	MAX_COLOR		= 16777215
 };
 
-typedef struct s_image {
-	int	width;
-	int	height;
-}	t_image;
+
 
 #endif				// MAIN_H

@@ -15,6 +15,6 @@
 
 #include "main.h"
 
-void	parse_input(t_mlx	*mlx, char *input);
+//void	parse_input(t_mlx	*mlx, char *input);
 
 #endif

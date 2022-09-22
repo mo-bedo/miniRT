@@ -35,15 +35,15 @@ t_cam	init_cam(t_vec origin, t_vec target, t_vec upguide, float fov, \
 //			    vec     +     vector multi	          + vector multi
 //			    vec     + float   * double * vec      +  float   * double * vec
 // rayvec = cam.forward + point.x * cam.w * cam.right + point.y * cam.h * cam.up
-t_ray	make_ray(t_xyz point, t_cam cam)
+t_ray	make_ray(t_vec2 point, t_cam cam)
 {
 	t_ray	ray;
 	t_vec	temp;
 	t_vec	temp1;
 	t_vec	temp_add;
 
-	temp = vector_multi(cam.right, (point.x * cam.w));
-	temp1 = vector_multi(cam.up, (point.y * cam.h));
+	temp = vector_multi(cam.right, (point.u * cam.w));
+	temp1 = vector_multi(cam.up, (point.v * cam.h));
 	temp_add = vector_addition(cam.forward, temp);
 	ray.direction = vector_normal(vector_addition(temp_add, temp1));
 	ray.origin_point = cam.origin_point;

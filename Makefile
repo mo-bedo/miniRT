@@ -12,7 +12,7 @@
 
 # VARIABLES
 NAME			:=	miniRT
-CFLAGS			:= 	-Iincs -Imlx #-Wall -Wextra -Werror
+CFLAGS			:= 	-g -Iincs -Imlx #-Wall -Wextra -Werror
 MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
@@ -28,10 +28,12 @@ SRC				:=	camera.c \
 					image_plane.c \
 					intersect.c \
 					main.c \
-					parse_input.c \
-					sphere.c \
+					ray_trace.c \
+					shape.c \
 					utils.c \
 					vector_math.c
+
+#					parse_input.c \
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

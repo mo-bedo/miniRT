@@ -10,4 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef IMAGE_PLANE_H
+# define IMAGE_PLANE_H
 
+# include "main.h"
+
+
+
+#endif

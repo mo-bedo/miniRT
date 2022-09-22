@@ -14,15 +14,8 @@
 # define INTERSECT_H
 
 # include "camera.h"
-# include "sphere.h"
+# include "main.h"
 
-// Informatie over waar een ray een object raakt
-// hier later ook info over materiaal, direction van het oppervlak etc
-typedef struct s_intersection {
-	t_ray		ray;
-	float		t; // bij init intersection t altijd op ray.t_max zetten (zodat je hierop kan testen
-	t_sphere	*sphere;
-
-}	t_intersection;
+// t_intersection staat in shape
 
 #endif

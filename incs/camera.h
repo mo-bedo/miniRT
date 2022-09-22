@@ -36,4 +36,8 @@ typedef struct s_cam {
 	double	w;
 }	t_cam;
 
+t_ray	make_ray(t_vec2 point, t_cam cam);
+t_cam	init_cam(t_vec origin, t_vec target, t_vec upguide, float fov, \
+										float aspect_ratio);
+
 #endif			// CAMERA_H

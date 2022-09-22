@@ -12,6 +12,7 @@
 
 #include <stdbool.h>
 
+#include "shape.h"
 #include "camera.h"
 #include "intersect.h"
 #include "main.h"
