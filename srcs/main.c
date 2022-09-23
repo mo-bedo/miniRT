@@ -126,8 +126,6 @@ int	main(int argc, char **argv)
 		printf("mlx_window error\n");
 		return (1);
 	}
-// 	mlx->img = mlx_new_image(mlx, width, heigth);
-//	mlx->img->addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
 	t_cam cam;
 
@@ -160,7 +158,7 @@ int	main(int argc, char **argv)
 	sphere.centre.x = 130.0;
 	sphere.centre.y = 30.0;
 	sphere.centre.z = 10.0;
-	sphere.radius = 130;
+	sphere.radius = 30;
 	shapes.spheres = &sphere;
 
 	int fov = 180;

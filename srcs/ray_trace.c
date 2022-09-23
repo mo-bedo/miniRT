@@ -17,16 +17,6 @@
 #include "intersect.h"
 #include "shape.h"
 
-// static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-// {
-// 	char	*dst;
-// 	int		offset;
-//
-// 	offset = (y * img->line_length + x * (img->bits_per_pixel / 8));
-// 	dst = &img->addr[offset];
-// 	*(unsigned int *)dst = color;
-// }
-
 t_intersection	create_intersection(t_ray ray)
 {
 	t_intersection inter;
@@ -55,34 +45,21 @@ void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 		{
 			//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
 			screen_coord.u = (2.0 * x) / image.width - 1.0;
-			screen_coord.v = (2.0 * y) / image.height + 1.0;
+			screen_coord.v = (-2.0 * y) / image.height + 1.0;
 
 			t_ray ray;
 			ray = make_ray(screen_coord, cam);
-
-			double	*cur_pixel;
-			double temp;
-
-			temp = (double) (x * y * image.width);
-			cur_pixel = &temp;
 
 			t_intersection	intersect;
 			intersect = create_intersection(ray);
 			if (plane_intersect(shapes.planes, &intersect))
 			{
-				printf("test\n");
 				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
 			}
-			if (!sphere_intersect(shapes.spheres[0], &intersect))
+			if (sphere_intersect(shapes.spheres[0], &intersect))
 			{
-				printf("test\n");
 				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
 			}
-
-
-//				my_pixel_put(..., zwart)
-
-
 		}
 	}
 }
