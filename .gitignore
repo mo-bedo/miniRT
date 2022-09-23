@@ -1,5 +1,5 @@
 .idea
 *.o
 .DS_Store
-minirt
+miniRT
 mlx_linux
