@@ -10,10 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
+# linux or macos
+LINUX = true
+
 # VARIABLES
 NAME			:=	miniRT
+
+ifeq ($(LINUX), true)
+CFLAGS 			:= -g -Iincs -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+MLX				:= -g -Iincs -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+else
 CFLAGS			:= 	-g -Iincs -Imlx #-Wall -Wextra -Werror
 MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
+endif
+
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
 PRINT			:=	#@
@@ -46,7 +56,7 @@ $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
 					$(PRINT)$(MKDIR_P) $(dir $@)
 					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@
 
-clean			: 
+clean			:
 					$(PRINT)$(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
@@ -60,5 +70,5 @@ test			:	re
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
 
-.PHONY			:	all bonus clean fclean re norm test
+.PHONY			:	all bonus clean fclean re norm test linux_obj linux
 

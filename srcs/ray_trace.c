@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <mlx.h>
+
 #include "camera.h"
 #include "image_plane.h"
 #include "intersect.h"
@@ -33,12 +35,13 @@ t_intersection	create_intersection(t_ray ray)
 	inter.sphere = NULL;
 	inter.ray = ray;
 	inter.t = ray.t_max;
+	return (inter);
 }
 
 // mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color );
 
 // image moet het 'scherm' zijn (image_screen)
-void	ray_trace(t_image image, t_cam cam, t_plane plane, t_sphere sphere)
+void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 {
 	t_vec2	screen_coord;
 
@@ -61,10 +64,17 @@ void	ray_trace(t_image image, t_cam cam, t_plane plane, t_sphere sphere)
 
 			t_intersection	intersect;
 			intersect = create_intersection(ray);
-			if (plane_intersect(plane, &intersect))
-				return ;
-			else
-				return ;
+			if (plane_intersect(shapes.planes[0], &intersect))
+			{
+				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
+			}
+			if (sphere_intersect(shapes.spheres[0], &intersect))
+			{
+				printf("test\n");
+				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+			}
+
+
 //				my_pixel_put(..., zwart)
 
 

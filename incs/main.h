@@ -136,16 +136,16 @@ typedef struct s_cylinder
 //}	t_data;
 
 // MASTER STRUCT OF STRUCTS
-//typedef struct s_mlx {
-//	// void			*mlx;
-//	// void			*window;
-//	// int				display_menu;
-//	t_data			d;
-//	// t_coordinates	c;
-//	// t_img			img;
-//	// t_menu			menu;
-//	// t_colors		colors;
-//}	t_mlx;
+typedef struct s_mlx {
+	 void			*mlx;
+	 void			*window;
+	// int				display_menu;
+	//	t_data			d;
+	// t_coordinates	c;
+//	 t_img			*img;
+	// t_menu			menu;
+	// t_colors		colors;
+}	t_mlx;
 
 enum e_values{
 	// WINDOW_HEIGHT	= 960,

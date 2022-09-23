@@ -10,3 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef RAY_TRACE_H
+# define RAY_TRACE_H
+
+# include "main.h"
+# include "camera.h"
+# include "shape.h"
+
+void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes);
+
+#endif

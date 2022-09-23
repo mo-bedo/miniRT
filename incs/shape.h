@@ -28,8 +28,8 @@ typedef struct s_plane {
 }	t_plane;
 
 typedef struct s_shape {
-	t_sphere	**spheres;
-	t_plane		**planes;
+	t_sphere	*spheres;
+	t_plane		*planes;
 }	t_shape;
 
 // Informatie over waar een ray een object raakt
