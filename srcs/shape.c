@@ -30,12 +30,12 @@
 //		w = plane.position;
 //		n = plane.normal;
 //		p = intersection.ray.origin_point;
-bool	plane_intersect(t_plane *plane, t_intersection *intersection)
+bool	plane_intersect(t_plane plane, t_intersection *intersection)
 {
 	double	d_dot_n;
 	double	t;
 
-	d_dot_n = vector_dot(intersection->ray.direction, plane->normal);
+	d_dot_n = vector_dot(intersection->ray.direction, plane.normal);
 
 	if (d_dot_n == 0.0) // dan is ray evenwijdig aan plane
 	{
@@ -43,15 +43,15 @@ bool	plane_intersect(t_plane *plane, t_intersection *intersection)
 		return (false);
 	}
 	//// vindt het punt van intersectie
-	t = vector_dot(vector_subtraction(plane->position, \
-			intersection->ray.origin_point), plane->normal) / d_dot_n;
+	t = vector_dot(vector_subtraction(plane.position, \
+			intersection->ray.origin_point), plane.normal) / d_dot_n;
 	printf("%f\n", t);
 	if (t < RAY_T_MIN || t > intersection->t)
 	{
 		return (false);
 	}
 	intersection->t = t;
-	intersection->plane = plane;
+	intersection->plane = &plane;
 
 	return (true);
 }

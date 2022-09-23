@@ -52,7 +52,7 @@ void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 
 			t_intersection	intersect;
 			intersect = create_intersection(ray);
-			if (plane_intersect(shapes.planes, &intersect))
+			if (plane_intersect(shapes.planes[0], &intersect))
 			{
 				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
 			}

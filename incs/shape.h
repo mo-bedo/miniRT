@@ -41,7 +41,7 @@ typedef struct s_intersection {
 	t_plane		*plane;
 }	t_intersection;
 
-bool	plane_intersect(t_plane *plane, t_intersection *intersection);
+bool	plane_intersect(t_plane plane, t_intersection *intersection);
 bool	plane_does_intersect(t_plane plane, t_ray ray);
 bool	sphere_intersect(t_sphere sphere, t_intersection *intersection);
 bool	sphere_does_intersect(t_sphere sphere, t_ray ray);

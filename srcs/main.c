@@ -110,8 +110,10 @@ int	main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 	t_image image;
-	image.width = 1200;
-	image.height = 800;
+//	image.width = 1200;
+//	image.height = 800;
+	image.width = 640;
+	image.height = 480;
 
 	mlx = malloc (sizeof(t_mlx));
  	mlx->mlx = mlx_init();
@@ -151,7 +153,7 @@ int	main(int argc, char **argv)
 	plane->normal.y = 1.0;
 	plane->normal.z = 0.0;
 	plane->position.x = 1.0;
-	plane->position.y = 20.0;
+	plane->position.y = 380.0;
 	plane->position.z = 0.0;
 	shapes.planes = plane;
 	t_sphere	sphere;
