@@ -73,11 +73,11 @@ void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 				printf("test\n");
 				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
 			}
-//			if (sphere_intersect(shapes.spheres[0], &intersect))
-//			{
-//				printf("test\n");
-//				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
-//			}
+			if (!sphere_intersect(shapes.spheres[0], &intersect))
+			{
+				printf("test\n");
+				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+			}
 
 
 //				my_pixel_put(..., zwart)
