@@ -45,6 +45,10 @@ void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 {
 	t_vec2	screen_coord;
 
+	printf("plane: %f %f %f\n", shapes.planes->position.x, shapes.planes->position.y, shapes.planes->position.z);
+	printf("image: %i %i\n", image.width, image.height);
+	printf("cam: %f %f %f\n", cam.origin_point.x, cam.origin_point.y, cam.origin_point.z );
+
 	for (int x = 0; x < image.width; x++)
 	{
 		for (int y = 0; y < image.height; y++)
@@ -64,15 +68,16 @@ void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes)
 
 			t_intersection	intersect;
 			intersect = create_intersection(ray);
-			if (plane_intersect(shapes.planes[0], &intersect))
-			{
-				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
-			}
-			if (sphere_intersect(shapes.spheres[0], &intersect))
+			if (plane_intersect(shapes.planes, &intersect))
 			{
 				printf("test\n");
-				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
 			}
+//			if (sphere_intersect(shapes.spheres[0], &intersect))
+//			{
+//				printf("test\n");
+//				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+//			}
 
 
 //				my_pixel_put(..., zwart)

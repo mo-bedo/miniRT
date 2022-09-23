@@ -110,8 +110,8 @@ int	main(int argc, char **argv)
 {
 	t_mlx	*mlx;
 	t_image image;
-	image.width = 800;
-	image.height = 600;
+	image.width = 1200;
+	image.height = 800;
 
 	mlx = malloc (sizeof(t_mlx));
  	mlx->mlx = mlx_init();
@@ -134,38 +134,40 @@ int	main(int argc, char **argv)
 	//// Van de parser input
 	//// cam
 	t_vec camera_origin;
-	camera_origin.x = -50.0;
-	camera_origin.y = 0;
-	camera_origin.z = 20;
+	camera_origin.x = 55.0;
+	camera_origin.y = 111.0;
+	camera_origin.z = -40.0;
 	t_vec camera_orientation;
-	camera_orientation.x = 0.0;
+	camera_orientation.x = 1.0;
 	camera_orientation.y = 0.0;
-	camera_orientation.z = 1.0;
+	camera_orientation.z = 0.0;
 	t_vec camera_upguide;
 	camera_upguide.x = 0.0;
 	camera_upguide.y = 1.0;
 	camera_upguide.z = 0.0;
 	//// plane
 	t_shape	shapes;
-	t_plane plane;
-	shapes.planes = &plane;
-	plane.normal.x = 0.0;
-	plane.normal.y = 0.0;
-	plane.normal.z = 1.0;
-	plane.position.x = 0.0;
-	plane.position.y = 50.0;
-	plane.position.z = 0.0;
+	t_plane *plane;
+	plane = malloc (sizeof (t_plane));
+	plane->normal.x = 0.0;
+	plane->normal.y = 1.0;
+	plane->normal.z = 0.0;
+	plane->position.x = 1.0;
+	plane->position.y = 20.0;
+	plane->position.z = 0.0;
+	shapes.planes = plane;
 	t_sphere	sphere;
-	sphere.centre.x = 30.0;
+	sphere.centre.x = 130.0;
 	sphere.centre.y = 30.0;
-	sphere.centre.x = -30.0;
-	sphere.radius = 30;
+	sphere.centre.z = 10.0;
+	sphere.radius = 130;
 	shapes.spheres = &sphere;
 
 	int fov = 180;
 
 	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) image.width / (float) image.height);
 	ray_trace(mlx, image, cam, shapes);
+	printf("ray trace done");
 	mlx_loop(mlx->mlx);
 	return (0);
 }
