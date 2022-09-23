@@ -147,27 +147,37 @@ int	main(int argc, char **argv)
 	camera_upguide.z = 0.0;
 	//// plane
 	t_shape	shapes;
-	t_plane *plane;
-	plane = malloc (sizeof (t_plane));
-	plane->normal.x = 0.0;
-	plane->normal.y = 1.0;
-	plane->normal.z = 0.0;
-	plane->position.x = 1.0;
-	plane->position.y = 380.0;
-	plane->position.z = 0.0;
-	shapes.planes = plane;
+	shapes.spheres = malloc (2 * sizeof (t_sphere));
+	shapes.sphere_count = 2;
+	shapes.planes = malloc (1 * sizeof (t_plane));
+	shapes.plane_count = 1;
+	t_plane plane;
+	plane.normal.x = 0.0;
+	plane.normal.y = 1.0;
+	plane.normal.z = 0.0;
+	plane.position.x = 1.0;
+	plane.position.y = 380.0;
+	plane.position.z = 0.0;
+	shapes.planes[0] = plane;
+
+
 	t_sphere	sphere;
 	sphere.centre.x = 130.0;
 	sphere.centre.y = 30.0;
 	sphere.centre.z = 10.0;
 	sphere.radius = 30;
-	shapes.spheres = &sphere;
+	shapes.spheres[0] = sphere;
+	t_sphere	sphere1;
+	sphere1.centre.x = 30.0;
+	sphere1.centre.y = 30.0;
+	sphere1.centre.z = 10.0;
+	sphere1.radius = 30;
+	shapes.spheres[1] = sphere1;
 
 	int fov = 180;
 
 	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) image.width / (float) image.height);
 	ray_trace(mlx, image, cam, shapes);
-	printf("ray trace done");
 	mlx_loop(mlx->mlx);
 	return (0);
 }

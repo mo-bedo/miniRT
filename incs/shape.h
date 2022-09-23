@@ -29,7 +29,9 @@ typedef struct s_plane {
 
 typedef struct s_shape {
 	t_sphere	*spheres;
+	int			sphere_count;
 	t_plane		*planes;
+	int			plane_count;
 }	t_shape;
 
 // Informatie over waar een ray een object raakt
