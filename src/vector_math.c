@@ -13,21 +13,11 @@
 #include "main.h"
 #include <math.h>
 
-t_xyz	vector_multi(t_xyz v, double m)
-{
-	v.x *= m;
-	v.y *= m;
-	v.z *= m;
-	return (v);
-}
 
-//    				B
-//
-//        A
-//					C
-//
-// AB + BC = AC
-// AB - BC = CA
+//    			B
+//	
+//        A-->-->-->-->--C
+// Vector A->C = vector A->B + vector B->C
 t_xyz	vector_addition(t_xyz v1, t_xyz v2)
 {
 	t_xyz	add;
@@ -38,6 +28,10 @@ t_xyz	vector_addition(t_xyz v1, t_xyz v2)
 	return (add);
 }
 
+//    			B
+//	
+//        A-->-->-->-->--C
+// Vector A->B = vector A->C - vector B->C
 t_xyz	vector_subtraction(t_xyz v1, t_xyz v2)
 {
 	t_xyz	sub;
@@ -48,42 +42,75 @@ t_xyz	vector_subtraction(t_xyz v1, t_xyz v2)
 	return (sub);
 }
 
+//        A-->-->--B
+//        A-->-->-->-->-->--C
+// 
+// multiplication of number and vector
+// multiplies the length of the vector
+// Vector A->C = 2 x Vector A->B
+t_xyz	vector_multiplication(t_xyz vector, double number)
+{
+	vector.x *= number;
+	vector.y *= number;
+	vector.z *= number;
+	return (vector);
+}
+
+//        A-->-->--B
+//        A-->-->-->-->-->--C
+// 
+// multiplication of number and vector
+// multiplies the length of the vector
+// Vector A->B = Vector A->B / 2
+// 
+// omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted number
+t_xyz	vector_division(t_xyz vector, double number)
+{
+	double	inverted_number;
+
+	inverted_number = 1 / number;
+	vector.x *= inverted_number;
+	vector.y *= inverted_number;
+	vector.z *= inverted_number;
+	return (vector);
+}
+
 // vector magnitude is de 'lengte' van de vector
 double	vector_magnitude(t_xyz v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
+// lengte van vector in 2d
 double	vector_magnitude2(t_xyz v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
-// omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted
-// magnitude
-t_xyz	vector_normal(t_xyz v)
+t_xyz	vector_normal(t_xyz vector)
 {
-	double	v_magnitude;
-	double	inv_magnitude;
+	double	magnitude;
 
-	v_magnitude = vector_magnitude(v);
-	if (v_magnitude > 0)
-	{
-		inv_magnitude = 1 / v_magnitude;
-		v.x *= inv_magnitude;
-		v.y *= inv_magnitude;
-		v.z *= inv_magnitude;
-	}
-	return (v);
+	magnitude = vector_magnitude(vector);
+	return (vector_division(vector, magnitude));
 }
 
 // dot product
+// is a measure of similarity 
+//  1 = same direction
+//  0 = at angle of 90 degrees
+// -1 = opposite direction
 double	vector_dot(t_xyz v1, t_xyz v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
+// cross product
+// is a measure of difference
+//  0 = same direction
+//  1 = at angle of 90 degrees
+// -1 = opposite direction
 t_xyz	vector_cross(t_xyz v1, t_xyz v2)
 {
 	t_xyz	cross;

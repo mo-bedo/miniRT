@@ -45,8 +45,8 @@ t_ray	make_ray(t_xy point, t_cam cam)
 	t_xyz	temp1;
 	t_xyz	temp_add;
 
-	temp = vector_multi(cam.right, (point.u * cam.w));
-	temp1 = vector_multi(cam.up, (point.v * cam.h));
+	temp = vector_multiplication(cam.right, (point.u * cam.w));
+	temp1 = vector_multiplication(cam.up, (point.v * cam.h));
 	temp_add = vector_addition(cam.forward, temp);
 	ray.direction = vector_normal(vector_addition(temp_add, temp1));
 	ray.origin_point = cam.origin_point;
