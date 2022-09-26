@@ -33,31 +33,32 @@ t_intersection	create_intersection(t_ray ray)
 	inter.sphere = NULL;
 	inter.ray = ray;
 	inter.t = ray.t_max;
+	return (inter);
 }
 
 // mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color );
 
 // image moet het 'scherm' zijn (image_screen)
-void	ray_trace(t_image image, t_cam cam, t_plane plane, t_sphere sphere)
+void	ray_trace(t_cam cam, t_plane plane, t_sphere sphere)
 {
-	t_vec2	screen_coord;
+	t_xy	screen_coord;
 
-	for (int x = 0; x < image.width; x++)
+	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
-		for (int y = 0; y < image.height; y++)
+		for (int y = 0; y < WINDOW_HEIGHT; y++)
 		{
 			//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
-			screen_coord.u = (2.0 * x) / image.width - 1.0;
-			screen_coord.v = (2.0 * y) / image.height + 1.0;
+			screen_coord.u = (2.0 * x) / WINDOW_WIDTH - 1.0;
+			screen_coord.v = (2.0 * y) / WINDOW_HEIGHT + 1.0;
 
 			t_ray ray;
 			ray = make_ray(screen_coord, cam);
 
-			double	*cur_pixel;
-			double temp;
+			// double	*cur_pixel;
+			// double temp;
 
-			temp = (double) (x * y * image.width);
-			cur_pixel = &temp;
+			// temp = (double) (x * y * WINDOW_WIDTH);
+			// cur_pixel = &temp;
 
 			t_intersection	intersect;
 			intersect = create_intersection(ray);
@@ -66,8 +67,7 @@ void	ray_trace(t_image image, t_cam cam, t_plane plane, t_sphere sphere)
 			else
 				return ;
 //				my_pixel_put(..., zwart)
-
-
+		
 		}
 	}
 }

@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse_scene/parse_scene.h"
 #include "camera.h"
 #include "main.h"
-#include "parse_scene/parse_scene.h"
+#include "mlx.h"
+#include "ray_trace.h"
+#include "shape.h"
 #include "utils.h"
 #include "vector_math.h"
 
@@ -39,6 +42,7 @@
 // 	mlx->colors.color = 0;
 // 	mlx->colors.opacity = 200;
 // }
+
 bool	check_extension(char *filename)
 {
 	char *extension;
@@ -51,44 +55,26 @@ bool	check_extension(char *filename)
 
 int	main(int argc, char **argv)
 {
-	// t_mlx			mlx;
-	void	*mlx;
-	void	*mlx_win;
-	t_img	img;
-	int width = 800;
-	int heigth = 600;
+	t_mlx		mlx;
+	t_img		img; 
+	t_cam		cam;
 
-	// if (argc < 2 || check_extension(argv[1]) == false)
-		// error_message_and_exit("Please provide a scene description file");
-	// parse_scene(&mlx, argv[1]);
+	if (argc < 2 || check_extension(argv[1]) == false)
+		error_message_and_exit("Please provide a scene description file");
+	parse_scene(&mlx, argv[1]);
+ 	// mlx = mlx_init();
+ 	// mlx.window = mlx_new_window(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+	// if (!mlx.window)
+	// {
+	// 	printf("mlx_window error\n");
+	// 	return (1);
+	// }
+ 	// img.img = mlx_new_image(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	
+	// cam = init_cam(mlx);
+	// ray_trace(cam, mlx.d.o.pl[0], mlx.d.o.sp[0]);
+	// mlx_loop(mlx.mlx);
 
- 	mlx = mlx_init();
- 	mlx_win = mlx_new_window(mlx, width, heigth, "my window");
- 	img.img = mlx_new_image(mlx, width, heigth);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-	t_cam cam;
-
-	t_vec camera_origin;
-	camera_origin.x = -50.0;
-	camera_origin.y = 0;
-	camera_origin.z = 20;
-
-	t_vec camera_orientation;
-	camera_orientation.x = 0.0;
-	camera_orientation.y = 0.0;
-	camera_orientation.z = 1.0;
-
-	t_vec camera_upguide;
-	camera_upguide.x = 0.0;
-	camera_upguide.y = 1.0;
-	camera_upguide.z = 0.0;
-
-	int fov = 180;
-
-	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) width / (float) heigth);
-
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
 	return (0);
 }

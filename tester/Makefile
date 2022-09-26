@@ -1,6 +1,6 @@
 # VARIABLES
 CC						=	@gcc -lm -DUNITY_INCLUDE_DOUBLE -DUNITY_DOUBLE_PRECISION=0.001f
-CFLAGS					:= 	-Iinc -I../inc -Imlx -Wall -Wextra -Werror
+CFLAGS					:= 	-Iinc -I../inc -Imlx #-Wall -Wextra -Werror
 MLX						:=	#-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT					:=	-fsanitize=address -fsanitize=undefined
 PRINT					:=	@

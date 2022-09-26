@@ -16,18 +16,21 @@
 #include "main.h"
 #include "vector_math.h"
 
-
-t_cam	init_cam(t_vec origin, t_vec target, t_vec upguide, float fov, \
-										float aspect_ratio)
+t_cam	init_cam(t_mlx mlx)
 {
 	t_cam	cam;
 
-	cam.origin_point = origin;
-	cam.forward = vector_normal(vector_subtraction(target, upguide));
-	cam.right = vector_normal(vector_cross(cam.forward, upguide));
+	// TO DO: what is camera_upguide
+	t_xyz camera_upguide;
+	camera_upguide.x = 0.0;
+	camera_upguide.y = 1.0;
+	camera_upguide.z = 0.0;
+	cam.origin_point = mlx.d.c.xyz;
+	cam.forward = vector_normal(vector_subtraction(mlx.d.c.vector_orientation, camera_upguide));
+	cam.right = vector_normal(vector_cross(cam.forward, camera_upguide));
 	cam.up = vector_cross(cam.right, cam.forward);
-	cam.h = tan(fov);
-	cam.w = cam.h * aspect_ratio;
+	cam.h = tan(mlx.d.c.field_of_view);
+	cam.w = cam.h * (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT;
 	return (cam);
 }
 
@@ -35,12 +38,12 @@ t_cam	init_cam(t_vec origin, t_vec target, t_vec upguide, float fov, \
 //			    vec     +     vector multi	          + vector multi
 //			    vec     + float   * double * vec      +  float   * double * vec
 // rayvec = cam.forward + point.x * cam.w * cam.right + point.y * cam.h * cam.up
-t_ray	make_ray(t_vec2 point, t_cam cam)
+t_ray	make_ray(t_xy point, t_cam cam)
 {
 	t_ray	ray;
-	t_vec	temp;
-	t_vec	temp1;
-	t_vec	temp_add;
+	t_xyz	temp;
+	t_xyz	temp1;
+	t_xyz	temp_add;
 
 	temp = vector_multi(cam.right, (point.u * cam.w));
 	temp1 = vector_multi(cam.up, (point.v * cam.h));

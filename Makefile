@@ -12,8 +12,8 @@
 
 # VARIABLES
 NAME			:=	miniRT
-CFLAGS			:= 	-g -Iincs -Imlx #-Wall -Wextra -Werror
-MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS			:= 	-g -Iinc -Imlx #-Wall -Wextra -Werror
+MLX				:=	#-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc 
 PRINT			:=	@

@@ -20,14 +20,14 @@
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 
-// typedef struct s_img
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }	t_img;
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 // typedef struct s_menu
 // {
@@ -54,12 +54,6 @@ typedef struct s_colors
 	int	opacity;
 }	t_colors;
 
-// typedef struct s_vector
-// {
-// 	int		x;
-// 	int		y;
-// }	t_vector;
-
 // DATA
 typedef struct s_rgb
 {
@@ -68,16 +62,10 @@ typedef struct s_rgb
 	int		blue;
 }	t_rgb;
 
-typedef struct s_vec {
-	double	x;
-	double	y;
-	double	z;
-}	t_vec;
-
-typedef struct s_vec2 {
-	double	u;
-	double	v;
-}	t_vec2;
+typedef struct s_xy {
+	float	u;
+	float	v;
+}	t_xy;
 
 typedef struct s_xyz
 {
@@ -107,8 +95,8 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	t_xyz	xyz;
-	float	diameter;
+	t_xyz	centre;
+	float	radius;
 	t_rgb	rgb;
 }	t_sphere;
 
@@ -128,34 +116,43 @@ typedef struct s_cylinder
 	t_rgb	rgb;
 }	t_cylinder;
 
-//typedef struct s_data
-//{
-//	t_ambient_lightning	a;
-//	t_camera			c;
-//	t_light				l;
-//	t_sphere			sp;
-//	t_plane				pl;
-//	t_cylinder			cy;
-//}	t_data;
+typedef struct s_objects
+{
+	t_sphere	sp[100];
+	int			sp_count;
+	t_plane		pl[100];
+	int			pl_count;
+	t_cylinder	cy[100];
+	int			cy_count;
+}	t_objects;
+
+typedef struct s_data
+{
+	t_camera			c;
+	t_ambient_lightning	a;
+	t_light				l;
+	t_objects			o;
+}	t_data;
 
 // MASTER STRUCT OF STRUCTS
-//typedef struct s_mlx {
-//	// void			*mlx;
-//	// void			*window;
-//	// int				display_menu;
-//	t_data			d;
-//	// t_coordinates	c;
-//	// t_img			img;
-//	// t_menu			menu;
-//	// t_colors		colors;
-//}	t_mlx;
+typedef struct s_mlx {
+	void			*mlx;
+	void			*window;
+	// int				display_menu;
+	t_data			d;
+	// t_coordinates	c;
+	// t_img			img;
+	// t_menu			menu;
+	// t_colors		colors;
+}	t_mlx;
 
-// enum e_values{
-	// WINDOW_HEIGHT	= 960,
-	// WINDOW_WIDTH	= 1280,
+enum e_values{
+	WINDOW_HEIGHT	= 480,
+	WINDOW_WIDTH	= 640,
+	MAX_OBJECTS		= 100
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
-// };
+};
 
 
 

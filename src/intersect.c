@@ -20,25 +20,25 @@
 
 //	Calculeert dan het punt op de ray als je waarde t weet
 //	van r = p + td
-t_vec	inter_calculate(double t, t_ray ray)
-{
-	t_vec	math;
+// t_vec	inter_calculate(double t, t_ray ray)
+// {
+// 	t_vec	math;
 
-	math = vector_multi(ray.direction, t);
-	return (vector_addition(ray.origin_point, math));
-}
+// 	math = vector_multi(ray.direction, t);
+// 	return (vector_addition(ray.origin_point, math));
+// }
 
 // geeft aan of de ray iets raakt
-bool	inter_intersected(t_intersection intersection)
-{
-	return (intersection.sphere != NULL);
-}
+// bool	inter_intersected(t_intersection intersection)
+// {
+// 	return (intersection.sphere != NULL);
+// }
 
 // als de ray iets raakt geeft dit de positie waar hij dat doet
-t_vec	inter_position(t_intersection intersection)
-{
-	t_vec	point;
+// t_vec	inter_position(t_intersection intersection)
+// {
+// 	t_vec	point;
 
-	point = inter_calculate(intersection.t, intersection.ray);
-	return (point);
-}
+// 	point = inter_calculate(intersection.t, intersection.ray);
+// 	return (point);
+// }

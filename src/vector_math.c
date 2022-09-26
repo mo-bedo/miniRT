@@ -13,7 +13,7 @@
 #include "main.h"
 #include <math.h>
 
-t_vec	vector_multi(t_vec v, double m)
+t_xyz	vector_multi(t_xyz v, double m)
 {
 	v.x *= m;
 	v.y *= m;
@@ -28,9 +28,9 @@ t_vec	vector_multi(t_vec v, double m)
 //
 // AB + BC = AC
 // AB - BC = CA
-t_vec	vector_addition(t_vec v1, t_vec v2)
+t_xyz	vector_addition(t_xyz v1, t_xyz v2)
 {
-	t_vec	add;
+	t_xyz	add;
 
 	add.x = v1.x + v2.x;
 	add.y = v1.y + v2.y;
@@ -38,9 +38,9 @@ t_vec	vector_addition(t_vec v1, t_vec v2)
 	return (add);
 }
 
-t_vec	vector_subtraction(t_vec v1, t_vec v2)
+t_xyz	vector_subtraction(t_xyz v1, t_xyz v2)
 {
-	t_vec	sub;
+	t_xyz	sub;
 
 	sub.x = v1.x - v2.x;
 	sub.y = v1.y - v2.y;
@@ -49,12 +49,12 @@ t_vec	vector_subtraction(t_vec v1, t_vec v2)
 }
 
 // vector magnitude is de 'lengte' van de vector
-double	vector_magnitude(t_vec v)
+double	vector_magnitude(t_xyz v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
-double	vector_magnitude2(t_vec v)
+double	vector_magnitude2(t_xyz v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
@@ -62,7 +62,7 @@ double	vector_magnitude2(t_vec v)
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
 // omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted
 // magnitude
-t_vec	vector_normal(t_vec v)
+t_xyz	vector_normal(t_xyz v)
 {
 	double	v_magnitude;
 	double	inv_magnitude;
@@ -79,14 +79,14 @@ t_vec	vector_normal(t_vec v)
 }
 
 // dot product
-double	vector_dot(t_vec v1, t_vec v2)
+double	vector_dot(t_xyz v1, t_xyz v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vec	vector_cross(t_vec v1, t_vec v2)
+t_xyz	vector_cross(t_xyz v1, t_xyz v2)
 {
-	t_vec	cross;
+	t_xyz	cross;
 
 	cross.x = v1.y * v2.z - v1.z * v2.y;
 	cross.y = v1.z * v2.x - v1.x * v2.z;
@@ -98,10 +98,10 @@ t_vec	vector_cross(t_vec v1, t_vec v2)
 // angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
 // 													dot van vector_normal 2)
 // cos tot de macht -1 == acos()
-double	angle_between_vector(t_vec v1, t_vec v2)
+double	angle_between_vector(t_xyz v1, t_xyz v2)
 {
-	t_vec	unit_v1;
-	t_vec	unit_v2;
+	t_xyz	unit_v1;
+	t_xyz	unit_v2;
 	double	angle;
 
 	unit_v1 = vector_normal(v1);

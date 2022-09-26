@@ -42,37 +42,50 @@ TEST(parse_scene, parse_line)
 	TEST_ASSERT_EQUAL_FLOAT(0.7, mlx.d.l.brightness);
 
 	parse_line(&mlx, "sp  0.0,0.0,20 						20 				255,0,0");
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.sp.xyz.x);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.sp.xyz.y);
-	TEST_ASSERT_EQUAL_FLOAT(20, mlx.d.sp.xyz.z);
-	TEST_ASSERT_EQUAL_FLOAT(20, mlx.d.sp.diameter);
-	TEST_ASSERT_EQUAL_INT(255, mlx.d.sp.rgb.red);
-	TEST_ASSERT_EQUAL_INT(0, mlx.d.sp.rgb.blue);
-	TEST_ASSERT_EQUAL_INT(0, mlx.d.sp.rgb.green);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.sp[0].centre.x);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.sp[0].centre.y);
+	TEST_ASSERT_EQUAL_FLOAT(20, mlx.d.o.sp[0].centre.z);
+	TEST_ASSERT_EQUAL_FLOAT(10, mlx.d.o.sp[0].radius);
+	TEST_ASSERT_EQUAL_INT(255, mlx.d.o.sp[0].rgb.red);
+	TEST_ASSERT_EQUAL_INT(0, mlx.d.o.sp[0].rgb.blue);
+	TEST_ASSERT_EQUAL_INT(0, mlx.d.o.sp[0].rgb.green);
 
 	parse_line(&mlx, "pl  0,0,0 			0,1.0,0 					255,0,225");
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.pl.xyz.x);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.pl.xyz.y);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.pl.xyz.z);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.pl.vector_orientation.x);
-	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.pl.vector_orientation.y);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.pl.vector_orientation.z);
-	TEST_ASSERT_EQUAL_INT(255, mlx.d.pl.rgb.red);
-	TEST_ASSERT_EQUAL_INT(0, mlx.d.pl.rgb.blue);
-	TEST_ASSERT_EQUAL_INT(225, mlx.d.pl.rgb.green);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.pl[0].xyz.x);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.pl[0].xyz.y);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.pl[0].xyz.z);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.pl[0].vector_orientation.x);
+	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.o.pl[0].vector_orientation.y);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.pl[0].vector_orientation.z);
+	TEST_ASSERT_EQUAL_INT(255, mlx.d.o.pl[0].rgb.red);
+	TEST_ASSERT_EQUAL_INT(0, mlx.d.o.pl[0].rgb.blue);
+	TEST_ASSERT_EQUAL_INT(225, mlx.d.o.pl[0].rgb.green);
 
 	parse_line(&mlx, "cy  50.0,0.0,20.6	0,0,1.0 	14.2 	21.42 	10,0,255");
-	TEST_ASSERT_EQUAL_FLOAT(50, mlx.d.cy.xyz.x);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.cy.xyz.y);
-	TEST_ASSERT_EQUAL_FLOAT(20.6, mlx.d.cy.xyz.z);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.cy.vector_orientation.x);
-	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.cy.vector_orientation.y);
-	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.cy.vector_orientation.z);
-	TEST_ASSERT_EQUAL_FLOAT(14.2, mlx.d.cy.diameter);
-	TEST_ASSERT_EQUAL_FLOAT(21.42, mlx.d.cy.height);
-	TEST_ASSERT_EQUAL_INT(10, mlx.d.cy.rgb.red);
-	TEST_ASSERT_EQUAL_INT(0, mlx.d.cy.rgb.blue);
-	TEST_ASSERT_EQUAL_INT(255, mlx.d.cy.rgb.green);
+	TEST_ASSERT_EQUAL_FLOAT(50, mlx.d.o.cy[0].xyz.x);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.cy[0].xyz.y);
+	TEST_ASSERT_EQUAL_FLOAT(20.6, mlx.d.o.cy[0].xyz.z);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.cy[0].vector_orientation.x);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.cy[0].vector_orientation.y);
+	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.o.cy[0].vector_orientation.z);
+	TEST_ASSERT_EQUAL_FLOAT(14.2, mlx.d.o.cy[0].diameter);
+	TEST_ASSERT_EQUAL_FLOAT(21.42, mlx.d.o.cy[0].height);
+	TEST_ASSERT_EQUAL_INT(10, mlx.d.o.cy[0].rgb.red);
+	TEST_ASSERT_EQUAL_INT(0, mlx.d.o.cy[0].rgb.blue);
+	TEST_ASSERT_EQUAL_INT(255, mlx.d.o.cy[0].rgb.green);
+
+	parse_line(&mlx, "cy  51.0,0.0,20.6	1,1,1.0 	14.2 	21.42 	10,0,255");
+	TEST_ASSERT_EQUAL_FLOAT(51, mlx.d.o.cy[1].xyz.x);
+	TEST_ASSERT_EQUAL_FLOAT(0, mlx.d.o.cy[1].xyz.y);
+	TEST_ASSERT_EQUAL_FLOAT(20.6, mlx.d.o.cy[1].xyz.z);
+	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.o.cy[1].vector_orientation.x);
+	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.o.cy[1].vector_orientation.y);
+	TEST_ASSERT_EQUAL_FLOAT(1, mlx.d.o.cy[1].vector_orientation.z);
+	TEST_ASSERT_EQUAL_FLOAT(14.2, mlx.d.o.cy[1].diameter);
+	TEST_ASSERT_EQUAL_FLOAT(21.42, mlx.d.o.cy[1].height);
+	TEST_ASSERT_EQUAL_INT(10, mlx.d.o.cy[1].rgb.red);
+	TEST_ASSERT_EQUAL_INT(0, mlx.d.o.cy[1].rgb.blue);
+	TEST_ASSERT_EQUAL_INT(255, mlx.d.o.cy[1].rgb.green);
 }
 
 

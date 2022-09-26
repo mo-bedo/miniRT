@@ -22,22 +22,21 @@
 # define RAY_T_MAX 1.0e30f
 
 typedef struct s_ray {
-	t_vec	direction;
-	t_vec	origin_point;
+	t_xyz	direction;
+	t_xyz	origin_point;
 	double	t_max;
 }	t_ray;
 
 typedef struct s_cam {
-	t_vec	origin_point;
-	t_vec	forward;
-	t_vec	up;
-	t_vec	right;
+	t_xyz	origin_point;
+	t_xyz	forward;
+	t_xyz	up;
+	t_xyz	right;
 	double	h;
 	double	w;
 }	t_cam;
 
-t_ray	make_ray(t_vec2 point, t_cam cam);
-t_cam	init_cam(t_vec origin, t_vec target, t_vec upguide, float fov, \
-										float aspect_ratio);
+t_ray	make_ray(t_xy point, t_cam cam);
+t_cam	init_cam(t_mlx mlx);
 
 #endif			// CAMERA_H

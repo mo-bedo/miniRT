@@ -17,21 +17,6 @@
 # include "main.h"
 # include "camera.h"
 
-typedef struct s_sphere {
-	t_vec	centre;
-	float	radius;
-}	t_sphere;
-
-typedef struct s_plane {
-	t_vec	position;
-	t_vec	normal;
-}	t_plane;
-
-typedef struct s_shape {
-	t_sphere	**spheres;
-	t_plane		**planes;
-}	t_shape;
-
 // Informatie over waar een ray een object raakt
 // hier later ook info over materiaal, direction van het oppervlak etc
 typedef struct s_intersection {
