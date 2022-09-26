@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: mweitenb <mweitenb@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/21 16:03:35 by mweitenb      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
+#    Updated: 2022/09/23 17:50:03 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,18 @@ NAME			:=	miniRT
 CFLAGS			:= 	-g -Iincs -Imlx #-Wall -Wextra -Werror
 MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
 SANIT			:=	-fsanitize=address -fsanitize=undefined
-CC				:=	gcc
-PRINT			:=	#@
+CC				:=	gcc 
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm
 MKDIR_P			:=	mkdir -p
-INC_DIR			:=	./incs
-SRC_DIR			:=	./srcs
-OBJ_DIR			:=	./objs
-SRC				:=	camera.c \
+INC_DIR			:=	./inc
+SRC_DIR			:=	./src
+OBJ_DIR			:=	./obj
+SRC				:=	parse_scene/parse_scene.c \
+					parse_scene/parse_scene_utils.c \
+					camera.c \
 					image_plane.c \
 					intersect.c \
 					main.c \
@@ -33,18 +35,16 @@ SRC				:=	camera.c \
 					utils.c \
 					vector_math.c
 
-#					parse_input.c \
-
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
 all				:	$(NAME)
 
 $(NAME)			: 	$(OBJ)
-					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT)
+					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
 					$(PRINT)$(MKDIR_P) $(dir $@)
-					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@
+					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@ 
 
 clean			: 
 					$(PRINT)$(RM) -rf $(OBJ_DIR)
