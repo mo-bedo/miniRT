@@ -130,7 +130,6 @@ void	parse_line(t_mlx	*mlx, char *input)
 
 
 // BUG		: als scene.rt eindigt op \n -> neverending loop
-// TO DO: test schrijven handle multiple object inputs
 void	parse_scene(t_mlx	*mlx, char *input)
 {
 	int		rt_file = open(input, O_RDONLY);

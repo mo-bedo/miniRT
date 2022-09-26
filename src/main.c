@@ -63,18 +63,18 @@ int	main(int argc, char **argv)
 		error_message_and_exit("Please provide a scene description file");
 	parse_scene(&mlx, argv[1]);
  	// mlx = mlx_init();
- 	// mlx.window = mlx_new_window(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
-	// if (!mlx.window)
-	// {
-	// 	printf("mlx_window error\n");
-	// 	return (1);
-	// }
- 	// img.img = mlx_new_image(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+ 	mlx.window = mlx_new_window(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+	if (!mlx.window)
+	{
+		printf("mlx_window error\n");
+		return (1);
+	}
+ 	img.img = mlx_new_image(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
-	// cam = init_cam(mlx);
-	// ray_trace(cam, mlx.d.o.pl[0], mlx.d.o.sp[0]);
-	// mlx_loop(mlx.mlx);
+	cam = init_cam(mlx);
+	ray_trace(cam, mlx.d.o.pl[0], mlx.d.o.sp[0]);
+	mlx_loop(mlx.mlx);
 
 	return (0);
 }
