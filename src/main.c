@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/09/23 17:59:22 by marvin           ###   ########.fr       */
+/*   Updated: 2022/09/23 20:06:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	check_extension(char *filename)
 	char *extension;
 	
 	extension = ft_strrchr(filename, '.');
-	if(ft_strncmp(extension, ".rt", 4) == 0)
+	if (ft_strncmp(extension, ".rt", 4) == 0)
 		return (true);
 	return (false);
 }
