@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX = true
+LINUX = false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -26,7 +26,7 @@ endif
 
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
-PRINT			:=	#@
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm
