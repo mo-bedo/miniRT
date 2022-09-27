@@ -55,7 +55,7 @@ void	ray_trace(t_mlx *mlx)
 			for (int sp_count = 0; sp_count < mlx->o.sp_count; sp_count++)
 			{
 				if (sphere_intersect(mlx->o.sp[sp_count], &intersect))
-					mlx_pixel_put(mlx->mlx, mlx->window, x, y, create_color(1, mlx->o.sp[sp_count].rgb.red, mlx->o.sp[sp_count].rgb.green, mlx->o.sp[sp_count].rgb.blue);
+					mlx_pixel_put(mlx->mlx, mlx->window, x, y, create_color(1, mlx->o.sp[sp_count].rgb.red, mlx->o.sp[sp_count].rgb.green, mlx->o.sp[sp_count].rgb.blue));
 			}
 		}
 	}
