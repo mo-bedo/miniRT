@@ -111,6 +111,7 @@ float	ft_atof(const char *str)
 	return ((float)nbr);
 }
 
+
 // mag memset?
 void	*ft_calloc(size_t count, size_t size)
 {

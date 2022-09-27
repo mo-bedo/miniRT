@@ -16,40 +16,23 @@
 #include "main.h"
 #include "vector_math.h"
 
-t_cam	init_cam(t_mlx mlx)
-{
-	t_cam	cam;
-
-	// TO DO: what is camera_upguide
-	t_xyz camera_upguide;
-	camera_upguide.x = 0.0;
-	camera_upguide.y = 1.0;
-	camera_upguide.z = 0.0;
-	cam.origin_point = mlx.d.c.xyz;
-	cam.forward = vector_normal(vector_subtraction(mlx.d.c.vector_orientation, camera_upguide));
-	cam.right = vector_normal(vector_cross(cam.forward, camera_upguide));
-	cam.up = vector_cross(cam.right, cam.forward);
-	cam.h = tan(mlx.d.c.field_of_view);
-	cam.w = cam.h * (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT;
-	return (cam);
-}
-
-//              vec     +         temp				  + temp1
-//			    vec     +     vector multi	          + vector multi
-//			    vec     + float   * double * vec      +  float   * double * vec
-// rayvec = cam.forward + point.x * cam.w * cam.right + point.y * cam.h * cam.up
-t_ray	make_ray(t_xy point, t_cam cam)
+// vector Ray direction = normalized(camera.forward + x_vector + y_vector);
+// x_vector = camera.right * x * camera.width
+// y_vector = camera.up * y * camera.height
+t_ray	make_ray(int x, int y, t_camera camera)
 {
 	t_ray	ray;
-	t_xyz	temp;
-	t_xyz	temp1;
-	t_xyz	temp_add;
+	t_xyz	x_vector;
+	t_xyz	y_vector;
 
-	temp = vector_multiplication(cam.right, (point.u * cam.w));
-	temp1 = vector_multiplication(cam.up, (point.v * cam.h));
-	temp_add = vector_addition(cam.forward, temp);
-	ray.direction = vector_normal(vector_addition(temp_add, temp1));
-	ray.origin_point = cam.origin_point;
+	//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
+	x = (2.0 * x) / WINDOW_WIDTH - 1.0;
+	y = (-2.0 * y) / WINDOW_HEIGHT + 1.0;
+	
+	x_vector = multiply_vector(camera.right, (x * camera.width));
+	y_vector = multiply_vector(camera.up, (y * camera.height));
+	ray.direction = normalize_vector(add_vectors(add_vectors(camera.forward, x_vector), y_vector));
+	ray.origin_point = camera.origin_point;
 	ray.t_max = RAY_T_MAX;
 	return (ray);
 }

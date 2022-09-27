@@ -12,9 +12,11 @@
 
 #include "main.h"
 #include "parse_scene/parse_scene_utils.h"
+#include "vector_math.h"
 #include "utils.h"
 #include <stdlib.h>
 #include <fcntl.h>
+#include <math.h>
 #include <unistd.h>
 
 static char	*add_buffer_to_line(char *old, char buffer)
@@ -79,50 +81,67 @@ void	parse_line(t_mlx	*mlx, char *line)
 	if (ft_strncmp(line, "A", 1) == 0)
 	{
 		line++;
-		mlx->d.a.lighting_ratio = parse_float(&line, MIN_LiGHTING_RATIO, MAX_LiGHTING_RATIO);
-		mlx->d.a.rgb = parse_rgb(&line);
+		mlx->a.lighting_ratio = parse_float(&line, MIN_LiGHTING_RATIO, MAX_LiGHTING_RATIO);
+		mlx->a.rgb = parse_rgb(&line);
 	}
 	else if (ft_strncmp(line, "C", 1) == 0)
 	{
+		t_xyz	vector_orientation;
+		int		field_of_view;
+
 		line++;
-		mlx->d.c.xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->d.c.vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
-		mlx->d.c.field_of_view = parse_int(&line, 0, 180);
+		mlx->camera.origin_point = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
+		// fov in video is waarde tussen 0 en 90, in subject tussen 0 en 180
+		// gewoon gedeeld door 2 doen?
+		field_of_view = parse_int(&line, 0, 180) / 2;
+
+		// hoezo deze waarden van upguide?
+		t_xyz upguide;
+		upguide.x = 0.0;
+		upguide.y = 1.0;
+		upguide.z = 0.0;
+
+		mlx->camera.forward = normalize_vector(substract_vectors(vector_orientation, upguide));
+		mlx->camera.right = normalize_vector(get_cross_product(mlx->camera.forward, upguide));
+		mlx->camera.up = get_cross_product(mlx->camera.right, mlx->camera.forward);
+		mlx->camera.height = tan(field_of_view);
+		mlx->camera.width = mlx->camera.height * mlx->aspect_ratio;
 	}
 	else if (ft_strncmp(line, "L", 1) == 0)
 	{
 		line++;
-		mlx->d.l.xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->d.l.brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
+		mlx->l.xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->l.brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
 	}
 	else if (ft_strncmp(line, "sp", 2) == 0)
 	{
 		static int sp_count = 0;
 		line += 2;
-		mlx->d.o.sp[sp_count].centre = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->d.o.sp[sp_count].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / (float)2; // check if this works
-		mlx->d.o.sp[sp_count].rgb = parse_rgb(&line);
-		mlx->d.o.sp_count = sp_count++;
+		mlx->o.sp[sp_count].centre = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->o.sp[sp_count].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / (float)2; // check if this works
+		mlx->o.sp[sp_count].rgb = parse_rgb(&line);
+		mlx->o.sp_count = sp_count++;
 	}
 	else if (ft_strncmp(line, "pl", 2) == 0)
 	{
 		static int pl_count = 0;
 		line += 2;
-		mlx->d.o.pl[pl_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->d.o.pl[pl_count].vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
-		mlx->d.o.pl[pl_count].rgb = parse_rgb(&line);
-		mlx->d.o.pl_count = pl_count++;
+		mlx->o.pl[pl_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->o.pl[pl_count].vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
+		mlx->o.pl[pl_count].rgb = parse_rgb(&line);
+		mlx->o.pl_count = pl_count++;
 	}
 	else if (ft_strncmp(line, "cy", 2) == 0)
 	{
 		static int cy_count = 0;
 		line += 2;
-		mlx->d.o.cy[cy_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->d.o.cy[cy_count].vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
-		mlx->d.o.cy[cy_count].diameter = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER);
-		mlx->d.o.cy[cy_count].height = parse_float(&line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
-		mlx->d.o.cy[cy_count].rgb = parse_rgb(&line);
-		mlx->d.o.cy_count = cy_count++;
+		mlx->o.cy[cy_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->o.cy[cy_count].vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
+		mlx->o.cy[cy_count].diameter = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER);
+		mlx->o.cy[cy_count].height = parse_float(&line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+		mlx->o.cy[cy_count].rgb = parse_rgb(&line);
+		mlx->o.cy_count = cy_count++;
 	}
 	else
 		error_message_and_exit("unknown type identifier");
@@ -150,4 +169,5 @@ void	parse_scene(t_mlx	*mlx, char *input)
 		}
 		free(line);
 	}
+
 }

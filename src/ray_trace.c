@@ -10,20 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <mlx.h>
+
 #include "camera.h"
 #include "image_plane.h"
 #include "intersect.h"
 #include "shape.h"
-
-// static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-// {
-// 	char	*dst;
-// 	int		offset;
-//
-// 	offset = (y * img->line_length + x * (img->bits_per_pixel / 8));
-// 	dst = &img->addr[offset];
-// 	*(unsigned int *)dst = color;
-// }
 
 t_intersection	create_intersection(t_ray ray)
 {
@@ -36,38 +28,35 @@ t_intersection	create_intersection(t_ray ray)
 	return (inter);
 }
 
-// mlx_pixel_put ( void *mlx_ptr, void *win_ptr, int x, int y, int color );
-
-// image moet het 'scherm' zijn (image_screen)
-void	ray_trace(t_cam cam, t_plane plane, t_sphere sphere)
+static int	create_color(int transparancy, int red, int green, int blue)
 {
-	t_xy	screen_coord;
+	return (transparancy << 24 | red << 16 | green << 8 | blue);
+}
+
+
+void	ray_trace(t_mlx *mlx)
+{
+	t_xyz			screen_point;
+	t_ray			ray;
+	t_intersection	intersect;
 
 	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
 		for (int y = 0; y < WINDOW_HEIGHT; y++)
 		{
-			//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
-			screen_coord.u = (2.0 * x) / WINDOW_WIDTH - 1.0;
-			screen_coord.v = (2.0 * y) / WINDOW_HEIGHT + 1.0;
-
-			t_ray ray;
-			ray = make_ray(screen_coord, cam);
-
-			// double	*cur_pixel;
-			// double temp;
-
-			// temp = (double) (x * y * WINDOW_WIDTH);
-			// cur_pixel = &temp;
-
-			t_intersection	intersect;
+			ray = make_ray(x, y, mlx->camera);
 			intersect = create_intersection(ray);
-			if (plane_intersect(plane, &intersect))
-				return ;
-			else
-				return ;
-//				my_pixel_put(..., zwart)
-		
+			//// build loop for shapes and intersect
+			for (int pl_count = 0; pl_count < mlx->o.pl_count; pl_count++)
+			{
+				if (plane_intersect(mlx->o.pl[pl_count], &intersect))
+					mlx_pixel_put(mlx->mlx, mlx->window, x, y, create_color(1, mlx->o.pl[pl_count].rgb.red, mlx->o.pl[pl_count].rgb.green, mlx->o.pl[pl_count].rgb.blue));
+			}
+			for (int sp_count = 0; sp_count < mlx->o.sp_count; sp_count++)
+			{
+				if (sphere_intersect(mlx->o.sp[sp_count], &intersect))
+					mlx_pixel_put(mlx->mlx, mlx->window, x, y, create_color(1, mlx->o.sp[sp_count].rgb.red, mlx->o.sp[sp_count].rgb.green, mlx->o.sp[sp_count].rgb.blue);
+			}
 		}
 	}
 }

@@ -62,11 +62,6 @@ typedef struct s_rgb
 	int		blue;
 }	t_rgb;
 
-typedef struct s_xy {
-	float	u;
-	float	v;
-}	t_xy;
-
 typedef struct s_xyz
 {
 	float	x;
@@ -74,18 +69,20 @@ typedef struct s_xyz
 	float	z;
 }	t_xyz;
 
-typedef struct s_ambient_lightning
+typedef struct s_camera {
+	t_xyz	origin_point;
+	t_xyz	forward;
+	t_xyz	up;
+	t_xyz	right;
+	double	height;
+	double	width;
+}	t_camera;
+
+typedef struct s_ambient_light
 {
 	float	lighting_ratio;
 	t_rgb	rgb;
-}	t_ambient_lightning;
-
-typedef struct s_camera
-{
-	t_xyz	xyz;
-	t_xyz	vector_orientation;
-	int		field_of_view;
-}	t_camera;
+}	t_ambient_light;
 
 typedef struct s_light
 {
@@ -102,18 +99,18 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_xyz	xyz;
-	t_xyz	vector_orientation;
-	t_rgb	rgb;
+	t_xyz		xyz;
+	t_xyz		vector_orientation;
+	t_rgb		rgb;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_xyz	xyz;
-	t_xyz	vector_orientation;
-	float	diameter;
-	float	height;
-	t_rgb	rgb;
+	t_xyz		xyz;
+	t_xyz		vector_orientation;
+	float		diameter;
+	float		height;
+	t_rgb		rgb;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -126,23 +123,20 @@ typedef struct s_objects
 	int			cy_count;
 }	t_objects;
 
-typedef struct s_data
-{
-	t_camera			c;
-	t_ambient_lightning	a;
-	t_light				l;
-	t_objects			o;
-}	t_data;
-
 // MASTER STRUCT OF STRUCTS
 typedef struct s_mlx {
 	void			*mlx;
 	void			*window;
-	// int				display_menu;
-	t_data			d;
+	double			aspect_ratio;
+	// int			display_menu;
+	t_camera		camera;
+	t_ambient_light	a;
+	t_light			l;
+	t_objects		o;
 	// t_coordinates	c;
-	// t_img			img;
-	// t_menu			menu;
+	// t_img		img;
+
+	// t_menu		menu;
 	// t_colors		colors;
 }	t_mlx;
 
@@ -153,7 +147,5 @@ enum e_values{
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
 };
-
-
 
 #endif				// MAIN_H

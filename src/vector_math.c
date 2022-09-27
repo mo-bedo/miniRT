@@ -13,12 +13,11 @@
 #include "main.h"
 #include <math.h>
 
-
 //    			B
 //	
 //        A-->-->-->-->--C
 // Vector A->C = vector A->B + vector B->C
-t_xyz	vector_addition(t_xyz v1, t_xyz v2)
+t_xyz	add_vector(t_xyz v1, t_xyz v2)
 {
 	t_xyz	add;
 
@@ -32,7 +31,7 @@ t_xyz	vector_addition(t_xyz v1, t_xyz v2)
 //	
 //        A-->-->-->-->--C
 // Vector A->B = vector A->C - vector B->C
-t_xyz	vector_subtraction(t_xyz v1, t_xyz v2)
+t_xyz	substract_vector(t_xyz v1, t_xyz v2)
 {
 	t_xyz	sub;
 
@@ -48,7 +47,7 @@ t_xyz	vector_subtraction(t_xyz v1, t_xyz v2)
 // multiplication of number and vector
 // multiplies the length of the vector
 // Vector A->C = 2 x Vector A->B
-t_xyz	vector_multiplication(t_xyz vector, double number)
+t_xyz	multiply_vector(t_xyz vector, double number)
 {
 	vector.x *= number;
 	vector.y *= number;
@@ -64,7 +63,7 @@ t_xyz	vector_multiplication(t_xyz vector, double number)
 // Vector A->B = Vector A->B / 2
 // 
 // omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted number
-t_xyz	vector_division(t_xyz vector, double number)
+t_xyz	divide_vector(t_xyz vector, double number)
 {
 	double	inverted_number;
 
@@ -76,24 +75,24 @@ t_xyz	vector_division(t_xyz vector, double number)
 }
 
 // vector magnitude is de 'lengte' van de vector
-double	vector_magnitude(t_xyz v)
+double	get_vector_magnitude(t_xyz v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
 // lengte van vector in 2d
-double	vector_magnitude2(t_xyz v)
+double	get_2d_vector_magnitude(t_xyz v)
 {
 	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
-t_xyz	vector_normal(t_xyz vector)
+t_xyz	normalize_vector(t_xyz vector)
 {
 	double	magnitude;
 
-	magnitude = vector_magnitude(vector);
-	return (vector_division(vector, magnitude));
+	magnitude = get_vector_magnitude(vector);
+	return (divide_vector(vector, magnitude));
 }
 
 // dot product
@@ -101,7 +100,7 @@ t_xyz	vector_normal(t_xyz vector)
 //  1 = same direction
 //  0 = at angle of 90 degrees
 // -1 = opposite direction
-double	vector_dot(t_xyz v1, t_xyz v2)
+double	get_dot_product(t_xyz v1, t_xyz v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -111,7 +110,7 @@ double	vector_dot(t_xyz v1, t_xyz v2)
 //  0 = same direction
 //  1 = at angle of 90 degrees
 // -1 = opposite direction
-t_xyz	vector_cross(t_xyz v1, t_xyz v2)
+t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
 {
 	t_xyz	cross;
 
@@ -125,15 +124,15 @@ t_xyz	vector_cross(t_xyz v1, t_xyz v2)
 // angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
 // 													dot van vector_normal 2)
 // cos tot de macht -1 == acos()
-double	angle_between_vector(t_xyz v1, t_xyz v2)
+double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	unit_v1;
 	t_xyz	unit_v2;
-	double	angle;
+	double		angle;
 
-	unit_v1 = vector_normal(v1);
-	unit_v2 = vector_normal(v2);
-	angle = acos(vector_dot(unit_v1, unit_v2));
+	unit_v1 = normalize_vector(v1);
+	unit_v2 = normalize_vector(v2);
+	angle = acos(get_dot_product(unit_v1, unit_v2));
 	return (angle);
 }
 

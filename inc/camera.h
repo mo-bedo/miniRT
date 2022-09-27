@@ -27,16 +27,6 @@ typedef struct s_ray {
 	double	t_max;
 }	t_ray;
 
-typedef struct s_cam {
-	t_xyz	origin_point;
-	t_xyz	forward;
-	t_xyz	up;
-	t_xyz	right;
-	double	h;
-	double	w;
-}	t_cam;
-
-t_ray	make_ray(t_xy point, t_cam cam);
-t_cam	init_cam(t_mlx mlx);
+t_ray		make_ray(int x, int y, t_camera camera);
 
 #endif			// CAMERA_H
