@@ -17,6 +17,6 @@
 # include "camera.h"
 # include "shape.h"
 
-void	ray_trace(t_mlx *mlx, t_image image, t_cam cam, t_shape shapes);
+void	ray_trace(t_mlx *mlx, t_cam cam);
 
 #endif

@@ -17,22 +17,22 @@
 # include "main.h"
 # include "camera.h"
 
-typedef struct s_sphere {
-	t_vec	centre;
-	float	radius;
-}	t_sphere;
+//typedef struct s_sphere {
+//	t_xyz	centre;
+//	float	radius;
+//}	t_sphere;
+//
+//typedef struct s_plane {
+//	t_vec	position;
+//	t_vec	normal;
+//}	t_plane;
 
-typedef struct s_plane {
-	t_vec	position;
-	t_vec	normal;
-}	t_plane;
-
-typedef struct s_shape {
-	t_sphere	*spheres;
-	int			sphere_count;
-	t_plane		*planes;
-	int			plane_count;
-}	t_shape;
+//typedef struct s_shape {
+//	t_sphere	*spheres;
+//	int			sphere_count;
+//	t_plane		*planes;
+//	int			plane_count;
+//}	t_shape;
 
 // Informatie over waar een ray een object raakt
 // hier later ook info over materiaal, direction van het oppervlak etc
@@ -43,8 +43,8 @@ typedef struct s_intersection {
 	t_plane		*plane;
 }	t_intersection;
 
-bool	plane_intersect(t_plane plane, t_intersection *intersection);
-bool	plane_does_intersect(t_plane plane, t_ray ray);
+bool	plane_intersect(t_plane, t_intersection *intersection);
+//bool	plane_does_intersect(t_plane plane, t_ray ray);
 bool	sphere_intersect(t_sphere sphere, t_intersection *intersection);
 bool	sphere_does_intersect(t_sphere sphere, t_ray ray);
 

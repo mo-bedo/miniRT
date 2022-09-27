@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/21 18:53:49 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/09/23 20:06:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse_scene/parse_scene.h"
 #include "camera.h"
 #include "main.h"
 #include "mlx.h"
-#include "parse_input.h"
 #include "ray_trace.h"
 #include "shape.h"
 #include "utils.h"
@@ -25,111 +25,50 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-// int	close_window(t_mlx *mlx)
-// {
-// 	mlx_destroy_window(mlx->mlx, mlx->window);
-// 	exit(EXIT_SUCCESS);
-// }
-
-// void	init_data(t_mlx *mlx)
-// {
-// 	mlx->c.image_ratio = (double)WINDOW_HEIGHT / (double)WINDOW_WIDTH;
-// 	mlx->c.total_range_y = TOTAL_RANGE_Y;
-// 	mlx->c.total_range_x = mlx->c.total_range_y / mlx->c.image_ratio;
-// 	mlx->c.size_of_pixel = mlx->c.total_range_y / WINDOW_HEIGHT;
-// 	mlx->c.center_x = mlx->c.total_range_x / 2;
-// 	mlx->c.center_y = mlx->c.total_range_y / 2;
-// 	mlx->colors.color = 0;
-// 	mlx->colors.opacity = 200;
-// }
-
-static char	*add_buffer_to_line(char *old, char buffer)
+bool	check_extension(char *filename)
 {
-	char	*new;
-	int		i;
-	int		len;
-
-	i = 0;
-	len = 0;
-	while (old[len])
-		len++;
-	new = (char *)ft_calloc(sizeof(char), (len + 2));
-	while (i < len)
-	{
-		new[i] = old[i];
-		i++;
-	}
-	new[i++] = buffer;
-	new[i] = 0;
-	free(old);
-	return (new);
+	char *extension;
+	
+	extension = ft_strrchr(filename, '.');
+	if (ft_strncmp(extension, ".rt", 4) == 0)
+		return (true);
+	return (false);
 }
-
-static char	*get_next_line(int fd)
-{
-	char	buffer;
-	char	*line;
-
-	line = (char *)ft_calloc(sizeof(char), 1);
-	line[0] = 0;
-	while (read(fd, &buffer, 1) && buffer != '\n')
-	{
-		line = add_buffer_to_line(line, buffer);
-	}
-	if (buffer == '\n')
-		line = add_buffer_to_line(line, '\n');
-	return (line);
-}
-
-//// BUG		: als scene.rt eindigt op \n -> neverending loop
-//// TO DO	: controleren of scene file .rt extensie heeft
-//static void	init(t_mlx	*mlx, char *input)
-//{
-//	int		rt_file = open(input, O_RDONLY);
-//	char	*line;
-//
-//	while (1)
-//	{
-//		line = get_next_line(rt_file);
-//		if (!line)
-//			return ;
-//		parse_input(mlx, line);
-//		free(line);
-//	}
-//	// mlx->mlx = mlx_init();
-//	// mlx->window = mlx_new_window(mlx->mlx,
-//	// 		WINDOW_WIDTH, WINDOW_HEIGHT, "MiniRT");
-//	// mlx->img.img = mlx_new_image(mlx->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-//	// mlx->img.addr = mlx_get_data_addr(mlx->img.img,
-//	// 		&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-//	// init_data(mlx);
-//	// mlx->display_menu = 1;
-//}
 
 int	main(int argc, char **argv)
 {
-	t_mlx	*mlx;
-	t_image image;
-//	image.width = 1200;
-//	image.height = 800;
-	image.width = 640;
-	image.height = 480;
+	t_mlx		mlx;
+	t_img		img; 
+	t_cam		cam;
 
-	mlx = malloc (sizeof(t_mlx));
- 	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
-	{
-		printf("mlx_init error\n");
-		return (1);
-	}
- 	mlx->window = mlx_new_window(mlx->mlx, image.width, image.height, "my window");
-	if (!mlx->window)
+	if (argc < 2 || check_extension(argv[1]) == false)
+		error_message_and_exit("Please provide a scene description file");
+	parse_scene(&mlx, argv[1]);
+//	printf("%f %f %f\n", mlx.d.o.pl[0].xyz.x, mlx.d.o.pl[0].xyz.y, mlx.d.o.pl[0].xyz.z);
+ 	mlx.mlx = mlx_init();
+ 	mlx.window = mlx_new_window(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+	if (!mlx.window)
 	{
 		printf("mlx_window error\n");
 		return (1);
 	}
+//	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) image.width / (float) image.height);
+//	ray_trace(mlx, image, cam, shapes);
 
-	t_cam cam;
+// 	img.img = mlx_new_image(mlx.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+//	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+
+
+
+	cam = init_cam(mlx);
+	ray_trace(&mlx, cam);
+	mlx_loop(mlx.mlx);
+
+	return (0);
+}
+
+/*
+ * 	t_cam cam;
 
 	//// Van de parser input
 	//// cam
@@ -175,9 +114,4 @@ int	main(int argc, char **argv)
 	shapes.spheres[1] = sphere1;
 
 	int fov = 180;
-
-	cam = init_cam(camera_origin, camera_orientation, camera_upguide, fov / 2, (float) image.width / (float) image.height);
-	ray_trace(mlx, image, cam, shapes);
-	mlx_loop(mlx->mlx);
-	return (0);
-}
+ */

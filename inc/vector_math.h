@@ -15,14 +15,14 @@
 
 # include "main.h"
 
-double	angle_between_vector(t_vec v1, t_vec v2);
-t_vec	vector_addition(t_vec v1, t_vec v2);
-t_vec	vector_cross(t_vec v1, t_vec v2);
-double	vector_dot(t_vec v1, t_vec v2);
-double	vector_magnitude(t_vec v);
-double	vector_magnitude2(t_vec v);
-t_vec	vector_multi(t_vec v, double m);
-t_vec	vector_subtraction(t_vec v1, t_vec v2);
-t_vec	vector_normal(t_vec v);
+double	angle_between_vector(t_xyz v1, t_xyz v2);
+t_xyz	vector_addition(t_xyz v1, t_xyz v2);
+t_xyz	vector_cross(t_xyz v1, t_xyz v2);
+double	vector_dot(t_xyz v1, t_xyz v2);
+double	vector_magnitude(t_xyz v);
+double	vector_magnitude2(t_xyz v);
+t_xyz	vector_multiplication(t_xyz vector, double number);
+t_xyz	vector_subtraction(t_xyz v1, t_xyz v2);
+t_xyz	vector_normal(t_xyz v);
 
 #endif

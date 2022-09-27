@@ -21,11 +21,11 @@
 // omdat r = h / w   is  w = r * h    dus met FOV en aspect ratio kan je het
 // image plane maken
 
-t_image	parse_image_plane(double fov, int aspect_ratio)
-{
-	t_image	screen;
+// t_image	parse_image_plane(double fov, int aspect_ratio)
+// {
+// 	t_image	screen;
 
-	screen.height = 2 * (atan(fov / 2));
-	screen.width = screen.height * aspect_ratio;
-	return (screen);
-}
+// 	screen.height = 2 * (atan(fov / 2));
+// 	screen.width = screen.height * aspect_ratio;
+// 	return (screen);
+// }
