@@ -38,7 +38,7 @@ t_cam	init_cam(t_mlx mlx)
 //			    vec     +     vector multi	          + vector multi
 //			    vec     + float   * double * vec      +  float   * double * vec
 // rayvec = cam.forward + point.x * cam.w * cam.right + point.y * cam.h * cam.up
-t_ray	make_ray(t_xyz point, t_cam cam)
+t_ray	create_ray(t_xyz point, t_cam cam)
 {
 	t_ray		ray;
 	t_xyz	temp;

@@ -42,7 +42,7 @@ void	ray_trace(t_mlx *mlx, t_cam cam)
 			//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
 			screen_point.x = (2.0 * x) / WINDOW_WIDTH - 1.0;
 			screen_point.y = (-2.0 * y) / WINDOW_HEIGHT + 1.0;
-			ray = make_ray(screen_point, cam);
+			ray = create_ray(screen_point, cam);
 			intersect = create_intersection(ray);
 			i = 0;
 			while (i <  mlx->d.o.pl_count)

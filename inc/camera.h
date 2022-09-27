@@ -36,7 +36,7 @@ typedef struct s_cam {
 	double	w;
 }	t_cam;
 
-t_ray	make_ray(t_xyz point, t_cam cam);
+t_ray	create_ray(t_xyz point, t_cam cam);
 t_cam	init_cam(t_mlx mlx);
 
 #endif			// CAMERA_H
