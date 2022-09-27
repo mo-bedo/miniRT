@@ -104,7 +104,7 @@ void	parse_line(t_mlx	*mlx, char *input)
 		mlx->d.o.sp[sp_count].centre = parse_xyz(&input, MIN_XYZ, MAX_XYZ);
 		mlx->d.o.sp[sp_count].radius = parse_float(&input, MIN_DIAMETER, MAX_DIAMETER) / (float)2; // check if this works
 		mlx->d.o.sp[sp_count].rgb = parse_rgb(&input);
-		mlx->d.o.sp_count = sp_count++;
+		mlx->d.o.sp_count = ++sp_count;
 	}
 	else if (ft_strncmp(input, "pl", 2) == 0)
 	{
@@ -113,7 +113,7 @@ void	parse_line(t_mlx	*mlx, char *input)
 		mlx->d.o.pl[pl_count].xyz = parse_xyz(&input, MIN_XYZ, MAX_XYZ);
 		mlx->d.o.pl[pl_count].vector_orientation = parse_xyz(&input, MIN_3D, MAX_3D);
 		mlx->d.o.pl[pl_count].rgb = parse_rgb(&input);
-		mlx->d.o.pl_count = pl_count++;
+		mlx->d.o.pl_count = ++pl_count;
 	}
 	else if (ft_strncmp(input, "cy", 2) == 0)
 	{
@@ -124,7 +124,7 @@ void	parse_line(t_mlx	*mlx, char *input)
 		mlx->d.o.cy[cy_count].diameter = parse_float(&input, MIN_DIAMETER, MAX_DIAMETER);
 		mlx->d.o.cy[cy_count].height = parse_float(&input, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
 		mlx->d.o.cy[cy_count].rgb = parse_rgb(&input);
-		mlx->d.o.cy_count = cy_count++;
+		mlx->d.o.cy_count = ++cy_count;
 	}
 	else
 		error_message_and_exit("unknown type identifier");

@@ -28,7 +28,7 @@ typedef struct s_ray {
 }	t_ray;
 
 typedef struct s_cam {
-	t_xyz		origin_point;
+	t_xyz	origin_point;
 	t_xyz	forward;
 	t_xyz	up;
 	t_xyz	right;

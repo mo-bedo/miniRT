@@ -33,6 +33,7 @@ void	ray_trace(t_mlx *mlx, t_cam cam)
 	t_xyz			screen_point;
 	t_ray			ray;
 	t_intersection	intersect;
+	int				i;
 
 	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
@@ -43,14 +44,23 @@ void	ray_trace(t_mlx *mlx, t_cam cam)
 			screen_point.y = (-2.0 * y) / WINDOW_HEIGHT + 1.0;
 			ray = make_ray(screen_point, cam);
 			intersect = create_intersection(ray);
-			//// build loop for shapes and intersect
-			if (plane_intersect(mlx->d.o.pl[0], &intersect))
+			i = 0;
+			while (i <  mlx->d.o.pl_count)
 			{
-				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
+				if (plane_intersect(mlx->d.o.pl[i], &intersect))
+				{
+					mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0xFF0000);
+				}
+				i++;
 			}
-			if (sphere_intersect(mlx->d.o.sp[0], &intersect))
+			i = 0;
+			while (i < mlx->d.o.sp_count)
 			{
-				mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+				if (sphere_intersect(mlx->d.o.sp[i], &intersect))
+				{
+					mlx_pixel_put(mlx->mlx, mlx->window, x, y, 0x00FF00);
+				}
+				i++;
 			}
 		}
 	}
