@@ -17,23 +17,23 @@ LINUX = true
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iincs -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
-MLX				:= -g -Iincs -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+MLX				:= -g -Iinc -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
-CFLAGS			:= 	-g -Iincs -Imlx #-Wall -Wextra -Werror
-MLX				:=	-Iincs -Lmlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS			:= 	-g -Iinc -Imlx #-Wall -Wextra -Werror
+MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-fsanitize=address -fsanitize=undefined
+#SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
 PRINT			:=	#@
 
 # STATIC
 RM				:=	rm
 MKDIR_P			:=	mkdir -p
-INC_DIR			:=	./incs
-SRC_DIR			:=	./srcs
-OBJ_DIR			:=	./objs
+INC_DIR			:=	./inc
+SRC_DIR			:=	./src
+OBJ_DIR			:=	./obj
 SRC				:=	camera.c \
 					image_plane.c \
 					intersect.c \
@@ -70,5 +70,5 @@ test			:	re
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
 
-.PHONY			:	all bonus clean fclean re norm test linux_obj linux
+.PHONY			:	all bonus clean fclean re norm test
 
