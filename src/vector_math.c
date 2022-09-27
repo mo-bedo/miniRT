@@ -13,7 +13,6 @@
 #include "main.h"
 #include <math.h>
 
-
 //    			B
 //	
 //        A-->-->-->-->--C
@@ -129,7 +128,7 @@ double	angle_between_vector(t_xyz v1, t_xyz v2)
 {
 	t_xyz	unit_v1;
 	t_xyz	unit_v2;
-	double	angle;
+	double		angle;
 
 	unit_v1 = vector_normal(v1);
 	unit_v2 = vector_normal(v2);

@@ -19,8 +19,6 @@
 # define DEBUG_STR(X) printf(#X" = %s\n", X);
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
-# define DEBUG_XYZ(X) printf(#X" = %f %f %f", X.x, X.y, X.z);
-
 
 typedef struct s_img
 {
@@ -30,7 +28,6 @@ typedef struct s_img
 	int		line_length;
 	int		endian;
 }	t_img;
-
 
 // typedef struct s_menu
 // {
@@ -65,25 +62,6 @@ typedef struct s_rgb
 	int		blue;
 }	t_rgb;
 
-//<<<<<<< HEAD
-//typedef struct s_vec {
-//	double	x;
-//	double	y;
-//	double	z;
-//}	t_vec;
-//
-//typedef struct s_vec2 {
-//	double	u;
-//	double	v;
-//}	t_vec2;
-
-//=======
-//typedef struct s_xy {
-//	float	u;
-//	float	v;
-//}	t_xy;
-//>>>>>>> milan_dev
-
 typedef struct s_xyz
 {
 	float	x;
@@ -99,15 +77,9 @@ typedef struct s_ambient_lightning
 
 typedef struct s_camera
 {
-//<<<<<<< HEAD
-//	t_xyz	coordinates;
-//	t_vec	orientation_vector;
-//	int		field_of_range;
-//=======
-	t_xyz	xyz;
+	t_xyz		xyz;
 	t_xyz	vector_orientation;
-	int		field_of_view;
-//>>>>>>> milan_dev
+	int			field_of_view;
 }	t_camera;
 
 typedef struct s_light
@@ -125,18 +97,18 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_xyz	xyz;
+	t_xyz		xyz;
 	t_xyz	vector_orientation;
-	t_rgb	rgb;
+	t_rgb		rgb;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_xyz	xyz;
+	t_xyz		xyz;
 	t_xyz	vector_orientation;
-	float	diameter;
-	float	height;
-	t_rgb	rgb;
+	float		diameter;
+	float		height;
+	t_rgb		rgb;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -177,7 +149,5 @@ enum e_values{
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
 };
-
-
 
 #endif				// MAIN_H

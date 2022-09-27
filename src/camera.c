@@ -40,7 +40,7 @@ t_cam	init_cam(t_mlx mlx)
 // rayvec = cam.forward + point.x * cam.w * cam.right + point.y * cam.h * cam.up
 t_ray	make_ray(t_xyz point, t_cam cam)
 {
-	t_ray	ray;
+	t_ray		ray;
 	t_xyz	temp;
 	t_xyz	temp1;
 	t_xyz	temp_add;

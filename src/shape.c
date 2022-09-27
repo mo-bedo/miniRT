@@ -37,13 +37,11 @@ bool	plane_intersect(t_plane plane, t_intersection *intersection)
 
 	if (d_dot_n == 0.0) // dan is ray evenwijdig aan plane
 	{
-//		printf("ddotn = 0\n");
 		return (false);
 	}
 	//// vindt het punt van intersectie
 	t = vector_dot(vector_subtraction(plane.xyz, \
 			intersection->ray.origin_point), plane.vector_orientation) / d_dot_n;
-//	printf("%f\n", t);
 	if (t < RAY_T_MIN || t > intersection->t)
 	{
 		return (false);
@@ -53,32 +51,6 @@ bool	plane_intersect(t_plane plane, t_intersection *intersection)
 
 	return (true);
 }
-//bool	plane_intersect(t_plane plane, t_intersection *intersection)
-//{
-//	double	d_dot_n;
-//	double	t;
-//
-//
-//	d_dot_n = vector_dot(intersection->ray.direction, plane.normal);
-//
-//	if (d_dot_n == 0.0) // dan is ray evenwijdig aan plane
-//	{
-//		printf("ddotn = 0\n");
-//		return (false);
-//	}
-//	//// vindt het punt van intersectie
-//	t = vector_dot(vector_subtraction(plane.position, \
-//			intersection->ray.origin_point), plane.normal) / d_dot_n;
-//	printf("%f\n", t);
-//	if (t < RAY_T_MIN || t > intersection->t)
-//	{
-//		return (false);
-//	}
-//	intersection->t = t;
-//	intersection->plane = &plane;
-//
-//	return (true);
-//}
 
 // raakt ray de sphere ja of nee, zou door alle objecten moeten loopen en dan
 // returnen zodra hij de eerste raakt
