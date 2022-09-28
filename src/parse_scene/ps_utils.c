@@ -1,5 +1,17 @@
-#include "parse_scene/parse_scene_utils.h"
-#include "utils.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ps_utils.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/28 14:42:25 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/09/28 14:42:25 by mweitenb      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parse_scene/ps_utils.h"
+#include "utils/utils.h"
 
 static void	skip_chars_of_parsed_number(char **str)
 {
@@ -46,7 +58,7 @@ float	parse_float(char **str, int min, int max)
 // 	return (transparancy << 24 | red << 16 | green << 8 | blue);
 // }
 
-// mogelijk optie om rgb meteen naar 1 int te parsen (zie functie create_color hierboven)
+// mogelijk optie om rgb meteen naar 1 int te parsen (zie create_color)
 // dan kan de struct t_rgb weg.
 t_rgb	parse_rgb(char **str)
 {

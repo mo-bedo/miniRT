@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_input.h                                      :+:    :+:            */
+/*   vector_math.h                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/21 17:49:05 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:08:01 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_INPUT_H
-#define PARSE_INPUT_H
+#ifndef VECTOR_MATH_H
+# define VECTOR_MATH_H
 
-#include "main.h"
+# include "main.h"
+# include "utils/vector_math_operators.h"
 
-//void	parse_input(t_mlx	*mlx, char *input);
+double	get_vector_magnitude(t_xyz v);
+double	get_2d_vector_magnitude(t_xyz v);
+t_xyz	normalize_vector(t_xyz vector);
+double	get_dot_product(t_xyz v1, t_xyz v2);
+t_xyz	get_cross_product(t_xyz v1, t_xyz v2);
 
-#endif
+#endif 		// VECTOR_MATH

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 13:07:39 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/28 18:40:31 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ typedef struct s_xyz
 	float	z;
 }	t_xyz;
 
+typedef struct s_xy
+{
+	float	x;
+	float	y;
+}	t_xy;
+
 typedef struct s_camera {
 	t_xyz	origin_point;
 	t_xyz	forward;
@@ -127,14 +133,14 @@ typedef struct s_objects
 typedef struct s_mlx {
 	void			*mlx;
 	void			*window;
+	t_img			img;
 	double			aspect_ratio;
 	// int			display_menu;
 	t_camera		camera;
-	t_ambient_light	a;
-	t_light			l;
+	t_ambient_light	ambient_light;
+	t_light			point_light;
 	t_objects		o;
 	// t_coordinates	c;
-	// t_img		img;
 
 	// t_menu		menu;
 	// t_colors		colors;

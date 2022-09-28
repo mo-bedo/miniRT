@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   camera.h                                           :+:    :+:            */
+/*   vector_math_operators.h                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 12:38:45 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/28 12:27:03 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/09/28 15:01:38 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
+#ifndef VECTOR_MATH_OPERATORS_H
+# define VECTOR_MATH_OPERATORS_H
 
 # include "main.h"
 
-// je wilt niet dat een ray die 'bounct' van een object tegen zichzelf kaatst
-# define RAY_T_MIN 0.0001f
+t_xyz	add_vectors(t_xyz v1, t_xyz v2);
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+t_xyz	multiply_vector(t_xyz vector, double number);
+t_xyz	divide_vector(t_xyz vector, double number);
+double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
 
-// zeer onwaarschijnlijk dat iets verder dan deze max is
-# define RAY_T_MAX 1.0e30f
-
-typedef struct s_ray {
-	t_xyz	direction;
-	t_xyz	origin_point;
-	double	t_max;
-}	t_ray;
-
-t_ray		make_ray(int x, int y, t_camera camera);
-
-#endif			// CAMERA_H
+#endif 		// VECTOR_MATH
