@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 12:38:51 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/09/22 12:38:51 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   camera.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 12:38:51 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/09/28 12:24:43 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_ray	make_ray(int x, int y, t_camera camera)
 	//// omzetten van 'apart -1 tot +1 coord systeem' naar screen coord
 	x = (2.0 * x) / WINDOW_WIDTH - 1.0;
 	y = (-2.0 * y) / WINDOW_HEIGHT + 1.0;
-	
 	x_vector = multiply_vector(camera.right, (x * camera.width));
 	y_vector = multiply_vector(camera.up, (y * camera.height));
-	ray.direction = normalize_vector(add_vectors(add_vectors(camera.forward, x_vector), y_vector));
+	ray.direction = normalize_vector(
+			add_vectors(add_vectors(camera.forward, x_vector), y_vector));
 	ray.origin_point = camera.origin_point;
 	ray.t_max = RAY_T_MAX;
 	return (ray);

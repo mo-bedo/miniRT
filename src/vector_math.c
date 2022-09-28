@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   vector_math.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/09/22 12:39:01 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   vector_math.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/09/28 12:32:24 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //	
 //        A-->-->-->-->--C
 // Vector A->C = vector A->B + vector B->C
-t_xyz	add_vector(t_xyz v1, t_xyz v2)
+t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	add;
 
@@ -31,7 +31,7 @@ t_xyz	add_vector(t_xyz v1, t_xyz v2)
 //	
 //        A-->-->-->-->--C
 // Vector A->B = vector A->C - vector B->C
-t_xyz	substract_vector(t_xyz v1, t_xyz v2)
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	sub;
 
@@ -128,12 +128,10 @@ double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	unit_v1;
 	t_xyz	unit_v2;
-	double		angle;
+	double	angle;
 
 	unit_v1 = normalize_vector(v1);
 	unit_v2 = normalize_vector(v2);
 	angle = acos(get_dot_product(unit_v1, unit_v2));
 	return (angle);
 }
-
-

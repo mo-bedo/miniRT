@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/09/23 17:50:03 by marvin           ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: marvin <marvin@student.42.fr>                +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/09/28 12:29:28 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ LINUX = false
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror
 MLX				:= -g -Iinc -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
-CFLAGS			:= 	-g -Iinc -Imlx #-Wall -Wextra -Werror
+CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 

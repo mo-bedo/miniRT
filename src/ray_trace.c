@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ray_trace.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/09/22 17:42:20 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ray_trace.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/09/28 12:30:33 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ static int	create_color(int transparancy, int red, int green, int blue)
 	return (transparancy << 24 | red << 16 | green << 8 | blue);
 }
 
-
 void	ray_trace(t_mlx *mlx)
 {
-	t_xyz			screen_point;
 	t_ray			ray;
 	t_intersection	intersect;
 
