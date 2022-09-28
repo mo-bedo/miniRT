@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 12:37:26 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/28 13:03:07 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,15 @@ void	parse_line(t_mlx	*mlx, char *line)
 	{
 		t_xyz	vector_orientation;
 		int		field_of_view;
+		t_xyz	upguide;
 
 		line++;
-		mlx->camera.origin_point = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
-		field_of_view = parse_int(&line, 0, 180) / 2;
-
-		t_xyz upguide;
 		upguide.x = 0.0;
 		upguide.y = 1.0;
 		upguide.z = 0.0;
-
+		mlx->camera.origin_point = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
+		field_of_view = parse_int(&line, 0, 180); // / 2;
 		mlx->camera.forward = normalize_vector(substract_vectors(vector_orientation, upguide));
 		mlx->camera.right = normalize_vector(get_cross_product(mlx->camera.forward, upguide));
 		mlx->camera.up = get_cross_product(mlx->camera.right, mlx->camera.forward);

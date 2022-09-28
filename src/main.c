@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 12:38:31 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/28 12:42:31 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
 
+	mlx.aspect_ratio = (double) WINDOW_WIDTH / (double) WINDOW_HEIGHT;
 	if (argc < 2 || check_extension(argv[1]) == false)
 		error_message_and_exit("Please provide a scene description file");
 	parse_scene(&mlx, argv[1]);
@@ -49,9 +50,8 @@ int	main(int argc, char **argv)
 		printf("mlx_window error\n");
 		return (1);
 	}
-	mlx.aspect_ratio = (double) WINDOW_WIDTH / (double) WINDOW_HEIGHT;
-	// ray_trace(&mlx);
-	mlx_pixel_put(mlx.mlx, mlx.window, 300, 300, 1000);
+	ray_trace(&mlx);
+	// mlx_pixel_put(mlx.mlx, mlx.window, 300, 300, 1000);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
