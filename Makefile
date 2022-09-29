@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/29 13:52:39 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/09/29 19:39:19 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,18 +35,20 @@ INC_DIR			:=	./inc
 SRC_DIR			:=	./src
 OBJ_DIR			:=	./obj
 
-SRC				:=	parse_scene/ps.c \
+SRC				:=	intersection/i_.c \
+					intersection/i_plane.c \
+					intersection/i_sphere.c \
+					parse_scene/ps_.c \
 					parse_scene/ps_parse_line.c \
 					parse_scene/ps_utils.c \
 					utils/utils_conversion.c \
 					utils/utils.c \
-					utils/vector_math_operators.c \
 					utils/vector_math.c \
 					main.c \
 					ray_trace.c \
+					lighting.c \
 					interaction.c \
-					# plane.c \
-					sphere.c
+					pixel_put.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:56:46 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:13:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,44 +41,14 @@ int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 	return (0);
 }
 
-// static void	move_arrows(int keycode, t_mlx *mlx)
-// {
-// 	int	move_speed;
-
-// 	move_speed = 25;
-// 	if (keycode == LEFT)
-// 		mlx->c.center_x = mlx->c.center_x + move_speed * mlx->c.size_of_pixel;
-// 	if (keycode == RIGHT)
-// 		mlx->c.center_x = mlx->c.center_x - move_speed * mlx->c.size_of_pixel;
-// 	if (keycode == DOWN)
-// 		mlx->c.center_y = mlx->c.center_y - move_speed * mlx->c.size_of_pixel;
-// 	if (keycode == UP)
-// 		mlx->c.center_y = mlx->c.center_y + move_speed * mlx->c.size_of_pixel;
-// }
-
 int	key_hook(int keycode, t_mlx *mlx)
 {
 	// if (keycode == SPACEBAR)
 	// 	mlx->display_menu *= -1;
 	// else
 	// 	mlx->display_menu = -1;
-	// move_arrows(keycode, mlx);
 	// if (keycode == TAB)
 	// 	mlx->colors.color_counter += 1;
-	// if (keycode == PLUS && mlx->max_iterations < 100)
-	// 	mlx->max_iterations += 5;
-	// if (keycode == MINUS && mlx->max_iterations > 6)
-	// 	mlx->max_iterations -= 5;
-	// if (keycode == ONE)
-	// 	mlx->fractol_name = 1;
-	// if (keycode == TWO)
-	// 	mlx->fractol_name = 2;
-	// if (keycode == THREE)
-	// 	mlx->fractol_name = 3;
-	// if (keycode == FOUR)
-	// 	mlx->fractol_name = 4;
-	// if (keycode == ZERO || (keycode >= ONE && keycode <= FOUR))
-	// 	init_data(mlx);
 	if (keycode == ESC)
 		close_window(mlx);
 	// ray_trace(mlx);

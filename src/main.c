@@ -6,11 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 15:49:21 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:39:27 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_scene/ps.h"
+#include "parse_scene/ps_.h"
 #include "main.h"
 #include "mlx.h"
 #include "ray_trace.h"
@@ -45,6 +45,19 @@ static void	init(t_mlx	*mlx)
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
 	mlx->aspect_ratio = (double) WINDOW_WIDTH / (double) WINDOW_HEIGHT;
+	mlx->background_color.x = 255;
+	mlx->background_color.y = 255;
+	mlx->background_color.z = 255;
+	mlx->o.sp[0].specular = 500;
+	mlx->o.sp[0].reflective = 0.5;
+	mlx->o.sp[1].specular = 100;
+	mlx->o.sp[1].reflective = 0.4;
+	mlx->o.sp[2].specular = 500;
+	mlx->o.sp[2].reflective = 0.3;
+	mlx->o.sp[3].specular = 1000;
+	mlx->o.sp[3].reflective = 0.6;
+	mlx->camera.viewport_size = 1;
+	mlx->camera.projection_plane_z = 1;
 }
 
 int	main(int argc, char **argv)

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_math_operators.h                            :+:    :+:            */
+/*   lighting.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 13:50:50 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/09/29 19:00:49 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_MATH_OPERATORS_H
-# define VECTOR_MATH_OPERATORS_H
+#ifndef LIGHTING_H
+# define LIGHTING_H
 
 # include "main.h"
 
-// t_xyz	add_vectors(t_xyz v1, t_xyz v2);
-// t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
-// t_xyz	multiply_vector(t_xyz vector, double number);
-// t_xyz	divide_vector(t_xyz vector, double number);
-// double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
+t_xyz	get_reflection_of_vector_1_towards_vector_2(t_xyz v1, t_xyz v2);
+double	compute_lighting(t_mlx *mlx, t_xyz normal,
+			t_xyz view, t_closest_object object);
 
-#endif 		// VECTOR_MATH
+#endif

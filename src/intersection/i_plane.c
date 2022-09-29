@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 13:52:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:10:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	ray_is_parallel_to_object(t_ray ray, t_xyz vector_orientation)
 //		d = intersection.ray.direction;
 //		w = plane.position;
 //		n = plane.normal;
-//		p = intersection.ray.origin_point;
+//		p = intersection.ray.origin;
 static double	get_distance_to_intersection(t_ray ray, t_plane plane)
 {
 	double	dot_product;
@@ -35,21 +35,14 @@ static double	get_distance_to_intersection(t_ray ray, t_plane plane)
 	dot_product = get_dot_product(
 			ray.direction, plane.vector_orientation);
 	t = get_dot_product(
-			substract_vectors(plane.xyz, ray.origin_point),
+			substract_vectors(plane.center, ray.origin),
 			plane.vector_orientation) / dot_product;
 	return (t);
 }
 
-bool	plane_intersect(t_plane plane, t_intersection *intersection)
+float	get_intersection_ray_plane(t_ray ray, t_plane plane)
 {
-	double	t;
-
-	if (ray_is_parallel_to_object(intersection->ray, plane.vector_orientation))
-		return (false);
-	t = get_distance_to_intersection(intersection->ray, plane);
-	if (t < RAY_T_MIN || t > intersection->t)
-		return (false);
-	intersection->t = t;
-	intersection->plane = &plane; //hoezo moet dit?
-	return (true);
+	if (ray_is_parallel_to_object(ray, plane.vector_orientation))
+		return (RAY_T_MAX);
+	return (get_distance_to_intersection(ray, plane));
 }

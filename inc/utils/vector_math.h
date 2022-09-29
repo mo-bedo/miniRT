@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 13:50:55 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 18:09:06 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define VECTOR_MATH_H
 
 # include "main.h"
-# include "utils/vector_math_operators.h"
 
-// double	get_vector_magnitude(t_xyz v);
-// double	get_2d_vector_magnitude(t_xyz v);
-// t_xyz	normalize_vector(t_xyz vector);
-// double	get_dot_product(t_xyz v1, t_xyz v2);
-// t_xyz	get_cross_product(t_xyz v1, t_xyz v2);
+t_xyz	add_vectors(t_xyz v1, t_xyz v2);
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+t_xyz	multiply_vector(t_xyz vector, double number);
+double	get_vector_length(t_xyz vector);
+double	get_dot_product(t_xyz v1, t_xyz v2);
+t_xyz	normalize_vector(t_xyz vector);
 
 #endif 		// VECTOR_MATH

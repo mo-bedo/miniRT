@@ -1,0 +1,8 @@
+- lighting.c uitwerken
+- input bonus parsing (ook opvangen wat er gebeurt als scene bonus niet specificeert)
+- refactor RayTrace
+- plane toevoegen
+- ray_trace.c opschonen
+- cylinder toevoegen
+- i_.c refactor
+

@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ray_trace.h                                        :+:    :+:            */
+/*   i_.h                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:41:36 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:44:21 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_TRACE_H
-# define RAY_TRACE_H
+#ifndef I__H
+# define I__H
 
 # include "main.h"
+# include "intersection/i_plane.h"
+# include "intersection/i_sphere.h"
 
-// je wilt niet dat een ray die 'bounct' van een object tegen zichzelf kaatst
-# define RAY_T_MIN 0.0001f
+typedef struct s_intersection {
+	t_ray		ray;
+	double		t;
+	t_sphere	*sphere;
+	t_plane		*plane;
+}	t_intersection;
 
-// zeer onwaarschijnlijk dat iets verder dan deze max is
-# define RAY_T_MAX 1.0e30f
-
-typedef struct s_ray {
-	t_xyz	direction;
-	t_xyz	origin;
-	double	t_max;
-}	t_ray;
-
-void	ray_trace(t_mlx *mlx);
+t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
+						float min_distance, float max_distance);
 
 #endif
