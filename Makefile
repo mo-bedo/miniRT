@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/28 17:45:18 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/09/29 13:52:39 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC				:=	parse_scene/ps.c \
 					main.c \
 					ray_trace.c \
 					interaction.c \
-					plane.c \
+					# plane.c \
 					sphere.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)

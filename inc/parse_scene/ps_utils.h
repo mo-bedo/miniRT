@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 13:51:28 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 14:16:35 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ enum e_xyz_range {
 	MAX_COLOR			= 255,
 	MIN_LIGHTING_RATIO	= 0,
 	MAX_LIGHTING_RATIO	= 1,
-	MIN_XYZ				= -1800,
-	MAX_XYZ				= 1800,
+	MIN_XYZ				= -10000,
+	MAX_XYZ				= 10000,
 	MIN_3D				= -1,
 	MAX_3D				= 1,
 	MIN_BRIGHTNESS		= 0,
 	MAX_BRIGHTNESS		= 1,
 	MIN_DIAMETER		= 0,
-	MAX_DIAMETER		= 100,
+	MAX_DIAMETER		= 100000,
 	MIN_CY_HEIGHT		= 0,
 	MAX_CY_HEIGHT		= 100
 };

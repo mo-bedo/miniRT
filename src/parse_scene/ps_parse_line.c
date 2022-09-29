@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 18:40:53 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 14:12:15 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,40 +50,40 @@ static void	parse_camera(t_mlx *mlx, char *line)
 	mlx->camera.origin_point = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
 	vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
 	field_of_view = parse_int(&line, 0, 180) / 2;
-	mlx->camera.forward = normalize_vector(
-			substract_vectors(vector_orientation, upguide));
-	mlx->camera.right = normalize_vector(
-			get_cross_product(mlx->camera.forward, upguide));
-	mlx->camera.up = get_cross_product(mlx->camera.right, mlx->camera.forward);
-	mlx->camera.height = tan(field_of_view);
+	// mlx->camera.forward = normalize_vector(
+			// substract_vectors(vector_orientation, upguide));
+	// mlx->camera.right = normalize_vector(
+			// get_cross_product(mlx->camera.forward, upguide));
+	// mlx->camera.up = get_cross_product(mlx->camera.right, mlx->camera.forward);
+	// mlx->camera.height = atan(field_of_view);
 	mlx->camera.width = mlx->camera.height * mlx->aspect_ratio;
 }
 
 static void	parse_2d_objects(t_mlx *mlx, char *line)
 {
-	static int	sp_count = 0;
+	static int	pl_count = 0;
 
 	line += 2;
-	mlx->o.sp[sp_count].centre = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.sp[sp_count].radius = parse_float(&line,
-			MIN_DIAMETER, MAX_DIAMETER) / (float)2;
-	mlx->o.sp[sp_count].rgb = parse_rgb(&line);
-	mlx->o.sp_count = ++sp_count;
+	mlx->o.pl[pl_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+	mlx->o.pl[pl_count].vector_orientation = parse_xyz(&line,
+			MIN_3D, MAX_3D);
+	mlx->o.pl[pl_count].rgb = parse_rgb(&line);
+	mlx->o.pl_count = ++pl_count;
 }
 
 static void	parse_3d_objects(t_mlx *mlx, char *line)
 {
-	static int	pl_count = 0;
 	static int	cy_count = 0;
+	static int	sp_count = 0;
 
-	if (ft_strncmp(line, "pl", 2) == 0)
+	if (ft_strncmp(line, "sp", 2) == 0)
 	{
 		line += 2;
-		mlx->o.pl[pl_count].xyz = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->o.pl[pl_count].vector_orientation = parse_xyz(&line,
-				MIN_3D, MAX_3D);
-		mlx->o.pl[pl_count].rgb = parse_rgb(&line);
-		mlx->o.pl_count = ++pl_count;
+		mlx->o.sp[sp_count].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->o.sp[sp_count].radius = parse_float(&line,
+				MIN_DIAMETER, MAX_DIAMETER) / (float)2;
+		mlx->o.sp[sp_count].rgb = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+		mlx->o.sp_count = ++sp_count;
 	}
 	if (ft_strncmp(line, "cy", 2) == 0)
 	{
@@ -106,9 +106,9 @@ void	parse_line(t_mlx *mlx, char *line)
 		parse_lights(mlx, line);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		parse_camera(mlx, line);
-	else if (ft_strncmp(line, "sp", 2) == 0)
+	else if (ft_strncmp(line, "pl", 2) == 0)
 		parse_2d_objects(mlx, line);
-	else if (ft_strncmp(line, "pl", 2) == 0 || ft_strncmp(line, "cy", 2) == 0)
+	else if (ft_strncmp(line, "sp", 2) == 0 || ft_strncmp(line, "cy", 2) == 0)
 		parse_3d_objects(mlx, line);
 	else
 		error_message_and_exit("unknown type identifier");

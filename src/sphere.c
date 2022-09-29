@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/28 17:10:22 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 12:38:55 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 // or x = -b-sqrt((b)^2 - 4ac)) / 2 a
 static void	prepare_quadratic_formula(t_quadratic *q, t_ray ray, t_sphere sp)
 {
-	ray = transpose_ray(ray, sp.centre);
+	ray = transpose_ray(ray, sp.center);
 	q->a = get_2d_vector_magnitude(ray.direction);
 	q->b = 2 * get_dot_product(ray.direction, ray.origin_point);
 	q->c = get_2d_vector_magnitude(ray.origin_point) - (sp.radius * sp.radius);

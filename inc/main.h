@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 18:40:31 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 15:42:29 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct s_camera {
 	t_xyz	right;
 	double	height;
 	double	width;
+	int		viewport_size;
+	int		projection_plane_z;
+	
+	
 }	t_camera;
 
 typedef struct s_ambient_light
@@ -98,9 +102,11 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	t_xyz	centre;
+	t_xyz	center;
 	float	radius;
-	t_rgb	rgb;
+	t_xyz	rgb;
+	int		specular;
+	float	reflective;
 }	t_sphere;
 
 typedef struct s_plane
@@ -147,8 +153,8 @@ typedef struct s_mlx {
 }	t_mlx;
 
 enum e_values{
-	WINDOW_HEIGHT	= 480,
 	WINDOW_WIDTH	= 640,
+	WINDOW_HEIGHT	= 480,
 	MAX_OBJECTS		= 100
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
