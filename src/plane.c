@@ -17,6 +17,9 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
+double	get_dot_product(t_xyz v1, t_xyz v2);
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+
 static bool	ray_is_parallel_to_object(t_ray ray, t_xyz vector_orientation)
 {
 	return (get_dot_product(ray.direction, vector_orientation) == 0.0);

@@ -255,7 +255,7 @@ void ray_trace(t_mlx *mlx)
 	t_xy xy;
 
     mlx->o.sp[0].specular = 500;	// rood
-    mlx->o.sp[0].reflective = 0.7;
+    mlx->o.sp[0].reflective = 0.2;
     mlx->o.sp[1].specular = 100;	// groen
     mlx->o.sp[1].reflective = 0.7;
     mlx->o.sp[2].specular = 500;	// blauw
@@ -264,7 +264,7 @@ void ray_trace(t_mlx *mlx)
     mlx->o.sp[3].reflective = 0.6;	
 	mlx->camera.viewport_size = 1;
 	mlx->camera.projection_plane_z = 1;
-	int recursion_depth = 13;
+	int recursion_depth = 3;
 
 	for (int x = -WINDOW_WIDTH/2; x < WINDOW_WIDTH/2; x++)
 	{

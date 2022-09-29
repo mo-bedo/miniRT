@@ -45,7 +45,7 @@ SRC				:=	parse_scene/ps.c \
 					main.c \
 					ray_trace.c \
 					interaction.c \
-					# plane.c \
+					plane.c \
 					sphere.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
