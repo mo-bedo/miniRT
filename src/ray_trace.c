@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 19:06:09 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 19:21:13 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera,
 	return (vector);
 }
 
-static t_ray	compute_ray(t_mlx *mlx, t_xyz origin,
+static t_ray	compute_ray(t_objects o, t_xyz origin,
 	t_xyz direction, float min_distance)
 {
 	t_ray	ray;
 
 	ray.origin = origin;
 	ray.direction = direction;
-	ray.object = get_closest_intersection(mlx, ray, min_distance, RAY_T_MAX);
+	ray.object = get_closest_intersection(o, ray, min_distance, RAY_T_MAX);
 	return (ray);
 }
 
@@ -49,7 +49,7 @@ static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
 	t_xyz	reflected_color;
 	t_xyz	reflectivenes_of_object;
 
-	reflected_ray = compute_ray(mlx, ray.object.position,
+	reflected_ray = compute_ray(mlx->o, ray.object.position,
 			compute_reflected_ray(view, ray.object.normal), RAY_T_MIN);
 	reflected_color = multiply_vector(get_color(mlx, reflected_ray, --depth),
 			ray.object.reflective);
@@ -88,7 +88,7 @@ void	ray_trace(t_mlx *mlx)
 		while (y < WINDOW_HEIGHT / 2)
 		{
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			ray = compute_ray(mlx, mlx->camera.origin, direction,
+			ray = compute_ray(mlx->o, mlx->camera.origin, direction,
 					mlx->camera.projection_plane_z);
 			color = get_color(mlx, ray, RECURSION_DEPTH);
 			my_mlx_pixel_put(&mlx->img, x, y, color);

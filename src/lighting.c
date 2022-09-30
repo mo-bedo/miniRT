@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 18:47:23 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 19:19:28 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
-static bool	light_is_blocked_by_another_object(t_mlx *mlx, t_ray ray)
+static bool	light_is_blocked_by_another_object(t_objects o, t_ray ray)
 {
 	t_closest_object	object;
 
-	object = get_closest_intersection(mlx, ray, RAY_T_MIN, LENGTH_NORMAL);
+	object = get_closest_intersection(o, ray, RAY_T_MIN, LENGTH_NORMAL);
 	return (object.object);
 }
 
@@ -91,7 +91,7 @@ double	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 	light_ray.origin = object.position;
 	light_ray.direction = substract_vectors(mlx->light.origin, object.position);
 	intensity = mlx->ambient_light.lighting_ratio;
-	if (light_is_blocked_by_another_object(mlx, light_ray))
+	if (light_is_blocked_by_another_object(mlx->o, light_ray))
 		return (intensity);
 	intensity += mlx->light.brightness * compute_diffuse_reflection(
 			object.normal, light_ray);
