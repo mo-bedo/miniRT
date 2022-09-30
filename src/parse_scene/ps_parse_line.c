@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 19:19:25 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 12:49:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,6 @@ static void	parse_3d_objects(t_mlx *mlx, char *line)
 
 void	parse_line(t_mlx *mlx, char *line)
 {
-	mlx->o.pl_count = 0;
-	mlx->o.sp_count = 0;
-	mlx->o.cy_count = 0;
 	if (ft_strncmp(line, "A", 1) == 0 || ft_strncmp(line, "L", 1) == 0)
 		parse_lights(mlx, line);
 	else if (ft_strncmp(line, "C", 1) == 0)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps.c                                               :+:    :+:            */
+/*   ps_.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:03:33 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 12:49:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void	parse_scene(t_mlx	*mlx, char *input)
 	int		rt_file;
 	char	*line;
 
+	mlx->o.pl_count = 0;
+	mlx->o.sp_count = 0;
+	mlx->o.cy_count = 0;
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
 		error_message_and_exit("file does not exist");
