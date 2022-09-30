@@ -4,13 +4,4 @@
 - i_.c refactor
 - tests schrijven
 - colored and multi-spot lights
-
-
-
-src/ray_trace.c:66:53: runtime error: member access within null pointer of type
- 't_sphere' (aka 'struct s_sphere')
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior src/ray_trace.c:66:53 in
-
-src/lighting.c:87:55: runtime error: member access within null pointer of type
-'t_sphere' (aka 'struct s_sphere')
-SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior src/lighting.c:87:55 in
+- door lege regel in .rt wordt alle info die daarop volgt genegeerd

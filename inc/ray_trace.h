@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 19:04:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 19:24:18 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@
 
 typedef struct s_closest_object
 {
-	int			object;
-	t_xyz		position;
-	double		t;
-	t_xyz		center;
-	t_xyz		vector_orientation;
-	float		radius;
-	float		height;
-	t_xyz		color;
-	int			specular;
-	float		reflective;
-	t_xyz		normal;
+	int					object;
+	t_xyz				position;
+	double				t;
+	t_xyz				center;
+	t_xyz				vector_orientation;
+	float				radius;
+	float				height;
+	t_xyz				color;
+	int					specular;
+	float				reflective;
+	t_xyz				normal;
 }	t_closest_object;
 
 typedef struct s_ray {

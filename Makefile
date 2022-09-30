@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/30 14:23:17 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/09/30 19:24:34 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,6 @@ SRC				:=	intersection/i_.c \
 					lighting.c \
 					interaction.c \
 					pixel_put.c
-#<<<<<<< HEAD
-#					plane.c \
-#					sphere.c
-#=======
-#>>>>>>> master
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
