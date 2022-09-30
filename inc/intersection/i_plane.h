@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps.h                                               :+:    :+:            */
+/*   i_plane.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 13:50:55 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 15:52:28 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/09/29 19:43:55 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_H
-# define PS_H
+#ifndef I_PLANE_H
+# define I_PLANE_H
 
+# include <stdbool.h>
 # include "main.h"
+# include "ray_trace.h"
 
-void	parse_scene(t_mlx	*mlx, char *input);
+float	get_intersection_ray_plane(t_ray ray, t_plane plane);
 
 #endif

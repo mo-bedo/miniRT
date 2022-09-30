@@ -83,6 +83,10 @@ void	parse_scene(t_mlx	*mlx, char *input)
 	int		rt_file;
 	char	*line;
 
+	mlx->o.pl_count = 0;
+	mlx->o.sp_count = 0;
+	mlx->o.cy_count = 0;
+
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
 		error_message_and_exit("file does not exist");

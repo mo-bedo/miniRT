@@ -17,7 +17,7 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
-t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+//t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
 //
 //// plaatst midden van sphere in het midden van xyz
 //static t_ray	transpose_ray(t_ray ray, t_xyz centre)

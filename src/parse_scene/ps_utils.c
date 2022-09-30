@@ -53,23 +53,6 @@ float	parse_float(char **str, int min, int max)
 	return (number);
 }
 
-// static int	create_color(int transparancy, int red, int green, int blue)
-// {
-// 	return (transparancy << 24 | red << 16 | green << 8 | blue);
-// }
-
-// mogelijk optie om rgb meteen naar 1 int te parsen (zie create_color)
-// dan kan de struct t_rgb weg.
-t_rgb	parse_rgb(char **str)
-{
-	t_rgb	rgb;
-
-	rgb.red = parse_int(str, MIN_COLOR, MAX_COLOR);
-	rgb.blue = parse_int(str, MIN_COLOR, MAX_COLOR);
-	rgb.green = parse_int(str, MIN_COLOR, MAX_COLOR);
-	return (rgb);
-}
-
 t_xyz	parse_xyz(char **str, int min, int max)
 {
 	t_xyz	xyz;

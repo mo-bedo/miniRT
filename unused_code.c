@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 16:47:33 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:21:47 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	t_xyz	math;
 
 // 	math = multiply_vector(ray.direction, distance);
-// 	return (add_vectors(ray.origin_point, math));
+// 	return (add_vectors(ray.origin, math));
 // }
 
 // // geeft aan of de ray iets raakt
@@ -74,7 +74,7 @@
 // 		return (false);
 // 	//// vindt het punt van intersectie
 // 	t = get_dot_product(substract_vectors(plane.xyz, \
-// 			ray.origin_point), plane.vector_orientation) / d_dot_n;
+// 			ray.origin), plane.vector_orientation) / d_dot_n;
 // 	if (t < RAY_T_MIN || t > ray.t_max)
 // 		return (false);
 // 	return (true);
@@ -86,11 +86,11 @@
 // {
 // 	t_ray	local_ray;
 // 	local_ray = ray;
-// 	local_ray.origin_point = substract_vectors(local_ray.origin_point, sphere.centre);
+// 	local_ray.origin = substract_vectors(local_ray.origin, sphere.centre);
 // 	// quadratic
 // 	double	a = get_2d_vector_magnitude(local_ray.direction);
-// 	double	b = 2 * get_dot_product(local_ray.direction, local_ray.origin_point);
-// 	double	c = get_2d_vector_magnitude(local_ray.origin_point) - (sphere.radius * sphere.radius);
+// 	double	b = 2 * get_dot_product(local_ray.direction, local_ray.origin);
+// 	double	c = get_2d_vector_magnitude(local_ray.origin) - (sphere.radius * sphere.radius);
 // 	double	discriminant = (b * b) - 4 * a * c;
 // 	if (discriminant < 0.0) //// dan raakt ray de sphere niet
 // 		return (false);
@@ -101,4 +101,35 @@
 // 	if (t2 > RAY_T_MIN && t2 < ray.t_max)
 // 		return (true);
 // 	return (false);
+// }
+
+//												-1
+// angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
+// 													dot van vector_normal 2)
+// cos tot de macht -1 == acos()
+// double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
+// {
+// 	t_xyz	unit_v1;
+// 	t_xyz	unit_v2;
+// 	double	angle;
+
+// 	unit_v1 = normalize_vector(v1);
+// 	unit_v2 = normalize_vector(v2);
+// 	angle = acos(get_dot_product(unit_v1, unit_v2));
+// 	return (angle);
+// }
+
+// cross product
+// is a measure of difference
+//  0 = same direction
+//  1 = at angle of 90 degrees
+// -1 = opposite direction
+// t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
+// {
+// 	t_xyz	cross;
+
+// 	cross.x = v1.y * v2.z - v1.z * v2.y;
+// 	cross.y = v1.z * v2.x - v1.x * v2.z;
+// 	cross.z = v1.x * v2.y - v1.y * v2.x;
+// 	return (cross);
 // }

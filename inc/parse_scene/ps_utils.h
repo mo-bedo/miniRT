@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 14:16:35 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:17:03 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
-t_rgb	parse_rgb(char **str);
 t_xyz	parse_xyz(char **str, int min, int max);
 
 enum e_xyz_range {

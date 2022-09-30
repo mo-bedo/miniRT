@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 15:42:29 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 19:19:47 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,79 +50,67 @@ typedef struct s_img
 
 typedef struct s_colors
 {
-	int	color;
-	int	opacity;
+	int			color;
+	int			opacity;
 }	t_colors;
 
 // DATA
-typedef struct s_rgb
-{
-	int		red;
-	int		green;
-	int		blue;
-}	t_rgb;
-
 typedef struct s_xyz
 {
-	float	x;
-	float	y;
-	float	z;
+	float		x;
+	float		y;
+	float		z;
 }	t_xyz;
 
 typedef struct s_xy
 {
-	float	x;
-	float	y;
+	float		x;
+	float		y;
 }	t_xy;
 
 typedef struct s_camera {
-	t_xyz	origin_point;
-	t_xyz	forward;
-	t_xyz	up;
-	t_xyz	right;
-	double	height;
-	double	width;
-	int		viewport_size;
-	int		projection_plane_z;
-	
-	
+	t_xyz		origin;
+	int			viewport_size;
+	int			projection_plane_z;
 }	t_camera;
 
 typedef struct s_ambient_light
 {
-	float	lighting_ratio;
-	t_rgb	rgb;
+	float		lighting_ratio;
+	t_xyz		color;
 }	t_ambient_light;
 
 typedef struct s_light
 {
-	t_xyz	xyz;
-	float	brightness;
+	t_xyz		origin;
+	float		brightness;
 }	t_light;
 
 typedef struct s_sphere
 {
-	t_xyz	center;
-	float	radius;
-	t_xyz	rgb;
-	int		specular;
-	float	reflective;
+	t_xyz		center;
+	float		radius;
+	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_sphere;
 
 typedef struct s_plane
 {
-	t_xyz		xyz;
+	t_xyz		center;
 	t_xyz		vector_orientation;
-	t_rgb		rgb;
+	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_xyz		xyz;
+	t_xyz		center;
 	t_xyz		vector_orientation;
 	float		diameter;
 	float		height;
-	t_rgb		rgb;
+	t_xyz		color;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -135,6 +123,16 @@ typedef struct s_objects
 	int			cy_count;
 }	t_objects;
 
+typedef struct s_closest_object
+{
+	t_sphere	*sphere;
+	t_plane		*plane;
+	int			object;
+	t_xyz		position;
+	double		t;
+}	t_closest_object;
+
+
 // MASTER STRUCT OF STRUCTS
 typedef struct s_mlx {
 	void			*mlx;
@@ -146,6 +144,7 @@ typedef struct s_mlx {
 	t_ambient_light	ambient_light;
 	t_light			point_light;
 	t_objects		o;
+	t_xyz			background_color;
 	// t_coordinates	c;
 
 	// t_menu		menu;
@@ -155,7 +154,11 @@ typedef struct s_mlx {
 enum e_values{
 	WINDOW_WIDTH	= 640,
 	WINDOW_HEIGHT	= 480,
-	MAX_OBJECTS		= 100
+	MAX_OBJECTS		= 100,
+	LENGTH_NORMAL	= 1,
+	RECURSION_DEPTH	= 6,
+	PLANE			= 1,
+	SPHERE			= 2
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
 };

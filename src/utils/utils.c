@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:47:48 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/29 16:07:28 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,20 @@ char	*ft_strrchr(const char *s, int c)
 double	get_smallest_double(double a, double b)
 {
 	if (a < b)
+		return (a);
+	return (b);
+}
+
+float	ft_min_float(float a, float b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+float	ft_max_float(float a, float b)
+{
+	if (a > b)
 		return (a);
 	return (b);
 }
