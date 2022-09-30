@@ -62,11 +62,11 @@ typedef struct s_xyz
 	float		z;
 }	t_xyz;
 
-typedef struct s_xy
+typedef struct s_distance
 {
-	float		x;
-	float		y;
-}	t_xy;
+	float		t1;
+	float		t2;
+}	t_distance;
 
 typedef struct s_camera {
 	t_xyz		origin;
@@ -111,6 +111,8 @@ typedef struct s_cylinder
 	float		diameter;
 	float		height;
 	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -127,6 +129,7 @@ typedef struct s_closest_object
 {
 	t_sphere	*sphere;
 	t_plane		*plane;
+	t_cylinder	*cylinder;
 	int			object;
 	t_xyz		position;
 	double		t;
@@ -157,8 +160,9 @@ enum e_values{
 	MAX_OBJECTS		= 100,
 	LENGTH_NORMAL	= 1,
 	RECURSION_DEPTH	= 6,
-	PLANE			= 1,
-	SPHERE			= 2
+	PLANE			= 0,
+	SPHERE			= 1,
+	CYLINDER		= 2
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
 };

@@ -97,3 +97,18 @@ t_xyz	normalize_vector(t_xyz vector)
 	magnitude = get_vector_length(vector);
 	return (divide_vector(vector, magnitude));
 }
+
+
+// cross product
+// is a measure of difference
+//  0 = same direction
+//  1 = at angle of 90 degrees
+// -1 = opposite direction
+t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
+{
+	t_xyz	cross;
+	cross.x = v1.y * v2.z - v1.z * v2.y;
+	cross.y = v1.z * v2.x - v1.x * v2.z;
+	cross.z = v1.x * v2.y - v1.y * v2.x;
+	return (cross);
+}

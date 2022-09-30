@@ -36,6 +36,7 @@ SRC_DIR			:=	./src
 OBJ_DIR			:=	./obj
 
 SRC				:=	intersection/i_.c \
+					intersection/i_cylinder.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
 					parse_scene/ps_.c \
@@ -49,11 +50,7 @@ SRC				:=	intersection/i_.c \
 					lighting.c \
 					interaction.c \
 					pixel_put.c
-#<<<<<<< HEAD
-#					plane.c \
-#					sphere.c
-#=======
-#>>>>>>> master
+
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

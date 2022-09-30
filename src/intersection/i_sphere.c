@@ -31,11 +31,11 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 // 	  x = -b+sqrt((b)^2 - 4ac)) / 2 a
 // or x = -b-sqrt((b)^2 - 4ac)) / 2 a
 // if discriminant is smaller than zero it means there is no intersection;
-// ray intersects two times with sphere (xy.x and xy.y)
+// ray intersects two times with sphere (distance.x and distance.y)
 // t1 < RAY_T_MIN 		this means it can reflect itself
 float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 {
-	t_xy	xy;
+	t_distance	distance;
 	double	a;
 	double	b;
 	double	c;
@@ -48,7 +48,7 @@ float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a == 0)
 		return (RAY_T_MAX);
-	xy.x = (-b + sqrt(discriminant)) / (2 * a);
-	xy.y = (-b - sqrt(discriminant)) / (2 * a);
-	return (ft_min_float(xy.x, xy.y));
+	distance.t1 = (-b + sqrt(discriminant)) / (2 * a);
+	distance.t2 = (-b - sqrt(discriminant)) / (2 * a);
+	return (ft_min_float(distance.t1, distance.t2));
 }

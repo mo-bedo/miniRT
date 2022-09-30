@@ -58,6 +58,11 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 		normal = object.plane->vector_orientation;
 		normal = normalize_vector(normal);
 	}
+	else if (object.object == CYLINDER)
+	{
+		normal = substract_vectors(object.position, object.cylinder->center);
+		normal = normalize_vector(normal);
+	}
 
 
 	// calculate lightning
@@ -80,6 +85,13 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 		if (object.plane->reflective <= 0 || depth <= 0)
 			return (local_color);
 	}
+	else if (object.object == CYLINDER)
+	{
+		local_color = multiply_vector(object.cylinder->color,
+											compute_lighting(mlx, normal, view, object));
+		if (object.plane->reflective <= 0 || depth <= 0)
+			return (local_color);
+	}
 
 	// compute reflections of reflections
 	t_xyz reflected_ray = get_reflection_of_vector_1_towards_vector_2(view, normal);
@@ -92,6 +104,9 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	else if (object.object == PLANE)
 		return (add_vectors(multiply_vector(local_color, 1 - object.plane->reflective),
 							multiply_vector(reflected_color, object.plane->reflective)));
+	else if (object.object == CYLINDER)
+		return (add_vectors(multiply_vector(local_color, 1 - object.cylinder->reflective),
+							multiply_vector(reflected_color, object.cylinder->reflective)));
 
 	printf("\n\n\n ####### MAG HIER NIET KOMEN ######\n\n\n");
 	return (normal);		/// filler

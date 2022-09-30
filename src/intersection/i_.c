@@ -16,6 +16,7 @@
 #include "ray_trace.h"
 #include "lighting.h"
 #include "intersection/i_.h"
+#include "intersection/i_cylinder.h"
 #include "pixel_put.h"
 #include "utils/utils.h"
 #include "utils/vector_math.h"
@@ -57,6 +58,18 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 		}
 		i++;
 	}
+	while (i < mlx->o.cy_count)
+	{
+		t = get_intersection_ray_cylinder(ray, mlx->o.cy[i]);
+		if (t < closest_object.t && min_distance < t && t < max_distance)
+		{
+			closest_object.t = t;
+			closest_object.object = CYLINDER;
+			closest_object.cylinder = &mlx->o.cy[i];
+		}
+		i++;
+	}
+
 	closest_object.position = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
 	return (closest_object);
