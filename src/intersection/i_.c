@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 15:31:34 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 19:09:40 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,18 @@
 
 // void	tranfer_object_values(t_closest_object *object, )
 // {
-	
 // }
+
+static void	compute_normal(t_closest_object *object)
+{
+	if (!object->object)
+		return ;
+	if (object->object == SPHERE)
+		object->normal = substract_vectors(object->position, object->center);
+	else if (object->object == PLANE)
+		object->normal = object->vector_orientation;
+	object->normal = normalize_vector(object->normal);
+}
 
 // Find the closest intersection between a ray and objects in the scene.
 // dit kan later nog opgeschoont worden, nu teveel herhaling
@@ -31,13 +41,11 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 	float min_distance, float max_distance)
 {
 	int					i;
-	float				t;
+	double				t;
 	t_closest_object	closest_object;
 
 	closest_object.t = RAY_T_MAX;
-	closest_object.object = 0;
-	// closest_object.plane = NULL;
-	// closest_object.sphere = NULL;
+	closest_object.object = NONE;
 	i = 0;
 	while (i < mlx->o.pl_count)
 	{
@@ -46,7 +54,6 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 		{
 			closest_object.t = t;
 			closest_object.object = PLANE;
-			// closest_object.plane = &mlx->o.pl[i];
 			closest_object.center = mlx->o.pl[i].center;
 			closest_object.vector_orientation = mlx->o.pl[i].vector_orientation;
 			// closest_object.radius = mlx->o.pl[i].radius;
@@ -65,7 +72,6 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 		{
 			closest_object.t = t;
 			closest_object.object = SPHERE;
-			// closest_object.sphere = &mlx->o.sp[i];
 			closest_object.center = mlx->o.sp[i].center;
 			closest_object.radius = mlx->o.sp[i].radius;
 			// closest_object.height = mlx->o.sp[i].height;
@@ -83,7 +89,6 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 		{
 			closest_object.t = t;
 			closest_object.object = CYLINDER;
-			// closest_object.sphere = &mlx->o.cy[i];
 			closest_object.center = mlx->o.cy[i].center;
 			closest_object.vector_orientation = mlx->o.cy[i].vector_orientation;
 			closest_object.radius = mlx->o.cy[i].radius;
@@ -96,5 +101,6 @@ t_closest_object	get_closest_intersection(t_mlx *mlx, t_ray ray,
 	}
 	closest_object.position = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
+	compute_normal(&closest_object);
 	return (closest_object);
 }

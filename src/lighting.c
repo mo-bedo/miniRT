@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 15:20:06 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 18:47:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 #include "intersection/i_.h"
 #include "utils/utils.h"
 #include "utils/vector_math.h"
+
+static bool	light_is_blocked_by_another_object(t_mlx *mlx, t_ray ray)
+{
+	t_closest_object	object;
+
+	object = get_closest_intersection(mlx, ray, RAY_T_MIN, LENGTH_NORMAL);
+	return (object.object);
+}
 
 // computes how ray would reflect from surface
 //   = 2 * the direction of the normal
@@ -58,44 +66,36 @@ static double	compute_diffuse_reflection(t_xyz normal, t_ray light_ray)
 // specular reflection should be computed
 // if denominator is negative, we need to treat it as if it was 0 (just
 // as with the diffuse reflection).
-double	compute_specular_reflection(t_xyz normal, t_ray light_ray,
-	t_xyz view, int specular)
+static double	compute_specular_reflection(t_ray light_ray,
+	t_xyz view, t_closest_object object)
 {
 	double	denominator;
 	double	divisor;
 	t_xyz	reflection;
 
-	if (specular != -1)
+	if (object.specular != -1)
 		return (0);
-	reflection = compute_reflected_ray(light_ray.direction, normal);
+	reflection = compute_reflected_ray(light_ray.direction, object.normal);
 	denominator = get_dot_product(reflection, view);
 	if (denominator <= 0)
 		return (0);
 	divisor = get_vector_length(reflection) * get_vector_length(view);
-	return (pow(denominator / divisor, specular));
+	return (pow(denominator / divisor, object.specular));
 }
 
-// hoezo is max_distance 1.0?
-double	compute_lighting(t_mlx *mlx, t_xyz normal,
-	t_xyz view, t_closest_object object)
+double	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 {
 	t_ray				light_ray;
 	double				intensity;
-	float				max_distance;
-	t_closest_object	blocker;
 
-	intensity = mlx->ambient_light.lighting_ratio;
 	light_ray.origin = object.position;
-	light_ray.direction = substract_vectors
-		(mlx->point_light.origin, object.position);
-	max_distance = 1.0;
-	blocker = get_closest_intersection(mlx, light_ray, RAY_T_MIN, max_distance);
-	if (!blocker.object)
-	{
-		intensity += mlx->point_light.brightness * compute_diffuse_reflection(
-				normal, light_ray);
-		intensity += mlx->point_light.brightness * compute_specular_reflection(
-				normal, light_ray, view, object.specular);
-	}
+	light_ray.direction = substract_vectors(mlx->light.origin, object.position);
+	intensity = mlx->ambient_light.lighting_ratio;
+	if (light_is_blocked_by_another_object(mlx, light_ray))
+		return (intensity);
+	intensity += mlx->light.brightness * compute_diffuse_reflection(
+			object.normal, light_ray);
+	intensity += mlx->light.brightness * compute_specular_reflection(
+			light_ray, view, object);
 	return (intensity);
 }

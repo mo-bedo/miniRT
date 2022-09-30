@@ -1,11 +1,9 @@
-- lighting.c uitwerken
 - input bonus parsing (ook opvangen wat er gebeurt als scene bonus niet specificeert)
-- refactor RayTrace
-- plane toevoegen
-- ray_trace.c opschonen
+- camera dynamisch maken en input parsing
 - cylinder toevoegen
 - i_.c refactor
 - tests schrijven
+- colored and multi-spot lights
 
 
 

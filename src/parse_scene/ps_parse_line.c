@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/30 15:25:13 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:47:13 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	parse_lights(t_mlx *mlx, char *line)
 	else if (ft_strncmp(line, "L", 1) == 0)
 	{
 		line++;
-		mlx->point_light.origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		mlx->point_light.brightness = parse_float(&line,
+		mlx->light.origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+		mlx->light.brightness = parse_float(&line,
 				MIN_BRIGHTNESS, MAX_BRIGHTNESS);
 	}
 }

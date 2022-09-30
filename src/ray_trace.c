@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 15:34:36 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 19:06:09 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
-// Converts 2D canvas coordinates to 3D viewport coordinates.
-t_xyz	canvas_to_viewport(t_camera camera, float x, float y)
+static t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera,
+	float x, float y)
 {
 	t_xyz	vector;
 
@@ -31,53 +31,53 @@ t_xyz	canvas_to_viewport(t_camera camera, float x, float y)
 	return (vector);
 }
 
-// TO DO: expand to planes etc
-t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, float max_distance, int depth)
+static t_ray	compute_ray(t_mlx *mlx, t_xyz origin,
+	t_xyz direction, float min_distance)
 {
-	t_ray				ray;
-	t_closest_object	object;
-	t_xyz				normal;
+	t_ray	ray;
 
-	normal = origin; // om te initaliseren met iets (is niet nodig)
 	ray.origin = origin;
 	ray.direction = direction;
+	ray.object = get_closest_intersection(mlx, ray, min_distance, RAY_T_MAX);
+	return (ray);
+}
 
-	// get closest object
-	object = get_closest_intersection(mlx, ray, min_distance, max_distance);
-	if (!object.object)
+static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
+	t_ray ray, t_xyz view, int depth)
+{
+	t_ray	reflected_ray;
+	t_xyz	reflected_color;
+	t_xyz	reflectivenes_of_object;
+
+	reflected_ray = compute_ray(mlx, ray.object.position,
+			compute_reflected_ray(view, ray.object.normal), RAY_T_MIN);
+	reflected_color = multiply_vector(get_color(mlx, reflected_ray, --depth),
+			ray.object.reflective);
+	reflectivenes_of_object = multiply_vector(ray.object.color,
+			1 - ray.object.reflective);
+	return (add_vectors(reflectivenes_of_object, reflected_color));
+}
+
+t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
+{
+	t_xyz	view;
+	double	light_intensity;
+
+	if (!ray.object.object)
 		return (mlx->background_color);
-
-	// compute normal
-	if (object.object == SPHERE)
-		normal = substract_vectors(object.position, object.center);
-	else if (object.object == PLANE)
-		normal = object.vector_orientation;
-	normal = normalize_vector(normal);
-
-	// calculate lightning
-	t_xyz view = multiply_vector(direction, -1);
-
-	t_xyz	local_color;
-	local_color = mlx->background_color;	// init omdat het moet
-	// color of object
-	local_color = multiply_vector(object.color,
-			compute_lighting(mlx, normal, view, object));
-	if (object.reflective <= 0 || depth <= 0)
-		return (local_color);
-
-	// compute reflections of reflections
-	t_xyz reflected_ray = compute_reflected_ray(view, normal);
-	t_xyz reflected_color = TraceRay(mlx, object.position, reflected_ray, RAY_T_MIN, RAY_T_MAX, depth - 1);
-
-	// ?
-	return (add_vectors(multiply_vector(local_color, 1 - object.reflective),
-			multiply_vector(reflected_color, object.reflective)));
+	view = multiply_vector(ray.direction, -1);
+	light_intensity = compute_lighting(mlx, view, ray.object);
+	ray.object.color = multiply_vector(ray.object.color, light_intensity);
+	if (ray.object.reflective <= 0 || depth <= 0)
+		return (ray.object.color);
+	return (compute_reflections_of_reflections(mlx, ray, view, depth));
 }
 
 void	ray_trace(t_mlx *mlx)
 {
-	t_xyz	direction;
 	t_xyz	color;
+	t_xyz	direction;
+	t_ray	ray;
 	int		x;
 	int		y;
 
@@ -87,9 +87,10 @@ void	ray_trace(t_mlx *mlx)
 		y = -WINDOW_HEIGHT / 2;
 		while (y < WINDOW_HEIGHT / 2)
 		{
-			direction = canvas_to_viewport(mlx->camera, x, y);
-			color = TraceRay(mlx, mlx->camera.origin,
-					direction, 1, RAY_T_MAX, RECURSION_DEPTH);
+			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
+			ray = compute_ray(mlx, mlx->camera.origin, direction,
+					mlx->camera.projection_plane_z);
+			color = get_color(mlx, ray, RECURSION_DEPTH);
 			my_mlx_pixel_put(&mlx->img, x, y, color);
 			y++;
 		}
