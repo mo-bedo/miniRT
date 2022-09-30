@@ -79,12 +79,17 @@ double	compute_lighting(t_mlx *mlx, t_xyz normal,
 		(mlx->point_light.origin, object.position);
 	max_distance = 1.0;
 	blocker = get_closest_intersection(mlx, light_ray, RAY_T_MIN, max_distance);
-	if (!blocker.sphere)
+//	if (blocker.object == SPHERE)
+	if (!blocker.object)
 	{
 		intensity += compute_diffuse_reflection(normal, light_ray,
 				mlx->point_light.brightness);
-		intensity += compute_specular_reflection(normal, light_ray,
-				mlx->point_light.brightness, view, object.sphere->specular);
+		if (object.object == SPHERE)
+			intensity += compute_specular_reflection(normal, light_ray,
+					mlx->point_light.brightness, view, object.sphere->specular);
+		if (object.object == PLANE)
+			intensity += compute_specular_reflection(normal, light_ray,
+					mlx->point_light.brightness, view, object.plane->specular);
 	}
 	return (intensity);
 }

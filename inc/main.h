@@ -100,6 +100,8 @@ typedef struct s_plane
 	t_xyz		center;
 	t_xyz		vector_orientation;
 	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -154,7 +156,7 @@ enum e_values{
 	WINDOW_HEIGHT	= 480,
 	MAX_OBJECTS		= 100,
 	LENGTH_NORMAL	= 1,
-	RECURSION_DEPTH	= 3,
+	RECURSION_DEPTH	= 6,
 	PLANE			= 1,
 	SPHERE			= 2
 	// TOTAL_RANGE_Y	= 4,

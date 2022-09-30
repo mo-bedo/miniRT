@@ -36,7 +36,9 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 {
 	t_ray				ray;
 	t_closest_object	object;
+	t_xyz				normal;
 
+	normal = origin; // om te initaliseren met iets (is niet nodig)
 	ray.origin = origin;
 	ray.direction = direction;
 
@@ -46,25 +48,53 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 		return (mlx->background_color);
 
 	// compute normal
-	t_xyz normal = substract_vectors(object.position, object.sphere->center);
-	normal = normalize_vector(normal);
+	if (object.object == SPHERE)
+	{
+		normal = substract_vectors(object.position, object.sphere->center);
+		normal = normalize_vector(normal);
+	}
+	else if (object.object == PLANE)
+	{
+		normal = object.plane->vector_orientation;
+		normal = normalize_vector(normal);
+	}
+
 
 	// calculate lightning
 	t_xyz view = multiply_vector(direction, -1);
 
+	t_xyz	local_color;
+	local_color = mlx->background_color;	// init omdat het moet
 	// color of object
-	t_xyz local_color = multiply_vector(object.sphere->color,
-			compute_lighting(mlx, normal, view, object));
-	if (object.sphere->reflective <= 0 || depth <= 0)
-		return (local_color);
+	if (object.object == SPHERE)
+	{
+		local_color = multiply_vector(object.sphere->color,
+											compute_lighting(mlx, normal, view, object));
+		if (object.sphere->reflective <= 0 || depth <= 0)
+			return (local_color);
+	}
+	else if (object.object == PLANE)
+	{
+		local_color = multiply_vector(object.plane->color,
+											compute_lighting(mlx, normal, view, object));
+		if (object.plane->reflective <= 0 || depth <= 0)
+			return (local_color);
+	}
 
 	// compute reflections of reflections
 	t_xyz reflected_ray = get_reflection_of_vector_1_towards_vector_2(view, normal);
 	t_xyz reflected_color = TraceRay(mlx, object.position, reflected_ray, RAY_T_MIN, RAY_T_MAX, depth - 1);
 
 	// ?
-	return (add_vectors(multiply_vector(local_color, 1 - object.sphere->reflective),
-			multiply_vector(reflected_color, object.sphere->reflective)));
+	if (object.object == SPHERE)
+		return (add_vectors(multiply_vector(local_color, 1 - object.sphere->reflective),
+				multiply_vector(reflected_color, object.sphere->reflective)));
+	else if (object.object == PLANE)
+		return (add_vectors(multiply_vector(local_color, 1 - object.plane->reflective),
+							multiply_vector(reflected_color, object.plane->reflective)));
+
+	printf("\n\n\n ####### MAG HIER NIET KOMEN ######\n\n\n");
+	return (normal);		/// filler
 }
 
 void	ray_trace(t_mlx *mlx)

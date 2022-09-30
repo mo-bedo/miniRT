@@ -26,7 +26,7 @@ endif
 
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=
 
 # STATIC
 RM				:=	rm
@@ -49,6 +49,11 @@ SRC				:=	intersection/i_.c \
 					lighting.c \
 					interaction.c \
 					pixel_put.c
+#<<<<<<< HEAD
+#					plane.c \
+#					sphere.c
+#=======
+#>>>>>>> master
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
@@ -70,7 +75,7 @@ fclean			:	clean
 re				: 	fclean all
 
 test			:	re
-					./$(NAME) scene.rt
+					./$(NAME) scenes/gambetta.rt
 
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)

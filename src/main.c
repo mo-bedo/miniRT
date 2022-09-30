@@ -56,6 +56,10 @@ static void	init(t_mlx	*mlx)
 	mlx->o.sp[2].reflective = 0.3;
 	mlx->o.sp[3].specular = 1000;
 	mlx->o.sp[3].reflective = 0.6;
+	mlx->o.pl[0].specular = 100;
+	mlx->o.pl[0].reflective = 0.2;
+	mlx->o.pl[1].specular = 100;
+	mlx->o.pl[1].reflective = 0.2;
 	mlx->camera.viewport_size = 1;
 	mlx->camera.projection_plane_z = 1;
 }
