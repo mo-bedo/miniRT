@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>                +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/29 19:39:19 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/09/30 14:23:17 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ endif
 
 SANIT			:=	-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
-PRINT			:=
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm

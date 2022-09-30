@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/30 12:54:39 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:35:56 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,6 @@ typedef struct s_light
 	float		brightness;
 }	t_light;
 
-typedef struct s_sphere
-{
-	t_xyz		center;
-	float		radius;
-	t_xyz		color;
-	int			specular;
-	float		reflective;
-}	t_sphere;
-
 typedef struct s_plane
 {
 	t_xyz		center;
@@ -104,13 +95,24 @@ typedef struct s_plane
 	float		reflective;
 }	t_plane;
 
+typedef struct s_sphere
+{
+	t_xyz		center;
+	float		radius;
+	t_xyz		color;
+	int			specular;
+	float		reflective;
+}	t_sphere;
+
 typedef struct s_cylinder
 {
 	t_xyz		center;
 	t_xyz		vector_orientation;
-	float		diameter;
+	float		radius;
 	float		height;
 	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_cylinder;
 
 typedef struct s_objects
@@ -125,11 +127,18 @@ typedef struct s_objects
 
 typedef struct s_closest_object
 {
-	t_sphere	*sphere;
-	t_plane		*plane;
+	// t_sphere	*sphere;
+	// t_plane		*plane;
 	int			object;
 	t_xyz		position;
 	double		t;
+	t_xyz		center;
+	t_xyz		vector_orientation;
+	float		radius;
+	float		height;
+	t_xyz		color;
+	int			specular;
+	float		reflective;
 }	t_closest_object;
 
 
@@ -156,9 +165,10 @@ enum e_values{
 	WINDOW_HEIGHT	= 480,
 	MAX_OBJECTS		= 100,
 	LENGTH_NORMAL	= 1,
-	RECURSION_DEPTH	= 6,
+	RECURSION_DEPTH	= 3,
 	PLANE			= 1,
-	SPHERE			= 2
+	SPHERE			= 2,
+	CYLINDER		= 3
 	// TOTAL_RANGE_Y	= 4,
 	// MAX_COLOR		= 16777215
 };

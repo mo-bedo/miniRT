@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:40:36 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:20:06 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,49 +19,60 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
-// Computes the reflection of v1 respect to v2.
-t_xyz	get_reflection_of_vector_1_towards_vector_2(t_xyz v1, t_xyz v2)
+// computes how ray would reflect from surface
+//   = 2 * the direction of the normal
+// 	   * the dot product of the direction of the normal and the lightray
+//     - the direction of the lightray
+t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal)
 {
-	return (substract_vectors(multiply_vector(
-				v2, 2 * get_dot_product(v1, v2)), v1));
+	return (substract_vectors(multiply_vector(normal,
+				2 * get_dot_product(ray_direction, normal)),
+			ray_direction));
 }
 
-// formule uitleggen
-double	compute_diffuse_reflection(t_xyz normal,
-	t_ray light_ray, float brightness)
+// the fraction of diffuse light that is reflected
+//  	= dot product of the direction of the normal and the lightray /
+// 				length of normal * length of lightray
+// If this value is negative we can end up with a light source that 
+// makes a surface darker... In that case, we need to treat it as if it was 0.
+static double	compute_diffuse_reflection(t_xyz normal, t_ray light_ray)
 {
-	double	normal_dot_product_light;
-	double	intensity;
+	double	denominator;
+	double	divisor;
 
-	intensity = 0;
-	normal_dot_product_light = get_dot_product(normal, light_ray.direction);
-	if (normal_dot_product_light > 0)
-		intensity = brightness * normal_dot_product_light \
-			/ (LENGTH_NORMAL * get_vector_length(light_ray.direction));
-	return (intensity);
+	denominator = get_dot_product(normal, light_ray.direction);
+	if (denominator <= 0)
+		return (0);
+	divisor = LENGTH_NORMAL * get_vector_length(light_ray.direction);
+	return (denominator / divisor);
 }
 
-// formule uitleggen
+// the fraction of specular light that is reflected
+//  	= (dot product of the direction of R and view /
+// 				length of R * length of view) ^ specular value
+// where R = the reflected ray
+//   = 2 * the direction of the normal
+// 	   * the dot product of the direction of the normal and the lightray
+//     - the direction of the lightray
+// specular = -1 means that the object is matte and therefor no
+// specular reflection should be computed
+// if denominator is negative, we need to treat it as if it was 0 (just
+// as with the diffuse reflection).
 double	compute_specular_reflection(t_xyz normal, t_ray light_ray,
-	float brightness, t_xyz view, int specular)
+	t_xyz view, int specular)
 {
-	double	intensity;
-	double	length_v;
-	double	r_dot_v;
-	t_xyz	vec_r;
+	double	denominator;
+	double	divisor;
+	t_xyz	reflection;
 
-	intensity = 0;
 	if (specular != -1)
-	{
-		length_v = get_vector_length(view);
-		vec_r = get_reflection_of_vector_1_towards_vector_2(
-				light_ray.direction, normal);
-		r_dot_v = get_dot_product(vec_r, view);
-		if (r_dot_v > 0)
-			intensity = brightness * pow(r_dot_v \
-				/ (get_vector_length(vec_r) * length_v), specular);
-	}
-	return (intensity);
+		return (0);
+	reflection = compute_reflected_ray(light_ray.direction, normal);
+	denominator = get_dot_product(reflection, view);
+	if (denominator <= 0)
+		return (0);
+	divisor = get_vector_length(reflection) * get_vector_length(view);
+	return (pow(denominator / divisor, specular));
 }
 
 // hoezo is max_distance 1.0?
@@ -79,17 +90,12 @@ double	compute_lighting(t_mlx *mlx, t_xyz normal,
 		(mlx->point_light.origin, object.position);
 	max_distance = 1.0;
 	blocker = get_closest_intersection(mlx, light_ray, RAY_T_MIN, max_distance);
-//	if (blocker.object == SPHERE)
 	if (!blocker.object)
 	{
-		intensity += compute_diffuse_reflection(normal, light_ray,
-				mlx->point_light.brightness);
-		if (object.object == SPHERE)
-			intensity += compute_specular_reflection(normal, light_ray,
-					mlx->point_light.brightness, view, object.sphere->specular);
-		if (object.object == PLANE)
-			intensity += compute_specular_reflection(normal, light_ray,
-					mlx->point_light.brightness, view, object.plane->specular);
+		intensity += mlx->point_light.brightness * compute_diffuse_reflection(
+				normal, light_ray);
+		intensity += mlx->point_light.brightness * compute_specular_reflection(
+				normal, light_ray, view, object.specular);
 	}
 	return (intensity);
 }
