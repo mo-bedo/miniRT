@@ -67,44 +67,73 @@
 //∗ the cylinder height: 21.42
 //∗ R,G,B colors in range [0,255]: 10, 0, 255
 
+
 float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 {
-	t_distance	distance;
-	t_xyz		cylinder_to_origin;
-	t_ray		local_ray;
+	float discriminant;
+	t_ray local;
+	local = ray;
+	local.direction = normalize_vector(ray.direction);
+	//// TEST ALS CAMERA NIET OP 0,0,0 staat
+	//// zou goed kunnen dat de cylinder op moet worden geschoven zodat hij loodrecht op de y-as staat
+//	local.origin.x = 0;
+//	local.origin.y = 0;
+//	local.origin.z = 0;
 
-	double		a;
-	double		b;
-	double		c;
-	double		discriminant;
+	float a = (local.direction.x * local.direction.x) + (local.direction.z * local.direction.z);
+	float b = 2 * (local.direction.x * (local.origin.x - cylinder.center.x) +
+				   local.direction.z * (local.origin.z - cylinder.center.z));
+	float c = (local.origin.x - cylinder.center.x) * (local.origin.x - cylinder.center.x) + \
+            (local.origin.z - cylinder.center.z) * (local.origin.z - cylinder.center.z) -
+			  (cylinder.radius * cylinder.radius);
 
-	local_ray.origin = ray.origin;
-	cylinder.vector_orientation = normalize_vector(cylinder.vector_orientation);
 
-// cross product
-// is a measure of difference
-//  0 = same direction
-//  1 = at angle of 90 degrees
-// -1 = opposite direction
-	local_ray.direction = get_cross_product(ray.direction, cylinder.vector_orientation);
+	discriminant = (b * b) - 4 * (c * a);
 
-	cylinder_to_origin = substract_vectors(ray.origin, cylinder.center);
-	// quadratic
+	if (fabs(discriminant) < RAY_T_MIN || discriminant < 0)
+		return (-1);
 
-	a = get_dot_product(ray.origin, cylinder.center);
-	b = 2 * get_dot_product(local_ray.direction, get_cross_product(cylinder_to_origin, cylinder.center));
-	c = get_dot_product(get_cross_product(cylinder_to_origin, cylinder.center), get_cross_product(cylinder_to_origin, \
-	cylinder.center)) - pow(cylinder.diameter / 2, 2);
-	discriminant = pow(b, 2) - 4 * c * a;
-	if (discriminant < 0)
-		return (0); // return no hit
-	distance.t1 = (-b + sqrt(discriminant)) / (2 * a);
-	distance.t2 = (-b - sqrt(discriminant)) / (2 * a);
-	if (distance.t2 < 0)
-		return (0); // return no hit
-//	distance.t1 = find_edges(cylinder, ray, ft_min_float(distance.t1, distance.t2));
-	return (distance.t1);
+	float t1 = (-b - sqrt(discriminant) / (2 * a));
+	float t2 = (-b + sqrt(discriminant) / (2 * a));
+	float t;
+
+	if (t1 > t2)
+		t = t2;
+	else
+		t = t1;
+
+	float r = local.origin.y + t * local.direction.y;
+
+	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
+		return (t);
+	return (-1);
 }
+
+//	float Cylinder::intersect(Vector cam, Vector ray)
+//	{
+
+//		float a = (ray.x * ray.x) + (ray.z * ray.z);
+//		float b = 2*(ray.x*(cam.x-center.x) + ray.z*(cam.z-center.z));
+//		float c = (cam.x - center.x) * (cam.x - center.x) + \
+//			(cam.z - center.z) * (cam.z - center.z) - (radius*radius);
+//
+//		float delta = b*b - 4*(a*c);
+//		if(fabs(delta) < 0.001) return -1.0;
+//		if(delta < 0.0) return -1.0;
+//
+//		float t1 = (-b - sqrt(delta))/(2*a);
+//		float t2 = (-b + sqrt(delta))/(2*a);
+//		float t;
+//
+//		if (t1>t2) t = t2;
+//		else t = t1;
+//
+//		float r = cam.y + t*ray.y;
+//
+//		if ((r >= center.y) and (r <= center.y + height))return t;
+//		else return -1;
+//	}
+//}
 
 //float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 //{

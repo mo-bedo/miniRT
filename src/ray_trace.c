@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:41:59 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:34:36 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,19 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 
 	// compute normal
 	if (object.object == SPHERE)
-	{
-		normal = substract_vectors(object.position, object.sphere->center);
-		normal = normalize_vector(normal);
-	}
+		normal = substract_vectors(object.position, object.center);
 	else if (object.object == PLANE)
 	{
-		normal = object.plane->vector_orientation;
+		normal = object.vector_orientation;
 		normal = normalize_vector(normal);
 	}
 	else if (object.object == CYLINDER)
 	{
-		normal = substract_vectors(object.position, object.cylinder->center);
+		normal = substract_vectors(object.position, object.center);
 		normal = normalize_vector(normal);
 	}
+
+
 
 
 	// calculate lightning
@@ -71,45 +70,18 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	t_xyz	local_color;
 	local_color = mlx->background_color;	// init omdat het moet
 	// color of object
-	if (object.object == SPHERE)
-	{
-		local_color = multiply_vector(object.sphere->color,
-											compute_lighting(mlx, normal, view, object));
-		if (object.sphere->reflective <= 0 || depth <= 0)
-			return (local_color);
-	}
-	else if (object.object == PLANE)
-	{
-		local_color = multiply_vector(object.plane->color,
-											compute_lighting(mlx, normal, view, object));
-		if (object.plane->reflective <= 0 || depth <= 0)
-			return (local_color);
-	}
-	else if (object.object == CYLINDER)
-	{
-		local_color = multiply_vector(object.cylinder->color,
-											compute_lighting(mlx, normal, view, object));
-		if (object.plane->reflective <= 0 || depth <= 0)
-			return (local_color);
-	}
+	local_color = multiply_vector(object.color,
+			compute_lighting(mlx, normal, view, object));
+	if (object.reflective <= 0 || depth <= 0)
+		return (local_color);
 
 	// compute reflections of reflections
-	t_xyz reflected_ray = get_reflection_of_vector_1_towards_vector_2(view, normal);
+	t_xyz reflected_ray = compute_reflected_ray(view, normal);
 	t_xyz reflected_color = TraceRay(mlx, object.position, reflected_ray, RAY_T_MIN, RAY_T_MAX, depth - 1);
 
 	// ?
-	if (object.object == SPHERE)
-		return (add_vectors(multiply_vector(local_color, 1 - object.sphere->reflective),
-				multiply_vector(reflected_color, object.sphere->reflective)));
-	else if (object.object == PLANE)
-		return (add_vectors(multiply_vector(local_color, 1 - object.plane->reflective),
-							multiply_vector(reflected_color, object.plane->reflective)));
-	else if (object.object == CYLINDER)
-		return (add_vectors(multiply_vector(local_color, 1 - object.cylinder->reflective),
-							multiply_vector(reflected_color, object.cylinder->reflective)));
-
-	printf("\n\n\n ####### MAG HIER NIET KOMEN ######\n\n\n");
-	return (normal);		/// filler
+	return (add_vectors(multiply_vector(local_color, 1 - object.reflective),
+			multiply_vector(reflected_color, object.reflective)));
 }
 
 void	ray_trace(t_mlx *mlx)

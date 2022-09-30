@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 19:19:25 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/09/30 15:25:13 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static void	parse_3d_objects(t_mlx *mlx, char *line)
 		mlx->o.cy[cy_count].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
 		mlx->o.cy[cy_count].vector_orientation = parse_xyz(&line,
 				MIN_3D, MAX_3D);
-		mlx->o.cy[cy_count].diameter = parse_float(&line,
-				MIN_DIAMETER, MAX_DIAMETER);
+		mlx->o.cy[cy_count].radius = parse_float(&line,
+				MIN_DIAMETER, MAX_DIAMETER) / (float)2;
 		mlx->o.cy[cy_count].height = parse_float(&line,
 				MIN_CY_HEIGHT, MAX_CY_HEIGHT);
 		mlx->o.cy[cy_count].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
