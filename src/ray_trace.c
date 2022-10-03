@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ray_trace.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 15:34:36 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ray_trace.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/03 13:43:08 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "lighting.h"
 #include "pixel_put.h"
 #include "intersection/i_.h"
+#include "intersection/i_cylinder.h"
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
@@ -57,8 +58,9 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	}
 	else if (object.object == CYLINDER)
 	{
-		normal = substract_vectors(object.position, object.center);
-		normal = normalize_vector(normal);
+		normal = get_cylinder_normal(ray, object);
+		// normal = substract_vectors(object.position, object.center);
+		// normal = normalize_vector(normal);
 	}
 
 

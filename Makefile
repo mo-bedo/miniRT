@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: marvin <marvin@student.42.fr>                +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/09/30 14:23:17 by mweitenb      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
+#    Updated: 2022/10/03 12:55:37 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC				:=	intersection/i_.c \
 					parse_scene/ps_.c \
 					parse_scene/ps_parse_line.c \
 					parse_scene/ps_utils.c \
+					utils/matrices.c \
 					utils/utils_conversion.c \
 					utils/utils.c \
 					utils/vector_math.c \

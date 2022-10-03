@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/30 15:35:56 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/03 13:03:44 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,17 @@ typedef struct s_light
 	t_xyz		origin;
 	float		brightness;
 }	t_light;
+
+typedef struct s_matrix
+{
+	float	a;
+	float	b;
+	float	c;
+	float	d;
+	float	e;
+	float	f;
+}	t_matrix;
+
 
 typedef struct s_plane
 {

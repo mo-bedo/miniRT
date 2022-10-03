@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 13:09:28 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/09/30 13:09:28 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/03 13:46:35 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,93 @@
 //∗ R,G,B colors in range [0,255]: 10, 0, 255
 
 
+
+    // the hit_pt is on the TOP CAP of the cylinder:
+
+    // if (length(hit_pt - cy.top_center) < cy.radius)
+    //        surface_normal = cy.ori;
+
+    // the hit_pt is on the BOTTOM CAP of the cylinder:
+
+    // if (length(hit_pt - cy.bottom_center) < cy.radius)
+    //         surface_normal = -1 * cy.ori;
+
+    // the hit_pt is on the SIDE of the cylinder. We can use dot product to find the point 'pt' on the center line of the cylinder, so that the vector (hit_pt - pt) is orthogonal to the cylinder's orientation.
+
+    // t = dot((hit_pt - cy.bottom_center), cy.ori); // cy.ori should be normalized and so has the length of 1.
+    // pt = cy.bottom_center + t * cy.ori;
+    // surface_normal = normalize(hit_pt - pt)));
+
+// t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
+// {
+// 	t_xyz	hit_point;
+// 	t_xyz	top_cap_center;
+
+// 	hit_point = multiply_vector(ray.direction, cylinder.t);
+// 	top_cap_center = add_vectors(cylinder.center, cylinder.vector_orientation)
+// }
+
+
+
+// {void			get_cylinder_normal(t_vector *normal,
+					// t_object *cylinder, t_point *intersection)
+// 	t_vector	v;
+// 	t_vector	project;
+// 	float		dot;
+// 	t_vector	n;
+
+// 	n = cylinder->normal;
+// 	if (vect_norm(&n) - 1 > 0.05)
+// 		normalize_vector(&cylinder->normal);
+// 	v.x = intersection->x - cylinder->origin.x;
+// 	v.y = intersection->y - cylinder->origin.y;
+// 	v.z = intersection->z - cylinder->origin.z;
+// 	dot = vect_dot(&v, &cylinder->normal);
+// 	project.x = dot * cylinder->normal.x;
+// 	project.y = dot * cylinder->normal.y;
+// 	project.z = dot * cylinder->normal.z;
+// 	normal->x = v.x - project.x;
+// 	normal->y = v.y - project.y;
+// 	normal->z = v.z - project.z;
+// 	normalize_vector(normal);
+// }
+
+// //	Calculeert dan het punt op de ray als je waarde t weet
+// //	van r = p + td
+t_xyz	get_coordinates_of_ray_at_distance(t_ray ray, double distance)
+{
+	t_xyz	math;
+
+	math = multiply_vector(ray.direction, distance);
+	return (add_vectors(ray.origin, math));
+}
+
+t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
+{
+	t_xyz	v;
+	t_xyz	inter_point;
+	t_xyz	project;
+	t_xyz	n;
+	float	dot;
+	
+	// n = cylinder.vector_orientation;
+	// n = normalize_vector(n); // ?
+	inter_point = get_coordinates_of_ray_at_distance(ray, cylinder.t);
+	v.x = inter_point.x = cylinder.center.x;
+	v.y = inter_point.y = cylinder.center.y;
+	v.z = inter_point.z = cylinder.center.z;
+	dot = get_dot_product(v, cylinder.vector_orientation);
+	project.x = dot * cylinder.vector_orientation.x;
+	project.y = dot * cylinder.vector_orientation.y;
+	project.z = dot * cylinder.vector_orientation.z;
+	n.x = v.x - project.x;
+	n.y = v.y - project.y;
+	n.z = v.z - project.z;
+	n = normalize_vector(n);
+	return (n);
+}
+
+
 float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 {
 	float discriminant;
@@ -102,8 +189,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 	else
 		t = t1;
 
+	// 			Dit laten return voor een oneindige cylinder
+	// if (t < RAY_T_MIN || t > RAY_T_MAX)
+	// 	return (-1);
+	// else
+	// 	return (t);	
+	
+	//			Dit checked the 'caps'	
 	float r = local.origin.y + t * local.direction.y;
-
 	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
 		return (t);
 	return (-1);
