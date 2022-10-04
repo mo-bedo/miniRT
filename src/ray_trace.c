@@ -62,7 +62,7 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	else if (object.object == CYLINDER)
 	{
 		normal = get_cylinder_normal(ray, object);
-		printf("%f %f %f\n", normal.x, normal.y, normal.z);
+		// printf("%f %f %f\n", normal.x, normal.y, normal.z);
 		// normal = substract_vectors(object.position, object.center);
 		// normal = normalize_vector(normal);
 	}

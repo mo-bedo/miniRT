@@ -20,7 +20,7 @@
 static t_ray	transpose_ray_cylinder(t_ray ray, t_xyz center)
 {
 	// ray.origin.y = ray.origin.y - center.y;
-	// ray.origin = substract_vectors(ray.origin, center);
+	ray.origin = substract_vectors(ray.origin, center);
 	return ray;
 }
 
@@ -142,12 +142,12 @@ t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
 	// n = cylinder.vector_orientation;
 	// n = normalize_vector(n); // ?
 	inter_point = get_coordinates_of_ray_at_distance(ray, cylinder.t);
-	v.x = inter_point.x + cylinder.center.x;
-	v.y = inter_point.y + cylinder.center.y;
-	v.z = inter_point.z + cylinder.center.z;
-	// v.x = inter_point.x - cylinder.center.x;
-	// v.y = inter_point.y - cylinder.center.y;
-	// v.z = inter_point.z - cylinder.center.z;
+	// v.x = inter_point.x + cylinder.center.x;
+	// v.y = inter_point.y + cylinder.center.y;
+	// v.z = inter_point.z + cylinder.center.z;
+	v.x = inter_point.x - cylinder.center.x;
+	v.y = inter_point.y - cylinder.center.y;
+	v.z = inter_point.z - cylinder.center.z;
 	dot = get_dot_product(v, cylinder.vector_orientation);
 	project.x = dot * cylinder.vector_orientation.x;
 	project.y = dot * cylinder.vector_orientation.y;
@@ -189,7 +189,7 @@ t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
 		one
  */
 
-
+#include "intersection/i_plane.h"
 
 float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 {
@@ -207,74 +207,100 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 	discriminant = (b * b) - 4 * (c * a);
 	if (fabs(discriminant) < RAY_T_MIN || discriminant < 0)
 		return (RAY_T_MAX);
+
 	float t1 = (-b - sqrt(discriminant) / (2 * a));
 	float t2 = (-b + sqrt(discriminant) / (2 * a));
-	// float t;
+	float t;
+
+
+	// 			Dit laten return voor een oneindige cylinder
 	// if (t1 > t2)
 	// 	t = t2;
 	// else
 	// 	t = t1;
-	// 			Dit laten return voor een oneindige cylinder
 	// if (t < RAY_T_MIN || t > RAY_T_MAX)
 	// 	return (-1);
 	// else
 	// 	return (t);	
 
 /*
-	 Check for intersection with infinite cylinder
-		 t1,t2 = ray_inter_infinite_cylinder(P,d)
-		 compute P + t1*d, P + t2*d
+o 	intersect a ray with a cylinder with caps:
+Q 	intersect with the infinite cylidner;
+Q 	check if the intersection is between the planes;
+Q 	intersect with each plane;
+Q 	determine if the intersections are inside caps;
+Q 	out of all intersections choose the on with minimal
+	t
 */
 
-	t_xyz local_ray = add_vectors(ray.origin, ray.direction);
-	t_xyz inter_point1 = multiply_vector(local_ray, t1);
-	t_xyz inter_point2 = multiply_vector(local_ray, t2);
-	float y1 = inter_point1.y;
-	float y2 = inter_point2.y;
-
-/*
-		If intersection, is it between “end caps”?
-			if y > 1 or y < -1 for t1 or t2, toss it
-*/			
-	if (y1 > 1 || y1 < -1 || y2 > 1 || y2 < -1)
+	
+	//			Dit checked the 'caps'	
+	float r1 = ray.origin.y + t * ray.direction.y;
+	float r2 = ray.origin.y + t2 * ray.direction.y;
+	// is het tussen de caps
+	float h = cylinder.height;
+	h /= 2;
+	// if (r1 > 1 || r1 < -1 || r2 > 1 || r2 < -1)
+	if (r1 > h || r1 < -h || r2 > h || r2 < -h)
 		return (-1);
-/*
-	Check for intersection with top end cap
-		Compute ray_inter_plane(t3, plane y = 1)
-		Compute P + t3*d
-*/
+
+	// make planes van 2 caps
+	t_plane	plane1, plane2;
+
+	plane1.center.x = 0; 
+	plane1.center.y = cylinder.height / 2;
+	plane1.center.z = 0;
+	plane1.vector_orientation.x = 0;
+	plane1.vector_orientation.y = 1;
+	plane1.vector_orientation.z = 0;
+	plane2.center.x = 0; 
+	plane2.center.y = - (cylinder.height / 2);
+	plane2.center.z = 0;
+	plane2.vector_orientation.x = 0;
+	plane2.vector_orientation.y = 1;
+	plane2.vector_orientation.z = 0;
+
+	// intersects with cap planes
+	float t_plane1 = get_intersection_ray_plane(ray, plane1);
+	float t_plane2 = get_intersection_ray_plane(ray, plane2);
 
 
-/*
-	If it intersects, is it within cap circle?
-		if x2 + z2 > 1, toss out t3
-	Check intersection with other end cap
-		Compute ray_inter_plane(t4, plane y = -1)
-		Compute P + t4*d
-	If it intersects, is it within cap circle?
-		if x2 + z2 > 1, toss out t4
-		Among all the t’s that remain (1-4), select the smallest non-negative
-		one
+	t_xyz	raakpunt_plane1 = multiply_vector(ray.direction, t_plane1);
+	t_xyz	raakpunt_plane2 = multiply_vector(ray.direction, t_plane2);
+	// zijn plane intersects op de cap
+	// afstand van cap center naar raakpunt en dan check of hoger is dan radius
+	t_xyz verschil_cap_raakpunt1 = add_vectors(plane1.center, raakpunt_plane1);
+	t_xyz verschil_cap_raakpunt2 = add_vectors(plane2.center, raakpunt_plane2);
 
+	float plane_r1 = get_vector_length(verschil_cap_raakpunt1);
+	float plane_r2 = get_vector_length(verschil_cap_raakpunt2);
 
-*/
-
+	float r;
+	if (plane_r1 < cylinder.radius || plane_r2 < cylinder.radius)
+	{
+		printf(" radius\n");
+		return (ft_min_float(plane_r1, plane_r2));
+	}	
 
 	if (t1 > t2)
-		t1 = t2;
-	//			Dit checked the 'caps'	
-	float r = ray.origin.y + t1 * ray.direction.y;
-	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
-		return (t1);
-	return (-1);
+		t = t2;
+	else
+		t = t1;
+
+	return (t);
 }
 
-// 
+
+
+
 // float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 // {
 // 	float discriminant;
 
+
+
 // 	// print_cylinder_values(cylinder);
+// 	ray = transpose_ray_cylinder(ray, cylinder.center);
 
 // 	float a = (ray.direction.x * ray.direction.x) + (ray.direction.z * ray.direction.z);
 // 	float b = 2 * (ray.direction.x * (ray.origin.x - cylinder.center.x) +
@@ -285,26 +311,75 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 // 	discriminant = (b * b) - 4 * (c * a);
 // 	if (fabs(discriminant) < RAY_T_MIN || discriminant < 0)
 // 		return (RAY_T_MAX);
+
+
+//  // volgens codam discord t = (b - sqrt(d)) / a * 2 and inside is t = (b + sqrt(d)) / c * 2
+
 // 	float t1 = (-b - sqrt(discriminant) / (2 * a));
-// 	float t2 = (-b + sqrt(discriminant) / (2 * a));
-// 	float t;
-// 	if (t1 > t2)
-// 		t = t2;
-// 	else
-// 		t = t1;
+// 	float t2 = (-b + sqrt(discriminant) / (2 * c));
+// 	// float t1 = (-b - sqrt(discriminant) / (2 * a));
+// 	// float t2 = (-b + sqrt(discriminant) / (2 * a));
+// 	// float t3 = (-b - sqrt(discriminant) / (2 * a));
+// 	// float t4 = (-b + sqrt(discriminant) / (2 * a));
+// 	// float t;
+// 	// if (t1 > t2)
+// 	// 	t = t2;
+// 	// else
+// 	// 	t = t1;
 // 	// 			Dit laten return voor een oneindige cylinder
-// 	if (t < RAY_T_MIN || t > RAY_T_MAX)
+// 	// if (t < RAY_T_MIN || t > RAY_T_MAX)
+// 	// 	return (-1);
+// 	// else
+// 	// 	return (t);	
+
+// /*
+// 	 Check for intersection with infinite cylinder
+// 		 t1,t2 = ray_inter_infinite_cylinder(P,d)
+// 		 compute P + t1*d, P + t2*d
+// */
+
+// 	t_xyz local_ray = add_vectors(ray.origin, ray.direction);
+// 	t_xyz inter_point1 = multiply_vector(local_ray, t1);
+// 	t_xyz inter_point2 = multiply_vector(local_ray, t2);
+// 	float y1 = inter_point1.y;
+// 	float y2 = inter_point2.y;
+
+// /*
+// 		If intersection, is it between “end caps”?
+// 			if y > 1 or y < -1 for t1 or t2, toss it
+// */			
+// 	if (y1 > 1 || y1 < -1 || y2 > 1 || y2 < -1)
 // 		return (-1);
-// 	else
-// 		return (t);	
-	
+// /*
+// 	Check for intersection with top end cap
+// 		Compute ray_inter_plane(t3, plane y = 1)
+// 		Compute P + t3*d
+// */
+
+
+// /*
+// 	If it intersects, is it within cap circle?
+// 		if x2 + z2 > 1, toss out t3
+// 	Check intersection with other end cap
+// 		Compute ray_inter_plane(t4, plane y = -1)
+// 		Compute P + t4*d
+// 	If it intersects, is it within cap circle?
+// 		if x2 + z2 > 1, toss out t4
+// 		Among all the t’s that remain (1-4), select the smallest non-negative
+// 		one
+
+
+// */
+
+
+// 	if (t1 > t2)
+// 		t1 = t2;
 // 	//			Dit checked the 'caps'	
-// 	float r = ray.origin.y + t * ray.direction.y;
+// 	float r = ray.origin.y + t1 * ray.direction.y;
 // 	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
-// 		return (t);
+// 		return (t1);
 // 	return (-1);
 // }
-
 
 /*
 //	float Cylinder::intersect(Vector cam, Vector ray)
