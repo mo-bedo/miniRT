@@ -24,7 +24,7 @@
 int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 {
 	// mlx->display_menu = -1;
-	mlx_mouse_get_pos(mlx->window, &x, &y);
+	mlx_mouse_get_pos(mlx->mlx, mlx->window, &x, &y);
 	if (keycode == MOUSE_CLICK)
 	{
 		// select object

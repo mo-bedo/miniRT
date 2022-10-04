@@ -16,28 +16,13 @@
 #include "utils/utils.h"
 #include "utils/vector_math.h"
 
-/*
-		Psuedo code cylinder
 
-		Ray_inter_finite_cylinder(P,d):
-		// Check for intersection with infinite cylinder
-		t1,t2 = ray_inter_infinite_cylinder(P,d)
-		compute P + t1*d, P + t2*d
-		// If intersection, is it between “end caps”?
-		if y > 1 or y < -1 for t1 or t2, toss it
-		// Check for intersection with top end cap
-		Compute ray_inter_plane(t3, plane y = 1)
-		Compute P + t3*d
-		// If it intersects, is it within cap circle?
-		if x2 + z2 > 1, toss out t3
-		// Check intersection with other end cap
-		Compute ray_inter_plane(t4, plane y = -1)
-		Compute P + t4*d
-		// If it intersects, is it within cap circle?
-		if x2 + z2 > 1, toss out t4
-		Among all the t’s that remain (1-4), select the smallest non-negative
-		one
- */
+static t_ray	transpose_ray_cylinder(t_ray ray, t_xyz center)
+{
+	// ray.origin.y = ray.origin.y - center.y;
+	// ray.origin = substract_vectors(ray.origin, center);
+	return ray;
+}
 
 //
 //float	find_edges(t_cylinder cylinder, t_ray ray, float t)
@@ -119,6 +104,19 @@
 // 	normalize_vector(normal);
 // }
 
+void	print_cylinder_values(t_cylinder cylinder)
+{
+	printf("cylinder: center  orientation  radius  height  color  specular  reflect\n");
+	printf("  value :                         %.2f   %.2f           %.2f      %.2f \n", cylinder.radius, cylinder.height, cylinder.specular, cylinder.reflective);
+	printf("     x:     %.2f      %.2f                      %.2f     \n", cylinder.center.x, cylinder.vector_orientation.x, cylinder.color.x);
+	printf("     y:     %.2f      %.2f                      %.2f     \n", cylinder.center.y, cylinder.vector_orientation.y, cylinder.color.y);
+	printf("     z:     %.2f      %.2f                      %.2f     \n", cylinder.center.z, cylinder.vector_orientation.z, cylinder.color.z);
+
+
+}
+
+
+
 // //	Calculeert dan het punt op de ray als je waarde t weet
 // //	van r = p + td
 t_xyz	get_coordinates_of_ray_at_distance(t_ray ray, double distance)
@@ -129,6 +127,9 @@ t_xyz	get_coordinates_of_ray_at_distance(t_ray ray, double distance)
 	return (add_vectors(ray.origin, math));
 }
 
+
+
+
 t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
 {
 	t_xyz	v;
@@ -137,12 +138,16 @@ t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
 	t_xyz	n;
 	float	dot;
 	
+	// ray = transpose_ray_cylinder(ray, cylinder.center);
 	// n = cylinder.vector_orientation;
 	// n = normalize_vector(n); // ?
 	inter_point = get_coordinates_of_ray_at_distance(ray, cylinder.t);
-	v.x = inter_point.x = cylinder.center.x;
-	v.y = inter_point.y = cylinder.center.y;
-	v.z = inter_point.z = cylinder.center.z;
+	v.x = inter_point.x + cylinder.center.x;
+	v.y = inter_point.y + cylinder.center.y;
+	v.z = inter_point.z + cylinder.center.z;
+	// v.x = inter_point.x - cylinder.center.x;
+	// v.y = inter_point.y - cylinder.center.y;
+	// v.z = inter_point.z - cylinder.center.z;
 	dot = get_dot_product(v, cylinder.vector_orientation);
 	project.x = dot * cylinder.vector_orientation.x;
 	project.y = dot * cylinder.vector_orientation.y;
@@ -155,60 +160,158 @@ t_xyz	get_cylinder_normal(t_ray ray, t_closest_object cylinder)
 }
 
 
+
+
+/*
+		Psuedo code cylinder
+
+		P = ray.origin (?)
+		d = ray.direction
+
+
+		Ray_inter_finite_cylinder(P,d):
+		// Check for intersection with infinite cylinder
+		t1,t2 = ray_inter_infinite_cylinder(P,d)
+		compute P + t1*d, P + t2*d
+		// If intersection, is it between “end caps”?
+		if y > 1 or y < -1 for t1 or t2, toss it
+		// Check for intersection with top end cap
+		Compute ray_inter_plane(t3, plane y = 1)
+		Compute P + t3*d
+		// If it intersects, is it within cap circle?
+		if x2 + z2 > 1, toss out t3
+		// Check intersection with other end cap
+		Compute ray_inter_plane(t4, plane y = -1)
+		Compute P + t4*d
+		// If it intersects, is it within cap circle?
+		if x2 + z2 > 1, toss out t4
+		Among all the t’s that remain (1-4), select the smallest non-negative
+		one
+ */
+
+
+
 float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 {
 	float discriminant;
-	t_ray local;
-	local = ray;
-	local.direction = normalize_vector(ray.direction);
-	//// TEST ALS CAMERA NIET OP 0,0,0 staat
-	//// zou goed kunnen dat de cylinder op moet worden geschoven zodat hij loodrecht op de y-as staat
-//	local.origin.x = 0;
-//	local.origin.y = 0;
-//	local.origin.z = 0;
 
-	float a = (local.direction.x * local.direction.x) + (local.direction.z * local.direction.z);
-	float b = 2 * (local.direction.x * (local.origin.x - cylinder.center.x) +
-				   local.direction.z * (local.origin.z - cylinder.center.z));
-	float c = (local.origin.x - cylinder.center.x) * (local.origin.x - cylinder.center.x) + \
-            (local.origin.z - cylinder.center.z) * (local.origin.z - cylinder.center.z) -
+	// print_cylinder_values(cylinder);
+	ray = transpose_ray_cylinder(ray, cylinder.center);
+
+	float a = (ray.direction.x * ray.direction.x) + (ray.direction.z * ray.direction.z);
+	float b = 2 * (ray.direction.x * (ray.origin.x - cylinder.center.x) +
+				   ray.direction.z * (ray.origin.z - cylinder.center.z));
+	float c = (ray.origin.x - cylinder.center.x) * (ray.origin.x - cylinder.center.x) + \
+            (ray.origin.z - cylinder.center.z) * (ray.origin.z - cylinder.center.z) -
 			  (cylinder.radius * cylinder.radius);
-
-
 	discriminant = (b * b) - 4 * (c * a);
-
 	if (fabs(discriminant) < RAY_T_MIN || discriminant < 0)
-		return (-1);
-
+		return (RAY_T_MAX);
 	float t1 = (-b - sqrt(discriminant) / (2 * a));
 	float t2 = (-b + sqrt(discriminant) / (2 * a));
-	float t;
-
-	if (t1 > t2)
-		t = t2;
-	else
-		t = t1;
-
+	// float t;
+	// if (t1 > t2)
+	// 	t = t2;
+	// else
+	// 	t = t1;
 	// 			Dit laten return voor een oneindige cylinder
 	// if (t < RAY_T_MIN || t > RAY_T_MAX)
 	// 	return (-1);
 	// else
 	// 	return (t);	
-	
+
+/*
+	 Check for intersection with infinite cylinder
+		 t1,t2 = ray_inter_infinite_cylinder(P,d)
+		 compute P + t1*d, P + t2*d
+*/
+
+	t_xyz local_ray = add_vectors(ray.origin, ray.direction);
+	t_xyz inter_point1 = multiply_vector(local_ray, t1);
+	t_xyz inter_point2 = multiply_vector(local_ray, t2);
+	float y1 = inter_point1.y;
+	float y2 = inter_point2.y;
+
+/*
+		If intersection, is it between “end caps”?
+			if y > 1 or y < -1 for t1 or t2, toss it
+*/			
+	if (y1 > 1 || y1 < -1 || y2 > 1 || y2 < -1)
+		return (-1);
+/*
+	Check for intersection with top end cap
+		Compute ray_inter_plane(t3, plane y = 1)
+		Compute P + t3*d
+*/
+
+
+/*
+	If it intersects, is it within cap circle?
+		if x2 + z2 > 1, toss out t3
+	Check intersection with other end cap
+		Compute ray_inter_plane(t4, plane y = -1)
+		Compute P + t4*d
+	If it intersects, is it within cap circle?
+		if x2 + z2 > 1, toss out t4
+		Among all the t’s that remain (1-4), select the smallest non-negative
+		one
+
+
+*/
+
+
+	if (t1 > t2)
+		t1 = t2;
 	//			Dit checked the 'caps'	
-	float r = local.origin.y + t * local.direction.y;
+	float r = ray.origin.y + t1 * ray.direction.y;
 	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
-		return (t);
+		return (t1);
 	return (-1);
 }
 
+// 
+// float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
+// {
+// 	float discriminant;
+
+// 	// print_cylinder_values(cylinder);
+
+// 	float a = (ray.direction.x * ray.direction.x) + (ray.direction.z * ray.direction.z);
+// 	float b = 2 * (ray.direction.x * (ray.origin.x - cylinder.center.x) +
+// 				   ray.direction.z * (ray.origin.z - cylinder.center.z));
+// 	float c = (ray.origin.x - cylinder.center.x) * (ray.origin.x - cylinder.center.x) + \
+//             (ray.origin.z - cylinder.center.z) * (ray.origin.z - cylinder.center.z) -
+// 			  (cylinder.radius * cylinder.radius);
+// 	discriminant = (b * b) - 4 * (c * a);
+// 	if (fabs(discriminant) < RAY_T_MIN || discriminant < 0)
+// 		return (RAY_T_MAX);
+// 	float t1 = (-b - sqrt(discriminant) / (2 * a));
+// 	float t2 = (-b + sqrt(discriminant) / (2 * a));
+// 	float t;
+// 	if (t1 > t2)
+// 		t = t2;
+// 	else
+// 		t = t1;
+// 	// 			Dit laten return voor een oneindige cylinder
+// 	if (t < RAY_T_MIN || t > RAY_T_MAX)
+// 		return (-1);
+// 	else
+// 		return (t);	
+	
+// 	//			Dit checked the 'caps'	
+// 	float r = ray.origin.y + t * ray.direction.y;
+// 	if (r >= cylinder.center.y && r <= cylinder.center.y + cylinder.height)
+// 		return (t);
+// 	return (-1);
+// }
+
+
+/*
 //	float Cylinder::intersect(Vector cam, Vector ray)
 //	{
-
 //		float a = (ray.x * ray.x) + (ray.z * ray.z);
 //		float b = 2*(ray.x*(cam.x-center.x) + ray.z*(cam.z-center.z));
-//		float c = (cam.x - center.x) * (cam.x - center.x) + \
-//			(cam.z - center.z) * (cam.z - center.z) - (radius*radius);
+//		float c = (cam.x - center.x) * (cam.x - center.x) +  (cam.z - center.z) * (cam.z - center.z) - (radius*radius);
 //
 //		float delta = b*b - 4*(a*c);
 //		if(fabs(delta) < 0.001) return -1.0;
@@ -232,14 +335,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 //{
 //	t_distance	distance;
 //	t_xyz		cylinder_to_origin;
-//	t_ray		local_ray;
+//	t_ray		ray_ray;
 //
 //	double		a;
 //	double		b;
 //	double		c;
 //	double		discriminant;
 //
-//	local_ray.origin = ray.origin;
+//	ray_ray.origin = ray.origin;
 //	cylinder.vector_orientation = normalize_vector(cylinder.vector_orientation);
 //
 //// cross product
@@ -247,13 +350,13 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 ////  0 = same direction
 ////  1 = at angle of 90 degrees
 //// -1 = opposite direction
-//	local_ray.direction = get_cross_product(ray.direction, cylinder.vector_orientation);
+//	ray_ray.direction = get_cross_product(ray.direction, cylinder.vector_orientation);
 //
 //	cylinder_to_origin = substract_vectors(ray.origin, cylinder.center);
 //	// quadratic
 //
 //	a = get_dot_product(ray.origin, cylinder.center);
-//	b = 2 * get_dot_product(local_ray.direction, get_cross_product(cylinder_to_origin, cylinder.center));
+//	b = 2 * get_dot_product(ray_ray.direction, get_cross_product(cylinder_to_origin, cylinder.center));
 //	c = get_dot_product(get_cross_product(cylinder_to_origin, cylinder.center), get_cross_product(cylinder_to_origin, \
 //	cylinder.center)) - pow(cylinder.diameter / 2, 2);
 //	discriminant = pow(b, 2) - 4 * c * a;
@@ -292,3 +395,5 @@ float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
 //	inter_point.t = (inter_point.t1 > 0 ? inter_point.t1 : inter_point.t2);
 //	return (ft_find_edges(cylinder, ray, inter_point));
 //}
+
+*/

@@ -22,7 +22,10 @@ void	ft_putstr(char *s)
 	if (!s)
 		return ;
 	while (*s)
-		write(1, s++, 1);
+	{
+		if (!write(1, s++, 1))
+			return ; 			// error msg?
+	}
 }
 
 void	error_message_and_exit(char *message)

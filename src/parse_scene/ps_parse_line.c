@@ -39,13 +39,13 @@ static void	parse_lights(t_mlx *mlx, char *line)
 
 static void	parse_camera(t_mlx *mlx, char *line)
 {
-	t_xyz	vector_orientation;
-	int		field_of_view;
+	// t_xyz	vector_orientation;
+	// int		field_of_view;
 
 	line++;
 	mlx->camera.origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
-	field_of_view = parse_int(&line, 0, 180) / 2;
+	// vector_orientation = parse_xyz(&line, MIN_3D, MAX_3D);
+	// field_of_view = parse_int(&line, 0, 180) / 2;
 }
 
 static void	parse_2d_objects(t_mlx *mlx, char *line)
