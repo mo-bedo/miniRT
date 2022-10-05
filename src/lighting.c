@@ -16,8 +16,8 @@
 #include "main.h"
 #include "ray_trace.h"
 #include "intersection/i_.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 static bool	light_is_blocked_by_another_object(t_objects o, t_ray ray)
 {

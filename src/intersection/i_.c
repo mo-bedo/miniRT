@@ -17,12 +17,43 @@
 #include "lighting.h"
 #include "intersection/i_.h"
 #include "pixel_put.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
-// void	tranfer_object_values(t_closest_object *object, )
-// {
-// }
+static void	transfer_plane(t_closest_object *closest_object, t_plane plane, double t)
+{
+	closest_object->t = t;
+	closest_object->object = PLANE;
+	closest_object->center = plane.center;
+	closest_object->vector_orientation = plane.vector_orientation;
+	closest_object->color = plane.color;
+	closest_object->specular = plane.specular;
+	closest_object->reflective = plane.reflective;
+}
+
+static void	transfer_sphere(t_closest_object *closest_object, t_sphere sphere, double t)
+{
+	closest_object->t = t;
+	closest_object->object = SPHERE;
+	closest_object->center = sphere.center;
+	closest_object->radius = sphere.radius;
+	closest_object->color = sphere.color;
+	closest_object->specular = sphere.specular;
+	closest_object->reflective = sphere.reflective;
+}
+
+static void	transfer_cylinder(t_closest_object *closest_object, t_cylinder cylinder, double t)
+{
+	closest_object->t = t;
+	closest_object->object = CYLINDER;
+	closest_object->center = cylinder.center;
+	closest_object->vector_orientation = cylinder.vector_orientation;
+	closest_object->radius = cylinder.radius;
+	closest_object->height = cylinder.height;
+	closest_object->color = cylinder.color;
+	closest_object->specular = cylinder.specular;
+	closest_object->reflective = cylinder.reflective;
+}
 
 static void	compute_normal(t_closest_object *object)
 {
@@ -36,7 +67,6 @@ static void	compute_normal(t_closest_object *object)
 }
 
 // Find the closest intersection between a ray and objects in the scene.
-// dit kan later nog opgeschoont worden, nu teveel herhaling
 t_closest_object	get_closest_intersection(t_objects o, t_ray ray,
 	float min_distance, float max_distance)
 {
@@ -46,22 +76,13 @@ t_closest_object	get_closest_intersection(t_objects o, t_ray ray,
 
 	closest_object.t = RAY_T_MAX;
 	closest_object.object = NONE;
+
 	i = 0;
 	while (i < o.pl_count)
 	{
 		t = get_intersection_ray_plane(ray, o.pl[i]);
 		if (t < closest_object.t && min_distance < t && t < max_distance)
-		{
-			closest_object.t = t;
-			closest_object.object = PLANE;
-			closest_object.center = o.pl[i].center;
-			closest_object.vector_orientation = o.pl[i].vector_orientation;
-			// closest_object.radius = o.pl[i].radius;
-			// closest_object.height = o.pl[i].height;
-			closest_object.color = o.pl[i].color;
-			closest_object.specular = o.pl[i].specular;
-			closest_object.reflective = o.pl[i].reflective;
-		}
+			transfer_plane(&closest_object, o.pl[i], t);
 		i++;
 	}
 	i = 0;
@@ -69,36 +90,17 @@ t_closest_object	get_closest_intersection(t_objects o, t_ray ray,
 	{
 		t = get_intersection_ray_sphere(ray, o.sp[i]);
 		if (t < closest_object.t && min_distance < t && t < max_distance)
-		{
-			closest_object.t = t;
-			closest_object.object = SPHERE;
-			closest_object.center = o.sp[i].center;
-			closest_object.radius = o.sp[i].radius;
-			// closest_object.height = o.sp[i].height;
-			closest_object.color = o.sp[i].color;
-			closest_object.specular = o.sp[i].specular;
-			closest_object.reflective = o.sp[i].reflective;
-		}
+			transfer_sphere(&closest_object, o.sp[i], t);
 		i++;
 	}
-	i = 0;
-	while (i < o.cy_count)
-	{
-		t = get_intersection_ray_sphere(ray, o.sp[i]);
-		if (t < closest_object.t && min_distance < t && t < max_distance)
-		{
-			closest_object.t = t;
-			closest_object.object = CYLINDER;
-			closest_object.center = o.cy[i].center;
-			closest_object.vector_orientation = o.cy[i].vector_orientation;
-			closest_object.radius = o.cy[i].radius;
-			closest_object.height = o.cy[i].height;
-			closest_object.color = o.cy[i].color;
-			closest_object.specular = o.cy[i].specular;
-			closest_object.reflective = o.cy[i].reflective;
-		}
-		i++;
-	}
+	// i = 0;
+	// while (i < o.cy_count)
+	// {
+	// 	t = get_intersection_ray_cylinder(ray, o.cy[i]);
+	// 	if (t < closest_object.t && min_distance < t && t < max_distance)
+	// 		transfer_cylinder(&closest_object, o.cy[i], t);
+	// 	i++;
+	// }
 	closest_object.position = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);

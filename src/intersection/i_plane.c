@@ -14,8 +14,8 @@
 
 #include "math.h"
 #include "ray_trace.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 double	get_dot_product(t_xyz v1, t_xyz v2);
 t_xyz	substract_vectors(t_xyz v1, t_xyz v2);

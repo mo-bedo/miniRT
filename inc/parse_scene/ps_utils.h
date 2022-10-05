@@ -22,6 +22,8 @@ t_xyz	parse_xyz(char **str, int min, int max);
 enum e_xyz_range {
 	MIN_COLOR			= 0,
 	MAX_COLOR			= 255,
+	MIN_FOV				= 0,
+	MAX_FOV				= 180,
 	MIN_LIGHTING_RATIO	= 0,
 	MAX_LIGHTING_RATIO	= 1,
 	MIN_XYZ				= -10000,
@@ -31,9 +33,13 @@ enum e_xyz_range {
 	MIN_BRIGHTNESS		= 0,
 	MAX_BRIGHTNESS		= 1,
 	MIN_DIAMETER		= 0,
-	MAX_DIAMETER		= 100000,
+	MAX_DIAMETER		= 10000,
+	MIN_SPECULAR		= 0,
+	MAX_SPECULAR		= 10000,
+	MIN_REFLECTIVE		= 0,
+	MAX_REFLECTIVE		= 1,
 	MIN_CY_HEIGHT		= 0,
-	MAX_CY_HEIGHT		= 100
+	MAX_CY_HEIGHT		= 100,
 };
 
 #endif

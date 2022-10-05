@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parse_scene/ps_utils.h"
-#include "utils/utils.h"
+#include "utils/u_.h"
 
 static void	skip_chars_of_parsed_number(char **str)
 {
@@ -37,7 +37,7 @@ int	parse_int(char **str, int min, int max)
 
 	number = ft_atoi(*str);
 	if (number < min || number > max)
-		error_message_and_exit("integer input error");
+		error_message_and_exit("Integer input error");
 	skip_chars_of_parsed_number(str);
 	return (number);
 }
@@ -48,7 +48,7 @@ float	parse_float(char **str, int min, int max)
 
 	number = ft_atof(*str);
 	if (number < min || number > max)
-		error_message_and_exit("float value input error");
+		error_message_and_exit("Float value input error");
 	skip_chars_of_parsed_number(str);
 	return (number);
 }

@@ -17,19 +17,30 @@
 #include "lighting.h"
 #include "pixel_put.h"
 #include "intersection/i_.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_rotate_vector.h"
+#include "utils/u_vector_math.h"
 
+// fastgraph.com/makegames/3drotation
+// tutorialandexample.com/3d-rotation
+
+# define PI 3.14f
+
+
+// 
 static t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera,
 	float x, float y)
 {
 	t_xyz	vector;
-
-	vector.x = x * camera.viewport_size / WINDOW_HEIGHT;
-	vector.y = y * camera.viewport_size / WINDOW_HEIGHT;
-	vector.z = camera.projection_plane_z;
-	return (vector);
+	t_xyz	rotation_angles;
+	int viewport_size = 1;
+	
+	vector.x = x * viewport_size / (float)WINDOW_HEIGHT;
+	vector.y = y * viewport_size / (float)WINDOW_HEIGHT;
+	vector.z = camera.canvas_distance;
+	return (rotate_vector(vector, camera.rotation_angles));
 }
+
 
 static t_ray	compute_ray(t_objects o, t_xyz origin,
 	t_xyz direction, float min_distance)
@@ -81,20 +92,23 @@ void	ray_trace(t_mlx *mlx)
 	int		x;
 	int		y;
 
+	clock_t CPU_time_3;
 	x = -WINDOW_WIDTH / 2;
 	while (x < WINDOW_WIDTH / 2)
 	{
 		y = -WINDOW_HEIGHT / 2;
 		while (y < WINDOW_HEIGHT / 2)
 		{
+			
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			ray = compute_ray(mlx->o, mlx->camera.origin, direction,
-					mlx->camera.projection_plane_z);
+			ray = compute_ray(mlx->o, mlx->camera.center, direction, mlx->camera.canvas_distance);
 			color = get_color(mlx, ray, RECURSION_DEPTH);
 			my_mlx_pixel_put(&mlx->img, x, y, color);
 			y++;
 		}
 		x++;
 	}
+	CPU_time_3 = clock();
+    printf("Time after ray_trace\t: %ld\n", CPU_time_3);
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->img.img, 0, 0);
 }

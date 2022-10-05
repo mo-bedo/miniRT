@@ -14,8 +14,8 @@
 
 #include "math.h"
 #include "ray_trace.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 // plaatst midden van sphere in het midden van xyz
 static t_ray	transpose_ray(t_ray ray, t_xyz centre)
@@ -44,7 +44,7 @@ float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 	ray = transpose_ray(ray, sphere.center);
 	a = get_dot_product(ray.direction, ray.direction);
 	b = 2 * get_dot_product(ray.origin, ray.direction);
-	c = get_dot_product(ray.origin, ray.origin) - sphere.radius * sphere.radius;
+	c = get_dot_product(ray.origin, ray.origin) - sphere.radius * sphere.radius; //sphere.radius_squared sneller?
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a == 0)
 		return (RAY_T_MAX);

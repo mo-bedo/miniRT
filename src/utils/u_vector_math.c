@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.h"
-#include "utils/vector_math.h"
+#include "utils/u_vector_math.h"
 #include <math.h>
 
 //    			B
@@ -96,4 +96,65 @@ t_xyz	normalize_vector(t_xyz vector)
 
 	magnitude = get_vector_length(vector);
 	return (divide_vector(vector, magnitude));
+}
+
+// 												-1
+// angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
+// 													dot van vector_normal 2)
+// cos tot de macht -1 == acos()
+double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
+{
+	t_xyz	unit_v1;
+	t_xyz	unit_v2;
+	double	angle;
+
+	unit_v1 = normalize_vector(v1);
+	unit_v2 = normalize_vector(v2);
+	angle = get_dot_product(unit_v1, unit_v2);
+	// DEBUG_STR("");
+	// DEBUG_DOUBLE(unit_v1.x);
+	// DEBUG_DOUBLE(unit_v1.y);
+	// DEBUG_DOUBLE(unit_v1.z);
+	// DEBUG_DOUBLE(unit_v2.x);
+	// DEBUG_DOUBLE(unit_v2.y);
+	// DEBUG_DOUBLE(unit_v2.z);
+	// DEBUG_DOUBLE(angle);
+	if (angle != angle)
+		return (0);
+	return (acos(angle));
+}
+
+t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
+{
+	t_xyz	angles;
+	t_xyz	v1;
+	t_xyz	v2;
+
+	v1 = vector1;
+	v1.x = 0;
+	v2 = vector2;
+	v2.x = 0;
+		angles.x = get_angle_between_vectors(v1, v2);
+	if (v2.z >= 0 && v1.y < v2.y)
+		angles.x *= -1;
+	if (v2.z < 0 && v1.y > v2.y)
+		angles.x *= -1;
+
+	v1 = vector1;
+	v1.y = 0;
+	v2 = vector2;
+	v2.y = 0;
+		angles.y = get_angle_between_vectors(v1, v2);
+	if (v2.z >= 0 && v1.x > v2.x)
+		angles.y *= -1;
+	if (v2.z < 0 && v1.x < v2.x)
+		angles.y *= -1;
+
+	angles.z = 0;
+	if (v2.z < 0)
+	{
+		angles.y -= (180 * (3.14 / 180));
+		angles.z -= -180 * (3.14 / 180);
+	}
+	return (angles);
 }

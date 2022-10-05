@@ -13,8 +13,8 @@
 #include "main.h"
 #include "parse_scene/ps_parse_line.h"
 #include "parse_scene/ps_utils.h"
-#include "utils/vector_math.h"
-#include "utils/utils.h"
+#include "utils/u_vector_math.h"
+#include "utils/u_.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
@@ -42,16 +42,22 @@ static char	*add_buffer_to_line(char *old, char buffer)
 	return (new);
 }
 
-static char	*get_next_line(int fd)
+static int	get_next_line(char **line, int fd)
 {
 	char	buffer;
-	char	*line;
+	int		return_value;
 
-	line = (char *)ft_calloc(sizeof(char), 1);
-	line[0] = 0;
-	while (read(fd, &buffer, 1) && buffer != '\n')
-		line = add_buffer_to_line(line, buffer);
-	return (line);
+	*line[0] = 0;
+	buffer = 0;
+	return_value = 1;
+	while (return_value && buffer != '\n')
+	{
+		return_value = read(fd, &buffer, 1);
+		*line = add_buffer_to_line(*line, buffer);
+	}
+	if (buffer == '\n')
+		*line = add_buffer_to_line(*line, buffer);
+	return (return_value);
 }
 
 static void	check_if_capital_elements_are_declared_multiple_times(char *line)
@@ -77,31 +83,23 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 		error_message_and_exit("Too many objects in scene");
 }
 
-// BUG		: als scene.rt eindigt op \n -> neverending loop
 void	parse_scene(t_mlx	*mlx, char *input)
 {
 	int		rt_file;
+	int		there_is_a_new_line;
 	char	*line;
 
-	mlx->o.pl_count = 0;
-	mlx->o.sp_count = 0;
-	mlx->o.cy_count = 0;
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
-		error_message_and_exit("file does not exist");
+		error_message_and_exit("File does not exist");
 	while (1)
 	{
-		line = get_next_line(rt_file);
-		if (!line || !line[0])
-		{
-			free(line);
-			return ;
-		}
-		if (ft_strncmp(line, "\n", 1) != 0)
-		{
-			check_if_capital_elements_are_declared_multiple_times(line);
-			parse_line(mlx, line);
-		}
+		line = (char *)ft_calloc(sizeof(char), 1);
+		there_is_a_new_line = get_next_line(&line, rt_file);
+		check_if_capital_elements_are_declared_multiple_times(line);
+		parse_line(mlx, line);
 		free(line);
+		if (!there_is_a_new_line)
+			return ;
 	}
 }

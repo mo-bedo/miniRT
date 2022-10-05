@@ -15,10 +15,12 @@
 
 # include <stdbool.h>
 
+# include <time.h>
 # include <stdio.h>
 # define DEBUG_STR(X) printf(#X" = %s\n", X);
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
+# define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
 // IMAGE
 typedef struct s_img
@@ -44,11 +46,29 @@ typedef struct s_xy
 	float		y;
 }	t_xy;
 
+// typedef struct s_matrix
+// {
+// 	float		a;
+// 	float		b;
+// 	float		c;
+// 	float		d;
+// 	float		e;
+// 	float		f;
+// 	float		g;
+// 	float		h;
+// 	float		i;
+// }	t_matrix;
+
+typedef struct s_matrix
+{
+	float		matrix[3][3];
+}	t_matrix;
+
 // CAMERA
 typedef struct s_camera {
-	t_xyz		origin;
-	int			viewport_size;
-	int			projection_plane_z;
+	t_xyz		center;
+	t_xyz		rotation_angles;
+	float		canvas_distance;
 }	t_camera;
 
 // LIGHTS
@@ -78,6 +98,7 @@ typedef struct s_sphere
 {
 	t_xyz		center;
 	float		radius;
+	float		radius_squared;
 	t_xyz		color;
 	int			specular;
 	float		reflective;
@@ -121,6 +142,9 @@ enum e_values{
 	WINDOW_WIDTH	= 640,
 	WINDOW_HEIGHT	= 480,
 	MAX_OBJECTS		= 100,
+	X				= 0,
+	Y				= 1,
+	Z				= 2,
 	LENGTH_NORMAL	= 1,
 	RECURSION_DEPTH	= 3,
 	NONE			= 0,

@@ -12,7 +12,7 @@
 
 #include <mlx.h>
 
-#include "utils/utils.h"
+#include "utils/u_.h"
 
 // Clamps a color to the canonical color range.
 static int	create_color(int transparancy, int red, int green, int blue)
