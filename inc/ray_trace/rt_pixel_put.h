@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_.h                                              :+:    :+:            */
+/*   rt_pixel_put.h                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:56:25 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/10/05 20:08:22 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS__H
-# define PS__H
+#ifndef RT_PIXEL_PUT_H
+# define RT_PIXEL_PUT_H
 
 # include "main.h"
 
-void	parse_scene(t_mlx	*mlx, int argc, char *input);
+void	pixel_put(t_img *img, int x, int y, t_xyz color);
 
 #endif

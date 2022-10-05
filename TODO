@@ -1,7 +1,13 @@
-- input bonus parsing (ook opvangen wat er gebeurt als scene bonus niet specificeert)
-- camera dynamisch maken en input parsing
 - cylinder toevoegen
-- i_.c refactor
 - tests schrijven
-- colored and multi-spot lights
-- door lege regel in .rt wordt alle info die daarop volgt genegeerd
+- user objecten laten roteren en diameter en hoogte aanpassen
+- Color disruption: checkerboard.
+- One other 2nd degree object: Cone, Hyperboloid, Paraboloid..
+- Handle bump map textures.
+- gaat iets mis met camera orientation als z 0 is
+- parser laten opvangen als opgegeven waarde niet in float past, bijv. 2.234234234etc
+- parser: letter voor kleuren (bijv. a255,255,255) geeft geen foutmelding
+- mag dit? in ray_trace.h
+-   # define RAY_T_MIN 0.0001f
+-   # define RAY_T_MAX 1.0e30f
+-   

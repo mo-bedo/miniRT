@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 19:17:03 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:46:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 # include "main.h"
 
+void	error_message_and_exit(char *message);
 int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
 t_xyz	parse_xyz(char **str, int min, int max);
+t_xyz	parse_vector_orientation(char **str);
 
 enum e_xyz_range {
 	MIN_COLOR			= 0,
 	MAX_COLOR			= 255,
 	MIN_FOV				= 0,
 	MAX_FOV				= 180,
-	MIN_LIGHTING_RATIO	= 0,
-	MAX_LIGHTING_RATIO	= 1,
 	MIN_XYZ				= -10000,
 	MAX_XYZ				= 10000,
 	MIN_3D				= -1,

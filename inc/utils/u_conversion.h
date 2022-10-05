@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_conversion.h                                 :+:    :+:            */
+/*   u_conversion.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:00:06 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:55:45 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_CONVERSION_H
-# define UTILS_CONVERSION_H
+#ifndef U_CONVERSION_H
+# define U_CONVERSION_H
 
 # include "main.h"
 

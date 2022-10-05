@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lighting.h                                         :+:    :+:            */
+/*   ps_parse_objects.h                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 18:12:43 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 20:37:06 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHTING_H
-# define LIGHTING_H
+#ifndef PS_PARSE_OBJECTS_H
+# define PS_PARSE_OBJECTS_H
 
 # include "main.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-double	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object);
+void	parse_plane(t_mlx *mlx, char *line);
+void	parse_sphere(t_mlx *mlx, char *line);
+void	parse_cylinder(t_mlx *mlx, char *line);
 
 #endif

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_.h                                              :+:    :+:            */
+/*   rt_lighting.h                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:56:25 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/10/05 20:04:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS__H
-# define PS__H
+#ifndef RT_LIGHTING_H
+# define RT_LIGHTING_H
 
 # include "main.h"
 
-void	parse_scene(t_mlx	*mlx, int argc, char *input);
+t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
+t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object);
 
 #endif

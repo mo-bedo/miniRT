@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_.c                                               :+:    :+:            */
+/*   u_compare.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:44:02 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 19:48:51 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,51 @@
 #include <string.h>
 #include <math.h>
 
-void	ft_putstr(char *s)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (!s)
-		return ;
-	while (*s)
-		write(1, s++, 1);
-}
-
-int	ft_is_digit(int c)
-{
-	if (c && c >= '0' && c <= '9')
-		return (1);
+	while (n-- && (*s1 || *s2))
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - *s2);
+		s1++;
+		s2++;
+	}
 	return (0);
 }
 
-int	ft_is_space(char c)
+char	*ft_strrchr(const char *s, int c)
 {
-	if (c && (c == ' ' || c == '\f' || c == '\n'
-			|| c == '\r' || c == '\t' || c == '\v'))
-		return (1);
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	while (i >= 0)
+	{
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+		i--;
+	}
 	return (0);
 }
 
-static void	*ft_memset(void *s, int c, size_t n)
+double	get_smallest_double(double a, double b)
 {
-	unsigned char	*ptr;
-
-	ptr = s;
-	while (n-- > 0)
-		ptr[n] = c;
-	return (s);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+float	ft_min_float(float a, float b)
 {
-	void	*ret;
-
-	ret = malloc(count * size);
-	if (!ret)
-		return (0);
-	return (ft_memset(ret, 0, count * size));
+	if (a < b)
+		return (a);
+	return (b);
 }
 
-void	initialize_empty_vector(t_xyz *vector)
+float	ft_max_float(float a, float b)
 {
-	vector->x = 0;
-	vector->y = 0;
-	vector->z = 0;
+	if (a > b)
+		return (a);
+	return (b);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.h                                            :+:    :+:            */
+/*   u_rotate_vector.h                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 16:07:41 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 13:54:58 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_ROTATIONS_H
-# define U_ROTATIONS_H
+#ifndef U_ROTATE_VECTOR_H
+# define U_ROTATE_VECTOR_H
 
 # include "main.h"
 

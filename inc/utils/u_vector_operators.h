@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_.h                                              :+:    :+:            */
+/*   u_vector_operators.h                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:56:25 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 19:25:43 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS__H
-# define PS__H
+#ifndef U_VECTOR_OPERATORS_H
+# define U_VECTOR_OPERATORS_H
 
 # include "main.h"
 
-void	parse_scene(t_mlx	*mlx, int argc, char *input);
+t_xyz	add_vectors(t_xyz v1, t_xyz v2);
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+t_xyz	multiply_vector(t_xyz vector, double number);
+t_xyz	divide_vector(t_xyz vector, double number);
 
-#endif
+#endif 		// VECTOR_MATH

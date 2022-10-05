@@ -6,14 +6,14 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:38:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:07:47 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
 #include "math.h"
-#include "ray_trace.h"
+#include "ray_trace/rt_.h"
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
@@ -44,7 +44,7 @@ float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 	ray = transpose_ray(ray, sphere.center);
 	a = get_dot_product(ray.direction, ray.direction);
 	b = 2 * get_dot_product(ray.origin, ray.direction);
-	c = get_dot_product(ray.origin, ray.origin) - sphere.radius * sphere.radius; //sphere.radius_squared sneller?
+	c = get_dot_product(ray.origin, ray.origin) - sphere.radius * sphere.radius;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a == 0)
 		return (RAY_T_MAX);

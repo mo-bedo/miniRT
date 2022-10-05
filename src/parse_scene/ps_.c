@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/30 12:57:31 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:58:22 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@
 #include <fcntl.h>
 #include <math.h>
 #include <unistd.h>
+
+static bool	has_no_valid_extension(char *filename)
+{
+	char	*extension;
+
+	extension = ft_strrchr(filename, '.');
+	if (!extension || ft_strncmp(extension, ".rt", 4) != 0)
+		return (true);
+	return (false);
+}
 
 static char	*add_buffer_to_line(char *old, char buffer)
 {
@@ -71,8 +81,8 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 		a++;
 	else if (ft_strncmp(line, "C", 1) == 0)
 		c++;
-	else if (ft_strncmp(line, "L", 1) == 0)
-		l++;
+	// else if (ft_strncmp(line, "L", 1) == 0)
+		// l++;
 	else
 		total_objects++;
 	if (a > 1 || l > 1)
@@ -83,12 +93,14 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 		error_message_and_exit("Too many objects in scene");
 }
 
-void	parse_scene(t_mlx	*mlx, char *input)
+void	parse_scene(t_mlx	*mlx, int argc, char *input)
 {
 	int		rt_file;
 	int		there_is_a_new_line;
 	char	*line;
 
+	if (argc != 2 || has_no_valid_extension(input))
+		error_message_and_exit("Please provide a scene description file");
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
 		error_message_and_exit("File does not exist");

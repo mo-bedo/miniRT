@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/30 19:27:03 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 19:32:17 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,6 @@ typedef struct s_xy
 	float		y;
 }	t_xy;
 
-// typedef struct s_matrix
-// {
-// 	float		a;
-// 	float		b;
-// 	float		c;
-// 	float		d;
-// 	float		e;
-// 	float		f;
-// 	float		g;
-// 	float		h;
-// 	float		i;
-// }	t_matrix;
-
-typedef struct s_matrix
-{
-	float		matrix[3][3];
-}	t_matrix;
-
 // CAMERA
 typedef struct s_camera {
 	t_xyz		center;
@@ -74,14 +56,13 @@ typedef struct s_camera {
 // LIGHTS
 typedef struct s_ambient_light
 {
-	float		lighting_ratio;
 	t_xyz		color;
 }	t_ambient_light;
 
 typedef struct s_light
 {
 	t_xyz		origin;
-	float		brightness;
+	t_xyz		color;
 }	t_light;
 
 // OBJECTS
@@ -98,7 +79,6 @@ typedef struct s_sphere
 {
 	t_xyz		center;
 	float		radius;
-	float		radius_squared;
 	t_xyz		color;
 	int			specular;
 	float		reflective;
@@ -130,10 +110,10 @@ typedef struct s_mlx {
 	void			*mlx;
 	void			*window;
 	t_img			img;
-	double			aspect_ratio;
 	t_camera		camera;
 	t_ambient_light	ambient_light;
-	t_light			light;
+	t_light			light[100];
+	int				light_count;
 	t_objects		o;
 	t_xyz			background_color;
 }	t_mlx;

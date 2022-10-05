@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pixel_put.h                                        :+:    :+:            */
+/*   i_cylinder.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 17:45:31 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 15:52:28 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/10/05 20:07:17 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIXEL_PUT_H
-# define PIXEL_PUT_H
+#ifndef I_CYLINDER_H
+# define I_CYLINDER_H
 
+# include <stdbool.h>
 # include "main.h"
+# include "ray_trace/rt_.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, t_xyz color);
+float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder);
 
 #endif

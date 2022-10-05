@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   plane.c                                            :+:    :+:            */
+/*   i_plane.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:10:30 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:07:39 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
 #include "math.h"
-#include "ray_trace.h"
+#include "ray_trace/rt_.h"
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 

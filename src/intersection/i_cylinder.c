@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_vector_math.h                                    :+:    :+:            */
+/*   i_cylinder.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:25:58 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/10/05 20:07:54 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_VECTOR_MATH_H
-# define U_VECTOR_MATH_H
+#include <stdbool.h>
 
-# include "main.h"
-# include "utils/u_vector_operators.h"
+#include "math.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
-double	get_vector_length(t_xyz vector);
-double	get_dot_product(t_xyz v1, t_xyz v2);
-t_xyz	normalize_vector(t_xyz vector);
-double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
+static t_ray	transpose_ray(t_ray ray, t_xyz centre)
+{
+	ray.origin = substract_vectors(ray.origin, centre);
+	return (ray);
+}
 
-#endif 		// VECTOR_MATH
+float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
+{
+	ray = transpose_ray(ray, cylinder.center);
+	return (RAY_T_MAX);
+}
