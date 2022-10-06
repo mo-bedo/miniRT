@@ -10,4 +10,4 @@
 - mag dit? in ray_trace.h
 -   # define RAY_T_MIN 0.0001f
 -   # define RAY_T_MAX 1.0e30f
--   
+-   test
