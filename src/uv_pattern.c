@@ -28,6 +28,7 @@ t_uv	map_plane_to_2d(t_xyz position)
 	return (uv);
 }
 
+// www.raytracerchallenge.com/bonus/texture-mapping.html
 t_uv	map_sphere_to_2d(t_closest_object object)
 {
 	t_uv	uv;
