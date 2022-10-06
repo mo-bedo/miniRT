@@ -110,6 +110,11 @@ void	parse_line(t_mlx *mlx, char *line)
 	if (ft_strncmp(line, "#", 1) == 0 || ft_strncmp(line, "\n", 1) == 0
 		|| !line[0])
 		return ;
+	else if (ft_strncmp(line, "B", 1) == 0)
+	{
+			line += 1;
+			mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+	}
 	else if (ft_strncmp(line, "A", 1) == 0 || ft_strncmp(line, "L", 1) == 0)
 		parse_lights(mlx, line);
 	else if (ft_strncmp(line, "C", 1) == 0)

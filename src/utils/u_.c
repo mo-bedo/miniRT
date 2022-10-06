@@ -66,3 +66,17 @@ void	initialize_empty_vector(t_xyz *vector)
 	vector->y = 0;
 	vector->z = 0;
 }
+
+void	initialize_black_color(t_xyz *vector)
+{
+	vector->x = 0;
+	vector->y = 0;
+	vector->z = 0;
+}
+
+void	initialize_white_color(t_xyz *vector)
+{
+	vector->x = 255;
+	vector->y = 255;
+	vector->z = 255;
+}

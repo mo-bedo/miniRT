@@ -14,6 +14,7 @@
 #include <math.h>
 
 #include "main.h"
+#include "uv_pattern.h"
 #include "ray_trace/rt_.h"
 #include "intersection/i_.h"
 #include "utils/u_.h"
@@ -24,7 +25,7 @@ static bool	light_is_blocked_by_another_object(t_objects o, t_ray ray)
 	t_closest_object	object;
 
 	object = get_closest_intersection(o, ray, LENGTH_NORMAL);
-	return (object.object);
+	return (object.object_id);
 }
 
 // computes how ray would reflect from surface
@@ -119,8 +120,12 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 		intensity = add_vectors(intensity, compute_specular_reflection(
 					light_ray, view, object, mlx->light[i].color));
 	}
-	color.x = (mlx->ambient_light.color.x + intensity.x) * object.color.x;
-	color.y = (mlx->ambient_light.color.y + intensity.y) * object.color.y;
-	color.z = (mlx->ambient_light.color.z + intensity.z) * object.color.z;
+	if (object.checkerboard)
+		color = get_checkers_color(object);
+	else
+		initialize_empty_vector(&color);
+	color.x += (mlx->ambient_light.color.x + intensity.x) * object.color.x;
+	color.y += (mlx->ambient_light.color.y + intensity.y) * object.color.y;
+	color.z += (mlx->ambient_light.color.z + intensity.z) * object.color.z;
 	return (color);
 }

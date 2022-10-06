@@ -39,7 +39,7 @@ enum e_xyz_range {
 	MIN_REFLECTIVE		= 0,
 	MAX_REFLECTIVE		= 1,
 	MIN_CY_HEIGHT		= 0,
-	MAX_CY_HEIGHT		= 100,
+	MAX_CY_HEIGHT		= 600,
 };
 
 #endif

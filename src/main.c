@@ -36,9 +36,7 @@ static void	init(t_mlx	*mlx)
 		error_message_and_exit("Can't creat mlx_window");
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-	mlx->background_color.x = MAX_COLOR;
-	mlx->background_color.y = MAX_COLOR;
-	mlx->background_color.z = MAX_COLOR;
+	initialize_white_color(&mlx->background_color);
 	mlx->o.pl_count = 0;
 	mlx->o.sp_count = 0;
 	mlx->o.cy_count = 0;

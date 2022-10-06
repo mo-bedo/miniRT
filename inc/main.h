@@ -40,11 +40,11 @@ typedef struct s_xyz
 	float		z;
 }	t_xyz;
 
-typedef struct s_xy
+typedef struct s_uv
 {
-	float		x;
-	float		y;
-}	t_xy;
+	float		u;
+	float		v;
+}	t_uv;
 
 // CAMERA
 typedef struct s_camera {
@@ -71,6 +71,7 @@ typedef struct s_plane
 	t_xyz		center;
 	t_xyz		vector_orientation;
 	t_xyz		color;
+	bool		checkerboard;
 	int			specular;
 	float		reflective;
 }	t_plane;
@@ -80,6 +81,7 @@ typedef struct s_sphere
 	t_xyz		center;
 	float		radius;
 	t_xyz		color;
+	bool		checkerboard;
 	int			specular;
 	float		reflective;
 }	t_sphere;
@@ -91,6 +93,7 @@ typedef struct s_cylinder
 	float		radius;
 	float		height;
 	t_xyz		color;
+	bool		checkerboard;
 	int			specular;
 	float		reflective;
 }	t_cylinder;

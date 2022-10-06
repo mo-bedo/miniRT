@@ -38,6 +38,8 @@ static void	skip_chars_of_parsed_number(char **str)
 	}
 	if (**str && **str == ',')
 		*str += 1;
+	while (**str && ft_is_space(**str))
+		*str += 1;
 }
 
 float	parse_float(char **str, int min, int max)

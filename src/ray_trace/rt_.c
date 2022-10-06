@@ -65,7 +65,7 @@ t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
 {
 	t_xyz	view;
 
-	if (!ray.object.object)
+	if (!ray.object.object_id)
 		return (mlx->background_color);
 	view = multiply_vector(ray.direction, -1);
 	ray.object.color = compute_lighting(mlx, view, ray.object);

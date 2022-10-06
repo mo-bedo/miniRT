@@ -35,7 +35,7 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 // t1 < RAY_T_MIN 		this means it can reflect itself
 float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 {
-	t_xy	xy;
+	t_uv	uv;
 	double	a;
 	double	b;
 	double	c;
@@ -48,7 +48,7 @@ float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a == 0)
 		return (RAY_T_MAX);
-	xy.x = (-b + sqrt(discriminant)) / (2 * a);
-	xy.y = (-b - sqrt(discriminant)) / (2 * a);
-	return (ft_min_float(xy.x, xy.y));
+	uv.u = (-b + sqrt(discriminant)) / (2 * a);
+	uv.v = (-b - sqrt(discriminant)) / (2 * a);
+	return (ft_min_float(uv.u, uv.v));
 }

@@ -11,13 +11,13 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	false
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
 MLX				:= -g -Iinc -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
 CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror
@@ -53,6 +53,7 @@ SRC				:=	main.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \
+					uv_pattern.c \
 					interaction.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)

@@ -31,10 +31,11 @@ static void	transfer_plane(t_closest_object *closest_object, t_objects o,
 		if (t < closest_object->t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object->t = t;
-			closest_object->object = PLANE;
+			closest_object->object_id = PLANE;
 			closest_object->center = o.pl[i].center;
 			closest_object->vector_orientation = o.pl[i].vector_orientation;
 			closest_object->color = o.pl[i].color;
+			closest_object->checkerboard = o.pl[i].checkerboard;
 			closest_object->specular = o.pl[i].specular;
 			closest_object->reflective = o.pl[i].reflective;
 		}
@@ -55,10 +56,11 @@ static void	transfer_sphere(t_closest_object *closest_object, t_objects o,
 		if (t < closest_object->t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object->t = t;
-			closest_object->object = SPHERE;
+			closest_object->object_id = SPHERE;
 			closest_object->center = o.sp[i].center;
 			closest_object->radius = o.sp[i].radius;
 			closest_object->color = o.sp[i].color;
+			closest_object->checkerboard = o.sp[i].checkerboard;
 			closest_object->specular = o.sp[i].specular;
 			closest_object->reflective = o.sp[i].reflective;
 		}
@@ -79,12 +81,13 @@ static void	transfer_cylinder(t_closest_object *closest_object, t_objects o,
 		if (t < closest_object->t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object->t = t;
-			closest_object->object = CYLINDER;
+			closest_object->object_id = CYLINDER;
 			closest_object->center = o.cy[i].center;
 			closest_object->vector_orientation = o.cy[i].vector_orientation;
 			closest_object->radius = o.cy[i].radius;
 			closest_object->height = o.cy[i].height;
 			closest_object->color = o.cy[i].color;
+			closest_object->checkerboard = o.cy[i].checkerboard;
 			closest_object->specular = o.cy[i].specular;
 			closest_object->reflective = o.cy[i].reflective;
 		}
@@ -94,11 +97,11 @@ static void	transfer_cylinder(t_closest_object *closest_object, t_objects o,
 
 static void	compute_normal(t_closest_object *object)
 {
-	if (!object->object)
+	if (!object->object_id)
 		return ;
-	if (object->object == SPHERE)
+	if (object->object_id == SPHERE)
 		object->normal = substract_vectors(object->position, object->center);
-	else if (object->object == PLANE)
+	else if (object->object_id == PLANE)
 		object->normal = object->vector_orientation;
 	object->normal = normalize_vector(object->normal);
 }
@@ -110,7 +113,7 @@ t_closest_object	get_closest_intersection(t_objects o, t_ray ray,
 	t_closest_object	closest_object;
 
 	closest_object.t = RAY_T_MAX;
-	closest_object.object = NONE;
+	closest_object.object_id = NONE;
 	transfer_plane(&closest_object, o, ray, max_distance);
 	transfer_sphere(&closest_object, o, ray, max_distance);
 	transfer_cylinder(&closest_object, o, ray, max_distance);

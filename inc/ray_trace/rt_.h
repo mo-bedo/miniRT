@@ -23,7 +23,7 @@
 
 typedef struct s_closest_object
 {
-	int					object;
+	int					object_id;
 	t_xyz				position;
 	double				t;
 	t_xyz				center;
@@ -31,6 +31,7 @@ typedef struct s_closest_object
 	float				radius;
 	float				height;
 	t_xyz				color;
+	bool				checkerboard;
 	int					specular;
 	float				reflective;
 	t_xyz				normal;
