@@ -42,7 +42,7 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 	// Current row en current column
 	int	cRow;
 	int	cCol;
-	int	maxLoop = 100;
+	int	maxLoop = 1;		// later op 100
 	int	i;
 	bool	complete;
 
@@ -77,12 +77,16 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 
 
 				//	dan moeten alles in de column eronder naar 0
-			int rowIndex = cRow + 1;
+			int rowIndex;
+			rowIndex = cRow + 1;
 			while (rowIndex < 4)
 			{
 				// als het element al 0 is kunnen we door
 				if (!close_enough(A.value[rowIndex][cCol], 0.0))
 				{
+					// Obtain the element to work with from the matrix diagonal.
+					// As we aim to set all the diagonal elements to one, this should
+					// always be valid for a matrix that can be inverted.
 					int	row_one_index = cCol;
 
 					float	current_element_value = A.value[rowIndex][cCol];
@@ -94,7 +98,7 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 						// bereken correctie factor om waarde op [rowindex][cCol] naar 0 te krijgen
 						float	correctionFactor = - (current_element_value / row_one_value);
 
-						A = multiply_row_and_add_to_row8(A, rowIndex, row_one_index, correctionFactor);
+						A = multiply_row_and_add_to_row8(A, row_one_index, rowIndex, correctionFactor);
 					}
 				}
 				rowIndex++;
@@ -339,12 +343,23 @@ int main()
 	t_matrix4 m;
 	
 	int x = 3;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		x++;
 		for (int j = 0; j < 4; j++)
 		{
 			x+= 3; 
+			b.value[i][j] = x;
+		}
+	
+	}
+	x = -15;
+	for (int i = 2; i < 4; i++)
+	{
+		x++;
+		for (int j = 0; j < 4; j++)
+		{
+			x-= 3; 
 			b.value[i][j] = x;
 		}
 	
