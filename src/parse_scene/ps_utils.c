@@ -38,6 +38,8 @@ static void	skip_chars_of_parsed_number(char **str)
 	}
 	if (**str && **str == ',')
 		*str += 1;
+	if (**str && !ft_is_space(**str) && !ft_is_digit(**str) && **str != '-')
+		error_message_and_exit("Input error");
 	while (**str && ft_is_space(**str))
 		*str += 1;
 }

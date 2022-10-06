@@ -5,10 +5,9 @@
 - One other 2nd degree object: Cone, Hyperboloid, Paraboloid..
 - Handle bump map textures.
 - gaat iets mis met camera orientation als z 0 is
-- parser laten opvangen als opgegeven waarde niet in float past, bijv. 2.234234234etc
-- parser: letter voor kleuren (bijv. a255,255,255) geeft geen foutmelding
 - mag dit? in ray_trace.h
 -   # define RAY_T_MIN 0.0001f
 -   # define RAY_T_MAX 1.0e30f
 - objecten toch met malloc creeeren zodat pointer doorgegeven kan worden?
 - sneller maken
+- we includen float.h mag dat?
