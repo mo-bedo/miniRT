@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_math.h                                      :+:    :+:            */
+/*   u_.h                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 18:09:06 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:45:14 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_MATH_H
-# define VECTOR_MATH_H
+#ifndef U__H
+# define U__H
 
 # include "main.h"
+# include "utils/u_conversion.h"
+# include "utils/u_compare.h"
 
-t_xyz	add_vectors(t_xyz v1, t_xyz v2);
-t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
-t_xyz	multiply_vector(t_xyz vector, double number);
-double	get_vector_length(t_xyz vector);
-t_xyz	get_cross_product(t_xyz v1, t_xyz v2);
-double	get_dot_product(t_xyz v1, t_xyz v2);
-t_xyz	normalize_vector(t_xyz vector);
+void	ft_putstr(char *s);
+int		ft_is_digit(int c);
+int		ft_is_space(char c);
+void	*ft_calloc(size_t count, size_t size);
+void	initialize_empty_vector(t_xyz *vector);
 
-#endif 		// VECTOR_MATH
+#endif

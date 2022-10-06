@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/03 13:03:44 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.h                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 19:32:17 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include <stdbool.h>
 
+# include <time.h>
 # include <stdio.h>
 # define DEBUG_STR(X) printf(#X" = %s\n", X);
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
+# define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
+// IMAGE
 typedef struct s_img
 {
 	void	*img;
@@ -29,32 +32,7 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-// typedef struct s_menu
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }	t_menu;
-
-// typedef struct s_coordinates
-// {
-// 	double	image_ratio;
-// 	double	center_x;
-// 	double	center_y;
-// 	double	total_range_x;
-// 	double	total_range_y;
-// 	double	size_of_pixel;
-// }	t_coordinates;
-
-typedef struct s_colors
-{
-	int			color;
-	int			opacity;
-}	t_colors;
-
-// DATA
+// COORDINATES
 typedef struct s_xyz
 {
 	float		x;
@@ -68,35 +46,26 @@ typedef struct s_distance
 	float		t2;
 }	t_distance;
 
+// CAMERA
 typedef struct s_camera {
-	t_xyz		origin;
-	int			viewport_size;
-	int			projection_plane_z;
+	t_xyz		center;
+	t_xyz		rotation_angles;
+	float		canvas_distance;
 }	t_camera;
 
+// LIGHTS
 typedef struct s_ambient_light
 {
-	float		lighting_ratio;
 	t_xyz		color;
 }	t_ambient_light;
 
 typedef struct s_light
 {
 	t_xyz		origin;
-	float		brightness;
+	t_xyz		color;
 }	t_light;
 
-typedef struct s_matrix
-{
-	float	a;
-	float	b;
-	float	c;
-	float	d;
-	float	e;
-	float	f;
-}	t_matrix;
-
-
+// OBJECTS
 typedef struct s_plane
 {
 	t_xyz		center;
@@ -136,54 +105,33 @@ typedef struct s_objects
 	int			cy_count;
 }	t_objects;
 
-typedef struct s_closest_object
-{
-
-	// t_sphere	*sphere;
-	// t_plane		*plane;
-	int			object;
-	t_xyz		position;
-	double		t;
-	t_xyz		center;
-	t_xyz		vector_orientation;
-	float		radius;
-	float		height;
-	t_xyz		color;
-	int			specular;
-	float		reflective;
-}	t_closest_object;
-
-
 // MASTER STRUCT OF STRUCTS
 typedef struct s_mlx {
 	void			*mlx;
 	void			*window;
 	t_img			img;
-	double			aspect_ratio;
-	// int			display_menu;
 	t_camera		camera;
 	t_ambient_light	ambient_light;
-	t_light			point_light;
+	t_light			light[100];
+	int				light_count;
 	t_objects		o;
 	t_xyz			background_color;
-	// t_coordinates	c;
-
-	// t_menu		menu;
-	// t_colors		colors;
 }	t_mlx;
 
 enum e_values{
 	WINDOW_WIDTH	= 640,
 	WINDOW_HEIGHT	= 480,
 	MAX_OBJECTS		= 100,
+	X				= 0,
+	Y				= 1,
+	Z				= 2,
 	LENGTH_NORMAL	= 1,
 
 	RECURSION_DEPTH	= 3,
+	NONE			= 0,
 	PLANE			= 1,
 	SPHERE			= 2,
 	CYLINDER		= 3
-	// TOTAL_RANGE_Y	= 4,
-	// MAX_COLOR		= 16777215
 };
 
 #endif				// MAIN_H

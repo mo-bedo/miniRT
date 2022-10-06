@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lighting.h                                         :+:    :+:            */
+/*   u_vector_operators.h                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/30 15:11:27 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 19:25:43 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHTING_H
-# define LIGHTING_H
+#ifndef U_VECTOR_OPERATORS_H
+# define U_VECTOR_OPERATORS_H
 
 # include "main.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-double	compute_lighting(t_mlx *mlx, t_xyz normal,
-			t_xyz view, t_closest_object object);
+t_xyz	add_vectors(t_xyz v1, t_xyz v2);
+t_xyz	substract_vectors(t_xyz v1, t_xyz v2);
+t_xyz	multiply_vector(t_xyz vector, double number);
+t_xyz	divide_vector(t_xyz vector, double number);
 
-#endif
+#endif 		// VECTOR_MATH

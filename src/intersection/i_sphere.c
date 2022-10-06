@@ -6,16 +6,16 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 19:38:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 20:07:47 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
 #include "math.h"
-#include "ray_trace.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 // plaatst midden van sphere in het midden van xyz
 static t_ray	transpose_ray(t_ray ray, t_xyz centre)

@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cylinder.h                                       :+:    :+:            */
+/*   u_rotate_vector.h                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:28 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:07:17 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 13:54:58 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_CYLINDER_H
-# define I_CYLINDER_H
+#ifndef U_ROTATE_VECTOR_H
+# define U_ROTATE_VECTOR_H
 
-# include <stdbool.h>
 # include "main.h"
-# include "ray_trace/rt_.h"
 
-float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder);
+t_xyz	rotate_vector(t_xyz old, t_xyz angles);
 
 #endif

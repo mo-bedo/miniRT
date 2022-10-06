@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/03 13:42:16 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 21:00:39 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_scene/ps_.h"
+#include "parse_scene/ps_utils.h"
 #include "main.h"
 #include "mlx.h"
-#include "ray_trace.h"
+#include "ray_trace/rt_.h"
 #include "interaction.h"
-#include "utils/utils.h"
-#include "utils/vector_math.h"
+#include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-bool	check_extension(char *filename)
-{
-	char	*extension;
-
-	extension = ft_strrchr(filename, '.');
-	if (ft_strncmp(extension, ".rt", 4) == 0)
-		return (true);
-	return (false);
-}
+#include <locale.h>
 
 static void	init(t_mlx	*mlx)
 {
@@ -41,47 +33,38 @@ static void	init(t_mlx	*mlx)
 			WINDOW_WIDTH, WINDOW_HEIGHT, "miniRT");
 	mlx->img.img = mlx_new_image(mlx->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!mlx->window)
-		error_message_and_exit("mlx_window error");
+		error_message_and_exit("Can't creat mlx_window");
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-	mlx->aspect_ratio = (double) WINDOW_WIDTH / (double) WINDOW_HEIGHT;
-	mlx->background_color.x = 255;
-	mlx->background_color.y = 255;
-	mlx->background_color.z = 255;
-	mlx->o.sp[0].specular = 500;
-	mlx->o.sp[0].reflective = 0.5;
-	mlx->o.sp[1].specular = 100;
-	mlx->o.sp[1].reflective = 0.4;
-	mlx->o.sp[2].specular = 500;
-	mlx->o.sp[2].reflective = 0.3;
-	mlx->o.sp[3].specular = 1000;
-	mlx->o.sp[3].reflective = 0.6;
-	mlx->o.pl[0].specular = 100;
-	mlx->o.pl[0].reflective = 0.2;
-	mlx->o.pl[1].specular = 100;
-	mlx->o.pl[1].reflective = 0.2;
-	mlx->o.cy[0].specular = 100;
-	mlx->o.cy[0].reflective = 0.2;
-	mlx->o.cy[1].specular = 500;
-	mlx->o.cy[1].reflective = 0.5;
-	mlx->o.cy[2].specular = 100;
-	mlx->o.cy[2].reflective = 0.2;
-	mlx->camera.viewport_size = 1;
-	mlx->camera.projection_plane_z = 1;
+	mlx->background_color.x = MAX_COLOR;
+	mlx->background_color.y = MAX_COLOR;
+	mlx->background_color.z = MAX_COLOR;
+	mlx->o.pl_count = 0;
+	mlx->o.sp_count = 0;
+	mlx->o.cy_count = 0;
+}
+
+void	print_time(char *action)
+{
+	clock_t		time;
+
+	time = clock();
+	setlocale(LC_NUMERIC, "");
+	printf("%s", action);
+	printf("\t: %'12.ld\n", time);
 }
 
 int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
 
-	if (argc < 2 || check_extension(argv[1]) == false)
-		error_message_and_exit("Please provide a scene description file");
+	print_time("start\t");
 	init(&mlx);
-	parse_scene(&mlx, argv[1]);
+	parse_scene(&mlx, argc, argv[1]);
+	print_time("parse_scene");
+	interaction(&mlx);
 	ray_trace(&mlx);
-	mlx_hook(mlx.window, 17, 0, close_window, &mlx);
-	mlx_mouse_hook(mlx.window, mouse_hook, &mlx);
-	mlx_key_hook(mlx.window, key_hook, &mlx);
+	print_time("ray_trace");
 	mlx_loop(mlx.mlx);
 	return (0);
 }

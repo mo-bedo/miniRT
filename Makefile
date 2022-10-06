@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/03 12:55:37 by jbedaux          ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: marvin <marvin@student.42.fr>                +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/10/05 20:59:12 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX = true
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
@@ -36,23 +36,25 @@ INC_DIR			:=	./inc
 SRC_DIR			:=	./src
 OBJ_DIR			:=	./obj
 
-SRC				:=	intersection/i_.c \
-					intersection/i_cylinder.c \
+SRC				:=	main.c \
+					intersection/i_.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
+					intersection/i_cylinder.c \
 					parse_scene/ps_.c \
 					parse_scene/ps_parse_line.c \
+					parse_scene/ps_parse_objects.c \
 					parse_scene/ps_utils.c \
-					utils/matrices.c \
-					utils/utils_conversion.c \
-					utils/utils.c \
-					utils/vector_math.c \
-					main.c \
-					ray_trace.c \
-					lighting.c \
-					interaction.c \
-					pixel_put.c
-
+					ray_trace/rt_.c \
+					ray_trace/rt_lighting.c \
+					ray_trace/rt_pixel_put.c \
+					utils/u_.c \
+					utils/u_conversion.c \
+					utils/u_compare.c \
+					utils/u_vector_math.c \
+					utils/u_vector_operators.c \
+					utils/u_rotate_vector.c \
+					interaction.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

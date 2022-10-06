@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector_math.c                                      :+:    :+:            */
+/*   u_vector_operators.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/29 19:03:53 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 19:25:07 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "utils/vector_math.h"
+#include "utils/u_vector_math.h"
 #include <math.h>
 
 //    			B
@@ -72,43 +72,4 @@ t_xyz	divide_vector(t_xyz vector, double number)
 	vector.y *= inverted_number;
 	vector.z *= inverted_number;
 	return (vector);
-}
-
-double	get_vector_length(t_xyz vector)
-{
-	return (sqrt(get_dot_product(vector, vector)));
-}
-
-// dot product
-// is a measure of similarity 
-//  1 = same direction
-//  0 = at angle of 90 degrees
-// -1 = opposite direction
-double	get_dot_product(t_xyz v1, t_xyz v2)
-{
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
-}
-
-// normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
-t_xyz	normalize_vector(t_xyz vector)
-{
-	double	magnitude;
-
-	magnitude = get_vector_length(vector);
-	return (divide_vector(vector, magnitude));
-}
-
-
-// cross product
-// is a measure of difference
-//  0 = same direction
-//  1 = at angle of 90 degrees
-// -1 = opposite direction
-t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
-{
-	t_xyz	cross;
-	cross.x = v1.y * v2.z - v1.z * v2.y;
-	cross.y = v1.z * v2.x - v1.x * v2.z;
-	cross.z = v1.x * v2.y - v1.y * v2.x;
-	return (cross);
 }

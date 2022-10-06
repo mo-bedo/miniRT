@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_conversion.h                                 :+:    :+:            */
+/*   u_vector_math.h                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:00:06 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/05 19:25:58 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_CONVERSION_H
-# define UTILS_CONVERSION_H
+#ifndef U_VECTOR_MATH_H
+# define U_VECTOR_MATH_H
 
 # include "main.h"
+# include "utils/u_vector_operators.h"
 
-int		ft_char_to_digit(int c);
-int		ft_atoi(const char *str);
-float	ft_atof(const char *str);
+double	get_vector_length(t_xyz vector);
+double	get_dot_product(t_xyz v1, t_xyz v2);
+t_xyz	normalize_vector(t_xyz vector);
+double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
 
-#endif
+#endif 		// VECTOR_MATH

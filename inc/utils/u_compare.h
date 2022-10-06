@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pixel_put.h                                        :+:    :+:            */
+/*   u_compare.h                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/09/29 17:45:31 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/05 19:49:01 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIXEL_PUT_H
-# define PIXEL_PUT_H
+#ifndef U_COMPARE_H
+# define U_COMPARE_H
 
 # include "main.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, t_xyz color);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strrchr(const char *s, int c);
+double	get_smallest_double(double a, double b);
+float	ft_min_float(float a, float b);
+float	ft_max_float(float a, float b);
 
 #endif
