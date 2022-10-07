@@ -18,14 +18,14 @@ NAME			:=	miniRT
 
 # -L geeft aan in welke directory hij zoekt naar lib file. -l specificeert naam van library die hij moet includen
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux #-O3 #-Wall -Wextra -Werror
 MLX				:= -g -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz
 else
 CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-fsanitize=address -fsanitize=undefined
+SANIT			:=	#-fsanitize=address -fsanitize=undefined
 CC				:=	gcc
 PRINT			:=
 
@@ -51,6 +51,8 @@ SRC				:=	main.c \
 					utils/u_.c \
 					utils/u_conversion.c \
 					utils/u_compare.c \
+					utils/matrices.c \
+					utils/u_invert_matrix.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \
@@ -82,4 +84,3 @@ norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
 
 .PHONY			:	all bonus clean fclean re norm test
-

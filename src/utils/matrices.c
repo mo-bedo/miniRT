@@ -116,7 +116,30 @@
 
 */ 
 
+///////////////////////////	///////////////////////////	///////////////////////////
+///////////////////////////	APPLY MATRIX				///////////////////////////
+/////////////////////////// ///////////////////////////	///////////////////////////
 
+
+
+t_xyz	apply_matrix4_to_vector(t_matrix4 m, t_xyz v)
+{
+	int			row;
+	int			column;
+	t_vector4	ret;
+	
+	ret.a = 1;
+	ret.x = (m.value[0][0] * v.x) + (m.value[0][1] * v.y) + (m.value[0][2] * v.z) + (m.value[0][3] * 1);
+	ret.y = (m.value[1][0] * v.x) + (m.value[1][1] * v.y) + (m.value[1][2] * v.z) + (m.value[1][3] * 1);
+	ret.z = (m.value[2][0] * v.x) + (m.value[2][1] * v.y) + (m.value[2][2] * v.z) + (m.value[2][3] * 1);
+	ret.a = (m.value[3][0] * v.x) + (m.value[3][1] * v.y) + (m.value[3][2] * v.z) + (m.value[3][3] * 1);
+
+	v.x = ret.x;
+	v.y = ret.y;
+	v.z = ret.z;
+
+	return (v);
+}
 
 
 
@@ -230,14 +253,14 @@ t_matrix4	subtract_matrices(t_matrix4 lhs, t_matrix4 rhs)
 	return (add_matrices(lhs, negative_matrix(rhs)));	
 }
 
-
-
 // matrix.value[row][column]
 t_matrix4	set_matrix_element(t_matrix4 obj, int row, int column, float value)
 {
 	obj.value[row][column] = value;
 	return obj;
 }
+
+
 
 // Maakt matrix aan die world coord -> local coord transform doet
 t_matrix4	create_transform_matrix(t_xyz translation_vector, 
@@ -249,9 +272,10 @@ t_matrix4	create_transform_matrix(t_xyz translation_vector,
 	t_matrix4	rotate_matrix_Z;
 	t_matrix4	scale_matrix;
 
-	t_matrix4	to_local_coord;			// deze 2 nog op identity zetten?
 	t_matrix4	to_world_coord;
 	
+	to_world_coord = set_matrix_to_identity(to_world_coord);
+
 	translate_matrix = set_matrix_to_identity(translate_matrix);
 	rotate_matrix_X = set_matrix_to_identity(rotate_matrix_X);
 	rotate_matrix_Y = set_matrix_to_identity(rotate_matrix_Y);
@@ -267,11 +291,12 @@ t_matrix4	create_transform_matrix(t_xyz translation_vector,
 	set_scale_matrix(scale_matrix, scale);
 
 	// translate*scale*rotateX*rotateY*rotateZ
-	to_local_coord = multiply_matrices(multiply_matrices(multiply_matrices
-						(multiply_matrices(translate_matrix, scale_matrix), 
-						rotate_matrix_X), rotate_matrix_Y), rotate_matrix_Z);
-	// inverse matrix...
-
+	to_world_coord = multiply_matrices(multiply_matrices(multiply_matrices
+						(multiply_matrices(translate_matrix, rotate_matrix_X), 
+											rotate_matrix_Y), 
+											rotate_matrix_Z), 
+											scale_matrix);
+	return (to_world_coord);
 }
 
 /*	Rotate om X, met theta = hoek die je wilt draaien over de as		
@@ -381,6 +406,7 @@ t_matrix4	set_matrix_to_identity(t_matrix4 obj)
 	}
 	return (obj);
 }
+
 
 void	print_matrix(t_matrix4 obj)
 {

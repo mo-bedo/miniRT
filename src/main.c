@@ -68,3 +68,87 @@ int	main(int argc, char **argv)
 	mlx_loop(mlx.mlx);
 	return (0);
 }
+
+
+
+// #include "utils/matrices.h"
+// #include "utils/u_invert_matrix.h"
+
+// int main()
+// {
+// 	t_matrix4 c;
+// 	t_matrix4 b;
+// 	t_matrix4 m;
+	
+// 	int x = 3;
+// 	for (int i = 0; i < 2; i++)
+// 	{
+// 		x++;
+// 		for (int j = 0; j < 4; j++)
+// 		{
+// 			x+= 3; 
+// 			b.value[i][j] = x;
+// 		}
+	
+// 	}
+// 	x = -15;
+// 	for (int i = 2; i < 4; i++)
+// 	{
+// 		x++;
+// 		for (int j = 0; j < 4; j++)
+// 		{
+// 			x-= 3; 
+// 			b.value[i][j] = x;
+// 		}
+	
+// 	}
+
+// 	b.value[0][0] = 1;
+// 	b.value[0][1] = 4;
+// 	b.value[0][2] = 2;
+// 	b.value[0][3] = 3;
+// 	b.value[1][0] = 3;
+// 	b.value[1][1] = -1;
+// 	b.value[1][2] = 4;
+// 	b.value[1][3] = -3;
+// 	b.value[2][0] = -1;
+// 	b.value[2][1] = 1;
+// 	b.value[2][2] = 3;
+// 	b.value[2][3] = 5;
+// 	b.value[3][0] = 1;
+// 	b.value[3][1] = -01;
+// 	b.value[3][2] = 4;
+// 	b.value[3][3] = 1;
+
+// 	// printf("input matrix: \n");
+// 	// print_matrix(b);
+
+// 	t_matrix4 invert;
+
+// 	invert = invert_matrix(b);
+
+
+// 	print_matrix(invert);
+
+	// t_matrix8 A;
+
+
+
+	// b = set_matrix_to_identity(b);
+	// c = set_matrix_to_identity(c);
+
+	// // b.value[0][2] = 1;
+
+	// A = augment_matrices(b, c);
+
+	// print_matrix8(A);
+
+	// if (left_matrix_is_identity(A))
+	// 	printf("should print\n");
+
+
+
+
+
+
+

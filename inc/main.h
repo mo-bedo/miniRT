@@ -22,6 +22,23 @@
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
+
+typedef struct s_matrix4 {
+	float	value[4][4];
+}	t_matrix4;
+
+// [row][column]
+typedef struct s_matrix8 {
+	float value [4][8];
+}		t_matrix8;
+
+typedef struct s_vector4 {
+	float	x;
+	float	y;
+	float	z;
+	float	a;
+} 	t_vector4;
+
 // IMAGE
 typedef struct s_img
 {

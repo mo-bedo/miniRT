@@ -2,7 +2,6 @@
 # define U_INVERT_MATRIX_H
 
 #include "main.h"
-#include "matrices.h"
 
 // t_matrix4	swap_two_rows(t_matrix4 obj, int row1, int row2);
 t_matrix8	swap_two_rows8(t_matrix8 obj, int row1, int row2);
@@ -15,5 +14,8 @@ int			find_row_with_max_value_at_column8(t_matrix8 obj, int, int column);
 bool		compare_matrix_sum(t_matrix4 lhs, t_matrix4 rhs, double tolerance);
 t_matrix8	augment_matrices(t_matrix4 lhs, t_matrix4 rhs);
 bool	close_enough(float value1, float value2);
+bool	left_matrix_is_identity(t_matrix8 obj);
+
+t_matrix4	invert_matrix(t_matrix4 obj);
 
 #endif

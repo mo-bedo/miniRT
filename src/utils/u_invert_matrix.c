@@ -25,7 +25,51 @@ Dus eerst de diagonaalwaarde op 1 beginnend op 0,0, dan in dezelfde column de wa
 en dan in dezlefde rij de waardes rechts naar 0. en dan naar diagonaal waarde 1,1 naar 1 etc.
 */
 
+// Turn matrix8 into matrix4 by taking the leftside of matrix8 (which is the inverted matrix)
+t_matrix4	seperate_matrix(t_matrix8 obj)
+{
+	t_matrix4	ret;
+	int	i;
+	int	j;
 
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			ret.value[i][j] = obj.value[i][j + 4];
+			j++;
+		}
+		i++;
+	}
+	return (ret);
+}
+
+bool	left_matrix_is_identity(t_matrix8 obj)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i != j)
+				if (obj.value[i][j] != 0)
+					return (false);
+			if (i == j)
+				if (obj.value[i][j] != 1)
+					return (false);
+			
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
 
 t_matrix4	invert_matrix(t_matrix4 obj)
 {
@@ -36,15 +80,13 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 	identity = set_matrix_to_identity(identity);
 	A = augment_matrices(obj, identity);
 
-	printf("input matrix + identity:\n");
-	print_matrix8(A);
-
 	// Current row en current column
 	int	cRow;
 	int	cCol;
-	int	maxLoop = 1;		// later op 100
+	int	maxLoop = 100;		// later op 100
 	int	i;
 	bool	complete;
+	float multi_factor;
 
 	complete = false;
 	i = 0;
@@ -67,9 +109,10 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 			// zorg dat waarde cRow, cCol 1 is
 			if (A.value[cRow][cCol] != 1)
 			{
-				double	multiFactor = 1.0 / A.value[cRow][cCol];
-				A = multiply_row_by_number8(A, cRow, multiFactor);
-				// printf("Zorgt dat elke diagnol een 1 wordt (1 voor 1)\n");
+				multi_factor = 1.0 / A.value[cRow][cCol];
+
+				// printf("waarde die naar 1 moet = %f mulitfactor = %f\n", A.value[cRow][cCol], multi_factor);
+				A = multiply_row_by_number8(A, cRow, multi_factor);
 				// print_matrix8(A);
 			}
 
@@ -77,7 +120,9 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 
 
 				//	dan moeten alles in de column eronder naar 0
+				// dus rowindex is ervoor om de rest van de column eronder te bekijken
 			int rowIndex;
+				
 			rowIndex = cRow + 1;
 			while (rowIndex < 4)
 			{
@@ -95,7 +140,7 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 					// Als deze 0 is kunnen we door
 					if (!close_enough(row_one_value, 0.0))
 					{
-						// bereken correctie factor om waarde op [rowindex][cCol] naar 0 te krijgen
+						// bereken correctie factor om waarde om [rowindex][cCol] naar 0 te krijgen
 						float	correctionFactor = - (current_element_value / row_one_value);
 
 						A = multiply_row_and_add_to_row8(A, row_one_index, rowIndex, correctionFactor);
@@ -104,28 +149,51 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 				rowIndex++;
 			}
 
+			// dan moet de row (rechtsboven) ook naar 0
+			int col_index;
+			col_index = cCol + 1;
+
+			// loopt naar rechts
+			while (col_index < 4)
+			{
+				
+				if (!close_enough(A.value[cRow][col_index], 0.0));
+				{
+					int	row_one_index = col_index;
+
+					float 	current_element_value = A.value[cRow][col_index];
+
+					float	row_one_value = A.value[row_one_index][col_index];
+
+					if (!close_enough(row_one_value, 0.0))
+					{
+
+						float correction_factor = - (current_element_value / row_one_value);
+
+						A = multiply_row_and_add_to_row8(A, row_one_index, cRow, correction_factor);
+
+					}
 
 
-			printf("waardes links onder zouden nu 0 moeten zijn, rij voor rij\n");
-			print_matrix8(A);
+				}	
+				col_index++;
+			}
+
+
 
 
 			diagnol_index++;
 		}
+
+		if (left_matrix_is_identity (A))
+			break ;
 		i++;
 	}
+	t_matrix4 ret;
 
-
+	ret = seperate_matrix(A);
+	return (ret);
 }
-
-
-
-
-
-
-
-
-
 
 
 ////////////// INVERT MATH ////////////////
@@ -336,39 +404,39 @@ bool	compare_matrix_by_element(t_matrix4 lhs, t_matrix4 rhs)
 
 
 
-int main()
-{
-	t_matrix4 c;
-	t_matrix4 b;
-	t_matrix4 m;
+// int main()
+// {
+// 	t_matrix4 c;
+// 	t_matrix4 b;
+// 	t_matrix4 m;
 	
-	int x = 3;
-	for (int i = 0; i < 2; i++)
-	{
-		x++;
-		for (int j = 0; j < 4; j++)
-		{
-			x+= 3; 
-			b.value[i][j] = x;
-		}
+// 	int x = 3;
+// 	for (int i = 0; i < 2; i++)
+// 	{
+// 		x++;
+// 		for (int j = 0; j < 4; j++)
+// 		{
+// 			x+= 3; 
+// 			b.value[i][j] = x;
+// 		}
 	
-	}
-	x = -15;
-	for (int i = 2; i < 4; i++)
-	{
-		x++;
-		for (int j = 0; j < 4; j++)
-		{
-			x-= 3; 
-			b.value[i][j] = x;
-		}
+// 	}
+// 	x = -15;
+// 	for (int i = 2; i < 4; i++)
+// 	{
+// 		x++;
+// 		for (int j = 0; j < 4; j++)
+// 		{
+// 			x-= 3; 
+// 			b.value[i][j] = x;
+// 		}
 	
-	}
+// 	}
 
-	printf("input matrix: \n");
-	print_matrix(b);
+// 	printf("input matrix: \n");
+// 	print_matrix(b);
 
-	invert_matrix(b);
+// 	invert_matrix(b);
 
 
 
@@ -526,5 +594,5 @@ int main()
 	// t_matrix8	big = augment_matrices(c, b);
 	// print_matrix8(big);
 
-}
+// }
 

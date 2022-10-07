@@ -16,14 +16,14 @@
 # include "main.h"
 
 // [row][column]
-typedef struct s_matrix4 {
-	float	value[4][4];
-}	t_matrix4;
+// typedef struct s_matrix4 {
+// 	float	value[4][4];
+// }	t_matrix4;
 
-// [row][column]
-typedef struct s_matrix8 {
-	float value [4][8];
-}		t_matrix8;
+// // [row][column]
+// typedef struct s_matrix8 {
+// 	float value [4][8];
+// }		t_matrix8;
 
 
 double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
@@ -42,6 +42,9 @@ t_matrix4	set_scale_matrix(t_matrix4 obj, t_xyz);
 t_matrix4	set_rotation_matrix_z_axis(t_matrix4 obj, float theta);
 t_matrix4	set_translation_matrix(t_matrix4 obj, t_xyz translation);
 t_matrix4	set_matrix_to_identity(t_matrix4 obj);
+
+
+t_xyz	apply_matrix4_to_vector(t_matrix4 m, t_xyz v);
 
 void	print_matrix(t_matrix4 obj);
 void	print_matrix8(t_matrix8 obj);
