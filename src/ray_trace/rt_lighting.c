@@ -14,8 +14,8 @@
 #include <math.h>
 
 #include "main.h"
-#include "uv_pattern.h"
 #include "ray_trace/rt_.h"
+#include "ray_trace/rt_uv_pattern.h"
 #include "intersection/i_.h"
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
@@ -85,7 +85,7 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 	t_xyz	intensity;
 
 	initialize_empty_vector(&intensity);
-	if (object.specular != -1)
+	if (object.specular == 0)
 		return (intensity);
 	reflection = compute_reflected_ray(light_ray.direction, object.normal);
 	denominator = get_dot_product(reflection, view);
@@ -121,11 +121,12 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 					light_ray, view, object, mlx->light[i].color));
 	}
 	if (object.checkerboard)
-		color = get_checkers_color(object);
+		color = get_uv_pattern(object);
 	else
-		initialize_empty_vector(&color);
-	color.x += (mlx->ambient_light.color.x + intensity.x) * object.color.x;
-	color.y += (mlx->ambient_light.color.y + intensity.y) * object.color.y;
-	color.z += (mlx->ambient_light.color.z + intensity.z) * object.color.z;
+		color = object.color;
+	color.x *= (mlx->ambient_light.color.x + intensity.x);
+	color.y *= (mlx->ambient_light.color.y + intensity.y);
+	color.z *= (mlx->ambient_light.color.z + intensity.z);
+	// DEBUG_DOUBLE(color.x);
 	return (color);
 }

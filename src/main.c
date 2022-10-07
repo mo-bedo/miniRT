@@ -45,11 +45,18 @@ static void	init(t_mlx	*mlx)
 void	print_time(char *action)
 {
 	clock_t		time;
+	static long int	start_time = 0;
 
 	time = clock();
 	setlocale(LC_NUMERIC, "");
+	// if (ft_strncmp(action, "start_ray", 8) == 0)
+		// start_time = time;
 	printf("%s", action);
-	printf("\t: %'12.ld\n", time);
+	if (ft_strncmp(action, "rt_", 2) == 0)
+		printf("\t: %'12.ld\n", time-start_time);
+	else
+		printf("\t: %'12.ld\n", time);
+	start_time = time;
 }
 
 int	main(int argc, char **argv)

@@ -46,6 +46,7 @@ SRC				:=	main.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
+					ray_trace/rt_uv_pattern.c \
 					ray_trace/rt_pixel_put.c \
 					utils/u_.c \
 					utils/u_conversion.c \
@@ -53,7 +54,6 @@ SRC				:=	main.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \
-					uv_pattern.c \
 					interaction.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)

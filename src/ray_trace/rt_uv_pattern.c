@@ -78,7 +78,7 @@ t_xyz	uv_checkers_pattern_at(t_uv	uv, int tiles_width, int tiles_height)
 	return (black);
 }
 
-t_xyz	get_checkers_color(t_closest_object object)
+t_xyz	get_uv_pattern(t_closest_object object)
 {
 	t_uv	uv;
 

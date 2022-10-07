@@ -10,16 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UV_PATTERN_H
-# define UV_PATTERN_H
+#ifndef RT_UV_PATTERN_H
+# define RT_UV_PATTERN_H
 
 #include "ray_trace/rt_.h"
 
-enum e_uv_codes{
-	U			= 0,
-	V			= 1
-};
-
-t_xyz	get_checkers_color(t_closest_object object);
+t_xyz	get_uv_pattern(t_closest_object object);
 
 #endif

@@ -32,7 +32,7 @@ typedef struct s_closest_object
 	float				height;
 	t_xyz				color;
 	bool				checkerboard;
-	int					specular;
+	float				specular;
 	float				reflective;
 	t_xyz				normal;
 }	t_closest_object;

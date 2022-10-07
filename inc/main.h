@@ -72,7 +72,7 @@ typedef struct s_plane
 	t_xyz		vector_orientation;
 	t_xyz		color;
 	bool		checkerboard;
-	int			specular;
+	float		specular;
 	float		reflective;
 }	t_plane;
 
@@ -82,7 +82,7 @@ typedef struct s_sphere
 	float		radius;
 	t_xyz		color;
 	bool		checkerboard;
-	int			specular;
+	float		specular;
 	float		reflective;
 }	t_sphere;
 
@@ -94,7 +94,7 @@ typedef struct s_cylinder
 	float		height;
 	t_xyz		color;
 	bool		checkerboard;
-	int			specular;
+	float		specular;
 	float		reflective;
 }	t_cylinder;
 
@@ -135,5 +135,7 @@ enum e_values{
 	SPHERE			= 2,
 	CYLINDER		= 3
 };
+
+void	print_time(char *action);
 
 #endif				// MAIN_H

@@ -10,4 +10,4 @@
 -   # define RAY_T_MAX 1.0e30f
 - objecten toch met malloc creeeren zodat pointer doorgegeven kan worden?
 - sneller maken
-- we includen float.h mag dat?g
+- we includen float.h mag dat?
