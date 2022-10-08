@@ -17,6 +17,7 @@
 # include "utils/u_conversion.h"
 # include "utils/u_compare.h"
 
+int     ft_strlen(const char *s);
 void	ft_putstr(char *s);
 int		ft_is_digit(int c);
 int		ft_is_space(char c);

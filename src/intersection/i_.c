@@ -36,6 +36,7 @@ static void	transfer_plane(t_closest_object *closest_object, t_objects o,
 			closest_object->vector_orientation = o.pl[i].vector_orientation;
 			closest_object->color = o.pl[i].color;
 			closest_object->checkerboard = o.pl[i].checkerboard;
+			closest_object->image = o.pl[i].image;
 			closest_object->specular = o.pl[i].specular;
 			closest_object->reflective = o.pl[i].reflective;
 		}
@@ -61,8 +62,10 @@ static void	transfer_sphere(t_closest_object *closest_object, t_objects o,
 			closest_object->radius = o.sp[i].radius;
 			closest_object->color = o.sp[i].color;
 			closest_object->checkerboard = o.sp[i].checkerboard;
+			closest_object->image = o.sp[i].image;
 			closest_object->specular = o.sp[i].specular;
 			closest_object->reflective = o.sp[i].reflective;
+			closest_object->texture_map = o.sp[i].texture_map;
 		}
 		i++;
 	}
@@ -88,6 +91,7 @@ static void	transfer_cylinder(t_closest_object *closest_object, t_objects o,
 			closest_object->height = o.cy[i].height;
 			closest_object->color = o.cy[i].color;
 			closest_object->checkerboard = o.cy[i].checkerboard;
+			closest_object->image = o.cy[i].image;
 			closest_object->specular = o.cy[i].specular;
 			closest_object->reflective = o.cy[i].reflective;
 		}

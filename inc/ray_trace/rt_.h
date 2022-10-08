@@ -32,8 +32,10 @@ typedef struct s_closest_object
 	float				height;
 	t_xyz				color;
 	bool				checkerboard;
+	bool				image;
 	float				specular;
 	float				reflective;
+	t_map				texture_map;
 	t_xyz				normal;
 }	t_closest_object;
 

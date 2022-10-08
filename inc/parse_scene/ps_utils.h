@@ -20,6 +20,9 @@ int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
 t_xyz	parse_xyz(char **str, int min, int max);
 t_xyz	parse_vector_orientation(char **str);
+bool	has_no_valid_extension(char *filename, char *valid_ext);
+char	*add_buffer_to_line(char *old, char buffer);
+int		get_next_line(char **line, int fd);
 
 enum e_xyz_range {
 	MIN_COLOR			= 0,

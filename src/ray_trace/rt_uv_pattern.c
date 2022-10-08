@@ -64,29 +64,59 @@ t_uv	map_sphere_to_2d(t_closest_object object)
 	return (uv);
 }
 
-t_xyz	uv_checkers_pattern_at(t_uv	uv, int tiles_width, int tiles_height)
+// CHECKERS
+t_xyz	checkers_pattern_at(t_uv uv, int object_id)
 {
 	t_xyz	black;
 	t_xyz	white;
+	int		tiles;
 
 	initialize_black_color(&black);
 	initialize_white_color(&white);
-	uv.u *= tiles_width;
-	uv.v *= tiles_height;
+	tiles = 2;
+	uv.u *= tiles;
+	uv.v *= tiles;
+	if (object_id == SPHERE)
+	{
+		uv.u *= tiles * 10;
+		uv.v *= tiles * 5;
+	}
 	if (((int)uv.u + (int)uv.v) % 2)
 		return (white);
 	return (black);
 }
 
-t_xyz	get_uv_pattern(t_closest_object object)
+t_xyz	image_color_at(t_uv uv, t_closest_object object)
+{
+	int x = (int)uv.u * (int)object.texture_map.width / (int)(WINDOW_WIDTH - 1);
+	int y = (int)uv.v * (int)object.texture_map.height / (int)(WINDOW_HEIGHT - 1);
+	// DEBUG_INT((int)uv.u);
+	// DEBUG_INT((int)uv.v);
+	// DEBUG_INT((int)object.texture_map.width);
+	// DEBUG_INT((int)object.texture_map.height);
+	// DEBUG_INT(x);
+	// DEBUG_INT(y);
+	return (object.texture_map.map[x][y]);
+}
+
+t_xyz	get_uv_pattern(int pattern, t_closest_object object)
 {
 	t_uv	uv;
+	t_xyz	empty;
 
 	uv.u = 0;
 	uv.v = 0;
 	if (object.object_id == PLANE)
-		return (uv_checkers_pattern_at(map_plane_to_2d(object.position), 2, 2));
+		uv = map_plane_to_2d(object.position);
 	if (object.object_id == SPHERE)
-		return (uv_checkers_pattern_at(map_sphere_to_2d(object), 20, 10));
-	return (uv_checkers_pattern_at(uv, 2, 2));
+		uv = map_sphere_to_2d(object);
+
+	if (pattern == CHECKERS)
+		return (checkers_pattern_at(uv, object.object_id));
+	// if (pattern == IMAGE)
+		// return(image_color_at(uv, object));
+	// if (pattern == BUMP_MAP)
+		// 
+	initialize_black_color(&empty);
+	return (empty);
 }

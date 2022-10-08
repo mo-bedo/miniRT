@@ -15,6 +15,6 @@
 
 #include "ray_trace/rt_.h"
 
-t_xyz	get_uv_pattern(t_closest_object object);
+t_xyz	get_uv_pattern(int pattern, t_closest_object object);
 
 #endif

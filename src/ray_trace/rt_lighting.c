@@ -121,7 +121,9 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 					light_ray, view, object, mlx->light[i].color));
 	}
 	if (object.checkerboard)
-		color = get_uv_pattern(object);
+		color = get_uv_pattern(CHECKERS, object);
+	else if (object.image)
+		color = get_uv_pattern(IMAGE, object);
 	else
 		color = object.color;
 	color.x *= (mlx->ambient_light.color.x + intensity.x);

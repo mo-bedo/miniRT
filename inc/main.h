@@ -66,12 +66,20 @@ typedef struct s_light
 }	t_light;
 
 // OBJECTS
+typedef struct s_map
+{
+	int			width;
+	int			height;
+	t_xyz		**map;
+}	t_map;
+
 typedef struct s_plane
 {
 	t_xyz		center;
 	t_xyz		vector_orientation;
 	t_xyz		color;
 	bool		checkerboard;
+	bool		image;
 	float		specular;
 	float		reflective;
 }	t_plane;
@@ -82,8 +90,11 @@ typedef struct s_sphere
 	float		radius;
 	t_xyz		color;
 	bool		checkerboard;
+	bool		image;
 	float		specular;
 	float		reflective;
+	t_map		texture_map;
+	// int			bump_map_fd;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -94,6 +105,7 @@ typedef struct s_cylinder
 	float		height;
 	t_xyz		color;
 	bool		checkerboard;
+	bool		image;
 	float		specular;
 	float		reflective;
 }	t_cylinder;
@@ -133,7 +145,10 @@ enum e_values{
 	NONE			= 0,
 	PLANE			= 1,
 	SPHERE			= 2,
-	CYLINDER		= 3
+	CYLINDER		= 3,
+	CHECKERS		= 0,
+	IMAGE			= 1,
+	BUMP			= 2
 };
 
 void	print_time(char *action);

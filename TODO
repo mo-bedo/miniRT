@@ -1,6 +1,5 @@
 - cylinder toevoegen
 - tests schrijven
-- user objecten laten roteren en diameter en hoogte aanpassen
 - checkerboard: cylinder & cone
 - One other 2nd degree object: Cone, Hyperboloid, Paraboloid..
 - Handle bump map textures.
@@ -11,3 +10,8 @@
 - objecten toch met malloc creeeren zodat pointer doorgegeven kan worden?
 - sneller maken
 - we includen float.h mag dat?
+- user_interaction: scale objects
+- user_interaction: rotate objects
+- user_interaction: adjust diameter
+- user_interaction: adjust height
+- parse input: image (bump) maps
