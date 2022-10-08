@@ -53,7 +53,6 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		{
 			closest_object = mlx.object[i];
 			closest_object.t = t;
-			// DEBUG_DOUBLE(t);
 		}
 		i++;
 	}

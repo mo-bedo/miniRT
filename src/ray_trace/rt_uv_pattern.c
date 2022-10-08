@@ -113,8 +113,8 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 
 	if (pattern == CHECKERS)
 		return (checkers_pattern_at(uv, object.type));
-	// if (pattern == IMAGE)
-		// return(image_color_at(uv, object));
+	if (pattern == IMAGE)
+		return(image_color_at(uv, object));
 	// if (pattern == BUMP_MAP)
 		// 
 	initialize_black_color(&empty);

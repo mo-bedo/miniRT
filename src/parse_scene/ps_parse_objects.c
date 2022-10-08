@@ -44,6 +44,7 @@ void	parse_ppm_data(t_map *map, char *line)
 		error_message_and_exit("Please provide P3 PPM file");
 	// skip first line (P3)
 	line += 3;
+	// parse width and height
 	map->width = ft_atoi(line);
 	DEBUG_INT(map->width);
 	while (*line && !ft_is_space(*line))
@@ -58,10 +59,11 @@ void	parse_ppm_data(t_map *map, char *line)
 	DEBUG_INT(map->height);
 	// malloc space for map
 	int k = 0;
-	map->map = (t_xyz **)ft_calloc(map->height, sizeof(t_xyz**));
-	while (k < map->height)
+	map->map = (t_xyz **)ft_calloc(map->width, sizeof(t_xyz**));
+	while (k < map->width)
 	{
-		map->map[k] = (t_xyz *)ft_calloc(map->width, sizeof(t_xyz*));
+		// HOEZO MOET HEIGHT KEER TWEE???
+		map->map[k] = (t_xyz *)ft_calloc(map->height * 2, sizeof(t_xyz*));
 		++k;
 	}
 	// skip third line (255)
@@ -73,40 +75,31 @@ void	parse_ppm_data(t_map *map, char *line)
 	int x = 0;
 	while (x < map->height)
 	{
-		DEBUG_INT(x);
+		// DEBUG_INT(x);
 		// DEBUG_STR(line);
 		int y = 0;
 		while (y < map->width)
 		{
-			DEBUG_INT(y);
 			while (*line && ft_is_space(*line) || *line == '\n')
 				line += 1;
-			DEBUG_STR("x");
 			map->map[x][y].x = ft_atof(line);
 			while (*line && !ft_is_space(*line))
 				line += 1;
 			while (*line && ft_is_space(*line) || *line == '\n')
 				line += 1;
-			DEBUG_STR("y");
 			map->map[x][y].y = ft_atof(line);
 			while (*line && !ft_is_space(*line))
 				line += 1;
 			while (*line && ft_is_space(*line) || *line == '\n')
 				line += 1;
-			DEBUG_STR("z");
 			map->map[x][y].z = ft_atof(line);
 			while (*line && !ft_is_space(*line))
 				line += 1;
 			while (*line && ft_is_space(*line) || *line == '\n')
 				line += 1;
-			DEBUG_DOUBLE(map->map[x][y].x);
-			DEBUG_DOUBLE(map->map[x][y].y);
-			DEBUG_DOUBLE(map->map[x][y].z);
-			// if (y > 663)
-			// 	DEBUG_STR(line);
 			++y;
 		}
-		DEBUG_STR(line);
+		// DEBUG_STR(line);
 		++x;
 	}
 }
@@ -167,7 +160,7 @@ void	parse_ppm(t_map *map, char *input)
 		error_message_and_exit("File does not exist");
 	DEBUG_INT(length);
 	line = (char *)ft_calloc(sizeof(char), length);
-	// read(ppm_file, line, length);
+	read(ppm_file, line, length);
 	// read_entire_file(&line, ppm_file);
 	// DEBUG_STR(line);
 	parse_ppm_data(map, line);
@@ -225,12 +218,12 @@ void	parse_sphere(t_mlx *mlx, char *line)
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
-	// if (ft_strncmp(line, "maps", 4) == 0)
-	// {
-	// 	parse_ppm(&mlx->object[i].texture_map, line);
-	// 	while (*line && !ft_is_space(*line))
-	// 		line += 1;
-	// }
+	if (ft_strncmp(line, "maps", 4) == 0)
+	{
+		parse_ppm(&mlx->object[i].texture_map, line);
+		while (*line && !ft_is_space(*line))
+			line += 1;
+	}
 	mlx->object_count += 1;
 }
 
