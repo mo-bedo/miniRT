@@ -20,12 +20,12 @@
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
-static bool	light_is_blocked_by_another_object(t_objects o, t_ray ray)
+static bool	light_is_blocked_by_another_object(t_mlx mlx, t_ray ray)
 {
-	t_closest_object	object;
+	t_object	object;
 
-	object = get_closest_intersection(o, ray, LENGTH_NORMAL);
-	return (object.object_id);
+	object = get_closest_intersection(mlx, ray, LENGTH_NORMAL);
+	return (object.type);
 }
 
 // computes how ray would reflect from surface
@@ -76,7 +76,7 @@ static t_xyz	compute_diffuse_reflection(t_xyz normal,
 // if denominator is negative, we need to treat it as if it was 0 (just
 // as with the diffuse reflection).
 static t_xyz	compute_specular_reflection(t_ray light_ray,
-	t_xyz view, t_closest_object object, t_xyz color)
+	t_xyz view, t_object object, t_xyz color)
 {
 	double	denominator;
 	double	divisor;
@@ -99,7 +99,7 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 	return (intensity);
 }
 
-t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
+t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_object object)
 {
 	t_ray	light_ray;
 	t_xyz	intensity;
@@ -113,7 +113,7 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object)
 		light_ray.origin = object.position;
 		light_ray.direction = substract_vectors(
 				mlx->light[i].origin, object.position);
-		if (light_is_blocked_by_another_object(mlx->o, light_ray))
+		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(
 					object.normal, light_ray, mlx->light[i].color));

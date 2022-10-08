@@ -7,7 +7,6 @@
 - mag dit? in ray_trace.h
 -   # define RAY_T_MIN 0.0001f
 -   # define RAY_T_MAX 1.0e30f
-- objecten toch met malloc creeeren zodat pointer doorgegeven kan worden?
 - sneller maken
 - we includen float.h mag dat?
 - user_interaction: scale objects

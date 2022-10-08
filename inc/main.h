@@ -73,32 +73,9 @@ typedef struct s_map
 	t_xyz		**map;
 }	t_map;
 
-typedef struct s_plane
+typedef struct s_object
 {
-	t_xyz		center;
-	t_xyz		vector_orientation;
-	t_xyz		color;
-	bool		checkerboard;
-	bool		image;
-	float		specular;
-	float		reflective;
-}	t_plane;
-
-typedef struct s_sphere
-{
-	t_xyz		center;
-	float		radius;
-	t_xyz		color;
-	bool		checkerboard;
-	bool		image;
-	float		specular;
-	float		reflective;
-	t_map		texture_map;
-	// int			bump_map_fd;
-}	t_sphere;
-
-typedef struct s_cylinder
-{
+	int			type;
 	t_xyz		center;
 	t_xyz		vector_orientation;
 	float		radius;
@@ -108,17 +85,12 @@ typedef struct s_cylinder
 	bool		image;
 	float		specular;
 	float		reflective;
-}	t_cylinder;
-
-typedef struct s_objects
-{
-	t_sphere	sp[100];
-	int			sp_count;
-	t_plane		pl[100];
-	int			pl_count;
-	t_cylinder	cy[100];
-	int			cy_count;
-}	t_objects;
+	t_map		texture_map;
+	// int			bump_map_fd;
+	t_xyz		position;
+	double		t;
+	t_xyz		normal;
+}	t_object;
 
 // MASTER STRUCT OF STRUCTS
 typedef struct s_mlx {
@@ -129,7 +101,8 @@ typedef struct s_mlx {
 	t_ambient_light	ambient_light;
 	t_light			light[100];
 	int				light_count;
-	t_objects		o;
+	t_object		object[100];
+	int				object_count;
 	t_xyz			background_color;
 }	t_mlx;
 
@@ -154,3 +127,5 @@ enum e_values{
 void	print_time(char *action);
 
 #endif				// MAIN_H
+
+// previous speed: 3.687.642

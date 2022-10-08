@@ -33,7 +33,7 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 // if discriminant is smaller than zero it means there is no intersection;
 // ray intersects two times with sphere (xy.x and xy.y)
 // t1 < RAY_T_MIN 		this means it can reflect itself
-float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
+float	get_intersection_ray_sphere(t_ray ray, t_object sphere)
 {
 	t_uv	uv;
 	double	a;

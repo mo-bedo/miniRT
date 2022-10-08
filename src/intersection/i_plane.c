@@ -27,7 +27,7 @@ static bool	ray_is_parallel_to_object(t_ray ray, t_xyz vector_orientation)
 //		w = plane.position;
 //		n = plane.normal;
 //		p = intersection.ray.origin;
-static double	get_distance_to_intersection(t_ray ray, t_plane plane)
+static double	get_distance_to_intersection(t_ray ray, t_object plane)
 {
 	double	dot_product;
 	double	t;
@@ -40,7 +40,7 @@ static double	get_distance_to_intersection(t_ray ray, t_plane plane)
 	return (t);
 }
 
-float	get_intersection_ray_plane(t_ray ray, t_plane plane)
+float	get_intersection_ray_plane(t_ray ray, t_object plane)
 {
 	if (ray_is_parallel_to_object(ray, plane.vector_orientation))
 		return (RAY_T_MAX);

@@ -21,34 +21,16 @@
 // zeer onwaarschijnlijk dat iets verder dan deze max is
 # define RAY_T_MAX 1.0e30f
 
-typedef struct s_closest_object
-{
-	int					object_id;
-	t_xyz				position;
-	double				t;
-	t_xyz				center;
-	t_xyz				vector_orientation;
-	float				radius;
-	float				height;
-	t_xyz				color;
-	bool				checkerboard;
-	bool				image;
-	float				specular;
-	float				reflective;
-	t_map				texture_map;
-	t_xyz				normal;
-}	t_closest_object;
-
 typedef struct s_ray {
 	t_xyz				direction;
 	t_xyz				origin;
 	t_xyz				view;
 	double				t_max;
-	t_closest_object	object;
+	t_object	object;
 }	t_ray;
 
 t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y);
-t_ray	compute_ray(t_objects o, t_xyz origin, t_xyz direction);
+t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction);
 t_xyz	get_color(t_mlx *mlx, t_ray ray, int recursion_depth);
 void	ray_trace(t_mlx *mlx);
 

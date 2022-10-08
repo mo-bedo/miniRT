@@ -17,6 +17,6 @@
 # include "main.h"
 # include "ray_trace/rt_.h"
 
-float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder);
+float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder);
 
 #endif

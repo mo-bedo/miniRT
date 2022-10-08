@@ -37,9 +37,7 @@ static void	init(t_mlx	*mlx)
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
 	initialize_white_color(&mlx->background_color);
-	mlx->o.pl_count = 0;
-	mlx->o.sp_count = 0;
-	mlx->o.cy_count = 0;
+	mlx->object_count = 0;
 }
 
 void	print_time(char *action)

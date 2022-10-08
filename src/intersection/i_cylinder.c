@@ -23,7 +23,7 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 	return (ray);
 }
 
-float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder)
+float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 {
 	ray = transpose_ray(ray, cylinder.center);
 	return (RAY_T_MAX);

@@ -14,6 +14,8 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
+#include "ray_trace/rt_.h"
+
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
@@ -165,7 +167,7 @@ void	parse_ppm(t_map *map, char *input)
 		error_message_and_exit("File does not exist");
 	DEBUG_INT(length);
 	line = (char *)ft_calloc(sizeof(char), length);
-	read(ppm_file, line, length);
+	// read(ppm_file, line, length);
 	// read_entire_file(&line, ppm_file);
 	// DEBUG_STR(line);
 	parse_ppm_data(map, line);
@@ -174,78 +176,86 @@ void	parse_ppm(t_map *map, char *input)
 
 void	parse_plane(t_mlx *mlx, char *line)
 {
-	static int	i = 0;
+	int	i;
 
+	i = mlx->object_count;
 	line += 2;
-	mlx->o.pl[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.pl[i].vector_orientation = parse_vector_orientation(&line);
-	mlx->o.pl[i].checkerboard = false;
-	mlx->o.pl[i].image = false;
+	mlx->object[i].type = PLANE;
+	mlx->object[i].t = RAY_T_MAX;
+	mlx->object[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+	mlx->object[i].vector_orientation = parse_vector_orientation(&line);
+	mlx->object[i].checkerboard = false;
+	mlx->object[i].image = false;
 	if (ft_strncmp(line, "checkerboard", 12) == 0)
 	{
-		mlx->o.pl[i].checkerboard = true;
+		mlx->object[i].checkerboard = true;
 		line += 12;
 	}
 	else
-		mlx->o.pl[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	mlx->o.pl[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.pl[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
-	// DEBUG_FLOAT(mlx->o.pl[i].specular);
-	mlx->o.pl_count = ++i;
+		mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
+	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	mlx->object_count += 1;
 }
 
 void	parse_sphere(t_mlx *mlx, char *line)
 {
-	static int	i = 0;
+	int	i;
 
+	i = mlx->object_count;
 	line += 2;
-	mlx->o.sp[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.sp[i].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / 2;
-	mlx->o.sp[i].checkerboard = false;
-	mlx->o.sp[i].image = false;
+	mlx->object[i].type = SPHERE;
+	mlx->object[i].t = RAY_T_MAX;
+	mlx->object[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+	mlx->object[i].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / 2;
+	mlx->object[i].checkerboard = false;
+	mlx->object[i].image = false;
 	if (ft_strncmp(line, "checkerboard", 12) == 0)
 	{
-		mlx->o.sp[i].checkerboard = true;
+		mlx->object[i].checkerboard = true;
 		line += 12;
 	}
 	else if (ft_strncmp(line, "image", 5) == 0)
 	{
-		mlx->o.sp[i].image = true;
+		mlx->object[i].image = true;
 		line += 5;
 	}
 	else
-		mlx->o.sp[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	mlx->o.sp[i].specular = 0;
-	mlx->o.sp[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.sp[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+		mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+	mlx->object[i].specular = 0;
+	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
+	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
 	// if (ft_strncmp(line, "maps", 4) == 0)
 	// {
-	// 	parse_ppm(&mlx->o.sp[i].texture_map, line);
+	// 	parse_ppm(&mlx->object[i].texture_map, line);
 	// 	while (*line && !ft_is_space(*line))
 	// 		line += 1;
 	// }
-	mlx->o.sp_count = ++i;
+	mlx->object_count += 1;
 }
 
 void	parse_cylinder(t_mlx *mlx, char *line)
 {
-	static int	i = 0;
+	int	i;
 
+	i = mlx->object_count;
 	line += 2;
-	mlx->o.cy[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.cy[i].vector_orientation = parse_vector_orientation(&line);
-	mlx->o.cy[i].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / 2;
-	mlx->o.cy[i].height = parse_float(&line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
-	mlx->o.cy[i].checkerboard = false;
-	mlx->o.cy[i].image = false;
+	mlx->object[i].type = PLANE;
+	mlx->object[i].t = RAY_T_MAX;
+	mlx->object[i].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
+	mlx->object[i].vector_orientation = parse_vector_orientation(&line);
+	mlx->object[i].radius = parse_float(&line, MIN_DIAMETER, MAX_DIAMETER) / 2;
+	mlx->object[i].height = parse_float(&line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+	mlx->object[i].checkerboard = false;
+	mlx->object[i].image = false;
 	if (ft_strncmp(line, "checkerboard", 12) == 0)
 	{
-		mlx->o.cy[i].checkerboard = true;
+		mlx->object[i].checkerboard = true;
 		line += 12;
 	}
 	else
-		mlx->o.cy[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	mlx->o.cy[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.cy[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
-	mlx->o.cy_count = ++i;
+		mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
+	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	mlx->object_count += 1;
 }

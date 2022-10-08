@@ -29,7 +29,7 @@ t_uv	map_plane_to_2d(t_xyz position)
 }
 
 // www.raytracerchallenge.com/bonus/texture-mapping.html
-t_uv	map_sphere_to_2d(t_closest_object object)
+t_uv	map_sphere_to_2d(t_object object)
 {
 	t_uv	uv;
 	t_xyz	radius_vector;
@@ -65,7 +65,7 @@ t_uv	map_sphere_to_2d(t_closest_object object)
 }
 
 // CHECKERS
-t_xyz	checkers_pattern_at(t_uv uv, int object_id)
+t_xyz	checkers_pattern_at(t_uv uv, int type)
 {
 	t_xyz	black;
 	t_xyz	white;
@@ -76,7 +76,7 @@ t_xyz	checkers_pattern_at(t_uv uv, int object_id)
 	tiles = 2;
 	uv.u *= tiles;
 	uv.v *= tiles;
-	if (object_id == SPHERE)
+	if (type == SPHERE)
 	{
 		uv.u *= tiles * 10;
 		uv.v *= tiles * 5;
@@ -86,7 +86,7 @@ t_xyz	checkers_pattern_at(t_uv uv, int object_id)
 	return (black);
 }
 
-t_xyz	image_color_at(t_uv uv, t_closest_object object)
+t_xyz	image_color_at(t_uv uv, t_object object)
 {
 	int x = (int)uv.u * (int)object.texture_map.width / (int)(WINDOW_WIDTH - 1);
 	int y = (int)uv.v * (int)object.texture_map.height / (int)(WINDOW_HEIGHT - 1);
@@ -99,20 +99,20 @@ t_xyz	image_color_at(t_uv uv, t_closest_object object)
 	return (object.texture_map.map[x][y]);
 }
 
-t_xyz	get_uv_pattern(int pattern, t_closest_object object)
+t_xyz	get_uv_pattern(int pattern, t_object object)
 {
 	t_uv	uv;
 	t_xyz	empty;
 
 	uv.u = 0;
 	uv.v = 0;
-	if (object.object_id == PLANE)
+	if (object.type == PLANE)
 		uv = map_plane_to_2d(object.position);
-	if (object.object_id == SPHERE)
+	if (object.type == SPHERE)
 		uv = map_sphere_to_2d(object);
 
 	if (pattern == CHECKERS)
-		return (checkers_pattern_at(uv, object.object_id));
+		return (checkers_pattern_at(uv, object.type));
 	// if (pattern == IMAGE)
 		// return(image_color_at(uv, object));
 	// if (pattern == BUMP_MAP)
