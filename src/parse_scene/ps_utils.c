@@ -93,14 +93,14 @@ t_xyz	parse_vector_orientation(char **str)
 	return (xyz);
 }
 
-bool	has_no_valid_extension(char *filename, char *valid_ext)
+bool	has_valid_extension(char *filename, char *valid_ext)
 {
 	char	*ext;
 
 	ext = ft_strrchr(filename, '.');
 	if (!ext || ft_strncmp(ext, valid_ext, ft_strlen(valid_ext)) != 0)
-		return (true);
-	return (false);
+		return (false);
+	return (true);
 }
 
 char	*add_buffer_to_line(char *old, char buffer)
@@ -141,4 +141,35 @@ int	get_next_line(char **line, int fd)
 	if (buffer == '\n')
 		*line = add_buffer_to_line(*line, buffer);
 	return (return_value);
+}
+
+
+int	ft_strlcpy(char *dst, char *src, int size)
+{
+	int	i;
+
+	i = ft_strlen(src);
+	if (!size)
+		return (i);
+	while (*src && --size)
+		*dst++ = *src++;
+	*dst = 0;
+	return (i);
+}
+
+int	get_length_of_file(char *path)
+{
+	char	buffer;
+	int		i = 0;
+	int		return_value;
+
+	int fd = open(path, O_RDONLY);
+	buffer = 0;
+	return_value = 1;
+	while (return_value)
+	{
+		return_value = read(fd, &buffer, 1);
+		++i;
+	}
+	return (i);
 }

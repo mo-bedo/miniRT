@@ -128,4 +128,9 @@ void	print_time(char *action);
 
 #endif				// MAIN_H
 
-// previous speed: 3.687.642
+
+// resize image;
+// convert earth.ppm -resize 100x50 earth_small.ppm
+
+// convert P6 to P3
+// convert earth_small.ppm -compress none earth_small.ppm

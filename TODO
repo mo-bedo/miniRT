@@ -14,3 +14,8 @@
 - user_interaction: adjust diameter
 - user_interaction: adjust height
 - parse input: image (bump) maps
+
+# BUGS
+- checkerboard op plane werkt niet als plane horizontaal staat ipv verticaal
+- mallocs freeen
+

@@ -49,7 +49,7 @@ void	parse_scene(t_mlx *mlx, int argc, char *input)
 	int		there_is_a_new_line;
 	char	*line;
 
-	if (argc != 2 || has_no_valid_extension(input, ".rt"))
+	if (argc != 2 || !has_valid_extension(input, ".rt"))
 		error_message_and_exit("Please provide a scene description file");
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)

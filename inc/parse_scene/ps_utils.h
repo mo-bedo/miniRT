@@ -20,9 +20,11 @@ int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
 t_xyz	parse_xyz(char **str, int min, int max);
 t_xyz	parse_vector_orientation(char **str);
-bool	has_no_valid_extension(char *filename, char *valid_ext);
+bool	has_valid_extension(char *filename, char *valid_ext);
 char	*add_buffer_to_line(char *old, char buffer);
 int		get_next_line(char **line, int fd);
+int		ft_strlcpy(char *dst, char *src, int size);
+int		get_length_of_file(char *path);
 
 enum e_xyz_range {
 	MIN_COLOR			= 0,
@@ -43,6 +45,8 @@ enum e_xyz_range {
 	MAX_REFLECTIVE		= 1,
 	MIN_CY_HEIGHT		= 0,
 	MAX_CY_HEIGHT		= 600,
+	MIN_PPM_SIZE		= 100,
+	MAX_PPM_SIZE		= 2000
 };
 
 #endif

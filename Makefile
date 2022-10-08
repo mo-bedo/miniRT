@@ -43,10 +43,12 @@ SRC				:=	main.c \
 					parse_scene/ps_.c \
 					parse_scene/ps_parse_line.c \
 					parse_scene/ps_parse_objects.c \
+					parse_scene/ps_parse_map.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
 					ray_trace/rt_uv_pattern.c \
+					ray_trace/rt_uv_map_to_2d.c \
 					ray_trace/rt_pixel_put.c \
 					utils/u_.c \
 					utils/u_conversion.c \
