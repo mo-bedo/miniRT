@@ -29,10 +29,13 @@ int	ft_strlen(char *s)
 
 void	ft_putstr(char *s)
 {
+	int	return_value;
+
 	if (!s)
 		return ;
 	while (*s)
-		write(1, s++, 1);
+		return_value = write(1, s++, 1);
+	return_value++;
 }
 
 int	ft_is_digit(int c)

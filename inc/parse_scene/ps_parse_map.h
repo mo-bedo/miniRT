@@ -15,6 +15,6 @@
 
 # include "main.h"
 
-void	parse_map(t_map *map, char *input);
+void	parse_textures(t_object *object, char **input);
 
 #endif

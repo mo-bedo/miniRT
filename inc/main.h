@@ -81,12 +81,13 @@ typedef struct s_object
 	float		radius;
 	float		height;
 	t_xyz		color;
-	bool		checkerboard;
-	bool		image;
 	float		specular;
 	float		reflective;
+	bool		checkerboard;
+	bool		texture;
 	t_map		texture_map;
-	// int			bump_map_fd;
+	bool		bump;
+	t_map		bump_map;
 	t_xyz		position;
 	double		t;
 	t_xyz		normal;
@@ -120,8 +121,9 @@ enum e_values{
 	SPHERE			= 2,
 	CYLINDER		= 3,
 	CHECKERS		= 0,
-	IMAGE			= 1,
-	BUMP			= 2
+	TEXTURE			= 1,
+	BUMP_MAP		= 2,
+	PLANE_MAP_SCALE = 20
 };
 
 void	print_time(char *action);
@@ -130,7 +132,7 @@ void	print_time(char *action);
 
 
 // resize image;
-// convert earth.ppm -resize 100x50 earth_small.ppm
+// convert earth.ppm -resize 300x150 earth_small.ppm
 
 // convert P6 to P3
 // convert earth_small.ppm -compress none earth_small.ppm

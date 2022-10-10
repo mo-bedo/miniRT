@@ -17,7 +17,7 @@ LINUX 			=	true
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror
 MLX				:= -g -Iinc -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
 CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror
@@ -41,7 +41,6 @@ SRC				:=	main.c \
 					intersection/i_sphere.c \
 					intersection/i_cylinder.c \
 					parse_scene/ps_.c \
-					parse_scene/ps_parse_line.c \
 					parse_scene/ps_parse_objects.c \
 					parse_scene/ps_parse_map.c \
 					parse_scene/ps_utils.c \

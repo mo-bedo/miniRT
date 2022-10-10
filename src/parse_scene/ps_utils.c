@@ -16,6 +16,7 @@
 
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
+#include "utils/u_vector_math.h"
 
 void	error_message_and_exit(char *message)
 {
@@ -164,12 +165,44 @@ int	get_length_of_file(char *path)
 	int		return_value;
 
 	int fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_message_and_exit("File does not exist");
 	buffer = 0;
 	return_value = 1;
 	while (return_value)
 	{
 		return_value = read(fd, &buffer, 1);
+		// DEBUG_INT(i);
 		++i;
 	}
 	return (i);
+}
+
+t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
+{
+	t_xyz	angles;
+	t_xyz	v1;
+	t_xyz	v2;
+
+	v1 = vector1;
+	v1.x = 0;
+	v2 = vector2;
+	v2.x = 0;
+		angles.x = get_angle_between_vectors(v1, v2);
+	if ((v2.z >= 0 && v1.y < v2.y) || (v2.z < 0 && v1.y > v2.y))
+		angles.x *= -1;
+	v1 = vector1;
+	v1.y = 0;
+	v2 = vector2;
+	v2.y = 0;
+		angles.y = get_angle_between_vectors(v1, v2);
+	if ((v2.z >= 0 && v1.x > v2.x) || (v2.z < 0 && v1.x < v2.x))
+		angles.y *= -1;
+	angles.z = 0;
+	if (v2.z < 0)
+	{
+		angles.y -= (180 * (3.14 / 180));
+		angles.z -= -180 * (3.14 / 180);
+	}
+	return (angles);
 }

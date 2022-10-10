@@ -37,7 +37,7 @@ t_xyz	**allocate_map(int width, int height)
 	return (map);
 }
 
-void	parse_map_data(t_map *map, char *data)
+void	parse_texture_data(t_map *map, char *data)
 {
 	int	x;
 	int	y;
@@ -52,7 +52,7 @@ void	parse_map_data(t_map *map, char *data)
 	}
 }
 
-void	parse_ppm_data(t_map *map, char *data)
+void	parse_ppm_file(t_map *map, char *data)
 {
 	int	color_scale;
 
@@ -62,10 +62,10 @@ void	parse_ppm_data(t_map *map, char *data)
 	map->width = parse_int(&data, MIN_PPM_SIZE, MAX_PPM_SIZE);
 	map->height = parse_int(&data, MIN_PPM_SIZE, MAX_PPM_SIZE);
 	map->map = allocate_map(map->width, map->height);
-	color_scale = parse_int(&data, MIN_PPM_SIZE, MAX_PPM_SIZE);
+	color_scale = parse_int(&data, MIN_COLOR, MAX_COLOR);
 	if (color_scale != MAX_COLOR)
 		error_message_and_exit("PPM: Max color scale should be 255");
-	parse_map_data(map, data);
+	parse_texture_data(map, data);
 }
 
 char	*get_path(char *input)
@@ -85,21 +85,50 @@ char	*get_path(char *input)
 	return (NULL);
 }
 
-void	parse_map(t_map *map, char *input)
+void	parse_texture_map(t_map *map, char **line)
 {
 	int		ppm_file;
 	int		file_length;
 	char	*path;
 	char	*map_data;
 
-	path = get_path(input);
+	path = get_path(*line);
 	file_length = get_length_of_file(path);
+	DEBUG_INT(file_length);
 	ppm_file = open(path, O_RDONLY);
 	free(path);
-	if (ppm_file < 0)
-		error_message_and_exit("File does not exist");
 	map_data = (char *)ft_calloc(sizeof(char), file_length);
-	if (read(ppm_file, map_data, file_length) != -1);
-		parse_ppm_data(map, map_data);
+	if (read(ppm_file, map_data, file_length) != -1)
+		parse_ppm_file(map, map_data);
+	while (**line && !ft_is_space(**line))
+		*line += 1;
+	while (**line && ft_is_space(**line))
+		*line += 1;
 	free(map_data);
+}
+
+void	parse_textures(t_object *object, char **line)
+{
+	object->checkerboard = false;
+	object->texture = false;
+	object->bump = false;
+	if (ft_strncmp(*line, "checkerboard", 12) != 0 
+		&& ft_strncmp(*line, "maps/texture/", 13) != 0
+		&& ft_strncmp(*line, "maps/bump/", 10) != 0)
+		error_message_and_exit("Texture input error");
+	if (ft_strncmp(*line, "checkerboard", 12) == 0)
+	{
+		object->checkerboard = true;
+		return ;
+	}
+	if (ft_strncmp(*line, "maps/texture/", 13) == 0)
+	{
+		parse_texture_map(&object->texture_map, line);
+		object->texture = true;
+	}
+	if (ft_strncmp(*line, "maps/bump/", 10) == 0)
+	{
+		parse_texture_map(&object->bump_map, line);
+		object->bump = true;
+	}
 }

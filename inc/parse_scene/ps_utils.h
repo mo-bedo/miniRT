@@ -25,6 +25,7 @@ char	*add_buffer_to_line(char *old, char buffer);
 int		get_next_line(char **line, int fd);
 int		ft_strlcpy(char *dst, char *src, int size);
 int		get_length_of_file(char *path);
+t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2);
 
 enum e_xyz_range {
 	MIN_COLOR			= 0,
@@ -45,7 +46,7 @@ enum e_xyz_range {
 	MAX_REFLECTIVE		= 1,
 	MIN_CY_HEIGHT		= 0,
 	MAX_CY_HEIGHT		= 600,
-	MIN_PPM_SIZE		= 100,
+	MIN_PPM_SIZE		= 10,
 	MAX_PPM_SIZE		= 2000
 };
 

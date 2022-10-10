@@ -13,6 +13,7 @@
 #include "main.h"
 #include "ray_trace/rt_.h"
 #include "ray_trace/rt_uv_map_to_2d.h"
+#include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
@@ -39,18 +40,50 @@ t_xyz	checkers_pattern_at(t_uv uv, int type)
 	return (black);
 }
 
-
 t_xyz	image_color_at(t_uv uv, t_object object)
 {
-	// wereldbol moet kwartslag draaien (en is nog ook te groot?)
-	int x = (int)((uv.u / 2) * (object.texture_map.width - 1));
-	int y = (int)((1 - uv.v) * (object.texture_map.height - 1));
-	// DEBUG_INT(x);
-	// DEBUG_INT(y);
-	// DEBUG_FLOAT(object.texture_map.map[x][y].x);
-	// DEBUG_FLOAT(uv.u * object.texture_map.width / (WINDOW_WIDTH - 1));
-	// DEBUG_FLOAT(uv.u * object.texture_map.width / (WINDOW_HEIGHT - 1);
-	return (object.texture_map.map[x][y]);
+	int x = (int)((uv.u) * (object.texture_map.width - 1));
+	int y = (int)((uv.v) * (object.texture_map.height - 1));
+	if (object.type == PLANE)
+	{
+		x = (int)(uv.u * PLANE_MAP_SCALE);
+		y = (int)(uv.v * PLANE_MAP_SCALE);
+		if (x < 0)
+			x *= -1;
+		while (x >= (int)object.texture_map.width)
+			x -= (int)object.texture_map.width;
+		if (y < 0)
+			y *= -1;
+		while (y >= (int)object.texture_map.height)
+			y -= (int)object.texture_map.height;
+	}
+	return (object.texture_map.map[y][x]);
+}
+
+t_xyz	bump_map_at(t_uv uv, t_object object)
+{
+	t_xyz	bump;
+
+	int x = (int)((uv.u) * (object.bump_map.width - 1));
+	int y = (int)((uv.v) * (object.bump_map.height - 1));
+	if (object.type == PLANE)
+	{
+		x = (int)(uv.u * PLANE_MAP_SCALE);
+		y = (int)(uv.v * PLANE_MAP_SCALE);
+		if (x < 0)
+			x *= -1;
+		while (x >= (int)object.bump_map.width)
+			x -= (int)object.bump_map.width;
+		if (y < 0)
+			y *= -1;
+		while (y >= (int)object.bump_map.height)
+			y -= (int)object.bump_map.height;
+	}
+	bump = object.bump_map.map[y][x];
+	bump.x = bump.x / MAX_COLOR;
+	bump.y = bump.y / MAX_COLOR;
+	bump.z = bump.z / MAX_COLOR;
+	return (bump);
 }
 
 t_xyz	get_uv_pattern(int pattern, t_object object)
@@ -59,17 +92,12 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 	t_xyz	empty;
 
 	uv = map_to_2d(object);
-	// DEBUG_FLOAT(uv.u);
-	// DEBUG_FLOAT(uv.v);
-	// DEBUG_INT((int)uv.u);
-	// DEBUG_INT((int)uv.v);
-
 	if (pattern == CHECKERS)
 		return (checkers_pattern_at(uv, object.type));
-	if (pattern == IMAGE)
+	if (pattern == TEXTURE)
 		return(image_color_at(uv, object));
-	// if (pattern == BUMP_MAP)
-		// 
+	if (pattern == BUMP_MAP)
+		return(bump_map_at(uv, object));	
 	initialize_black_color(&empty);
 	return (empty);
 }

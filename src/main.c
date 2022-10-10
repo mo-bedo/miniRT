@@ -69,5 +69,5 @@ int	main(int argc, char **argv)
 	ray_trace(&mlx);
 	print_time("ray_trace");
 	mlx_loop(mlx.mlx);
-	return (0);
+	exit(EXIT_SUCCESS);
 }
