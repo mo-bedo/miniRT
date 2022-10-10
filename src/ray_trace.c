@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/03 13:43:08 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/10 15:47:40 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	}
 	else if (object.object == CYLINDER)
 	{
-		normal = get_cylinder_normal(ray, object);
+		normal = object.normal;
+		// normal = get_cylinder_normal(ray, object);
 		// printf("%f %f %f\n", normal.x, normal.y, normal.z);
 		// normal = substract_vectors(object.position, object.center);
 		// normal = normalize_vector(normal);
@@ -113,3 +114,7 @@ void	ray_trace(t_mlx *mlx)
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->img.img, 0, 0);
 }
+
+
+
+

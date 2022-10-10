@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:52:38 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/05 18:39:35 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/10 12:41:07 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ t_matrix4	add_matrices(t_matrix4 lhs, t_matrix4 rhs)
 		}
 		i++;
 	}
+	return (lhs);
 }
 
 /* negative matrix: 
@@ -242,6 +243,7 @@ t_matrix4	negative_matrix(t_matrix4 obj)
 		}
 		i++;
 	}
+	return (obj);
 }
 
 /* 
@@ -284,9 +286,9 @@ t_matrix4	create_transform_matrix(t_xyz translation_vector,
 
 	translate_matrix = set_translation_matrix(translate_matrix, translation_vector);
 
-	// rotate_matrix_X = set_rotation_matrix_x_axis(rotate_matrix_X, rotate.x); // what is theta dan 
-	// rotate_matrix_Y = set_rotation_matrix_y_axis(rotate_matrix_X, rotate.y); // what is theta dan
-	// rotate_matrix_Z = set_rotation_matrix_z_axis(rotate_matrix_X, rotate.z); // what is theta dan
+	rotate_matrix_X = set_rotation_matrix_x_axis(rotate_matrix_X, rotate.x); // what is theta dan 
+	rotate_matrix_Y = set_rotation_matrix_y_axis(rotate_matrix_X, rotate.y); // what is theta dan
+	rotate_matrix_Z = set_rotation_matrix_z_axis(rotate_matrix_X, rotate.z); // what is theta dan
 	
 	set_scale_matrix(scale_matrix, scale);
 
@@ -309,7 +311,7 @@ t_matrix4	create_transform_matrix(t_xyz translation_vector,
 */
 t_matrix4	set_rotation_matrix_x_axis(t_matrix4 obj, float theta)
 {
-	obj = set_matrix_to_identity(obj);		// kan weg gelaten worden als het sneller (ook in andere 2 rotatie functie), staat er nu nog in om bugs te voorkomen
+	// obj = set_matrix_to_identity(obj);		// kan weg gelaten worden als het sneller (ook in andere 2 rotatie functie), staat er nu nog in om bugs te voorkomen
 	obj.value[1][1] = cos(theta); 
 	obj.value[1][2] = -sin(theta);
 	obj.value[2][1] = sin(theta);
@@ -327,7 +329,7 @@ t_matrix4	set_rotation_matrix_x_axis(t_matrix4 obj, float theta)
 */
 t_matrix4	set_rotation_matrix_y_axis(t_matrix4 obj, float theta)
 {
-	obj = set_matrix_to_identity(obj);
+	// obj = set_matrix_to_identity(obj);
 	obj.value[0][0] = cos(theta); 
 	obj.value[0][2] = sin(theta);
 	obj.value[2][0] = -sin(theta);
@@ -353,7 +355,7 @@ t_matrix4	set_scale_matrix(t_matrix4 obj, t_xyz scale)
 */
 t_matrix4	set_rotation_matrix_z_axis(t_matrix4 obj, float theta)
 {
-	obj = set_matrix_to_identity(obj);
+	// obj = set_matrix_to_identity(obj);
 	obj.value[0][0] = cos(theta); 
 	obj.value[0][1] = -sin(theta); 
 	obj.value[1][0] = sin(theta);

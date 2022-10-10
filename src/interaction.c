@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   interaction.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 21:07:02 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   interaction.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/10 11:55:53 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 	t_xyz	direction;
 	t_ray	ray;
 
-	mlx_mouse_get_pos(mlx->mlx, mlx->window, &x, &y);
+	mlx_mouse_get_pos(mlx->window, &x, &y);
 	if (keycode == MOUSE_CLICK)
 	{
 		DEBUG_INT(x - (WINDOW_WIDTH / 2));

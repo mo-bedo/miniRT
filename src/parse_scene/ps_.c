@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_.c                                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:58:22 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ps_.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/10 14:08:29 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	parse_scene(t_mlx	*mlx, int argc, char *input)
 		error_message_and_exit("Please provide a scene description file");
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
-		error_message_and_exit("File does not exist");
+		error_message_and_exit("File does not exist or user doesn't have read rights");
 	while (1)
 	{
 		line = (char *)ft_calloc(sizeof(char), 1);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:32:17 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/10 16:25:31 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_matrix4 {
 typedef struct s_matrix8 {
 	float value [4][8];
 }		t_matrix8;
+
+
 
 typedef struct s_vector4 {
 	float	x;
@@ -91,6 +93,12 @@ typedef struct s_plane
 	int			specular;
 	float		reflective;
 }	t_plane;
+
+typedef struct s_triangle {
+	t_xyz	ab;
+	t_xyz	bc;
+	t_xyz	ca;
+}	t_triangle;
 
 typedef struct s_sphere
 {

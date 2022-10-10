@@ -86,7 +86,7 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 	int	maxLoop = 100;		// later op 100
 	int	i;
 	bool	complete;
-	float multi_factor;
+	double multi_factor;
 
 	complete = false;
 	i = 0;
@@ -157,7 +157,7 @@ t_matrix4	invert_matrix(t_matrix4 obj)
 			while (col_index < 4)
 			{
 				
-				if (!close_enough(A.value[cRow][col_index], 0.0));
+				if (!close_enough(A.value[cRow][col_index], 0.0))
 				{
 					int	row_one_index = col_index;
 
@@ -392,7 +392,7 @@ bool	compare_matrix_by_element(t_matrix4 lhs, t_matrix4 rhs)
 	{
 		j = 0;
 		{
-			if (!fabs(lhs.value[i][j] - rhs.value[i][j]) < 1e-9)
+			if (!(fabs(lhs.value[i][j] - rhs.value[i][j]) < 1e-9))
 				return (false);
 			j++;
 		}
