@@ -29,7 +29,7 @@ int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 	t_xyz	direction;
 	t_ray	ray;
 
-	mlx_mouse_get_pos(mlx->window, &x, &y);
+	mlx_mouse_get_pos(mlx->mlx, mlx->window, &x, &y);
 	if (keycode == MOUSE_CLICK)
 	{
 		DEBUG_INT(x - (WINDOW_WIDTH / 2));
