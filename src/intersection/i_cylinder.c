@@ -63,12 +63,57 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 
 	float t = RAY_T_MAX;
 
-	if (t_[0] >= 0 && o->t > t_[0])
+	if (t_[0] >= 0 && t > t_[0])
 		t = t_[0];
-	else if (t_[1] >= 0 && o->t > t_[1])
+	if (t_[1] >= 0 && t > t_[1])
 		t = t_[1];
 	if (t == RAY_T_MAX)
 		return (t);	
+
+	/*
+	If the distance between the intersection and the center of the cylinder is higher 
+	than the length of the cylinder, then we do not consider an intersection. Even though
+	 there is no intersection at the closest intersection (which is too high), there is one 
+	 behind it which might be in the range of the height of the cylinder. And this is the 
+	 intersection that we need to get the other side of our cylinder.
+
+			** PSUEDO **
+	// I assume you already found t1 and t2, the two intersections
+	if (t2 < 0) return ;
+	t = (t1 > 0 ? t1 : t2);
+
+	double max = sqrt(pow(cylinder.height / 2, 2) + pow(cylinder.radius, 2)); //pythagoras theorem
+	t_vect point = ray.origin + ray.direction * t;
+	t_vect len = point - cylinder.center;
+	if (norm(len) > max) // if t1 is too high we try with t2
+	t = t2;
+
+	t_vect point = ray.origin + ray.direction * t;
+	len = point - cylinder.center;
+	if (norm(len) > max) // if t2 is too high too then there is no intersection, else t2 is the intersection. And t2 is in the second half of the cylinder
+	return;
+
+	*/
+
+	if (t_[1] < 0)
+		return RAY_T_MAX;
+	t = (t_[0] > 0 ? t_[0] : t_[1]);
+
+	double max = sqrt(pow(cylinder.height / 2, 2) + pow(cylinder.radius, 2)); //pythagoras
+	t_xyz point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
+	t_xyz len = substract_vectors(point, cylinder.center);
+	if (get_vector_length(len) > max) // als t_0 te hoog is probeer je t_1
+		t = t_[1];
+
+	point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
+	len = substract_vectors(point, cylinder.center);
+	if (get_vector_length(len) > max) 
+		return (RAY_T_MAX);
+	// if t2 is too high too then there is no intersection, 
+	//else t2 is the intersection. And t2 is in the second half of the cylinder
+	return (t);
+
+
 
 
 	t_xyz intersect;
@@ -77,10 +122,12 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 
 	t_plane plane;
 	float	result_t = RAY_T_MAX;		// als je deze op result_t = t zet krijg je infinite cylinder
+	float	return_t = RAY_T_MAX;
 
 	plane.vector_orientation = cylinder.vector_orientation;
 	plane.center = cylinder.center;
 	cylinder_cap(&t, intersect, cylinder.vector_orientation, plane);
+
 	if (t <= cylinder.height / 2)
 		result_t = t;
 	cylinder_cap(&t, intersect, multiply_vector(cylinder.vector_orientation, -1), plane);
