@@ -156,6 +156,10 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	//	(Q4 - P2)^2 < R^2
 	//	Qi = p + v Ti 
 	//	P1 = bottomcap center
+	// dus (lengte van Q3 - P1)^2 < R^2 anders is plane_intersectie niet op de cap
+	// zie hieronder 
+
+	// voor t4 moet dit nog goed worden geschreven
 
 	t_xyz 	bottom_plane_intersect;
 	t_xyz	top_plane_intersect;
@@ -163,8 +167,7 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	float	y;
 	float	z;
 	float	r; 
-	
-	// t3, t4 = valid als niet-negatief is en x, y en z < r^2
+
 
 	bottom_plane_intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t3));
 
@@ -174,10 +177,6 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	math = substract_vectors(bottom_plane_intersect, cylinder.center);
 	math_len = get_vector_length(math);
 	math_len *= math_len; 
-
-	// x = pow(bottom_plane_intersect.x - cylinder.center.x, 2);
-	// y = pow(bottom_plane_intersect.y - cylinder.center.y, 2);
-	// z = pow(bottom_plane_intersect.z - cylinder.center.z, 2);
 
 	r = pow(cylinder.radius, 2);
 
@@ -212,29 +211,4 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	small1 = ft_min_float(t3, t4);
 
 	return (ft_min_float(small, small1));
-
-
-
-
-	t_xyz intersect;
-
-
-
-
-	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-
-	t_plane plane;
-	float	result_t = RAY_T_MAX;		// als je deze op result_t = t zet krijg je infinite cylinder
-	float	return_t = RAY_T_MAX;
-
-	plane.vector_orientation = cylinder.vector_orientation;
-	plane.center = cylinder.center;
-	cylinder_cap(&t, intersect, cylinder.vector_orientation, plane);
-
-	if (t <= cylinder.height / 2)
-		result_t = t;
-	cylinder_cap(&t, intersect, multiply_vector(cylinder.vector_orientation, -1), plane);
-	if (t <= cylinder.height / 2)
-		result_t = t;
-	return (result_t);
 }
