@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 12:54:43 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:06:12 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	get_cylinder_normal(t_object *object)
  
 }
 
-// float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder cylinder)
 // Cylinder.center is het midden van cylinder (en dus niet het midden van 1 van de uiteindes) 
 float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 {
@@ -38,11 +37,11 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	float	c;
 	float	det;
 	float	t_[2];
+	t_xyz	temp_cross;
+	t_xyz	temp_cross2;
 
-	t_xyz	temp_cross = cross(ray.direction, cylinder->vector_orientation);
-	t_xyz	s_sub = substract_vectors(ray.origin, cylinder->center);
-	t_xyz	temp_cross2 = cross(s_sub, cylinder->vector_orientation);
-
+	temp_cross = cross(ray.direction, cylinder->vector_orientation);
+	temp_cross2 = cross(substract_vectors(ray.origin, cylinder->center), cylinder->vector_orientation);
 	a = get_dot_product(temp_cross, temp_cross);
 	b = 2 * get_dot_product(temp_cross, temp_cross2);
 	c = get_dot_product(temp_cross2, temp_cross2) - (pow(cylinder->radius, 2) 
@@ -54,8 +53,10 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	det = sqrt(det);
 	t_[0] = (-b - det) / a;	
 	t_[1] = (-b + det) / a;	
-
-
+	
+	
+	
+	
 	float t = RAY_T_MAX;
 
 	if (t_[0] >= 0 && t > t_[0])
