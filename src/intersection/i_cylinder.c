@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 11:58:43 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 12:17:39 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	get_cylinder_normal(t_object *object)
 }
 
 // float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder cylinder)
-// Cylinder.center is het midden van de onderste cap van de cylinder. 
-float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
+// Cylinder.center is het midden van cylinder (en dus niet het midden van 1 van de uiteindes) 
+float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 {
 	float	a;
 	float	b;
@@ -39,14 +39,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 	float	det;
 	float	t_[2];
 
-	t_xyz	temp_cross = cross(ray.direction, cylinder.vector_orientation);
-	t_xyz	s_sub = substract_vectors(ray.origin, cylinder.center);
-	t_xyz	temp_cross2 = cross(s_sub, cylinder.vector_orientation);
+	t_xyz	temp_cross = cross(ray.direction, cylinder->vector_orientation);
+	t_xyz	s_sub = substract_vectors(ray.origin, cylinder->center);
+	t_xyz	temp_cross2 = cross(s_sub, cylinder->vector_orientation);
 
 	a = get_dot_product(temp_cross, temp_cross);
 	b = 2 * get_dot_product(temp_cross, temp_cross2);
-	c = get_dot_product(temp_cross2, temp_cross2) - (pow(cylinder.radius, 2) 
-		* get_dot_product(cylinder.vector_orientation, cylinder.vector_orientation));
+	c = get_dot_product(temp_cross2, temp_cross2) - (pow(cylinder->radius, 2) 
+		* get_dot_product(cylinder->vector_orientation, cylinder->vector_orientation));
 	det = pow(b, 2) - (4 * a * c);
 	if (det < 0)
 		return (RAY_T_MAX);
@@ -99,14 +99,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 		return RAY_T_MAX;
 	t = (t_[0] > 0 ? t_[0] : t_[1]);
 
-	double max = sqrt(pow(cylinder.height / 2, 2) + pow(cylinder.radius, 2)); //pythagoras
+	double max = sqrt(pow(cylinder->height / 2, 2) + pow(cylinder->radius, 2)); //pythagoras
 	t_xyz point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	t_xyz len = substract_vectors(point, cylinder.center);
+	t_xyz len = substract_vectors(point, cylinder->center);
 	if (get_vector_length(len) < max) // als t_0 te hoog is probeer je t_1
 		t1 = t;
 	t = t_[1];
 	point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	len = substract_vectors(point, cylinder.center);
+	len = substract_vectors(point, cylinder->center);
 	if (get_vector_length(len) < max) // t_1 te hoog is is er geen intersectie
 		t2 = t;
 	// return (ft_min_float(t1, t2));			// hier returnen voor cylinders zonder cap
@@ -120,11 +120,12 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 	t_object	top_cap;
 	t_object	bottom_cap;	
 
-	top_cap.vector_orientation = cylinder.vector_orientation;
-	bottom_cap.vector_orientation = cylinder.vector_orientation;
+	top_cap.vector_orientation = cylinder->vector_orientation;
+	bottom_cap.vector_orientation = cylinder->vector_orientation;
 
-	top_cap.center = add_vectors(cylinder.center, multiply_vector(cylinder.vector_orientation, cylinder.height));
-	bottom_cap.center = cylinder.center;
+	top_cap.center = add_vectors(cylinder->center, multiply_vector(cylinder->vector_orientation, cylinder->height / 2));
+	bottom_cap.center = add_vectors(cylinder->center, multiply_vector(cylinder->vector_orientation, -(cylinder->height / 2)));
+	// bottom_cap.center = cylinder.center;
 
 	t3 = get_intersection_ray_plane(ray, bottom_cap);
 	t4 = get_intersection_ray_plane(ray, top_cap);
@@ -148,6 +149,7 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 
 
 	bottom_plane_intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t3));
+	
 
 	t_xyz math;
 	float	math_len;
@@ -155,11 +157,11 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 
 
 
-	math = substract_vectors(bottom_plane_intersect, cylinder.center);
+	math = substract_vectors(bottom_plane_intersect, cylinder->center);
 	math_len = get_vector_length(math);
 	math_len *= math_len; 
 
-	r = pow(cylinder.radius, 2);
+	r = pow(cylinder->radius, 2);
 
 
 	if ((t3 > 0) && (math_len < r))
@@ -167,14 +169,16 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 	else
 		t3 = RAY_T_MAX;
 
-
+	top_plane_intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t4));
 
 	
 	math = substract_vectors(top_plane_intersect, top_cap.center);
 	math_len = get_vector_length(math);
 	math_len *= math_len; 
 	
-	// if ((t4 < 0) || (math_len > r))
+	if ((t4 > 0) && (math_len < r))
+		t4 = t4;
+	else
 		t4 = RAY_T_MAX;
 	
 	// if ((t3 > 0) && (x < r) && (y < r) && (z < r))
@@ -196,8 +200,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 	// if (t1 < RAY_T_MAX && t3 < RAY)
 	// printf("t1 = %f \t t2 = %f \t t3 = %f \t t4 = %f\n", t1, t2, t3, t4);
 
+
+
 	small = ft_min_float(t1, t2);
 	small1 = ft_min_float(t3, t4);
-
+	if (small1 < small)
+	{	
+		cylinder->normal = cylinder->vector_orientation;
+		cylinder->color.y = 255;			// geeft kleurte aan caps
+	}
 	return (ft_min_float(small, small1));
 }

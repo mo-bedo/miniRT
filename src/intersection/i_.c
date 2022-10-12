@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 11:47:02 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 12:18:20 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	compute_normal(t_object *object)
 		object->normal = substract_vectors(object->position, object->center);
 	else if (object->type == PLANE)
 		object->normal = object->vector_orientation;
-	else if (object->type == CYLINDER)
-		get_cylinder_normal(object);
+	// else if (object->type == CYLINDER)
+	// 	get_cylinder_normal(object);
 	if (object->type != NONE && object->bump)
 	{
 		// t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
@@ -79,7 +79,7 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		else if (mlx.object[i].type == SPHERE)
 			t = get_intersection_ray_sphere(ray, mlx.object[i]);
 		else if (mlx.object[i].type == CYLINDER)
-			t = get_intersection_ray_cylinder(ray, mlx.object[i]);
+			t = get_intersection_ray_cylinder(ray, &mlx.object[i]);
 		if (t < closest_object.t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object = mlx.object[i];
@@ -88,7 +88,7 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		i++;
 	}
 	closest_object.position = add_vectors(ray.origin,
-			multiply_vector(ray.direction, closest_object.t));
+		multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
 	return (closest_object);
 }
