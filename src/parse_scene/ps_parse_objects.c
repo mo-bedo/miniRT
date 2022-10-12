@@ -11,61 +11,65 @@
 /* ************************************************************************** */
 
 #include "main.h"
+#include "parse_scene/ps_parse_map.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
+#include "ray_trace/rt_.h"
+
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
 #include <unistd.h>
 
-void	parse_plane(t_mlx *mlx, char *line)
-{
-	static int	pl_count = 0;
+#include "parse_scene/ps_utils.h"
+#include "parse_scene/ps_.h"
 
-	line += 2;
-	mlx->o.pl[pl_count].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.pl[pl_count].vector_orientation = parse_vector_orientation(&line);
-	mlx->o.pl[pl_count].color = parse_xyz(&line,
-			MIN_COLOR, MAX_COLOR);
-	mlx->o.pl[pl_count].specular = parse_float(&line,
-			MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.pl[pl_count].reflective = parse_float(&line,
-			MIN_REFLECTIVE, MAX_REFLECTIVE);
-	mlx->o.pl_count = ++pl_count;
+void	parse_plane(t_object *object, char **line)
+{
+	*line += 2;
+	object->type = PLANE;
+	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
+	object->vector_orientation = parse_vector_orientation(line);
 }
 
-void	parse_sphere(t_mlx *mlx, char *line)
+void	parse_sphere(t_object *object, char **line)
 {
-	static int	sp_count = 0;
-
-	line += 2;
-	mlx->o.sp[sp_count].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.sp[sp_count].radius = parse_float(&line,
-			MIN_DIAMETER, MAX_DIAMETER) / (float)2;
-	mlx->o.sp[sp_count].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	mlx->o.sp[sp_count].specular = parse_float(&line,
-			MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.sp[sp_count].reflective = parse_float(&line,
-			MIN_REFLECTIVE, MAX_REFLECTIVE);
-	mlx->o.sp_count = ++sp_count;
+	*line += 2;
+	object->type = SPHERE;
+	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
+	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 }
 
-void	parse_cylinder(t_mlx *mlx, char *line)
+void	parse_cylinder(t_object *object, char **line)
 {
-	static int	cy_count = 0;
+	*line += 2;
+	object->type = CYLINDER;
+	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
+	object->vector_orientation = parse_vector_orientation(line);
+	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
+	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+}
 
-	line += 2;
-	mlx->o.cy[cy_count].center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	mlx->o.cy[cy_count].vector_orientation = parse_vector_orientation(&line);
-	mlx->o.cy[cy_count].radius = parse_float(&line,
-			MIN_DIAMETER, MAX_DIAMETER) / (float)2;
-	mlx->o.cy[cy_count].height = parse_float(&line,
-			MIN_CY_HEIGHT, MAX_CY_HEIGHT);
-	mlx->o.cy[cy_count].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	mlx->o.cy[cy_count].specular = parse_float(&line,
-			MIN_SPECULAR, MAX_SPECULAR);
-	mlx->o.cy[cy_count].reflective = parse_float(&line,
-			MIN_REFLECTIVE, MAX_REFLECTIVE);
-	mlx->o.cy_count = ++cy_count;
+void	parse_objects(t_mlx *mlx, char *line)
+{
+	int	i;
+
+	if (mlx->object_count >= MAX_OBJECTS)
+		error_message_and_exit("Too many objects in scene");
+	i = mlx->object_count;
+	if (ft_strncmp(line, "pl", 2) == 0)
+		parse_plane(&mlx->object[i], &line);
+	if (ft_strncmp(line, "sp", 2) == 0)
+		parse_sphere(&mlx->object[i], &line);
+	if (ft_strncmp(line, "cy", 2) == 0)
+		parse_cylinder(&mlx->object[i], &line);
+	mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+	mlx->object[i].specular = 0;
+	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
+	mlx->object[i].reflective = 0;
+	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	parse_textures(&mlx->object[i], &line);
+	mlx->object[i].t = RAY_T_MAX;
+	mlx->object_count += 1;
 }

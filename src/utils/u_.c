@@ -17,12 +17,25 @@
 #include <string.h>
 #include <math.h>
 
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		++i;
+	return (i);
+}
+
 void	ft_putstr(char *s)
 {
+	int	return_value;
+
 	if (!s)
 		return ;
 	while (*s)
-		write(1, s++, 1);
+		return_value = write(1, s++, 1);
+	return_value++;
 }
 
 int	ft_is_digit(int c)
@@ -65,4 +78,18 @@ void	initialize_empty_vector(t_xyz *vector)
 	vector->x = 0;
 	vector->y = 0;
 	vector->z = 0;
+}
+
+void	initialize_black_color(t_xyz *vector)
+{
+	vector->x = 0;
+	vector->y = 0;
+	vector->z = 0;
+}
+
+void	initialize_white_color(t_xyz *vector)
+{
+	vector->x = 255;
+	vector->y = 255;
+	vector->z = 255;
 }

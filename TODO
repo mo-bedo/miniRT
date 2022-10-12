@@ -1,13 +1,30 @@
-- cylinder toevoegen
-- tests schrijven
-- user objecten laten roteren en diameter en hoogte aanpassen
-- Color disruption: checkerboard.
-- One other 2nd degree object: Cone, Hyperboloid, Paraboloid..
+# NOG VERWERKEN UIT SUBJECT
+- cone toevoegen
+- checkerboard: cylinder & cone
 - Handle bump map textures.
-- gaat iets mis met camera orientation als z 0 is
-- parser laten opvangen als opgegeven waarde niet in float past, bijv. 2.234234234etc
-- parser: letter voor kleuren (bijv. a255,255,255) geeft geen foutmelding
+- user_interaction: scale objects
+- user_interaction: rotate objects
+- user_interaction: adjust diameter
+- user_interaction: adjust height
+
+# TO DO
+- textures: cylinder & cone
+- sneller maken
+
+# ONDUIDELIJK
+- we includen float.h mag dat?
 - mag dit? in ray_trace.h
 -   # define RAY_T_MIN 0.0001f
 -   # define RAY_T_MAX 1.0e30f
--   test
+- mogen we exit() gebruiken?
+
+# BUGS
+- gaat iets mis met camera orientation als z 0 is
+- checkerboard en textures werken niet op plane als plane horizontaal staat ipv verticaal
+- mallocs freeen. Hoeft niet want exit()?
+- textures importren plots heel traag... get_length_of_file(path) is super sloom
+
+# WRITE TESTS FOR:
+# parser
+- het moet onmogelijk zijn om meer objecten toe te voegen dan MAX_OBJECTS
+- het moet onmogelijk zijn om meerdere camera's of ambient lights of lichten(behalve bij bonus) toe te voegen

@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include "utils/u_.h"
+#include "parse_scene/ps_utils.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <math.h>
+#include <float.h>
 
 int	ft_char_to_digit(int c)
 {
@@ -77,6 +80,8 @@ float	ft_atof(const char *str)
 			str++;
 		}
 	}
+	if (i > 6 || nbr > FLT_MAX)
+		error_message_and_exit("Float overflow");
 	nbr *= polarity;
 	return ((float)nbr);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   u_vector_operators.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:25:07 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   u_vector_operators.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/10 12:46:18 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_xyz	divide_vector(t_xyz vector, double number)
 {
 	double	inverted_number;
 
+	if (number == 0)
+		return (vector);
 	inverted_number = 1 / number;
 	vector.x *= inverted_number;
 	vector.y *= inverted_number;

@@ -15,8 +15,6 @@
 
 # include "main.h"
 
-void	parse_plane(t_mlx *mlx, char *line);
-void	parse_sphere(t_mlx *mlx, char *line);
-void	parse_cylinder(t_mlx *mlx, char *line);
+void	parse_objects(t_mlx *mlx, char *line);
 
 #endif

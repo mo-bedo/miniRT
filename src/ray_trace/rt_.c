@@ -33,13 +33,13 @@ t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y)
 	return (rotate_vector(vector, camera.rotation_angles));
 }
 
-t_ray	compute_ray(t_objects o, t_xyz origin, t_xyz direction)
+t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 {
 	t_ray	ray;
 
 	ray.origin = origin;
 	ray.direction = direction;
-	ray.object = get_closest_intersection(o, ray, RAY_T_MAX);
+	ray.object = get_closest_intersection(mlx, ray, RAY_T_MAX);
 	return (ray);
 }
 
@@ -50,7 +50,7 @@ static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
 	t_xyz	reflected_color;
 	t_xyz	reflectivenes_of_object;
 
-	reflected_ray = compute_ray(mlx->o, ray.object.position,
+	reflected_ray = compute_ray(*mlx, ray.object.position,
 			compute_reflected_ray(view, ray.object.normal));
 	reflected_color = get_color(mlx, reflected_ray, --depth);
 	reflected_color.x = reflected_color.x * ray.object.reflective;
@@ -65,7 +65,7 @@ t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
 {
 	t_xyz	view;
 
-	if (!ray.object.object)
+	if (!ray.object.type)
 		return (mlx->background_color);
 	view = multiply_vector(ray.direction, -1);
 	ray.object.color = compute_lighting(mlx, view, ray.object);
@@ -88,10 +88,20 @@ void	ray_trace(t_mlx *mlx)
 		y = -WINDOW_HEIGHT / 2;
 		while (y < WINDOW_HEIGHT / 2)
 		{
+			if (x == 0 && y == 0)
+				print_time("rt_start_ray");
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			ray = compute_ray(mlx->o, mlx->camera.center, direction);
+			if (x == 0 && y == 0)
+				print_time("rt_direction");
+			ray = compute_ray(*mlx, mlx->camera.center, direction);
+			if (x == 0 && y == 0)
+				print_time("rt_compute_ray");
 			color = get_color(mlx, ray, RECURSION_DEPTH);
+			if (x == 0 && y == 0)
+				print_time("rt_get_color");
 			pixel_put(&mlx->img, x, y, color);
+			if (x == 0 && y == 0)
+				print_time("rt_pixel_put");
 			y++;
 		}
 		x++;

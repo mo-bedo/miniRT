@@ -16,6 +16,6 @@
 # include "main.h"
 
 t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_closest_object object);
+t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_object object);
 
 #endif

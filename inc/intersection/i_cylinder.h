@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_cylinder.h                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:28 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:07:17 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_cylinder.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:28 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/12 12:07:53 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "main.h"
 # include "ray_trace/rt_.h"
 
-float	get_intersection_ray_cylinder(t_ray ray, t_cylinder cylinder);
+void	get_cylinder_normal(t_object *object);
+float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder);
 
 #endif
