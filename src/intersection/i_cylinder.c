@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 15:58:48 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 16:40:54 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static t_t4	check_t_values(t_t4 t)
 */
 static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 {
-	t_xyz	normal;
 	float	t;
 	t_xyz	intersect;
 	t_xyz	orientation;

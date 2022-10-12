@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/12 15:58:01 by jbedaux          ###   ########.fr        #
+#    Updated: 2022/10/12 16:47:04 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ifeq ($(LINUX), true)
 CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux #-O3 #-Wall -Wextra -Werror
 MLX				:= -g -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz
 else
-CFLAGS			:= 	-g -Iinc -Imlx #-Wall -Wextra -Werror
+CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
@@ -38,6 +38,7 @@ OBJ_DIR			:=	./obj
 
 SRC				:=	main.c \
 					intersection/i_.c \
+					intersection/i_cone.c \
 					intersection/i_cylinder.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
