@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/12 11:31:48 by jbedaux          ###   ########.fr        #
+#    Updated: 2022/10/12 15:58:01 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC				:=	main.c \
 					intersection/i_cylinder.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
-					intersection/i_triangle.c \
 					parse_scene/ps_.c \
 					parse_scene/ps_parse_objects.c \
 					parse_scene/ps_parse_map.c \
@@ -54,8 +53,6 @@ SRC				:=	main.c \
 					utils/u_.c \
 					utils/u_conversion.c \
 					utils/u_compare.c \
-					utils/matrices.c \
-					utils/u_invert_matrix.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \

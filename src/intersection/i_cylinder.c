@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 15:27:32 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 15:58:48 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
-#include "utils/matrices.h"
-#include "utils/u_invert_matrix.h"
 
 static t_t4	check_t_values(t_t4 t)
 {
@@ -33,13 +31,34 @@ static t_t4	check_t_values(t_t4 t)
 	return (t);
 }
 
-static void	get_cylinder_normal(t_object *object, t_t4 t)
+
+/*
+
+    the hit_pt is on the SIDE of the cylinder. We can use dot product to find the point 'pt' 
+	on the center line of the cylinder, so that the vector (hit_pt - pt) is orthogonal to the 
+	cylinder's orientation.
+
+    t = dot((hit_pt - cy.bottom_center), cy.ori); 
+    pt = cy.bottom_center + t * cy.ori;
+    surface_normal = normalize(hit_pt - pt)));
+
+
+*/
+static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 {
 	t_xyz	normal;
-	
-	
- 
-}
+	float	t;
+	t_xyz	intersect;
+	t_xyz	orientation;
+	t_xyz	point_t;
+
+	orientation = normalize_vector(cylinder->vector_orientation);
+	t = ft_min_float(t_.t1, t_.t2);
+	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
+	t = get_dot_product(substract_vectors(intersect, cylinder->center), orientation);
+	point_t = add_vectors(cylinder->center, multiply_vector(orientation, t));
+	cylinder->normal = normalize_vector(substract_vectors(intersect, point_t));
+ }
 
 // Creating an infinite cylinder with the quadratic equation
 // with ray =  Pa + Va t:
@@ -137,8 +156,10 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	if (ft_min_float(t.t1, t.t2) > ft_min_float(t.t3, t.t4))
 		cylinder->normal = cylinder->vector_orientation;
 	else	
-		get_cylinder_normal(cylinder, t);
+		get_cylinder_normal(ray, cylinder, t);
+
 	// return (ft_min_float(ft_min_float(t.t1, t.t2), ft_min_float(t.t3, t.t4)));
+
 	
 	// *****************	vanaf hier is code er alleen om caps andere kleurtjes te geven voor de duidelijkheid	
 
