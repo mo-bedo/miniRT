@@ -163,14 +163,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	float	small1;
 	small = ft_min_float(t.t1, t.t2);
 	small1 = ft_min_float(t.t3, t.t4);
-	if (small1 < small)		
-	{	
+	// if (small1 < small)		
+	// {	
 
-		if (t.t3 < t.t4)
-			cylinder->color.y = 255;			
-		else
-			cylinder->color.z = 255;
+	// 	if (t.t3 < t.t4)
+	// 		cylinder->color.y = 255;			
+	// 	else
+	// 		cylinder->color.z = 255;
 
-	}
+	// }
 	return (ft_min_float(small, small1));
 }
