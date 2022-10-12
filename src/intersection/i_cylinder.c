@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 12:17:39 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 12:54:43 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,16 +157,14 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 
 
 
-	math = substract_vectors(bottom_plane_intersect, cylinder->center);
+	math = substract_vectors(bottom_plane_intersect, bottom_cap.center);
 	math_len = get_vector_length(math);
-	math_len *= math_len; 
+	math_len = pow(math_len, 2); 
 
 	r = pow(cylinder->radius, 2);
 
 
-	if ((t3 > 0) && (math_len < r))
-		t3 = t3;
-	else
+	if ((t3 < 0) || (math_len > r))
 		t3 = RAY_T_MAX;
 
 	top_plane_intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t4));
@@ -174,11 +172,11 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	
 	math = substract_vectors(top_plane_intersect, top_cap.center);
 	math_len = get_vector_length(math);
-	math_len *= math_len; 
 	
-	if ((t4 > 0) && (math_len < r))
-		t4 = t4;
-	else
+	math_len = pow(math_len, 2); 
+	
+	// if ((t4 > 0) && (math_len < r))
+	if ((t4 < 0) || (math_len > r))
 		t4 = RAY_T_MAX;
 	
 	// if ((t3 > 0) && (x < r) && (y < r) && (z < r))
@@ -197,17 +195,17 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	float	small;
 	float	small1;
 
-	// if (t1 < RAY_T_MAX && t3 < RAY)
-	// printf("t1 = %f \t t2 = %f \t t3 = %f \t t4 = %f\n", t1, t2, t3, t4);
-
-
-
 	small = ft_min_float(t1, t2);
 	small1 = ft_min_float(t3, t4);
-	if (small1 < small)
+	
+	if (small1 < small)		// in dit geval heeft 1 van de caps de kleinste t waarde
 	{	
 		cylinder->normal = cylinder->vector_orientation;
-		cylinder->color.y = 255;			// geeft kleurte aan caps
+		if (t3 < t4)
+			cylinder->color.y = 255;			
+		else
+			cylinder->color.z = 255;
+
 	}
 	return (ft_min_float(small, small1));
 }

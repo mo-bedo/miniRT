@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 12:18:20 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 12:44:29 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,29 @@
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
-
 // p' = p + d(p)n(p)
-// where: 
-// 		d(p) = the offset returned by the displacement texture at p 
+// where:
+// 		d(p) = the offset returned by the displacement texture at p
 // 		n(p) = the surface normal at p
 // static t_xyz	compute_bump_normal(t_object *object)
 // {
 // 	{
 // 		t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
-		
-		
+
 // 		DEBUG_DOUBLE(bump.x);
 // 		DEBUG_DOUBLE(bump.y);
 // 		DEBUG_DOUBLE(bump.z);
-// 		// // t_xyz temp = 
+// 		// // t_xyz temp =
 // 		object->normal.x -= bump.x;
 // 		object->normal.y -= bump.y;
 // 		object->normal.z -= bump.z;
 // 	}
 // }
 
-static void	compute_normal(t_object *object)
+static void compute_normal(t_object *object)
 {
 	if (!object->type)
-		return ;
+		return;
 	if (object->type == SPHERE)
 		object->normal = substract_vectors(object->position, object->center);
 	else if (object->type == PLANE)
@@ -57,16 +55,16 @@ static void	compute_normal(t_object *object)
 	}
 	object->normal = normalize_vector(object->normal);
 	// if (object->bump)
-		// compute_bump_normal(object);
+	// compute_bump_normal(object);
 }
 
 // Find the closest intersection between a ray and objects in the scene.
-t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
-	float max_distance)
+t_object get_closest_intersection(t_mlx mlx, t_ray ray,
+								  float max_distance)
 {
-	t_object	closest_object;
-	int			i;
-	double		t;
+	t_object closest_object;
+	int i;
+	double t;
 
 	t = 0;
 	i = 0;
@@ -88,7 +86,7 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		i++;
 	}
 	closest_object.position = add_vectors(ray.origin,
-		multiply_vector(ray.direction, closest_object.t));
+										  multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
 	return (closest_object);
 }
