@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"i_plane.h": "c",
+		"u_vector_operators.h": "c",
+		"random": "c",
+		"u_.h": "c",
+		"complex": "c"
+	}
+}

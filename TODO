@@ -1,11 +1,7 @@
 # NOG VERWERKEN UIT SUBJECT
-- cylinder toevoegen
 - cone toevoegen
 - checkerboard: cylinder & cone
-- user_interaction: scale objects
-- user_interaction: rotate objects
-- user_interaction: adjust diameter
-- user_interaction: adjust height
+- user_interaction: rotate cylinder && cone
 
 # TO DO
 - textures: cylinder & cone
@@ -23,8 +19,10 @@
 - checkerboard en textures werken niet op plane als plane horizontaal staat ipv verticaal
 - mallocs freeen. Hoeft niet want exit()?
 - textures importren plots heel traag... get_length_of_file(path) is super sloom
+- bij het selecteren van objecten telt hij de schaduw van een object mee als het object,
 
 # WRITE TESTS FOR:
 # parser
 - het moet onmogelijk zijn om meer objecten toe te voegen dan MAX_OBJECTS
 - het moet onmogelijk zijn om meerdere camera's of ambient lights of lichten(behalve bij bonus) toe te voegen
+- camera of object orientation van 0,0,0 of 1,1,1 moet onmogelijk zijn

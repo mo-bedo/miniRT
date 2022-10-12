@@ -22,8 +22,6 @@ void	ft_putstr(char *s);
 int		ft_is_digit(int c);
 int		ft_is_space(char c);
 void	*ft_calloc(size_t count, size_t size);
-void	initialize_empty_vector(t_xyz *vector);
-void	initialize_black_color(t_xyz *vector);
-void	initialize_white_color(t_xyz *vector);
+void	initialize_vector(t_xyz *vector, float x, float y, float z);
 
 #endif

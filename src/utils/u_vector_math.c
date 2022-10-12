@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   u_vector_math.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:26:59 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   u_vector_math.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/10 16:27:55 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,19 @@ double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
 	if (angle != angle)
 		return (0);
 	return (acos(angle));
+}
+
+// cross product
+// is a measure of difference
+//  0 = same direction
+//  1 = at angle of 90 degrees
+// -1 = opposite direction
+t_xyz	cross(t_xyz v1, t_xyz v2)
+{
+	t_xyz	cross;
+
+	cross.x = v1.y * v2.z - v1.z * v2.y;
+	cross.y = v1.z * v2.x - v1.x * v2.z;
+	cross.z = v1.x * v2.y - v1.y * v2.x;
+	return (cross);
 }

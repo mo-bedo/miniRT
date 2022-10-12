@@ -52,7 +52,7 @@ static t_xyz	compute_diffuse_reflection(t_xyz normal,
 	t_xyz	intensity;
 	double	diffuse_reflection;
 
-	initialize_empty_vector(&intensity);
+	initialize_vector(&intensity, 0, 0, 0);
 	denominator = get_dot_product(normal, light_ray.direction);
 	if (denominator <= 0)
 		return (intensity);
@@ -84,7 +84,7 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 	double	specular_reflection;
 	t_xyz	intensity;
 
-	initialize_empty_vector(&intensity);
+	initialize_vector(&intensity, 0, 0, 0);
 	if (object.specular == 0)
 		return (intensity);
 	reflection = compute_reflected_ray(light_ray.direction, object.normal);
@@ -106,7 +106,7 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_object object)
 	t_xyz	color;
 	int		i;
 
-	initialize_empty_vector(&intensity);
+	initialize_vector(&intensity, 0, 0, 0);
 	i = -1;
 	while (++i < mlx->light_count)
 	{

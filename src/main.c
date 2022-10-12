@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 21:00:39 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/12 15:56:36 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	init(t_mlx	*mlx)
 		error_message_and_exit("Can't creat mlx_window");
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-	initialize_white_color(&mlx->background_color);
+	initialize_vector(&mlx->background_color, 255, 255, 255);
 	mlx->object_count = 0;
 	mlx->selected_object = -1;
 	mlx->selected_action = -1;

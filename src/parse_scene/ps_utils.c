@@ -91,6 +91,8 @@ t_xyz	parse_orientation(char **str)
 	xyz.z = parse_float(str, MIN_3D, MAX_3D);
 	if (xyz.x == 0 && xyz.y == 0 && xyz.z == 0)
 		error_message_and_exit("Orientation vector cannot be 0,0,0");
+	if (xyz.x == 1 && xyz.y == 1 && xyz.z == 1)
+		error_message_and_exit("Orientation vector cannot be 1,1,1");
 	return (xyz);
 }
 

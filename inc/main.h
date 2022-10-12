@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:32:17 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/12 13:37:04 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
+
+typedef struct s_t4 
+{
+	float	t1;
+	float	t2;
+	float	t3;
+	float	t4;
+}	t_t4;
 
 // IMAGE
 typedef struct s_img
@@ -123,6 +131,7 @@ enum e_values{
 	PLANE			= 1,
 	SPHERE			= 2,
 	CYLINDER		= 3,
+	CONE			= 4,
 	CHECKERS		= 0,
 	TEXTURE			= 1,
 	BUMP_MAP		= 2,

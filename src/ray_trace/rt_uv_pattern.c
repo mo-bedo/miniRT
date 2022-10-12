@@ -25,8 +25,8 @@ t_xyz	checkers_pattern_at(t_uv uv, int type)
 	t_xyz	white;
 	int		tiles;
 
-	initialize_black_color(&black);
-	initialize_white_color(&white);
+	initialize_vector(&black, 0, 0, 0);
+	initialize_vector(&white, 255, 255, 255);
 	tiles = 2;
 	uv.u *= tiles;
 	uv.v *= tiles;
@@ -92,6 +92,6 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 		return(image_color_at(uv, object));
 	if (pattern == BUMP_MAP)
 		return(bump_map_at(uv, object));	
-	initialize_black_color(&empty);
+	initialize_vector(&empty, 0, 0, 0);
 	return (empty);
 }

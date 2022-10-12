@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:07:27 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/12 12:44:29 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
-
 # define BUMP_SCALE 30
 
 // sebastiandang.github.io/docs/cse168/RayTracing.pdf
 static void	compute_normal(t_object *object)
 {
 	if (!object->type)
-		return ;
+		return;
 	if (object->type == SPHERE)
 		object->normal = substract_vectors(object->intersect, object->center);
 	else if (object->type == PLANE)
@@ -42,12 +41,12 @@ static void	compute_normal(t_object *object)
 }
 
 // Find the closest intersection between a ray and objects in the scene.
-t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
-	float max_distance)
+t_object get_closest_intersection(t_mlx mlx, t_ray ray,
+								  float max_distance)
 {
-	t_object	closest_object;
-	int			i;
-	double		t;
+	t_object closest_object;
+	int i;
+	double t;
 
 	t = 0;
 	i = 0;
@@ -60,7 +59,7 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		else if (mlx.object[i].type == SPHERE)
 			t = get_intersection_ray_sphere(ray, mlx.object[i]);
 		else if (mlx.object[i].type == CYLINDER)
-			t = get_intersection_ray_cylinder(ray, mlx.object[i]);
+			t = get_intersection_ray_cylinder(ray, &mlx.object[i]);
 		if (t < closest_object.t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object = mlx.object[i];
