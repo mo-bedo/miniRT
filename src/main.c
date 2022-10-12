@@ -36,22 +36,25 @@ static void	init(t_mlx	*mlx)
 		error_message_and_exit("Can't creat mlx_window");
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
-	mlx->background_color.x = MAX_COLOR;
-	mlx->background_color.y = MAX_COLOR;
-	mlx->background_color.z = MAX_COLOR;
-	mlx->o.pl_count = 0;
-	mlx->o.sp_count = 0;
-	mlx->o.cy_count = 0;
+	initialize_white_color(&mlx->background_color);
+	mlx->object_count = 0;
 }
 
 void	print_time(char *action)
 {
 	clock_t		time;
+	static long int	start_time = 0;
 
 	time = clock();
 	setlocale(LC_NUMERIC, "");
+	// if (ft_strncmp(action, "start_ray", 8) == 0)
+		// start_time = time;
 	printf("%s", action);
-	printf("\t: %'12.ld\n", time);
+	if (ft_strncmp(action, "rt_", 2) == 0)
+		printf("\t: %'12.ld\n", time-start_time);
+	else
+		printf("\t: %'12.ld\n", time);
+	start_time = time;
 }
 
 int	main(int argc, char **argv)
@@ -66,7 +69,7 @@ int	main(int argc, char **argv)
 	ray_trace(&mlx);
 	print_time("ray_trace");
 	mlx_loop(mlx.mlx);
-	return (0);
+	exit(EXIT_SUCCESS);
 }
 
 

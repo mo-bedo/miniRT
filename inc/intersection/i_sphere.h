@@ -17,6 +17,6 @@
 # include "main.h"
 # include "ray_trace/rt_.h"
 
-float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere);
+float	get_intersection_ray_sphere(t_ray ray, t_object sphere);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 11:03:34 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 11:58:43 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,39 +21,17 @@
 #include "utils/u_invert_matrix.h"
 
 
-static float	cylinder_cap(float *t, t_xyz intersect, t_xyz cyl_orientation, t_plane plane)
+void	get_cylinder_normal(t_object *object)
 {
-	float	a;
-	float	b;
-	float	temp_t;
-
-	a = get_dot_product(substract_vectors(intersect, plane.center), plane.vector_orientation);
-	b = get_dot_product(cyl_orientation, plane.vector_orientation);
-	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
-		return -1;
-	temp_t = -a / b;
-	if (temp_t < 0 || *t < temp_t)
-		return -1;
-	*t = temp_t;
+	t_xyz	normal;
+	
+	object->normal = object->vector_orientation;
+ 
 }
 
-// t_inter_point ft_find_edges(t_pack cylinder, t_ray ray,
-//                             t_inter_point inter_point)
-// {
-//     double a;
-
-//     ft_get_normal(ray, cylinder.pos, &inter_point);
-//     if (get_norm(sub(inter_point.coord, cylinder.pos)) > cylinder.height)
-//         return (inter_point);
-//     a = dot(cylinder.rot, sub(inter_point.coord, cylinder.pos));
-//     inter_point.normal = normalize(sub(inter_point.coord, add(cylinder.pos, ft_scale(cylinder.rot, a))));
-//     inter_point.hit = TRUE;
-//     return (inter_point);
-// }
-
-
-
-float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder cylinder)
+// float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder cylinder)
+// Cylinder.center is het midden van de onderste cap van de cylinder. 
+float	get_intersection_ray_cylinder(t_ray ray, t_object cylinder)
 {
 	float	a;
 	float	b;
@@ -139,8 +117,8 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	float	t3 = RAY_T_MAX;
 	float	t4 = RAY_T_MAX;
 
-	t_plane top_cap;
-	t_plane	bottom_cap;	
+	t_object	top_cap;
+	t_object	bottom_cap;	
 
 	top_cap.vector_orientation = cylinder.vector_orientation;
 	bottom_cap.vector_orientation = cylinder.vector_orientation;
@@ -174,6 +152,9 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	t_xyz math;
 	float	math_len;
 
+
+
+
 	math = substract_vectors(bottom_plane_intersect, cylinder.center);
 	math_len = get_vector_length(math);
 	math_len *= math_len; 
@@ -186,6 +167,15 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	else
 		t3 = RAY_T_MAX;
 
+
+
+	
+	math = substract_vectors(top_plane_intersect, top_cap.center);
+	math_len = get_vector_length(math);
+	math_len *= math_len; 
+	
+	// if ((t4 < 0) || (math_len > r))
+		t4 = RAY_T_MAX;
 	
 	// if ((t3 > 0) && (x < r) && (y < r) && (z < r))
 	// 	t3 = t3;
@@ -199,7 +189,6 @@ float	get_intersection_ray_cylinder(t_closest_object *o, t_ray ray, t_cylinder c
 	// if ((t4 > 0) && (x < r) && (y < r) && (z < r))
 	// 	t4 = t4;
 	// else
-		t4 = RAY_T_MAX;
 
 	float	small;
 	float	small1;

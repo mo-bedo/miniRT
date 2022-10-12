@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_sphere.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:07:47 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_sphere.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/12 11:24:11 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 // if discriminant is smaller than zero it means there is no intersection;
 // ray intersects two times with sphere (distance.x and distance.y)
 // t1 < RAY_T_MIN 		this means it can reflect itself
-float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
+float	get_intersection_ray_sphere(t_ray ray, t_object sphere)
 {
-	t_distance	distance;
+	t_uv	uv;
 	double	a;
 	double	b;
 	double	c;
@@ -48,7 +48,7 @@ float	get_intersection_ray_sphere(t_ray ray, t_sphere sphere)
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0 || a == 0)
 		return (RAY_T_MAX);
-	distance.t1 = (-b + sqrt(discriminant)) / (2 * a);
-	distance.t2 = (-b - sqrt(discriminant)) / (2 * a);
-	return (ft_min_float(distance.t1, distance.t2));
+	uv.u = (-b + sqrt(discriminant)) / (2 * a);
+	uv.v = (-b - sqrt(discriminant)) / (2 * a);
+	return (ft_min_float(uv.u, uv.v));
 }

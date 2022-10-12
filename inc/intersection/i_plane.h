@@ -17,6 +17,6 @@
 # include "main.h"
 # include "ray_trace/rt_.h"
 
-float	get_intersection_ray_plane(t_ray ray, t_plane plane);
+float	get_intersection_ray_plane(t_ray ray, t_object plane);
 
 #endif

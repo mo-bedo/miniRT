@@ -18,7 +18,7 @@
 # include "intersection/i_sphere.h"
 # include "intersection/i_cylinder.h"
 
-t_closest_object	get_closest_intersection(t_objects o, t_ray ray,
+t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 						float max_distance);
 
 #endif

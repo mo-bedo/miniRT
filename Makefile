@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/12 11:02:25 by jbedaux          ###   ########.fr        #
+#    Updated: 2022/10/12 11:31:48 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,13 @@ SRC				:=	main.c \
 					intersection/i_sphere.c \
 					intersection/i_triangle.c \
 					parse_scene/ps_.c \
-					parse_scene/ps_parse_line.c \
 					parse_scene/ps_parse_objects.c \
+					parse_scene/ps_parse_map.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
+					ray_trace/rt_uv_pattern.c \
+					ray_trace/rt_uv_map_to_2d.c \
 					ray_trace/rt_pixel_put.c \
 					utils/u_.c \
 					utils/u_conversion.c \
