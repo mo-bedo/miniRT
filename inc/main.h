@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/12 11:19:09 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:37:04 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ typedef struct s_matrix4 {
 typedef struct s_matrix8 {
 	float value [4][8];
 }		t_matrix8;
+
+typedef struct s_t4 
+{
+	float	t1;
+	float	t2;
+	float	t3;
+	float	t4;
+}	t_t4;
 
 
 

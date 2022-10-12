@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 13:06:12 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 13:56:47 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@ void	get_cylinder_normal(t_object *object)
  
 }
 
-// Cylinder.center is het midden van cylinder (en dus niet het midden van 1 van de uiteindes) 
-float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
+// Creating an infinite cylinder with the quadratic equation
+static t_t4	create_infinite_cylinder(t_ray ray, t_object *cylinder)
 {
 	float	a;
 	float	b;
 	float	c;
 	float	det;
-	float	t_[2];
+	t_t4	t;
 	t_xyz	temp_cross;
 	t_xyz	temp_cross2;
 
+	t.t1 = RAY_T_MAX;
+	t.t2 = RAY_T_MAX;
 	temp_cross = cross(ray.direction, cylinder->vector_orientation);
 	temp_cross2 = cross(substract_vectors(ray.origin, cylinder->center), cylinder->vector_orientation);
 	a = get_dot_product(temp_cross, temp_cross);
@@ -48,25 +50,88 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 		* get_dot_product(cylinder->vector_orientation, cylinder->vector_orientation));
 	det = pow(b, 2) - (4 * a * c);
 	if (det < 0)
-		return (RAY_T_MAX);
+		return (t);
 	a = 2 * a;
 	det = sqrt(det);
-	t_[0] = (-b - det) / a;	
-	t_[1] = (-b + det) / a;	
+	t.t1 = (-b - det) / a;	
+	t.t2 = (-b + det) / a;	
+	return (t);	
 	
-	
-	
-	
-	float t = RAY_T_MAX;
+	// float t = RAY_T_MAX;
+	// if (t_[0] >= 0 && t > t_[0])
+	// 	t = t_[0];
+	// if (t_[1] >= 0 && t > t_[1])
+	// 	t = t_[1];
+	// if (t == RAY_T_MAX)
+	// 	return (t);	
+}
 
-	if (t_[0] >= 0 && t > t_[0])
-		t = t_[0];
-	if (t_[1] >= 0 && t > t_[1])
-		t = t_[1];
-	if (t == RAY_T_MAX)
-		return (t);	
+// Checks if the infinite cylinder values are between the caps of the cylinder by comparing them
+// to the heigth (max).  
+static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object *cylinder, t_t4 t)
+{
+	double	max_len;
+	t_xyz	intersect;
+	t_xyz	len;
+	
+	if (t.t2 < 0) 			// is dit nodig?
+	{
+		// t.t1 = RAY_T_MAX; 
+		t.t2 = RAY_T_MAX;
+		return t;
+	}
+	
+			// t = (temp_t[0] > 0 ? temp_t[0] : temp_t[1]);
 
-	// HIER t returnen is infinite cylinder
+	// max is dus de maximale lengte die tussen het centerpoint en het intersectie punt mag zitten.
+	// Dit is dus de afstand van het center naar de rand van de cirkel (en bereken we door pythagoras)
+	max_len = sqrt(pow(cylinder->height / 2, 2) + pow(cylinder->radius, 2));
+	// double max = sqrt(pow(cylinder->height / 2, 2) + pow(cylinder->radius, 2)); // met pythagoras bereken je afstand cylinder center tot rand van cap
+
+	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
+	// t_xyz point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
+	
+	// lengte tussen cylinder center en punt van intersect
+	len = substract_vectors(intersect, cylinder->center);
+	// t_xyz len = substract_vectors(point, cylinder->center);
+	
+	// Als deze if waar is dan is het intersectie punt dus niet tussen de cylinder caps
+	if (get_vector_length(len) > max_len) 
+		t.t1 = RAY_T_MAX;	
+	
+	// dan nog een keer hetzelfde voor t2 proberen 
+	
+	//////////////////////////////		//////////////////////////////
+	////////////////////////////// TEST	//////////////////////////////
+	
+	//  evt hier sneller maken door eerder te returnen met valid t1 waarde?
+
+	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
+	len = substract_vectors(intersect, cylinder->center);
+	if (get_vector_length(len) > max_len) 
+		t.t2 = RAY_T_MAX;	
+	return (t);
+}
+
+// Cylinder.center is het midden van cylinder (en dus niet het midden van 1 van de uiteindes) 
+// Deze functie berekend het quadratic deel. 
+float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
+{
+	t_t4	t;
+
+	t = create_infinite_cylinder(ray, cylinder);
+	if ((t.t1 < 0 || t.t1 >= RAY_T_MAX) && (t.t2 < 0 || t.t2 >= RAY_T_MAX))
+		return (RAY_T_MAX);					// misschien later check voor invalid values (samen met t3 en t4))
+	t = create_finite_cylinder_no_caps(ray, cylinder, t);
+	
+	
+
+
+		// HIER t returnen is infinite cylinder
+	return (ft_min_float(t.t1, t.t2));
+
+	// 
+
 
 	/*
 	If the distance between the intersection and the center of the cylinder is higher 
@@ -95,21 +160,9 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 
 	float	t1 = RAY_T_MAX;
 	float	t2 = RAY_T_MAX;
+	// float	t;
 
-	if (t_[1] < 0)
-		return RAY_T_MAX;
-	t = (t_[0] > 0 ? t_[0] : t_[1]);
-
-	double max = sqrt(pow(cylinder->height / 2, 2) + pow(cylinder->radius, 2)); //pythagoras
-	t_xyz point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	t_xyz len = substract_vectors(point, cylinder->center);
-	if (get_vector_length(len) < max) // als t_0 te hoog is probeer je t_1
-		t1 = t;
-	t = t_[1];
-	point = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	len = substract_vectors(point, cylinder->center);
-	if (get_vector_length(len) < max) // t_1 te hoog is is er geen intersectie
-		t2 = t;
+	
 	// return (ft_min_float(t1, t2));			// hier returnen voor cylinders zonder cap
 
 
