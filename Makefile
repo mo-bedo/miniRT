@@ -17,7 +17,7 @@ LINUX 			=	true
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror
+CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
 MLX				:= -g -Iinc -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 else
 CFLAGS			:= 	-g -Iinc -Imlx -Wall -Wextra -Werror

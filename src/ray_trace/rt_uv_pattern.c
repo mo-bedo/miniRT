@@ -62,8 +62,6 @@ t_xyz	image_color_at(t_uv uv, t_object object)
 
 t_xyz	bump_map_at(t_uv uv, t_object object)
 {
-	t_xyz	bump;
-
 	int x = (int)((uv.u) * (object.bump_map.width - 1));
 	int y = (int)((uv.v) * (object.bump_map.height - 1));
 	if (object.type == PLANE)
@@ -79,11 +77,7 @@ t_xyz	bump_map_at(t_uv uv, t_object object)
 		while (y >= (int)object.bump_map.height)
 			y -= (int)object.bump_map.height;
 	}
-	bump = object.bump_map.map[y][x];
-	bump.x = bump.x / MAX_COLOR;
-	bump.y = bump.y / MAX_COLOR;
-	bump.z = bump.z / MAX_COLOR;
-	return (bump);
+	return (divide_vector(object.bump_map.map[y][x], (float)MAX_COLOR));
 }
 
 t_xyz	get_uv_pattern(int pattern, t_object object)

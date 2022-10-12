@@ -20,42 +20,25 @@
 #include "utils/u_vector_math.h"
 
 
-// p' = p + d(p)n(p)
-// where: 
-// 		d(p) = the offset returned by the displacement texture at p 
-// 		n(p) = the surface normal at p
-// static t_xyz	compute_bump_normal(t_object *object)
-// {
-// 	{
-// 		t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
-		
-		
-// 		DEBUG_DOUBLE(bump.x);
-// 		DEBUG_DOUBLE(bump.y);
-// 		DEBUG_DOUBLE(bump.z);
-// 		// // t_xyz temp = 
-// 		object->normal.x -= bump.x;
-// 		object->normal.y -= bump.y;
-// 		object->normal.z -= bump.z;
-// 	}
-// }
+# define BUMP_SCALE 30
 
+// sebastiandang.github.io/docs/cse168/RayTracing.pdf
 static void	compute_normal(t_object *object)
 {
 	if (!object->type)
 		return ;
 	if (object->type == SPHERE)
-		object->normal = substract_vectors(object->position, object->center);
+		object->normal = substract_vectors(object->intersect, object->center);
 	else if (object->type == PLANE)
-		object->normal = object->vector_orientation;
+		object->normal = object->orientation;
 	if (object->type != NONE && object->bump)
 	{
-		// t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
-		// object->normal.x = bump.x * 2;
+		t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
+		object->normal.x += BUMP_SCALE * bump.x;
+		object->normal.y += BUMP_SCALE * bump.x;
+		object->normal.z += BUMP_SCALE * bump.x;
 	}
 	object->normal = normalize_vector(object->normal);
-	// if (object->bump)
-		// compute_bump_normal(object);
 }
 
 // Find the closest intersection between a ray and objects in the scene.
@@ -82,10 +65,11 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
 		{
 			closest_object = mlx.object[i];
 			closest_object.t = t;
+			closest_object.id = i;
 		}
 		i++;
 	}
-	closest_object.position = add_vectors(ray.origin,
+	closest_object.intersect = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
 	return (closest_object);

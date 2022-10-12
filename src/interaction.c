@@ -27,7 +27,7 @@ int	close_window(t_mlx *mlx)
 // int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 // {
 // 	t_xyz	direction;
-// 	t_ray	ray;
+// 	// t_ray	ray;
 
 // 	mlx_mouse_get_pos(mlx->window, &x, &y);
 // 	if (keycode == MOUSE_CLICK)
@@ -48,23 +48,85 @@ int	close_window(t_mlx *mlx)
 // 	return (0);
 // }
 
+int	mouse_hook_linux(int keycode, int x, int y, t_mlx *mlx)
+{
+	t_xyz	direction;
+	t_ray	ray;
+
+	if (keycode == MOUSE_CLICK)
+	{
+		// DEBUG_INT(x - (WINDOW_WIDTH / 2));
+		// DEBUG_INT(y - (WINDOW_HEIGHT / 2));
+		direction = convert_2d_canvas_to_3d_coordinates(mlx->camera,
+				x - (WINDOW_WIDTH / 2), y - (WINDOW_HEIGHT / 2));
+		ray = compute_ray(*mlx, mlx->camera.center, direction);
+		if (ray.object.type != NONE)
+		{
+			int id = ray.object.id;
+			int prev_id;
+
+			prev_id = mlx->selected_object;
+			if (prev_id >= 0)
+			{
+				mlx->object[prev_id].color.x -= 100;
+				mlx->object[prev_id].color.y -= 100;
+				mlx->object[prev_id].color.z -= 100;
+			}
+			mlx->selected_object = id;
+			mlx->object[id].color.x += 100;
+			mlx->object[id].color.y += 100;
+			mlx->object[id].color.z += 100;
+			ray_trace(mlx);
+		}
+		else
+			ft_putstr("Select an object\n");
+	}
+	return (0);
+}
+
 int	key_hook(int keycode, t_mlx *mlx)
 {
 	double	rotation_speed;
+	int		id;
 
 	rotation_speed = 0.20;
-	if (keycode == LEFT)
-		mlx->camera.rotation_angles.y -= rotation_speed;
-	if (keycode == RIGHT)
-		mlx->camera.rotation_angles.y += rotation_speed;
-	if (keycode == DOWN)
-		mlx->camera.rotation_angles.x += rotation_speed;
-	if (keycode == UP)
-		mlx->camera.rotation_angles.x -= rotation_speed;
+	id = mlx->selected_object;
+	if (id < 0)
+	{
+		if (keycode == LEFT)
+			mlx->camera.rotation_angles.y -= rotation_speed;
+		if (keycode == RIGHT)
+			mlx->camera.rotation_angles.y += rotation_speed;
+		if (keycode == DOWN)
+			mlx->camera.rotation_angles.x += rotation_speed;
+		if (keycode == UP)
+			mlx->camera.rotation_angles.x -= rotation_speed;
+		ray_trace(mlx);
+	}
+	if (id >= 0)
+	{
+		if(keycode == DIAMETER)
+		{
+			mlx->selected_action = DIAMETER;
+			ft_putstr("Adjust diameter with up/down keys\n");
+		}
+		if (mlx->selected_action == DIAMETER)
+		{
+			if (keycode == DOWN & mlx->object[id].radius > 0.2)
+			{
+				mlx->object[id].radius -= 0.2;
+				ray_trace(mlx);
+			}
+			if (keycode == UP)
+			{
+				mlx->object[id].radius += 0.2;
+				ray_trace(mlx);
+			}
+		}
+	}
 	DEBUG_INT(keycode);
 	if (keycode == ESC)
 		close_window(mlx);
-	ray_trace(mlx);
 	return (0);
 }
 
@@ -72,5 +134,6 @@ void	interaction(t_mlx *mlx)
 {
 	mlx_hook(mlx->window, 17, 0, close_window, mlx);
 	// mlx_mouse_hook(mlx->window, mouse_hook, mlx);
+	mlx_mouse_hook(mlx->window, mouse_hook_linux, mlx);
 	mlx_key_hook(mlx->window, key_hook, mlx);
 }

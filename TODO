@@ -2,7 +2,6 @@
 - cylinder toevoegen
 - cone toevoegen
 - checkerboard: cylinder & cone
-- Handle bump map textures.
 - user_interaction: scale objects
 - user_interaction: rotate objects
 - user_interaction: adjust diameter

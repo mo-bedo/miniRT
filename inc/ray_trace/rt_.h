@@ -22,10 +22,10 @@
 # define RAY_T_MAX 1.0e30f
 
 typedef struct s_ray {
-	t_xyz				direction;
-	t_xyz				origin;
-	t_xyz				view;
-	double				t_max;
+	t_xyz		direction;
+	t_xyz		origin;
+	t_xyz		view;
+	double		t_max;
 	t_object	object;
 }	t_ray;
 

@@ -17,16 +17,16 @@
 #include <string.h>
 #include <math.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+bool str_is_equal(const char *s1, const char *s2, size_t n)
 {
 	while (n-- && (*s1 || *s2))
 	{
 		if (*s1 != *s2)
-			return ((unsigned char)*s1 - *s2);
+			return (false);
 		s1++;
 		s2++;
 	}
-	return (0);
+	return (true);
 }
 
 char	*ft_strrchr(const char *s, int c)

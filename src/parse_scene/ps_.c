@@ -26,11 +26,11 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 	static int	c = 0;
 	static int	l = 0;
 
-	if (ft_strncmp(line, "A", 1) == 0)
+	if (str_is_equal(line, "A", 1))
 		a++;
-	else if (ft_strncmp(line, "C", 1) == 0)
+	else if (str_is_equal(line, "C", 1))
 		c++;
-	// else if (ft_strncmp(line, "L", 1) == 0)
+	// else if (str_is_equal(line, "L", 1))
 		// l++;
 	if (a > 1 || l > 1)
 		error_message_and_exit("Scene declares multiple lights");
@@ -45,7 +45,7 @@ static void	parse_lights(t_mlx *mlx, char *line)
 	double		brightness;
 	t_xyz		color;
 
-	if (ft_strncmp(line, "A", 1) == 0)
+	if (str_is_equal(line, "A", 1))
 	{
 		line++;
 		brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
@@ -54,7 +54,7 @@ static void	parse_lights(t_mlx *mlx, char *line)
 		mlx->ambient_light.color.y = color.y / MAX_COLOR * brightness;
 		mlx->ambient_light.color.z = color.z / MAX_COLOR * brightness;
 	}
-	else if (ft_strncmp(line, "L", 1) == 0)
+	else if (str_is_equal(line, "L", 1))
 	{
 		line++;
 		mlx->light[i].origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
@@ -80,38 +80,36 @@ static void	parse_lights(t_mlx *mlx, char *line)
 static void	parse_camera(t_mlx *mlx, char *line)
 {
 	t_xyz	std_camera_orientation;
-	t_xyz	vector_orientation;
+	t_xyz	orientation;
 	float	field_of_view;
 
 	line++;
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	vector_orientation = parse_vector_orientation(&line);
+	orientation = parse_orientation(&line);
 	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (3.14 / 180);
 	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2);
 	std_camera_orientation.x = 0;
 	std_camera_orientation.y = 0;
 	std_camera_orientation.z = 1;
 	mlx->camera.rotation_angles = get_angle_over_the_axes(
-			std_camera_orientation, vector_orientation);
+			std_camera_orientation, orientation);
 }
 
 void	parse_line(t_mlx *mlx, char *line)
 {
-	if (ft_strncmp(line, "#", 1) == 0 || ft_strncmp(line, "\n", 1) == 0
-		|| !line[0])
+	if (str_is_equal(line, "#", 1) || str_is_equal(line, "\n", 1) || !line[0])
 		return ;
-	else if (ft_strncmp(line, "B", 1) == 0)
+	else if (str_is_equal(line, "B", 1))
 	{
-			line += 1;
-			mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+		line += 1;
+		mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	}
-	else if (ft_strncmp(line, "A", 1) == 0 || ft_strncmp(line, "L", 1) == 0)
+	else if (str_is_equal(line, "A", 1) || str_is_equal(line, "L", 1))
 		parse_lights(mlx, line);
-	else if (ft_strncmp(line, "C", 1) == 0)
+	else if (str_is_equal(line, "C", 1))
 		parse_camera(mlx, line);
-	else if (ft_strncmp(line, "pl", 2) == 0
-		|| ft_strncmp(line, "sp", 2) == 0 
-		|| ft_strncmp(line, "cy", 2) == 0)
+	else if (str_is_equal(line, "pl", 2) || str_is_equal(line, "sp", 2)
+		|| str_is_equal(line, "cy", 2))
 		parse_objects(mlx, line);
 	else
 		error_message_and_exit("Unknown type identifier");

@@ -77,7 +77,7 @@ typedef struct s_object
 {
 	int			type;
 	t_xyz		center;
-	t_xyz		vector_orientation;
+	t_xyz		orientation;
 	float		radius;
 	float		height;
 	t_xyz		color;
@@ -88,8 +88,9 @@ typedef struct s_object
 	t_map		texture_map;
 	bool		bump;
 	t_map		bump_map;
-	t_xyz		position;
+	t_xyz		intersect;
 	double		t;
+	int			id;
 	t_xyz		normal;
 }	t_object;
 
@@ -105,6 +106,8 @@ typedef struct s_mlx {
 	t_object		object[100];
 	int				object_count;
 	t_xyz			background_color;
+	int				selected_object;
+	int				selected_action;
 }	t_mlx;
 
 enum e_values{

@@ -38,6 +38,8 @@ static void	init(t_mlx	*mlx)
 			&mlx->img.bits_per_pixel, &mlx->img.line_length, &mlx->img.endian);
 	initialize_white_color(&mlx->background_color);
 	mlx->object_count = 0;
+	mlx->selected_object = -1;
+	mlx->selected_action = -1;
 }
 
 void	print_time(char *action)
@@ -47,10 +49,10 @@ void	print_time(char *action)
 
 	time = clock();
 	setlocale(LC_NUMERIC, "");
-	// if (ft_strncmp(action, "start_ray", 8) == 0)
+	// if (str_is_equal(action, "start_ray", 8))
 		// start_time = time;
 	printf("%s", action);
-	if (ft_strncmp(action, "rt_", 2) == 0)
+	if (str_is_equal(action, "rt_", 2))
 		printf("\t: %'12.ld\n", time-start_time);
 	else
 		printf("\t: %'12.ld\n", time);

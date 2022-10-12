@@ -10,8 +10,8 @@ L   2,0,0 		0.8 	255,255,255
 
 # front
 # sp   -2,1,4		2       checkerboard	500		0.8 # groen
-sp    0,0,8	6       255,0,0            10		0.2 #maps/earth.ppm # rood
-# sp    2,0,4		2       0,0,255         100		0.5 # blauw
+sp    0,0,8 	3       255,0,0            0		0 # rood
+sp    2,0,4		2       0,0,255         100		0.5 # blauw
 # # left
 # sp  -10,0,4		3       255,255,50      10      0.4 # geel 
 # # back

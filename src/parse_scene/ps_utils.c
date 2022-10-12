@@ -82,7 +82,7 @@ t_xyz	parse_xyz(char **str, int min, int max)
 	return (xyz);
 }
 
-t_xyz	parse_vector_orientation(char **str)
+t_xyz	parse_orientation(char **str)
 {
 	t_xyz	xyz;
 
@@ -99,7 +99,7 @@ bool	has_valid_extension(char *filename, char *valid_ext)
 	char	*ext;
 
 	ext = ft_strrchr(filename, '.');
-	if (!ext || ft_strncmp(ext, valid_ext, ft_strlen(valid_ext)) != 0)
+	if (!ext || !str_is_equal(ext, valid_ext, ft_strlen(valid_ext)))
 		return (false);
 	return (true);
 }
@@ -188,14 +188,14 @@ t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
 	v1.x = 0;
 	v2 = vector2;
 	v2.x = 0;
-		angles.x = get_angle_between_vectors(v1, v2);
+	angles.x = get_angle_between_vectors(v1, v2);
 	if ((v2.z >= 0 && v1.y < v2.y) || (v2.z < 0 && v1.y > v2.y))
 		angles.x *= -1;
 	v1 = vector1;
 	v1.y = 0;
 	v2 = vector2;
 	v2.y = 0;
-		angles.y = get_angle_between_vectors(v1, v2);
+	angles.y = get_angle_between_vectors(v1, v2);
 	if ((v2.z >= 0 && v1.x > v2.x) || (v2.z < 0 && v1.x < v2.x))
 		angles.y *= -1;
 	angles.z = 0;

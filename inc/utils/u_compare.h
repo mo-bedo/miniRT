@@ -15,7 +15,7 @@
 
 # include "main.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+bool	str_is_equal(const char *s1, const char *s2, size_t n);
 char	*ft_strrchr(const char *s, int c);
 double	get_smallest_double(double a, double b);
 float	ft_min_float(float a, float b);

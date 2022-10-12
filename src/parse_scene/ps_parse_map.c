@@ -56,7 +56,7 @@ void	parse_ppm_file(t_map *map, char *data)
 {
 	int	color_scale;
 
-	if (ft_strncmp(data, "P3", 2) != 0)
+	if (!str_is_equal(data, "P3", 2))
 		error_message_and_exit("PPM: Please provide P3 file");
 	data += 3;
 	map->width = parse_int(&data, MIN_PPM_SIZE, MAX_PPM_SIZE);
@@ -112,21 +112,21 @@ void	parse_textures(t_object *object, char **line)
 	object->checkerboard = false;
 	object->texture = false;
 	object->bump = false;
-	if (ft_strncmp(*line, "checkerboard", 12) != 0 
-		&& ft_strncmp(*line, "maps/texture/", 13) != 0
-		&& ft_strncmp(*line, "maps/bump/", 10) != 0)
-		error_message_and_exit("Texture input error");
-	if (ft_strncmp(*line, "checkerboard", 12) == 0)
+	// if (!str_is_equal(*line, "checkerboard", 12)
+	// 	&& !str_is_equal(*line, "maps/texture/", 13)
+	// 	&& !str_is_equal(*line, "maps/bump/", 10))
+	// 	error_message_and_exit("Texture input error");
+	if (str_is_equal(*line, "checkerboard", 12))
 	{
 		object->checkerboard = true;
 		return ;
 	}
-	if (ft_strncmp(*line, "maps/texture/", 13) == 0)
+	if (str_is_equal(*line, "maps/texture/", 13))
 	{
 		parse_texture_map(&object->texture_map, line);
 		object->texture = true;
 	}
-	if (ft_strncmp(*line, "maps/bump/", 10) == 0)
+	if (str_is_equal(*line, "maps/bump/", 10))
 	{
 		parse_texture_map(&object->bump_map, line);
 		object->bump = true;

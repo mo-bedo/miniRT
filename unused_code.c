@@ -69,12 +69,12 @@
 // 	double	d_dot_n;
 // 	double	t;
 
-// 	d_dot_n = get_dot_product(ray.direction, plane.vector_orientation);
+// 	d_dot_n = get_dot_product(ray.direction, plane.orientation);
 // 	if (d_dot_n == 0.0)
 // 		return (false);
 // 	//// vindt het punt van intersectie
 // 	t = get_dot_product(substract_vectors(plane.xyz, \
-// 			ray.origin), plane.vector_orientation) / d_dot_n;
+// 			ray.origin), plane.orientation) / d_dot_n;
 // 	if (t < RAY_T_MIN || t > ray.t_max)
 // 		return (false);
 // 	return (true);
