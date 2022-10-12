@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/10 16:01:16 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/12 11:03:34 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static float	cylinder_cap(float *t, t_xyz intersect, t_xyz cyl_orientation, t_pl
 	a = get_dot_product(substract_vectors(intersect, plane.center), plane.vector_orientation);
 	b = get_dot_product(cyl_orientation, plane.vector_orientation);
 	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
-		return ;
+		return -1;
 	temp_t = -a / b;
 	if (temp_t < 0 || *t < temp_t)
-		return ;
+		return -1;
 	*t = temp_t;
 }
 

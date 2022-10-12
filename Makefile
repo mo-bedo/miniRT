@@ -6,12 +6,12 @@
 #    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/10 15:55:30 by jbedaux          ###   ########.fr        #
+#    Updated: 2022/10/12 11:02:25 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
