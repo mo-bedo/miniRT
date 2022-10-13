@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:25:12 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:39:15 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 // surface_normal = normalize(hit_pt - pt)));
 static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 {
-	t_xyz	normal;
 	float	t;
 	t_xyz	intersect;
 	t_xyz	point_t;
@@ -44,29 +43,74 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	normalize_vector(&cylinder->normal);
 }
 
-// Creating an infinite cylinder with the quadratic equation
-// with ray =  Pa + Va t:
-// and Q = a point on the cilinder
-// (Q - Pa - (Va ,Q - Pa )Va )ˆ2 - Rˆ2 = 0
+
+//	ray : P(t) = P + V * t
+//	cyl : (((P(t) - O) x D)^2 = r^2
+//	
+//	O is point on cylinder core, D is direction of cylinder (normalised), 
+// 	r is radius.
+//	
+//	then you combine the two equations and you get a second order 
+// 	equation you solve for (t), 
+// 	composed of cross products and dot products.
+//	
+//	with end points B and A...
+//	
+//	(((P(t) - A) x (B - A))^2 = r^2 * ((B - A) . (B - A)) 
+//	
+//--------------------------------------------------------------------------
+// Ray : P(t) = O + V * t
+// Cylinder [O, D, r].
+// point Q on cylinder if ((Q - O) x D)^2 = r^2
+//
+// Cylinder [A, B, r].
+// Point P on infinite cylinder if ((P - A) x (B - A))^2 = r^2 * (B - A)^2
+// expand : ((O - A) x (B - A) + t * (V x (B - A)))^2 = r^2 * (B - A)^2
+// equation in the form (X + t * Y)^2 = d
+// where : 
+//  X = (O - A) x (B - A)
+//  Y = V x (B - A)
+//  d = r^2 * (B - A)^2
+// expand the equation :
+// t^2 * (Y . Y) + t * (2 * (X . Y)) + (X . X) - d = 0
+// => second order equation in the form : a*t^2 + b*t + c = 0 where
+// a = (Y . Y)
+// b = 2 * (X . Y)
+// c = (X . X) - d
+//--------------------------------------------------------------------------
+//		
+//	******** known variables ********
+//	A 		= cylinder center
+//	o 		= ray origin
+//	ab 		= cylinder orientation
+//	v		= ray direction
+//	r		= radius
+//	******** dot and cross products ********
+//  . = dot product		x = cross product
+//
+//	ao 		= (o - A); 
+//	aoxab	= (ao x ab); 
+//	vxab 	= (v x ab); 
+//	ab2  	= (ab . ab); 
+//	
+// ******** quadratic equation ******** 
+//	a	    = (vxab . vxab); 
+//	b    	= 2 * (vxab . aoxab);
+//	c    	= (aoxab . aoxab) - (r*r * ab2);
+//
 static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 {
+	t_xyz	vxab;
+	t_xyz	aoxab;
+	t_xyz	ao;
+	double	ab2;
 	t_t4	t;
-	t_xyz	direction;
-	t_xyz	position;
-	t_xyz	transposition_of_center_of_cylinder_to_center_of_xyz;
-	double	uitleg_wat_functie_is;
 
-
-	direction = get_cross_product(ray.direction, cylinder.orientation);
-	transposition_of_center_of_cylinder_to_center_of_xyz
-		= substract_vectors(ray.origin, cylinder.center);
-	position = get_cross_product(
-			transposition_of_center_of_cylinder_to_center_of_xyz,
-			cylinder.orientation);
-	uitleg_wat_functie_is = get_dot_product(
-			cylinder.orientation, cylinder.orientation);
-	t = quadratic_formula(direction, position,
-			cylinder.radius, uitleg_wat_functie_is);
+	ao = substract_vectors(ray.origin, cylinder.center);
+	vxab = get_cross_product(ray.direction, cylinder.orientation);
+	aoxab = get_cross_product(ao, cylinder.orientation);
+	ab2 = get_dot_product(cylinder.orientation, cylinder.orientation);
+	t = quadratic_formula(vxab, aoxab, cylinder.radius, ab2);
 	return (t);
 }
 
