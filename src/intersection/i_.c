@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 13:32:26 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:29:16 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,52 +19,46 @@
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
-// p' = p + d(p)n(p)
-// where:
-// 		d(p) = the offset returned by the displacement texture at p
-// 		n(p) = the surface normal at p
-// static t_xyz	compute_bump_normal(t_object *object)
-// {
-// 	{
-// 		t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
+#define BUMP_SCALE 30
 
-// 		DEBUG_DOUBLE(bump.x);
-// 		DEBUG_DOUBLE(bump.y);
-// 		DEBUG_DOUBLE(bump.z);
-// 		// // t_xyz temp =
-// 		object->normal.x -= bump.x;
-// 		object->normal.y -= bump.y;
-// 		object->normal.z -= bump.z;
-// 	}
-// }
-
-static void compute_normal(t_object *object)
+// sebastiandang.github.io/docs/cse168/RayTracing.pdf
+static void	compute_normal(t_object *object)
 {
+	t_xyz	bump;
+
 	if (!object->type)
-		return;
+		return ;
 	if (object->type == SPHERE)
 		object->normal = substract_vectors(object->intersect, object->center);
 	else if (object->type == PLANE)
 		object->normal = object->orientation;
-	// else if (object->type == CYLINDER)
-	// 	get_cylinder_normal(object);
 	if (object->type != NONE && object->bump)
 	{
-		// t_xyz bump = get_uv_pattern(BUMP_MAP, *object);
-		// object->normal.x = bump.x * 2;
+		bump = get_uv_pattern(BUMP_MAP, *object);
+		object->normal.x += BUMP_SCALE * bump.x;
+		object->normal.y += BUMP_SCALE * bump.x;
+		object->normal.z += BUMP_SCALE * bump.x;
 	}
-	object->normal = normalize_vector(object->normal);
-	// if (object->bump)
-	// compute_bump_normal(object);
+	normalize_vector(&object->normal);
+}
+
+double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
+{
+	if (mlx->object[i].type == PLANE)
+		return (get_intersection_ray_plane(ray, mlx->object[i]));
+	if (mlx->object[i].type == SPHERE)
+		return (get_intersection_ray_sphere(ray, mlx->object[i]));
+	if (mlx->object[i].type == CYLINDER)
+		return (get_intersection_ray_cylinder(ray, &mlx->object[i]));
+	return (RAY_T_MAX);
 }
 
 // Find the closest intersection between a ray and objects in the scene.
-t_object get_closest_intersection(t_mlx mlx, t_ray ray,
-								  float max_distance)
+t_object	get_closest_intersection(t_mlx mlx, t_ray ray, float max_distance)
 {
-	t_object closest_object;
-	int i;
-	double t;
+	t_object	closest_object;
+	int			i;
+	double		t;
 
 	t = 0;
 	i = 0;
@@ -72,21 +66,17 @@ t_object get_closest_intersection(t_mlx mlx, t_ray ray,
 	closest_object.type = NONE;
 	while (i < mlx.object_count)
 	{
-		if (mlx.object[i].type == PLANE)
-			t = get_intersection_ray_plane(ray, mlx.object[i]);
-		else if (mlx.object[i].type == SPHERE)
-			t = get_intersection_ray_sphere(ray, mlx.object[i]);
-		else if (mlx.object[i].type == CYLINDER)
-			t = get_intersection_ray_cylinder(ray, &mlx.object[i]);
+		t = get_distance_to_intersection(&mlx, i, ray);
 		if (t < closest_object.t && RAY_T_MIN < t && t < max_distance)
 		{
 			closest_object = mlx.object[i];
 			closest_object.t = t;
+			closest_object.id = i;
 		}
 		i++;
 	}
 	closest_object.intersect = add_vectors(ray.origin,
-										  multiply_vector(ray.direction, closest_object.t));
+			multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
 	return (closest_object);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_objects.h                                 :+:    :+:            */
+/*   ui_adjust_object.h                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
+/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:37:06 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 14:27:44 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_PARSE_OBJECTS_H
-# define PS_PARSE_OBJECTS_H
+#ifndef UI_ADJUST_OBJECT_H
+# define UI_ADJUST_OBJECT_H
 
 # include "main.h"
 
-void	parse_textures(t_object *object, char **input);
+void	adjust_object(t_mlx *mlx, int id, int keycode);
 
 #endif

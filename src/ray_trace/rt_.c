@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:28:21 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
 	if (!ray.object.type)
 		return (mlx->background_color);
 	view = multiply_vector(ray.direction, -1);
-	ray.object.color = compute_lighting(mlx, view, ray.object);
+	compute_lighting(&ray.object, mlx, view);
 	if (ray.object.reflective <= 0 || depth <= 0)
 		return (ray.object.color);
 	return (compute_reflections_of_reflections(mlx, ray, view, depth));
@@ -88,23 +88,24 @@ void	ray_trace(t_mlx *mlx)
 		y = -WINDOW_HEIGHT / 2;
 		while (y < WINDOW_HEIGHT / 2)
 		{
-			if (x == 0 && y == 0)
-				print_time("rt_start_ray");
+			// if (x == 0 && y == 0)
+			// 	print_time("rt_start_ray");
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			if (x == 0 && y == 0)
-				print_time("rt_direction");
+			// if (x == 0 && y == 0)
+			// 	print_time("rt_direction");
 			ray = compute_ray(*mlx, mlx->camera.center, direction);
-			if (x == 0 && y == 0)
-				print_time("rt_compute_ray");
+			// if (x == 0 && y == 0)
+			// 	print_time("rt_compute_ray");
 			color = get_color(mlx, ray, RECURSION_DEPTH);
-			if (x == 0 && y == 0)
-				print_time("rt_get_color");
+			// if (x == 0 && y == 0)
+			// 	print_time("rt_get_color");
 			pixel_put(&mlx->img, x, y, color);
-			if (x == 0 && y == 0)
-				print_time("rt_pixel_put");
+			// if (x == 0 && y == 0)
+			// 	print_time("rt_pixel_put");
 			y++;
 		}
 		x++;
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->img.img, 0, 0);
 }
+// 

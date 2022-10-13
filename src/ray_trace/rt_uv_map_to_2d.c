@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:28:43 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "utils/u_vector_math.h"
 
 #include <math.h>
-
-# define PI 3.14f
 
 t_uv	map_plane_to_2d(t_xyz intersect)
 {
@@ -29,38 +27,23 @@ t_uv	map_plane_to_2d(t_xyz intersect)
 }
 
 // www.raytracerchallenge.com/bonus/texture-mapping.html
+// compute the azimuthal angle (0 < theta <= 2π)
+// compute the polar angle (0 <= polar_angle <= π)
+// 0 <= uv.u < 1
+// Subtract uv.u from 1, so it increases counterclockwise viewed from above.
+// Subtract uv.v from 1, so 0 is at the south pole of the sphere
 t_uv	map_sphere_to_2d(t_object object)
 {
 	t_uv	uv;
 	t_xyz	radius_vector;
 	float	theta;
-	float	phi;
-	float	raw_u;
+	float	polar_angle;
 
 	radius_vector = substract_vectors(object.center, object.intersect);
-
-	// compute the azimuthal angle
-	// -π < theta <= π
-	// angle increases clockwise as viewed from above,
-	// which is opposite of what we want, but we'll fix it later.
-	theta = atan2(radius_vector.x, radius_vector.z);
-
-	// compute the polar angle
-	// 0 <= phi <= π
-	phi = acos(radius_vector.y / object.radius);
-
-	// -0.5 < raw_u <= 0.5
-	raw_u = theta / (2 * PI);
-
-	// 0 <= u < 1
-	// here's also where we fix the direction of u. Subtract it from 1,
-	// so that it increases counterclockwise as viewed from above.
-	uv.u = 1 - (raw_u + 0.5);
-
-	// we want v to be 0 at the south pole of the sphere,
-	// and 1 at the north pole, so we have to "flip it over"
-	// by subtracting it from 1.
-	uv.v = 1 - phi / PI;
+	theta = atan2(radius_vector.x, radius_vector.z) + PI;
+	polar_angle = acos(radius_vector.y / object.radius);
+	uv.u = 1 - (theta / (2 * PI));
+	uv.v = 1 - polar_angle / PI;
 	return (uv);
 }
 
@@ -71,8 +54,8 @@ t_uv	map_to_2d(t_object object)
 	uv.u = 0;
 	uv.v = 0;
 	if (object.type == PLANE)
-		return(map_plane_to_2d(object.intersect));
+		return (map_plane_to_2d(object.intersect));
 	if (object.type == SPHERE)
-		return(map_sphere_to_2d(object));
+		return (map_sphere_to_2d(object));
 	return (uv);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:48:51 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 14:55:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 #include <string.h>
 #include <math.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+bool	str_is_equal(const char *s1, const char *s2, size_t n)
 {
 	while (n-- && (*s1 || *s2))
 	{
 		if (*s1 != *s2)
-			return ((unsigned char)*s1 - *s2);
+			return (false);
 		s1++;
 		s2++;
 	}
-	return (0);
+	return (true);
 }
 
 char	*ft_strrchr(const char *s, int c)

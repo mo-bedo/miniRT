@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:30:26 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:28:10 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 	static int	c = 0;
 	static int	l = 0;
 
-	if (ft_strncmp(line, "A", 1) == 0)
+	if (str_is_equal(line, "A", 1))
 		a++;
-	else if (ft_strncmp(line, "C", 1) == 0)
+	else if (str_is_equal(line, "C", 1))
 		c++;
-	// else if (ft_strncmp(line, "L", 1) == 0)
+	// else if (str_is_equal(line, "L", 1))
 		// l++;
 	if (a > 1 || l > 1)
 		error_message_and_exit("Scene declares multiple lights");
@@ -38,14 +38,13 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 		error_message_and_exit("Scene declares multiple cameras");
 }
 
-
 static void	parse_lights(t_mlx *mlx, char *line)
 {
 	static int	i = 0;
 	double		brightness;
 	t_xyz		color;
 
-	if (ft_strncmp(line, "A", 1) == 0)
+	if (str_is_equal(line, "A", 1))
 	{
 		line++;
 		brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
@@ -54,7 +53,7 @@ static void	parse_lights(t_mlx *mlx, char *line)
 		mlx->ambient_light.color.y = color.y / MAX_COLOR * brightness;
 		mlx->ambient_light.color.z = color.z / MAX_COLOR * brightness;
 	}
-	else if (ft_strncmp(line, "L", 1) == 0)
+	else if (str_is_equal(line, "L", 1))
 	{
 		line++;
 		mlx->light[i].origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
@@ -97,21 +96,19 @@ static void	parse_camera(t_mlx *mlx, char *line)
 
 void	parse_line(t_mlx *mlx, char *line)
 {
-	if (ft_strncmp(line, "#", 1) == 0 || ft_strncmp(line, "\n", 1) == 0
-		|| !line[0])
+	if (str_is_equal(line, "#", 1) || str_is_equal(line, "\n", 1) || !line[0])
 		return ;
-	else if (ft_strncmp(line, "B", 1) == 0)
+	else if (str_is_equal(line, "B", 1))
 	{
-			line += 1;
-			mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
+		line += 1;
+		mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	}
-	else if (ft_strncmp(line, "A", 1) == 0 || ft_strncmp(line, "L", 1) == 0)
+	else if (str_is_equal(line, "A", 1) || str_is_equal(line, "L", 1))
 		parse_lights(mlx, line);
-	else if (ft_strncmp(line, "C", 1) == 0)
+	else if (str_is_equal(line, "C", 1))
 		parse_camera(mlx, line);
-	else if (ft_strncmp(line, "pl", 2) == 0
-		|| ft_strncmp(line, "sp", 2) == 0 
-		|| ft_strncmp(line, "cy", 2) == 0)
+	else if (str_is_equal(line, "pl", 2) || str_is_equal(line, "sp", 2)
+		|| str_is_equal(line, "cy", 2))
 		parse_objects(mlx, line);
 	else
 		error_message_and_exit("Unknown type identifier");
@@ -127,7 +124,8 @@ void	parse_scene(t_mlx *mlx, int argc, char *input)
 		error_message_and_exit("Please provide a scene description file");
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
-		error_message_and_exit("File does not exist or user doesn't have read rights");
+		error_message_and_exit(
+			"File does not exist or user doesn't have read rights");
 	while (1)
 	{
 		line = (char *)ft_calloc(sizeof(char), 1);

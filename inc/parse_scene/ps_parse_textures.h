@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_compare.h                                        :+:    :+:            */
+/*   ps_parse_textures.h                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 19:49:01 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 12:24:53 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_COMPARE_H
-# define U_COMPARE_H
+#ifndef PS_PARSE_TEXTURES_H
+# define PS_PARSE_TEXTURES_H
 
 # include "main.h"
 
-bool	str_is_equal(const char *s1, const char *s2, size_t n);
-char	*ft_strrchr(const char *s, int c);
-double	get_smallest_double(double a, double b);
-float	ft_min_float(float a, float b);
-float	ft_max_float(float a, float b);
+void	parse_textures(t_object *object, char **input);
 
 #endif

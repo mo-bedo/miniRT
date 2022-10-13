@@ -73,23 +73,9 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ft_memset(ret, 0, count * size));
 }
 
-void	initialize_empty_vector(t_xyz *vector)
+void	initialize_vector(t_xyz *vector, float x, float y, float z)
 {
-	vector->x = 0;
-	vector->y = 0;
-	vector->z = 0;
-}
-
-void	initialize_black_color(t_xyz *vector)
-{
-	vector->x = 0;
-	vector->y = 0;
-	vector->z = 0;
-}
-
-void	initialize_white_color(t_xyz *vector)
-{
-	vector->x = 255;
-	vector->y = 255;
-	vector->z = 255;
+	vector->x = x;
+	vector->y = y;
+	vector->z = z;
 }

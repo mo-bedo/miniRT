@@ -53,7 +53,6 @@ int	parse_int(char **str, int min, int max)
 	int	number;
 
 	number = ft_atoi(*str);
-	// DEBUG_INT(number);
 	if (number < min || number > max)
 		error_message_and_exit("Integer value input error");
 	skip_chars_of_parsed_number(str);
@@ -68,7 +67,6 @@ float	parse_float(char **str, int min, int max)
 	if (number < min || number > max)
 		error_message_and_exit("Float value input error");
 	skip_chars_of_parsed_number(str);
-	// DEBUG_FLOAT(number);
 	return (number);
 }
 
@@ -91,6 +89,8 @@ t_xyz	parse_orientation(char **str)
 	xyz.z = parse_float(str, MIN_3D, MAX_3D);
 	if (xyz.x == 0 && xyz.y == 0 && xyz.z == 0)
 		error_message_and_exit("Orientation vector cannot be 0,0,0");
+	if (xyz.x == 1 && xyz.y == 1 && xyz.z == 1)
+		error_message_and_exit("Orientation vector cannot be 1,1,1");
 	return (xyz);
 }
 
@@ -99,7 +99,7 @@ bool	has_valid_extension(char *filename, char *valid_ext)
 	char	*ext;
 
 	ext = ft_strrchr(filename, '.');
-	if (!ext || ft_strncmp(ext, valid_ext, ft_strlen(valid_ext)) != 0)
+	if (!ext || !str_is_equal(ext, valid_ext, ft_strlen(valid_ext)))
 		return (false);
 	return (true);
 }
@@ -144,7 +144,6 @@ int	get_next_line(char **line, int fd)
 	return (return_value);
 }
 
-
 int	ft_strlcpy(char *dst, char *src, int size)
 {
 	int	i;
@@ -161,10 +160,12 @@ int	ft_strlcpy(char *dst, char *src, int size)
 int	get_length_of_file(char *path)
 {
 	char	buffer;
-	int		i = 0;
+	int		i;
 	int		return_value;
+	int		fd;
 
-	int fd = open(path, O_RDONLY);
+	i = 0;
+	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		error_message_and_exit("File does not exist");
 	buffer = 0;
@@ -172,7 +173,6 @@ int	get_length_of_file(char *path)
 	while (return_value)
 	{
 		return_value = read(fd, &buffer, 1);
-		// DEBUG_INT(i);
 		++i;
 	}
 	return (i);
@@ -188,14 +188,14 @@ t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
 	v1.x = 0;
 	v2 = vector2;
 	v2.x = 0;
-		angles.x = get_angle_between_vectors(v1, v2);
+	angles.x = get_angle_between_vectors(v1, v2);
 	if ((v2.z >= 0 && v1.y < v2.y) || (v2.z < 0 && v1.y > v2.y))
 		angles.x *= -1;
 	v1 = vector1;
 	v1.y = 0;
 	v2 = vector2;
 	v2.y = 0;
-		angles.y = get_angle_between_vectors(v1, v2);
+	angles.y = get_angle_between_vectors(v1, v2);
 	if ((v2.z >= 0 && v1.x > v2.x) || (v2.z < 0 && v1.x < v2.x))
 		angles.y *= -1;
 	angles.z = 0;

@@ -6,12 +6,12 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:30:26 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:28:14 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "parse_scene/ps_parse_map.h"
+#include "parse_scene/ps_parse_textures.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
@@ -58,17 +58,18 @@ void	parse_objects(t_mlx *mlx, char *line)
 	if (mlx->object_count >= MAX_OBJECTS)
 		error_message_and_exit("Too many objects in scene");
 	i = mlx->object_count;
-	if (ft_strncmp(line, "pl", 2) == 0)
+	if (str_is_equal(line, "pl", 2))
 		parse_plane(&mlx->object[i], &line);
-	if (ft_strncmp(line, "sp", 2) == 0)
+	if (str_is_equal(line, "sp", 2))
 		parse_sphere(&mlx->object[i], &line);
-	if (ft_strncmp(line, "cy", 2) == 0)
+	if (str_is_equal(line, "cy", 2))
 		parse_cylinder(&mlx->object[i], &line);
 	mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
-	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	mlx->object[i].reflective
+		= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
 	parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;
 	mlx->object_count += 1;

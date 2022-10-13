@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:26:36 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,9 @@
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
-
-typedef struct s_matrix4 {
-	float	value[4][4];
-}	t_matrix4;
-
-// [row][column]
-typedef struct s_matrix8 {
-	float value [4][8];
-}		t_matrix8;
-
-typedef struct s_t4 
-{
-	float	t1;
-	float	t2;
-	float	t3;
-	float	t4;
-}	t_t4;
-
-
-
-typedef struct s_vector4 {
-	float	x;
-	float	y;
-	float	z;
-	float	a;
-} 	t_vector4;
+# define PI 3.14f
+# define RAY_T_MIN 0.0001f
+# define RAY_T_MAX 1.0e30f
 
 // IMAGE
 typedef struct s_img
@@ -117,6 +94,7 @@ typedef struct s_object
 	t_map		bump_map;
 	t_xyz		intersect;
 	double		t;
+	int			id;
 	t_xyz		normal;
 }	t_object;
 
@@ -132,22 +110,24 @@ typedef struct s_mlx {
 	t_object		object[100];
 	int				object_count;
 	t_xyz			background_color;
+	int				selected_object;
+	int				selected_action;
 }	t_mlx;
 
 enum e_values{
 	WINDOW_WIDTH	= 640,
 	WINDOW_HEIGHT	= 480,
-	MAX_OBJECTS		= 100,
+	MAX_OBJECTS		= 99,
 	X				= 0,
 	Y				= 1,
 	Z				= 2,
 	LENGTH_NORMAL	= 1,
-
 	RECURSION_DEPTH	= 3,
 	NONE			= 0,
 	PLANE			= 1,
 	SPHERE			= 2,
 	CYLINDER		= 3,
+	CONE			= 4,
 	CHECKERS		= 0,
 	TEXTURE			= 1,
 	BUMP_MAP		= 2,
@@ -157,10 +137,7 @@ enum e_values{
 void	print_time(char *action);
 
 #endif				// MAIN_H
-
-
 // resize image;
 // convert earth.ppm -resize 300x150 earth_small.ppm
-
 // convert P6 to P3
 // convert earth_small.ppm -compress none earth_small.ppm
