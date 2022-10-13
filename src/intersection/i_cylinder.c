@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 16:29:38 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 17:10:26 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 //	ray : P(t) = P + V * t
 //	cyl : (((P(t) - O) x D)^2 = r^2
 //	
-//	O is point on cylinder core, D is direction of cylinder (normalised), r is radius.
+//	O is point on cylinder core, D is direction of cylinder (normalised), 
+// 	r is radius.
 //	
 //	then you combine the two equations and you get a second order equation you solve for (t), 
 // 	composed of cross products and dot products.
@@ -76,39 +77,39 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 // b = 2 * (X . Y)
 // c = (X . X) - d
 //--------------------------------------------------------------------------
-// Vector AB 					= (B - A);
-// Vector AO 					= (O - A);
-// Vector AOxAB 				= (AO ^ AB); 
-// cross product Vector VxAB  	= (V ^ AB); 
-// cross product float  ab2   	= (AB * AB); 
-// dot product float a     	 	= (VxAB * VxAB); 
-// dot product float b      	= 2 * (VxAB * AOxAB);
-// dot product float c      	= (AOxAB * AOxAB) - (r*r * ab2);
-
-// AB = 
-
-
-// solve second order equation : a*t^2 + b*t + c = 0
+//		
+//	******** known variables ********
+//	A 		= cylinder center
+//	o 		= ray origin
+//	ab 		= cylinder orientation
+//	v		= ray direction
+//	r		= radius
+//	******** dot and cross products ********
+//  . = dot product		x = cross product
+//
+//	ao 		= (o - A); 
+//	aoxab	= (ao x ab); 
+//	vxab 	= (v x ab); 
+//	ab2  	= (ab . ab); 
+//	
+// ******** quadratic equation ******** 
+//	a	    = (vxab . vxab); 
+//	b    	= 2 * (vxab . aoxab);
+//	c    	= (aoxab . aoxab) - (r*r * ab2);
+//
 static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 {
+	t_xyz	vxab;
+	t_xyz	aoxab;
+	t_xyz	ao;
+	double	ab2;
 	t_t4	t;
-	t_xyz	direction;
-	t_xyz	position;
-	t_xyz	transposition_of_center_of_cylinder_to_center_of_xyz;
-	double	uitleg_wat_functie_is;
 
-	t.t1 = RAY_T_MAX;
-	t.t2 = RAY_T_MAX;
-	direction = get_cross_product(ray.direction, cylinder.orientation);
-	transposition_of_center_of_cylinder_to_center_of_xyz
-		= substract_vectors(ray.origin, cylinder.center);
-	position = get_cross_product(
-			transposition_of_center_of_cylinder_to_center_of_xyz,
-			cylinder.orientation);
-	uitleg_wat_functie_is = get_dot_product(
-			cylinder.orientation, cylinder.orientation);
-	t = quadratic_formula(direction, position,
-			cylinder.radius, uitleg_wat_functie_is);
+	ao = substract_vectors(ray.origin, cylinder.center);
+	vxab = get_cross_product(ray.direction, cylinder.orientation);
+	aoxab = get_cross_product(ao, cylinder.orientation);
+	ab2 = get_dot_product(cylinder.orientation, cylinder.orientation);
+	t = quadratic_formula(vxab, aoxab, cylinder.radius, ab2);
 	return (t);
 }
 
