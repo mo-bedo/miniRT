@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:18:19 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 15:34:27 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
 	if (!ray.object.type)
 		return (mlx->background_color);
 	view = multiply_vector(ray.direction, -1);
-	ray.object.color = compute_lighting(mlx, view, ray.object);
+	compute_lighting(&ray.object, mlx, view);
 	if (ray.object.reflective <= 0 || depth <= 0)
 		return (ray.object.color);
 	return (compute_reflections_of_reflections(mlx, ray, view, depth));
@@ -108,3 +108,4 @@ void	ray_trace(t_mlx *mlx)
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->img.img, 0, 0);
 }
+// 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils_conversion.c                                 :+:    :+:            */
+/*   u_conversion.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:05:46 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 14:44:50 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ float	ft_atof(const char *str)
 		while (*str >= '0' && *str <= '9')
 		{
 			i++;
-			nbr += (double)((*str - '0') / pow(10, i));
-			str++;
+			nbr += (double)((*str++ - '0') / pow(10, i));
 		}
 	}
 	if (i > 6 || nbr > FLT_MAX)

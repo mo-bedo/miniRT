@@ -6,12 +6,12 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:38:33 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 13:48:05 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "parse_scene/ps_parse_map.h"
+#include "parse_scene/ps_parse_textures.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
@@ -68,7 +68,8 @@ void	parse_objects(t_mlx *mlx, char *line)
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
-	mlx->object[i].reflective = parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	mlx->object[i].reflective
+		= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
 	parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;
 	mlx->object_count += 1;

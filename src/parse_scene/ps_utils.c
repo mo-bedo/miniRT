@@ -53,7 +53,6 @@ int	parse_int(char **str, int min, int max)
 	int	number;
 
 	number = ft_atoi(*str);
-	// DEBUG_INT(number);
 	if (number < min || number > max)
 		error_message_and_exit("Integer value input error");
 	skip_chars_of_parsed_number(str);
@@ -68,7 +67,6 @@ float	parse_float(char **str, int min, int max)
 	if (number < min || number > max)
 		error_message_and_exit("Float value input error");
 	skip_chars_of_parsed_number(str);
-	// DEBUG_FLOAT(number);
 	return (number);
 }
 
@@ -146,7 +144,6 @@ int	get_next_line(char **line, int fd)
 	return (return_value);
 }
 
-
 int	ft_strlcpy(char *dst, char *src, int size)
 {
 	int	i;
@@ -163,10 +160,12 @@ int	ft_strlcpy(char *dst, char *src, int size)
 int	get_length_of_file(char *path)
 {
 	char	buffer;
-	int		i = 0;
+	int		i;
 	int		return_value;
+	int		fd;
 
-	int fd = open(path, O_RDONLY);
+	i = 0;
+	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		error_message_and_exit("File does not exist");
 	buffer = 0;
@@ -174,7 +173,6 @@ int	get_length_of_file(char *path)
 	while (return_value)
 	{
 		return_value = read(fd, &buffer, 1);
-		// DEBUG_INT(i);
 		++i;
 	}
 	return (i);

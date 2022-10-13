@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_.h                                              :+:    :+:            */
+/*   i_utils.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:12:06 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 15:23:19 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT__H
-# define RT__H
+#ifndef I_UTILS_H
+# define I_UTILS_H
 
 # include "main.h"
 
-typedef struct s_ray {
-	t_xyz		direction;
-	t_xyz		origin;
-	t_xyz		view;
-	double		t_max;
-	t_object	object;
-}	t_ray;
+typedef struct s_t4
+{
+	float	t1;
+	float	t2;
+	float	t3;
+	float	t4;
+}	t_t4;
 
-t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y);
-t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction);
-t_xyz	get_color(t_mlx *mlx, t_ray ray, int recursion_depth);
-void	ray_trace(t_mlx *mlx);
+t_t4	check_t_values(t_t4 t);
+t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
+			double input3, double input4);
 
 #endif

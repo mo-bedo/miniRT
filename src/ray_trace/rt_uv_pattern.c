@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   interaction.c                                      :+:    :+:            */
+/*   rt_uv_pattern.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 21:07:02 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 14:11:41 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ t_xyz	checkers_pattern_at(t_uv uv, int type)
 
 t_xyz	image_color_at(t_uv uv, t_object object)
 {
-	int x = (int)((uv.u) * (object.texture_map.width - 1));
-	int y = (int)((uv.v) * (object.texture_map.height - 1));
+	int	x;
+	int	y;
+
+	x = (int)((uv.u) * (object.texture_map.width - 1));
+	y = (int)((uv.v) * (object.texture_map.height - 1));
 	if (object.type == PLANE)
 	{
 		x = (int)(uv.u * PLANE_MAP_SCALE);
@@ -62,8 +65,11 @@ t_xyz	image_color_at(t_uv uv, t_object object)
 
 t_xyz	bump_map_at(t_uv uv, t_object object)
 {
-	int x = (int)((uv.u) * (object.bump_map.width - 1));
-	int y = (int)((uv.v) * (object.bump_map.height - 1));
+	int	x;
+	int	y;
+
+	x = (int)((uv.u) * (object.bump_map.width - 1));
+	y = (int)((uv.v) * (object.bump_map.height - 1));
 	if (object.type == PLANE)
 	{
 		x = (int)(uv.u * PLANE_MAP_SCALE);
@@ -89,9 +95,9 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 	if (pattern == CHECKERS)
 		return (checkers_pattern_at(uv, object.type));
 	if (pattern == TEXTURE)
-		return(image_color_at(uv, object));
+		return (image_color_at(uv, object));
 	if (pattern == BUMP_MAP)
-		return(bump_map_at(uv, object));	
+		return (bump_map_at(uv, object));
 	initialize_vector(&empty, 0, 0, 0);
 	return (empty);
 }

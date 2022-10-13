@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 19:41:02 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 14:44:22 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include "intersection/i_cylinder.h"
 
 t_object	get_closest_intersection(t_mlx mlx, t_ray ray,
-						float max_distance);
+				float max_distance);
 
 #endif

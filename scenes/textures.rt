@@ -4,12 +4,12 @@ A   0.2 					255,255,255
 L   5,5,-5 		0.8 	    255,255,255
 
 # 3x earth
-sp  -2.5,1,0	2 			255,255,255		0		0.2	maps/texture/earth_small.ppm
-sp  0,1,0		2 			255,255,255		0		0.2	maps/texture/earth_small.ppm maps/bump/earth_small.ppm
-sp  2.5,1,0		2 			255,255,255		0		0.2	maps/bump/earth_small.ppm
+# sp  -2.5,1,0	2 			255,255,255		0		0.2	maps/texture/earth.ppm
+# sp  0,1,0		2 			255,255,255		0		0.2	maps/texture/earth.ppm maps/bump/earth_bump.ppm
+# sp  2.5,1,0		2 			255,255,255		0		0.2	maps/bump/earth_bump.ppm
 
 # earth HD
-# sp  0,1,0		5 			255,255,255		50		0.2	maps/texture/earth.ppm maps/bump/earth_bump.ppm
+sp  0,1,0		5 			255,255,255		50		0.2	 maps/texture/earth.ppm maps/bump/earth_bump.ppm
 
 # mars
 # sp  0,1,0		5 			255,255,255		0		0	maps/texture/mars_small.ppm maps/bump/mars_small.ppm

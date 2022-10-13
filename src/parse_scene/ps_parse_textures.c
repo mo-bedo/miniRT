@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ps_parse_map.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/12 11:37:17 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ps_parse_textures.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 15:33:18 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+#include "parse_scene/ps_.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
@@ -21,19 +22,16 @@
 #include <math.h>
 #include <unistd.h>
 
-#include "parse_scene/ps_utils.h"
-#include "parse_scene/ps_.h"
-
+// HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN???
 t_xyz	**allocate_map(int width, int height)
 {
 	t_xyz	**map;
 	int		i;
 
 	i = 0;
-	map = (t_xyz **)ft_calloc(width, sizeof(t_xyz**));
-	// HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN?
+	map = (t_xyz **)ft_calloc(width, sizeof(t_xyz **));
 	while (i < width)
-		map[i++] = (t_xyz *)ft_calloc(height * 10, sizeof(t_xyz*));
+		map[i++] = (t_xyz *)ft_calloc(height * 10, sizeof(t_xyz *));
 	return (map);
 }
 
@@ -94,7 +92,6 @@ void	parse_texture_map(t_map *map, char **line)
 
 	path = get_path(*line);
 	file_length = get_length_of_file(path);
-	DEBUG_INT(file_length);
 	ppm_file = open(path, O_RDONLY);
 	free(path);
 	map_data = (char *)ft_calloc(sizeof(char), file_length);
@@ -112,10 +109,6 @@ void	parse_textures(t_object *object, char **line)
 	object->checkerboard = false;
 	object->texture = false;
 	object->bump = false;
-	// if (!str_is_equal(*line, "checkerboard", 12)
-	// 	&& !str_is_equal(*line, "maps/texture/", 13)
-	// 	&& !str_is_equal(*line, "maps/bump/", 10))
-	// 	error_message_and_exit("Texture input error");
 	if (str_is_equal(*line, "checkerboard", 12))
 	{
 		object->checkerboard = true;

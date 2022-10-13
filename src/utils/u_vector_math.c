@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   u_vector_math.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/10 16:27:55 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   u_vector_math.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 15:01:10 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ double	get_dot_product(t_xyz v1, t_xyz v2)
 }
 
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
-t_xyz	normalize_vector(t_xyz vector)
+void	normalize_vector(t_xyz *vector)
 {
 	double	magnitude;
 
-	magnitude = get_vector_length(vector);
-	return (divide_vector(vector, magnitude));
+	magnitude = get_vector_length(*vector);
+	*vector = divide_vector(*vector, magnitude);
 }
 
 // 												-1
@@ -45,13 +45,11 @@ t_xyz	normalize_vector(t_xyz vector)
 // if (angle != angle) checkt of er sprake is van NaN waarde
 double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
 {
-	t_xyz	unit_v1;
-	t_xyz	unit_v2;
 	double	angle;
 
-	unit_v1 = normalize_vector(v1);
-	unit_v2 = normalize_vector(v2);
-	angle = get_dot_product(unit_v1, unit_v2);
+	normalize_vector(&v1);
+	normalize_vector(&v2);
+	angle = get_dot_product(v1, v2);
 	if (angle != angle)
 		return (0);
 	return (acos(angle));
@@ -62,7 +60,7 @@ double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
 //  0 = same direction
 //  1 = at angle of 90 degrees
 // -1 = opposite direction
-t_xyz	cross(t_xyz v1, t_xyz v2)
+t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
 {
 	t_xyz	cross;
 

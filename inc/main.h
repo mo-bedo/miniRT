@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/12 13:37:04 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.h                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 15:12:22 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
-typedef struct s_t4 
-{
-	float	t1;
-	float	t2;
-	float	t3;
-	float	t4;
-}	t_t4;
+# define PI 3.14f
+# define RAY_T_MIN 0.0001f
+# define RAY_T_MAX 1.0e30f
 
 // IMAGE
 typedef struct s_img
@@ -121,7 +117,7 @@ typedef struct s_mlx {
 enum e_values{
 	WINDOW_WIDTH	= 640,
 	WINDOW_HEIGHT	= 480,
-	MAX_OBJECTS		= 100,
+	MAX_OBJECTS		= 99,
 	X				= 0,
 	Y				= 1,
 	Z				= 2,
@@ -141,10 +137,7 @@ enum e_values{
 void	print_time(char *action);
 
 #endif				// MAIN_H
-
-
 // resize image;
 // convert earth.ppm -resize 300x150 earth_small.ppm
-
 // convert P6 to P3
 // convert earth_small.ppm -compress none earth_small.ppm

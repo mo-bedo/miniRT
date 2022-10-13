@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/12 16:38:32 by jbedaux          ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/10/13 15:10:53 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -38,12 +38,13 @@ OBJ_DIR			:=	./obj
 
 SRC				:=	main.c \
 					intersection/i_.c \
-					intersection/i_cylinder.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
+					intersection/i_cylinder.c \
+					intersection/i_utils.c \
 					parse_scene/ps_.c \
 					parse_scene/ps_parse_objects.c \
-					parse_scene/ps_parse_map.c \
+					parse_scene/ps_parse_textures.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
@@ -56,7 +57,8 @@ SRC				:=	main.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \
-					interaction.c
+					user_input/ui_.c \
+					user_input/ui_adjust_object.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 

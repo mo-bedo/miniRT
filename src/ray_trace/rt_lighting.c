@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:08:29 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 14:02:59 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,36 +99,31 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 	return (intensity);
 }
 
-t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_object object)
+void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 {
 	t_ray	light_ray;
 	t_xyz	intensity;
-	t_xyz	color;
 	int		i;
 
 	initialize_vector(&intensity, 0, 0, 0);
 	i = -1;
 	while (++i < mlx->light_count)
 	{
-		light_ray.origin = object.intersect;
+		light_ray.origin = object->intersect;
 		light_ray.direction = substract_vectors(
-				mlx->light[i].origin, object.intersect);
+				mlx->light[i].origin, object->intersect);
 		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(
-					object.normal, light_ray, mlx->light[i].color));
+					object->normal, light_ray, mlx->light[i].color));
 		intensity = add_vectors(intensity, compute_specular_reflection(
-					light_ray, view, object, mlx->light[i].color));
+					light_ray, view, *object, mlx->light[i].color));
 	}
-	if (object.checkerboard)
-		color = get_uv_pattern(CHECKERS, object);
-	else if (object.texture)
-		color = get_uv_pattern(TEXTURE, object);
-	else
-		color = object.color;
-	color.x *= (mlx->ambient_light.color.x + intensity.x);
-	color.y *= (mlx->ambient_light.color.y + intensity.y);
-	color.z *= (mlx->ambient_light.color.z + intensity.z);
-	// DEBUG_DOUBLE(color.x);
-	return (color);
+	if (object->checkerboard)
+		object->color = get_uv_pattern(CHECKERS, *object);
+	else if (object->texture)
+		object->color = get_uv_pattern(TEXTURE, *object);
+	object->color.x *= (mlx->ambient_light.color.x + intensity.x);
+	object->color.y *= (mlx->ambient_light.color.y + intensity.y);
+	object->color.z *= (mlx->ambient_light.color.z + intensity.z);
 }
