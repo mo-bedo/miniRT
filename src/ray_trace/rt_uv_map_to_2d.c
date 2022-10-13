@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:38:39 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:47:10 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,6 @@ t_uv	map_cylinder_to_2d(t_object object)
 	// DEBUG_DOUBLE(uv.v);
 	return (uv);
 }
-
-
-// let v = point.y % (2 * Constants.PI) * 1 / (2 * Constants.PI);
 
 t_uv	map_to_2d(t_object object)
 {

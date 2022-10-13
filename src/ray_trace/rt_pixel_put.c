@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:03:08 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 19:01:00 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	pixel_put(t_img *img, int x, int y, t_xyz color)
 	char	*dst;
 	int		offset;
 
-	x = WINDOW_WIDTH / 2 + x;
-	y = WINDOW_HEIGHT / 2 - y - 1;
+	x = HALF_WINDOW_WIDTH + x;
+	y = HALF_WINDOW_HEIGHT - y - 1;
 	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
 		return ;
 	offset = (y * img->line_length + x * (img->bits_per_pixel / 8));

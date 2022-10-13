@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rt_.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 16:28:21 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   rt_.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/10/13 21:01:28 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,27 @@ t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y)
 {
 	t_xyz	vector;
 
-	vector.x = x / (float)WINDOW_HEIGHT;
-	vector.y = y / (float)WINDOW_HEIGHT;
+	// if (x == 0 && y == 0)
+		// DEBUG_DOUBLE(camera.rotation_angles.x);
+	vector.x = x;
+	vector.y = y;
 	vector.z = camera.canvas_distance;
 	return (rotate_vector(vector, camera.rotation_angles));
 }
+
+// t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y)
+// {
+// 	t_xyz	vector;
+
+// 	vector.x = x;
+// 	vector.y = y;
+// 	vector.z = camera.canvas_distance;
+// 	normalize_vector(&vector);
+// 	vector.x += camera.orientation.x;
+// 	vector.y += camera.orientation.y;
+// 	vector.z += camera.orientation.z;
+// 	return (vector);
+// }
 
 t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 {
@@ -82,30 +98,29 @@ void	ray_trace(t_mlx *mlx)
 	int		x;
 	int		y;
 
-	x = -WINDOW_WIDTH / 2;
-	while (x < WINDOW_WIDTH / 2)
+	x = -HALF_WINDOW_WIDTH;
+	while (x < HALF_WINDOW_WIDTH)
 	{
-		y = -WINDOW_HEIGHT / 2;
-		while (y < WINDOW_HEIGHT / 2)
+		y = -HALF_WINDOW_HEIGHT;
+		while (y < HALF_WINDOW_HEIGHT)
 		{
-			// if (x == 0 && y == 0)
-			// 	print_time("rt_start_ray");
+			if (x == 0 && y == 0)
+				print_time("rt_start_ray");
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			// if (x == 0 && y == 0)
-			// 	print_time("rt_direction");
+			if (x == 0 && y == 0)
+				print_time("rt_direction");
 			ray = compute_ray(*mlx, mlx->camera.center, direction);
-			// if (x == 0 && y == 0)
-			// 	print_time("rt_compute_ray");
+			if (x == 0 && y == 0)
+				print_time("rt_compute_ray");
 			color = get_color(mlx, ray, RECURSION_DEPTH);
-			// if (x == 0 && y == 0)
-			// 	print_time("rt_get_color");
+			if (x == 0 && y == 0)
+				print_time("rt_get_color");
 			pixel_put(&mlx->img, x, y, color);
-			// if (x == 0 && y == 0)
-			// 	print_time("rt_pixel_put");
+			if (x == 0 && y == 0)
+				print_time("rt_pixel_put");
 			y++;
 		}
 		x++;
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->window, mlx->img.img, 0, 0);
 }
-// 

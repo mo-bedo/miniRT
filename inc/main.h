@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 16:26:36 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.h                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 21:16:53 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 # define PI 3.14f
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
+
+# define WINDOW_WIDTH 640
+# define WINDOW_HEIGHT 480
+# define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
+# define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
+# define MAX_OBJECTS 100
+# define PLANE_MAP_SCALE 20
 
 // IMAGE
 typedef struct s_img
@@ -105,9 +112,9 @@ typedef struct s_mlx {
 	t_img			img;
 	t_camera		camera;
 	t_ambient_light	ambient_light;
-	t_light			light[100];
+	t_light			light[MAX_OBJECTS];
 	int				light_count;
-	t_object		object[100];
+	t_object		object[MAX_OBJECTS];
 	int				object_count;
 	t_xyz			background_color;
 	int				selected_object;
@@ -115,23 +122,19 @@ typedef struct s_mlx {
 }	t_mlx;
 
 enum e_values{
-	WINDOW_WIDTH	= 640,
-	WINDOW_HEIGHT	= 480,
-	MAX_OBJECTS		= 99,
-	X				= 0,
-	Y				= 1,
-	Z				= 2,
-	LENGTH_NORMAL	= 1,
-	RECURSION_DEPTH	= 3,
-	NONE			= 0,
-	PLANE			= 1,
-	SPHERE			= 2,
-	CYLINDER		= 3,
-	CONE			= 4,
-	CHECKERS		= 0,
-	TEXTURE			= 1,
-	BUMP_MAP		= 2,
-	PLANE_MAP_SCALE = 20
+	X					= 0,
+	Y					= 1,
+	Z					= 2,
+	LENGTH_NORMAL		= 1,
+	RECURSION_DEPTH		= 3,
+	NONE				= 0,
+	PLANE				= 1,
+	SPHERE				= 2,
+	CYLINDER			= 3,
+	CONE				= 4,
+	CHECKERS			= 0,
+	TEXTURE				= 1,
+	BUMP_MAP			= 2
 };
 
 void	print_time(char *action);

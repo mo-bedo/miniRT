@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:30:18 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 21:13:54 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,10 @@
 #include "ray_trace/rt_.h"
 #include "mlx.h"
 #include "utils/u_.h"
+#include "utils/u_rotate_vector.h"
 #include "utils/u_vector_math.h"
 
 #include <stdlib.h>
-
-static void	catch_action(t_mlx *mlx, int type, int keycode)
-{
-	if (keycode == DIAMETER)
-		ft_putstr("Adjust diameter with up/down keys\n");
-	else if (keycode == SCALE)
-		ft_putstr("Adjust scale with up/down keys\n");
-	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
-		ft_putstr("Rotation is only possible with a sphere or a cone\n");
-	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
-		ft_putstr("Adjusting height is only possible with a sphere or a cone\n");
-	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
-		ft_putstr("Adjust orientation with left/right/up/down keys\n");
-	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
-		ft_putstr("Adjust height with up/down keys\n");
-	else if (keycode != UP && keycode != DOWN
-		&& keycode != LEFT && keycode != RIGHT)
-		ft_putstr("Invalid action\n");
-	if (keycode == DIAMETER || keycode == SCALE
-		|| ((type == CYLINDER || type == CONE)
-			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
-		mlx->selected_action = keycode;
-}
 
 static void	adjust_radius(t_mlx *mlx, int type, int id, int keycode)
 {
@@ -109,50 +87,40 @@ static void	adjust_scale(t_mlx *mlx, int id, int keycode)
 	}
 }
 
+static void	rotate_object(t_mlx *mlx, int id, int keycode)
+{
+	t_xyz	rotation_angles;
+	float	rotation_speed;
+
+	rotation_speed = 0.3;
+	if (mlx->selected_action == ROTATE)
+	{
+		initialize_vector(&rotation_angles, 0, 0, 0);
+		if (keycode == LEFT)
+			rotation_angles.y = -rotation_speed;
+		if (keycode == RIGHT)
+			rotation_angles.y = rotation_speed;
+		if (keycode == UP)
+			rotation_angles.x = rotation_speed;
+		if (keycode == DOWN)
+			rotation_angles.x = -rotation_speed;
+		if (keycode == LEFT || keycode == RIGHT
+			|| keycode == DOWN || keycode == UP)
+		{
+			mlx->object[id].orientation = rotate_vector(
+					mlx->object[id].orientation, rotation_angles);
+			ray_trace(mlx);
+		}
+	}
+}
+
 void	adjust_object(t_mlx *mlx, int id, int keycode)
 {
-	// DEBUG_INT(keycode);
-	catch_action(mlx, mlx->object[id].type, keycode);
 	adjust_radius(mlx, mlx->object[id].type, id, keycode);
 	if (mlx->object[id].type == CYLINDER || mlx->object[id].type == CONE)
 	{
 		adjust_height(mlx, id, keycode);
 		adjust_scale(mlx, id, keycode);
-		if (mlx->selected_action == ROTATE)
-		{
-			if (keycode == LEFT)
-			{
-				// if (mlx->object[id].orientation.z >= 0)
-					// mlx->object[id].orientation.z -= 0.4;
-				// else
-					mlx->object[id].orientation.x -= 0.4;
-				normalize_vector(&mlx->object[id].orientation);
-				ray_trace(mlx);
-			}
-			if (keycode == RIGHT)
-			{
-				mlx->object[id].orientation.x += 0.4;
-				normalize_vector(&mlx->object[id].orientation);
-				ray_trace(mlx);
-			}
-			if (keycode == UP)
-			{
-				if (mlx->object[id].orientation.z >= 0)
-					mlx->object[id].orientation.y -= 0.4;
-				else
-					mlx->object[id].orientation.y += 0.4;
-				normalize_vector(&mlx->object[id].orientation);
-				ray_trace(mlx);
-			}
-			if (keycode == DOWN)
-			{
-				if (mlx->object[id].orientation.z >= 0)
-					mlx->object[id].orientation.y += 0.4;
-				else
-					mlx->object[id].orientation.y -= 0.4;
-				normalize_vector(&mlx->object[id].orientation);
-				ray_trace(mlx);
-			}
-		}
+		rotate_object(mlx, id, keycode);
 	}
 }

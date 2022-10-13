@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:39:15 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 21:14:59 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 // the hit_pt is on the SIDE of the cylinder. We can use dot product to
 // find the point 'pt' on the center line of the cylinder, so that the vector 
 // (hit_pt - pt) is orthogonal to the cylinder's orientation.
-
 // t = dot((hit_pt - cy.bottom_center), cy.ori); 
 // pt = cy.bottom_center + t * cy.ori;
 // surface_normal = normalize(hit_pt - pt)));
@@ -42,7 +41,6 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	cylinder->normal = substract_vectors(intersect, point_t);
 	normalize_vector(&cylinder->normal);
 }
-
 
 //	ray : P(t) = P + V * t
 //	cyl : (((P(t) - O) x D)^2 = r^2
@@ -146,8 +144,8 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 //	(Q4 - P2)^2 < R^2
 //	Qi = p + v Ti 
 //	P1 = bottomcap center
-// dus (lengte van Q3 - P1)^2 < R^2 anders is plane_intersectie niet op de cap
-// met flag geef je aan of het de top of de bottom cap is
+//	dus (lengte van Q3 - P1)^2 < R^2 anders is plane_intersectie niet op de cap
+//	met flag geef je aan of het de top of de bottom cap is
 float	get_intersect_with_cap_planes(t_ray ray, t_object cylinder, float flag)
 {
 	t_object	cap;

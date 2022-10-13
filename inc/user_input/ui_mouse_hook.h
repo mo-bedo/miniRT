@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cone.h                                           :+:    :+:            */
+/*   ui_mouse_hook.h                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:47:22 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 18:04:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_CONE_H
-# define I_CONE_H
+#ifndef UI_MOUSE_HOOK_H
+# define UI_MOUSE_HOOK_H
 
 # include "main.h"
 
-float	get_intersect_ray_cone(t_ray ray, t_object cone);
+int	mouse_hook(int keycode, int x, int y, t_mlx *mlx);
 
-#endif			// I_CONE_H
+#endif

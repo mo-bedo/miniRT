@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cone.h                                           :+:    :+:            */
+/*   u_identify.h                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:47:22 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 21:25:53 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_CONE_H
-# define I_CONE_H
+#ifndef U_IDENTIFY_H
+# define U_IDENTIFY_H
 
 # include "main.h"
 
-float	get_intersect_ray_cone(t_ray ray, t_object cone);
+int	ft_strlen(char *s);
+int	ft_is_digit(int c);
+int	ft_is_space(char c);
 
-#endif			// I_CONE_H
+#endif

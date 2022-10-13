@@ -6,12 +6,13 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:27:08 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 20:59:24 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "user_input/ui_.h"
+#include "user_input/ui_mouse_hook.h"
 #include "user_input/ui_adjust_object.h"
 #include "ray_trace/rt_.h"
 #include "mlx.h"
@@ -26,46 +27,25 @@ int	close_window(t_mlx *mlx)
 	exit(EXIT_SUCCESS);
 }
 
-static int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
-{
-	t_ray	ray;
-	int		prev_id;
-	t_xyz	selection_color;
+// static void	rotate_camera(t_mlx *mlx, int keycode)
+// {
+// 	double	rotation_speed;
 
-	initialize_vector(&selection_color, 100, 100, 100);
-	if (keycode != MOUSE_CLICK)
-		return (0);
-	ray = compute_ray(*mlx, mlx->camera.center,
-			convert_2d_canvas_to_3d_coordinates(mlx->camera,
-				x - (WINDOW_WIDTH / 2), y - (WINDOW_HEIGHT / 2)));
-	prev_id = mlx->selected_object;
-	if (mlx->selected_object >= 0)
-		mlx->object[prev_id].color = substract_vectors(
-				mlx->object[prev_id].color, selection_color);
-	if (ray.object.type != NONE)
-	{
-		ft_putstr("\e[1;1H\e[2J");
-		ft_putstr("Press the following keys to select an action\n");
-		ft_putstr("D\t: Adjust the diameter\n");
-		if (ray.object.type == CYLINDER || ray.object.type == CONE)
-			ft_putstr("H\t: Adjust the height\n");
-		if (ray.object.type == CYLINDER || ray.object.type == CONE)
-			ft_putstr("R\t: Rotate the object\n");
-		ft_putstr("S\t: Scale the object\n");
-		mlx->selected_object = ray.object.id;
-		mlx->object[ray.object.id].color = add_vectors(
-				mlx->object[ray.object.id].color, selection_color);
-	}
-	else
-	{
-		mlx->selected_object = -1;
-		ft_putstr("\e[1;1H\e[2J");
-		ft_putstr("Rotate camera with up/down/left/right keys\n");
-		ft_putstr("Or click on an object to select it\n");
-	}
-	ray_trace(mlx);
-	return (1);
-}
+// 	rotation_speed = 0.20;
+// 	if (keycode == LEFT)
+// 		mlx->camera.orientation.x -= rotation_speed;
+// 	if (keycode == RIGHT)
+// 		mlx->camera.orientation.x += rotation_speed;
+// 	if (keycode == DOWN)
+// 		mlx->camera.orientation.y -= rotation_speed;
+// 	if (keycode == UP)
+// 		mlx->camera.orientation.y += rotation_speed;
+// 	DEBUG_DOUBLE(mlx->camera.orientation.y);
+// 	normalize_vector(&mlx->camera.orientation);
+// 	if (keycode == LEFT || keycode == RIGHT
+// 		|| keycode == DOWN || keycode == UP)
+// 		ray_trace(mlx);
+// }
 
 static void	rotate_camera(t_mlx *mlx, int keycode)
 {
@@ -85,6 +65,29 @@ static void	rotate_camera(t_mlx *mlx, int keycode)
 		ray_trace(mlx);
 }
 
+static void	catch_action(t_mlx *mlx, int type, int keycode)
+{
+	if (keycode == DIAMETER)
+		ft_putstr("Adjust diameter with up/down keys\n");
+	else if (keycode == SCALE)
+		ft_putstr("Adjust scale with up/down keys\n");
+	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
+		ft_putstr("Rotation is only possible with a sphere or a cone\n");
+	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
+		ft_putstr("Adjusting height is only possible with a sphere or a cone\n");
+	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
+		ft_putstr("Adjust orientation with left/right/up/down keys\n");
+	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
+		ft_putstr("Adjust height with up/down keys\n");
+	else if (keycode != UP && keycode != DOWN
+		&& keycode != LEFT && keycode != RIGHT)
+		ft_putstr("Invalid action\n");
+	if (keycode == DIAMETER || keycode == SCALE
+		|| ((type == CYLINDER || type == CONE)
+			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
+		mlx->selected_action = keycode;
+}
+
 static int	key_hook(int keycode, t_mlx *mlx)
 {
 	int		id;
@@ -93,7 +96,10 @@ static int	key_hook(int keycode, t_mlx *mlx)
 	if (id < 0)
 		rotate_camera(mlx, keycode);
 	if (id >= 0)
+	{
+		catch_action(mlx, mlx->object[id].type, keycode);
 		adjust_object(mlx, id, keycode);
+	}
 	if (keycode == ESC)
 		close_window(mlx);
 	return (0);

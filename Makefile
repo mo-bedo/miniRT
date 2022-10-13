@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/13 16:35:58 by jbedaux          ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/10/13 21:21:15 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ CFLAGS			:= 	-Iinc -Imlx -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	#-g -fsanitize=undefined #-fsanitize=address 
+SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:= 
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm
@@ -44,8 +44,10 @@ SRC				:=	main.c \
 					intersection/i_cylinder.c \
 					intersection/i_utils.c \
 					parse_scene/ps_.c \
+					parse_scene/ps_parse_line.c \
 					parse_scene/ps_parse_objects.c \
 					parse_scene/ps_parse_textures.c \
+					parse_scene/ps_parse_textures_utils.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
@@ -59,6 +61,7 @@ SRC				:=	main.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \
 					user_input/ui_.c \
+					user_input/ui_mouse_hook.c \
 					user_input/ui_adjust_object.c
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)

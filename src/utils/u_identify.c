@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_.c                                               :+:    :+:            */
+/*   u_identify.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:26:51 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 21:25:03 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,27 @@
 #include <string.h>
 #include <math.h>
 
-void	ft_putstr(char *s)
+int	ft_strlen(char *s)
 {
-	int	return_value;
+	int	i;
 
-	if (!s)
-		return ;
-	while (*s)
-		return_value = write(1, s++, 1);
-	return_value++;
+	i = 0;
+	while (s[i])
+		++i;
+	return (i);
 }
 
-static void	*ft_memset(void *s, int c, size_t n)
+int	ft_is_digit(int c)
 {
-	unsigned char	*ptr;
-
-	ptr = s;
-	while (n-- > 0)
-		ptr[n] = c;
-	return (s);
+	if (c && c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_is_space(char c)
 {
-	void	*ret;
-
-	ret = malloc(count * size);
-	if (!ret)
-		return (0);
-	return (ft_memset(ret, 0, count * size));
-}
-
-void	initialize_vector(t_xyz *vector, float x, float y, float z)
-{
-	vector->x = x;
-	vector->y = y;
-	vector->z = z;
+	if (c && (c == ' ' || c == '\f' || c == '\n'
+			|| c == '\r' || c == '\t' || c == '\v'))
+		return (1);
+	return (0);
 }

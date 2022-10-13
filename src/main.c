@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 14:47:17 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 21:08:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <locale.h>
+
+void	error_message_and_exit(char *message)
+{
+	ft_putstr("\nError\n");
+	ft_putstr(message);
+	ft_putstr("\n\n");
+	exit(EXIT_FAILURE);
+}
 
 static void	init(t_mlx	*mlx)
 {

@@ -6,12 +6,13 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 15:33:18 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 21:21:50 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "parse_scene/ps_.h"
+#include "parse_scene/ps_parse_textures_utils.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
 #include "utils/u_.h"
@@ -21,19 +22,6 @@
 #include <fcntl.h>
 #include <math.h>
 #include <unistd.h>
-
-// HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN???
-t_xyz	**allocate_map(int width, int height)
-{
-	t_xyz	**map;
-	int		i;
-
-	i = 0;
-	map = (t_xyz **)ft_calloc(width, sizeof(t_xyz **));
-	while (i < width)
-		map[i++] = (t_xyz *)ft_calloc(height * 10, sizeof(t_xyz *));
-	return (map);
-}
 
 void	parse_texture_data(t_map *map, char *data)
 {
@@ -64,23 +52,6 @@ void	parse_ppm_file(t_map *map, char *data)
 	if (color_scale != MAX_COLOR)
 		error_message_and_exit("PPM: Max color scale should be 255");
 	parse_texture_data(map, data);
-}
-
-char	*get_path(char *input)
-{
-	char	*path;
-	int		i;
-
-	i = 0;
-	while (!ft_is_space(input[i]))
-		++i;
-	path = ft_calloc(++i, sizeof(char));
-	ft_strlcpy(path, input, i);
-	if (has_valid_extension(path, ".ppm"))
-		return (path);
-	free(path);
-	error_message_and_exit("Please provide a valid ppm file");
-	return (NULL);
 }
 
 void	parse_texture_map(t_map *map, char **line)

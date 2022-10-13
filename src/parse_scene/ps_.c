@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ps_.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 16:28:10 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ps_.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 21:11:23 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+#include "parse_scene/ps_parse_line.h"
 #include "parse_scene/ps_parse_objects.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_vector_math.h"
@@ -19,6 +20,56 @@
 #include <fcntl.h>
 #include <math.h>
 #include <unistd.h>
+
+bool	has_valid_extension(char *filename, char *valid_ext)
+{
+	char	*ext;
+
+	ext = ft_strrchr(filename, '.');
+	if (!ext || !str_is_equal(ext, valid_ext, ft_strlen(valid_ext)))
+		return (false);
+	return (true);
+}
+
+static char	*add_buffer_to_line(char *old, char buffer)
+{
+	char	*new;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = 0;
+	while (old[len])
+		len++;
+	new = (char *)ft_calloc(sizeof(char), (len + 2));
+	while (i < len)
+	{
+		new[i] = old[i];
+		i++;
+	}
+	new[i++] = buffer;
+	new[i] = 0;
+	free(old);
+	return (new);
+}
+
+static int	get_next_line(char **line, int fd)
+{
+	char	buffer;
+	int		return_value;
+
+	*line[0] = 0;
+	buffer = 0;
+	return_value = 1;
+	while (return_value && buffer != '\n')
+	{
+		return_value = read(fd, &buffer, 1);
+		*line = add_buffer_to_line(*line, buffer);
+	}
+	if (buffer == '\n')
+		*line = add_buffer_to_line(*line, buffer);
+	return (return_value);
+}
 
 static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 {
@@ -36,82 +87,6 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 		error_message_and_exit("Scene declares multiple lights");
 	if (c > 1)
 		error_message_and_exit("Scene declares multiple cameras");
-}
-
-static void	parse_lights(t_mlx *mlx, char *line)
-{
-	static int	i = 0;
-	double		brightness;
-	t_xyz		color;
-
-	if (str_is_equal(line, "A", 1))
-	{
-		line++;
-		brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
-		color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-		mlx->ambient_light.color.x = color.x / MAX_COLOR * brightness;
-		mlx->ambient_light.color.y = color.y / MAX_COLOR * brightness;
-		mlx->ambient_light.color.z = color.z / MAX_COLOR * brightness;
-	}
-	else if (str_is_equal(line, "L", 1))
-	{
-		line++;
-		mlx->light[i].origin = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-		brightness = parse_float(&line, MIN_BRIGHTNESS, MAX_BRIGHTNESS);
-		color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-		mlx->light[i].color.x = color.x / MAX_COLOR * brightness;
-		mlx->light[i].color.y = color.y / MAX_COLOR * brightness;
-		mlx->light[i].color.z = color.z / MAX_COLOR * brightness;
-		mlx->light_count = ++i;
-	}
-}
-
-// 					C
-// 
-// 
-//	A				B
-// 	A  = camera.center
-//  B  = point (0,0) on canvas
-// 	BC  = height of canvas / 2
-// 	BC = distance to canvas
-// 	The angle CAB is the field of view / 2
-// 	The distance to the canvas = BC / tan(CAB)
-static void	parse_camera(t_mlx *mlx, char *line)
-{
-	t_xyz	std_camera_orientation;
-	t_xyz	orientation;
-	float	field_of_view;
-
-	line++;
-	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	orientation = parse_orientation(&line);
-	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (3.14 / 180);
-	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2);
-	std_camera_orientation.x = 0;
-	std_camera_orientation.y = 0;
-	std_camera_orientation.z = 1;
-	mlx->camera.rotation_angles = get_angle_over_the_axes(
-			std_camera_orientation, orientation);
-}
-
-void	parse_line(t_mlx *mlx, char *line)
-{
-	if (str_is_equal(line, "#", 1) || str_is_equal(line, "\n", 1) || !line[0])
-		return ;
-	else if (str_is_equal(line, "B", 1))
-	{
-		line += 1;
-		mlx->background_color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
-	}
-	else if (str_is_equal(line, "A", 1) || str_is_equal(line, "L", 1))
-		parse_lights(mlx, line);
-	else if (str_is_equal(line, "C", 1))
-		parse_camera(mlx, line);
-	else if (str_is_equal(line, "pl", 2) || str_is_equal(line, "sp", 2)
-		|| str_is_equal(line, "cy", 2))
-		parse_objects(mlx, line);
-	else
-		error_message_and_exit("Unknown type identifier");
 }
 
 void	parse_scene(t_mlx *mlx, int argc, char *input)

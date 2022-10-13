@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:04:30 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 18:26:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@
 
 #include <math.h>
 
-t_xyz	checkers_pattern_at(t_uv uv, int type)
+t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
 {
-	t_xyz	black;
 	t_xyz	white;
 	int		tiles;
 
-	initialize_vector(&black, 0, 0, 0);
 	initialize_vector(&white, 255, 255, 255);
 	tiles = 2;
 	uv.u *= tiles;
@@ -37,7 +35,7 @@ t_xyz	checkers_pattern_at(t_uv uv, int type)
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
 		return (white);
-	return (black);
+	return (original_color);
 }
 
 t_xyz	image_color_at(t_uv uv, t_object object)
@@ -93,7 +91,7 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 
 	uv = map_to_2d(object);
 	if (pattern == CHECKERS)
-		return (checkers_pattern_at(uv, object.type));
+		return (checkers_pattern_at(uv, object.type, object.color));
 	if (pattern == TEXTURE)
 		return (image_color_at(uv, object));
 	if (pattern == BUMP_MAP)
