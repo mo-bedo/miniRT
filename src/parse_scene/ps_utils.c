@@ -82,7 +82,7 @@ t_xyz	parse_xyz(char **str, int min, int max)
 	return (xyz);
 }
 
-t_xyz	parse_vector_orientation(char **str)
+t_xyz	parse_orientation(char **str)
 {
 	t_xyz	xyz;
 

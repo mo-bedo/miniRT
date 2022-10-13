@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/10 15:47:40 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 	// compute normal
 	if (object.object == SPHERE)
 	{
-		normal = substract_vectors(object.position, object.center);
+		normal = substract_vectors(object.intersect, object.center);
 		// printf("%f %f %f\n", normal.x, normal.y, normal.z);
 	}
 	else if (object.object == PLANE)
 	{
-		normal = object.vector_orientation;
+		normal = object.orientation;
 		normal = normalize_vector(normal);
 	}
 	else if (object.object == CYLINDER)
@@ -64,7 +64,7 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 		normal = object.normal;
 		// normal = get_cylinder_normal(ray, object);
 		// printf("%f %f %f\n", normal.x, normal.y, normal.z);
-		// normal = substract_vectors(object.position, object.center);
+		// normal = substract_vectors(object.intersect, object.center);
 		// normal = normalize_vector(normal);
 	}
 
@@ -84,7 +84,7 @@ t_xyz TraceRay(t_mlx *mlx, t_xyz origin, t_xyz direction, float min_distance, fl
 
 	// compute reflections of reflections
 	t_xyz reflected_ray = compute_reflected_ray(view, normal);
-	t_xyz reflected_color = TraceRay(mlx, object.position, reflected_ray, RAY_T_MIN, RAY_T_MAX, depth - 1);
+	t_xyz reflected_color = TraceRay(mlx, object.intersect, reflected_ray, RAY_T_MIN, RAY_T_MAX, depth - 1);
 
 	// ?
 	return (add_vectors(multiply_vector(local_color, 1 - object.reflective),

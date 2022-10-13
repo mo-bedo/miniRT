@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/10 12:46:18 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:59:36 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 //	
 //        A-->-->-->-->--C
 // Vector A->B = vector A->C - vector B->C
+// 
+// In case of points : 
+//	
+//		X
+//				Y
+//
+//	vector X->Y = Y - X
 t_xyz	substract_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	sub;

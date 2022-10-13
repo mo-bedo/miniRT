@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/10 14:08:29 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:30:26 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,19 @@ static void	parse_lights(t_mlx *mlx, char *line)
 static void	parse_camera(t_mlx *mlx, char *line)
 {
 	t_xyz	std_camera_orientation;
-	t_xyz	vector_orientation;
+	t_xyz	orientation;
 	float	field_of_view;
 
 	line++;
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	vector_orientation = parse_vector_orientation(&line);
+	orientation = parse_orientation(&line);
 	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (3.14 / 180);
 	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2);
 	std_camera_orientation.x = 0;
 	std_camera_orientation.y = 0;
 	std_camera_orientation.z = 1;
 	mlx->camera.rotation_angles = get_angle_over_the_axes(
-			std_camera_orientation, vector_orientation);
+			std_camera_orientation, orientation);
 }
 
 void	parse_line(t_mlx *mlx, char *line)

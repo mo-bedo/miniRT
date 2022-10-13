@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/12 12:44:29 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:32:26 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void compute_normal(t_object *object)
 	if (!object->type)
 		return;
 	if (object->type == SPHERE)
-		object->normal = substract_vectors(object->position, object->center);
+		object->normal = substract_vectors(object->intersect, object->center);
 	else if (object->type == PLANE)
-		object->normal = object->vector_orientation;
+		object->normal = object->orientation;
 	// else if (object->type == CYLINDER)
 	// 	get_cylinder_normal(object);
 	if (object->type != NONE && object->bump)
@@ -85,7 +85,7 @@ t_object get_closest_intersection(t_mlx mlx, t_ray ray,
 		}
 		i++;
 	}
-	closest_object.position = add_vectors(ray.origin,
+	closest_object.intersect = add_vectors(ray.origin,
 										  multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
 	return (closest_object);

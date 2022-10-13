@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_parse_objects.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:38:33 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ps_parse_objects.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/13 13:30:26 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_plane(t_object *object, char **line)
 	*line += 2;
 	object->type = PLANE;
 	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
-	object->vector_orientation = parse_vector_orientation(line);
+	object->orientation = parse_orientation(line);
 }
 
 void	parse_sphere(t_object *object, char **line)
@@ -46,7 +46,7 @@ void	parse_cylinder(t_object *object, char **line)
 	*line += 2;
 	object->type = CYLINDER;
 	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
-	object->vector_orientation = parse_vector_orientation(line);
+	object->orientation = parse_orientation(line);
 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
 }

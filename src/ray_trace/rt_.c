@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_.c                                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:18:19 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rt_.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
 	t_xyz	reflected_color;
 	t_xyz	reflectivenes_of_object;
 
-	reflected_ray = compute_ray(*mlx, ray.object.position,
+	reflected_ray = compute_ray(*mlx, ray.object.intersect,
 			compute_reflected_ray(view, ray.object.normal));
 	reflected_color = get_color(mlx, reflected_ray, --depth);
 	reflected_color.x = reflected_color.x * ray.object.reflective;

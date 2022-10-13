@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_lighting.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:08:29 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rt_lighting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ t_xyz	compute_lighting(t_mlx *mlx, t_xyz view, t_object object)
 	i = -1;
 	while (++i < mlx->light_count)
 	{
-		light_ray.origin = object.position;
+		light_ray.origin = object.intersect;
 		light_ray.direction = substract_vectors(
-				mlx->light[i].origin, object.position);
+				mlx->light[i].origin, object.intersect);
 		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(

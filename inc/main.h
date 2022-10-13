@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/12 13:37:04 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_object
 {
 	int			type;
 	t_xyz		center;
-	t_xyz		vector_orientation;
+	t_xyz		orientation;
 	float		radius;
 	float		height;
 	t_xyz		color;
@@ -115,7 +115,7 @@ typedef struct s_object
 	t_map		texture_map;
 	bool		bump;
 	t_map		bump_map;
-	t_xyz		position;
+	t_xyz		intersect;
 	double		t;
 	t_xyz		normal;
 }	t_object;

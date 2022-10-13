@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/12 15:54:27 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/13 13:30:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@
 // 	double	d_dot_n;
 // 	double	t;
 
-// 	d_dot_n = get_dot_product(ray.direction, plane.vector_orientation);
+// 	d_dot_n = get_dot_product(ray.direction, plane.orientation);
 // 	if (d_dot_n == 0.0)
 // 		return (false);
 // 	//// vindt het punt van intersectie
 // 	t = get_dot_product(substract_vectors(plane.xyz, \
-// 			ray.origin), plane.vector_orientation) / d_dot_n;
+// 			ray.origin), plane.orientation) / d_dot_n;
 // 	if (t < RAY_T_MIN || t > ray.t_max)
 // 		return (false);
 // 	return (true);
@@ -103,21 +103,6 @@
 // 	return (false);
 // }
 
-//												-1
-// angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
-// 													dot van vector_normal 2)
-// cos tot de macht -1 == acos()
-// double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
-// {
-// 	t_xyz	unit_v1;
-// 	t_xyz	unit_v2;
-// 	double	angle;
-
-// 	unit_v1 = normalize_vector(v1);
-// 	unit_v2 = normalize_vector(v2);
-// 	angle = acos(get_dot_product(unit_v1, unit_v2));
-// 	return (angle);
-// }
 
 // cross product
 // is a measure of difference

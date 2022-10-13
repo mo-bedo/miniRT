@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   interaction.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 21:07:02 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rt_uv_map_to_2d.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 # define PI 3.14f
 
-t_uv	map_plane_to_2d(t_xyz position)
+t_uv	map_plane_to_2d(t_xyz intersect)
 {
 	t_uv	uv;
 
-	uv.u = position.x + WINDOW_WIDTH;
-	uv.v = position.z + WINDOW_HEIGHT;
+	uv.u = intersect.x + WINDOW_WIDTH;
+	uv.v = intersect.z + WINDOW_HEIGHT;
 	return (uv);
 }
 
@@ -37,7 +37,7 @@ t_uv	map_sphere_to_2d(t_object object)
 	float	phi;
 	float	raw_u;
 
-	radius_vector = substract_vectors(object.center, object.position);
+	radius_vector = substract_vectors(object.center, object.intersect);
 
 	// compute the azimuthal angle
 	// -π < theta <= π
@@ -71,7 +71,7 @@ t_uv	map_to_2d(t_object object)
 	uv.u = 0;
 	uv.v = 0;
 	if (object.type == PLANE)
-		return(map_plane_to_2d(object.position));
+		return(map_plane_to_2d(object.intersect));
 	if (object.type == SPHERE)
 		return(map_sphere_to_2d(object));
 	return (uv);

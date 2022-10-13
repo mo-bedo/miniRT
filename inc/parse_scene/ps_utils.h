@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_utils.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/05 20:46:23 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ps_utils.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/13 13:30:25 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	error_message_and_exit(char *message);
 int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
 t_xyz	parse_xyz(char **str, int min, int max);
-t_xyz	parse_vector_orientation(char **str);
+t_xyz	parse_orientation(char **str);
 bool	has_valid_extension(char *filename, char *valid_ext);
 char	*add_buffer_to_line(char *old, char buffer);
 int		get_next_line(char **line, int fd);
