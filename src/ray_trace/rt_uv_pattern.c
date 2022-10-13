@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 14:11:41 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:04:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_xyz	checkers_pattern_at(t_uv uv, int type)
 	tiles = 2;
 	uv.u *= tiles;
 	uv.v *= tiles;
-	if (type == SPHERE)
+	if (type == SPHERE || type == CYLINDER)
 	{
 		uv.u *= tiles * 10;
 		uv.v *= tiles * 5;

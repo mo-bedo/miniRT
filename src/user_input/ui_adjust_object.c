@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 15:42:09 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 16:30:18 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 {
 	if (keycode == DIAMETER)
 		ft_putstr("Adjust diameter with up/down keys\n");
-	if (keycode == SCALE)
+	else if (keycode == SCALE)
 		ft_putstr("Adjust scale with up/down keys\n");
-	if (keycode == ROTATE && (type == PLANE || type == SPHERE))
+	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
 		ft_putstr("Rotation is only possible with a sphere or a cone\n");
-	if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
+	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
 		ft_putstr("Adjusting height is only possible with a sphere or a cone\n");
-	if (keycode == ROTATE && (type == CYLINDER || type == CONE))
+	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
 		ft_putstr("Adjust orientation with left/right/up/down keys\n");
-	if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
+	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
 		ft_putstr("Adjust height with up/down keys\n");
+	else if (keycode != UP && keycode != DOWN
+		&& keycode != LEFT && keycode != RIGHT)
+		ft_putstr("Invalid action\n");
 	if (keycode == DIAMETER || keycode == SCALE
 		|| ((type == CYLINDER || type == CONE)
 			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
@@ -108,7 +111,7 @@ static void	adjust_scale(t_mlx *mlx, int id, int keycode)
 
 void	adjust_object(t_mlx *mlx, int id, int keycode)
 {
-	DEBUG_INT(keycode);
+	// DEBUG_INT(keycode);
 	catch_action(mlx, mlx->object[id].type, keycode);
 	adjust_radius(mlx, mlx->object[id].type, id, keycode);
 	if (mlx->object[id].type == CYLINDER || mlx->object[id].type == CONE)

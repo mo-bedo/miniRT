@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 15:06:39 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 16:27:08 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,25 @@ static int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 				mlx->object[prev_id].color, selection_color);
 	if (ray.object.type != NONE)
 	{
+		ft_putstr("\e[1;1H\e[2J");
+		ft_putstr("Press the following keys to select an action\n");
+		ft_putstr("D\t: Adjust the diameter\n");
+		if (ray.object.type == CYLINDER || ray.object.type == CONE)
+			ft_putstr("H\t: Adjust the height\n");
+		if (ray.object.type == CYLINDER || ray.object.type == CONE)
+			ft_putstr("R\t: Rotate the object\n");
+		ft_putstr("S\t: Scale the object\n");
 		mlx->selected_object = ray.object.id;
 		mlx->object[ray.object.id].color = add_vectors(
 				mlx->object[ray.object.id].color, selection_color);
 	}
 	else
+	{
 		mlx->selected_object = -1;
+		ft_putstr("\e[1;1H\e[2J");
+		ft_putstr("Rotate camera with up/down/left/right keys\n");
+		ft_putstr("Or click on an object to select it\n");
+	}
 	ray_trace(mlx);
 	return (1);
 }
@@ -88,6 +101,8 @@ static int	key_hook(int keycode, t_mlx *mlx)
 
 void	user_input(t_mlx *mlx)
 {
+	ft_putstr("Rotate camera with up/down/left/right keys\n");
+	ft_putstr("Or click on an object to select it\n");
 	mlx_hook(mlx->window, 17, 0, close_window, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
 	mlx_key_hook(mlx->window, key_hook, mlx);

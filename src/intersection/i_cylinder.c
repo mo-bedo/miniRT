@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:36:37 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:25:12 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 	t_xyz	transposition_of_center_of_cylinder_to_center_of_xyz;
 	double	uitleg_wat_functie_is;
 
-	t.t1 = RAY_T_MAX;
-	t.t2 = RAY_T_MAX;
+
 	direction = get_cross_product(ray.direction, cylinder.orientation);
 	transposition_of_center_of_cylinder_to_center_of_xyz
 		= substract_vectors(ray.origin, cylinder.center);
@@ -74,8 +73,8 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 // Checks if the infinite cylinder values are between the caps of the cylinder 
 // by comparing them to the heigth (max).  
 // - max_len is de maximale lengte die tussen het cylinder.centerpoint 
-//   en het intersectie punt mag zitten.
-// - len is de afstand van het center naar de rand van de cirkel (pythagoras)
+//   en het intersectie punt mag zitten. (pythagoras)
+// - len is de afstand van het center naar de rand van de cirkel
 // - if (get_vector_length(len) > max_len) betekent dat punt van intersectie
 //   niet tussen de cylinder caps ligt
 // - t.t1 is top cap

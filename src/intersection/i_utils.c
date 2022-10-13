@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:31:54 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:21:36 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
 	float	discriminant;
 	t_t4	t;
 
+	t.t1 = RAY_T_MAX;
+	t.t2 = RAY_T_MAX;
 	a = get_dot_product(input1, input1);
 	b = 2 * get_dot_product(input1, input2);
 	c = get_dot_product(input2, input2) - (pow(input3, 2) * input4);

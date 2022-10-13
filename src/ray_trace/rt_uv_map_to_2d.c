@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 14:10:33 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 17:23:48 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,29 @@ t_uv	map_sphere_to_2d(t_object object)
 	return (uv);
 }
 
+#define TWO_PI 6.28f
+
+t_uv	map_cylinder_to_2d(t_object object)
+{
+	t_uv	uv;
+	t_xyz	radius_vector;
+	float	theta;
+
+	radius_vector = substract_vectors(object.center, object.intersect);
+	// normalize_vector(&radius_vector);
+	theta = atan2(radius_vector.x, radius_vector.z) + PI;
+	uv.u = 1 - (theta / (2 * PI));
+	uv.v = radius_vector.y + object.height;
+	while (uv.v > object.height)
+		uv.v -= object.height;
+	uv.v /= object.height;
+	// DEBUG_DOUBLE(uv.v);
+	return (uv);
+}
+
+
+// let v = point.y % (2 * Constants.PI) * 1 / (2 * Constants.PI);
+
 t_uv	map_to_2d(t_object object)
 {
 	t_uv	uv;
@@ -57,5 +80,7 @@ t_uv	map_to_2d(t_object object)
 		return (map_plane_to_2d(object.intersect));
 	if (object.type == SPHERE)
 		return (map_sphere_to_2d(object));
+	if (object.type == CYLINDER)
+		return (map_cylinder_to_2d(object));
 	return (uv);
 }

@@ -22,6 +22,8 @@
 - bij het selecteren van objecten telt hij de schaduw van een object mee als het object,
 - dimensies van 1020 bij 780 geeft segfault
 - user_input: eerste klik wordt genegeerd?
+- user_input: selecteren van objecten werkt niet goed meer als de camera is gedraaid
+- 
 
 # WRITE TESTS FOR:
 # parser
