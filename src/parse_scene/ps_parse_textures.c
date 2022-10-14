@@ -23,7 +23,7 @@
 #include <math.h>
 #include <unistd.h>
 
-void	parse_texture_data(t_map *map, char *data)
+static void	parse_texture_data(t_map *map, char *data)
 {
 	int	x;
 	int	y;
@@ -38,7 +38,7 @@ void	parse_texture_data(t_map *map, char *data)
 	}
 }
 
-void	parse_ppm_file(t_map *map, char *data)
+static void	parse_ppm_file(t_map *map, char *data)
 {
 	int	color_scale;
 
@@ -54,7 +54,7 @@ void	parse_ppm_file(t_map *map, char *data)
 	parse_texture_data(map, data);
 }
 
-void	parse_texture_map(t_map *map, char **line)
+static void	parse_texture_map(t_map *map, char **line)
 {
 	int		ppm_file;
 	int		file_length;

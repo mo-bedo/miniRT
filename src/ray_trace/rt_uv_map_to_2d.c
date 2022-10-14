@@ -17,7 +17,7 @@
 
 #include <math.h>
 
-t_uv	map_plane_to_2d(t_xyz intersect)
+static t_uv	map_plane_to_2d(t_xyz intersect)
 {
 	t_uv	uv;
 
@@ -32,7 +32,7 @@ t_uv	map_plane_to_2d(t_xyz intersect)
 // 0 <= uv.u < 1
 // Subtract uv.u from 1, so it increases counterclockwise viewed from above.
 // Subtract uv.v from 1, so 0 is at the south pole of the sphere
-t_uv	map_sphere_to_2d(t_object object)
+static t_uv	map_sphere_to_2d(t_object object)
 {
 	t_uv	uv;
 	t_xyz	radius_vector;
@@ -49,7 +49,7 @@ t_uv	map_sphere_to_2d(t_object object)
 
 #define TWO_PI 6.28f
 
-t_uv	map_cylinder_to_2d(t_object object)
+static t_uv	map_cylinder_to_2d(t_object object)
 {
 	t_uv	uv;
 	t_xyz	radius_vector;

@@ -21,7 +21,7 @@
 
 #include <stdlib.h>
 
-int	close_window(t_mlx *mlx)
+static int	close_window(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->mlx, mlx->window);
 	exit(EXIT_SUCCESS);

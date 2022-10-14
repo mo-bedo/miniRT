@@ -42,7 +42,7 @@ static void	compute_normal(t_object *object)
 	normalize_vector(&object->normal);
 }
 
-double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
+static double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 {
 	if (mlx->object[i].type == PLANE)
 		return (get_intersection_ray_plane(ray, mlx->object[i]));

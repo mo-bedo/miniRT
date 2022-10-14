@@ -146,7 +146,8 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 //	P1 = bottomcap center
 //	dus (lengte van Q3 - P1)^2 < R^2 anders is plane_intersectie niet op de cap
 //	met flag geef je aan of het de top of de bottom cap is
-float	get_intersect_with_cap_planes(t_ray ray, t_object cylinder, float flag)
+static float	get_intersect_with_cap_planes(t_ray ray,
+	t_object cylinder, float flag)
 {
 	t_object	cap;
 	t_xyz		plane_intersect;

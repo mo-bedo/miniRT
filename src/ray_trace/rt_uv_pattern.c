@@ -19,7 +19,7 @@
 
 #include <math.h>
 
-t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
+static t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
 {
 	t_xyz	white;
 	int		tiles;
@@ -38,7 +38,7 @@ t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
 	return (original_color);
 }
 
-t_xyz	image_color_at(t_uv uv, t_object object)
+static t_xyz	image_color_at(t_uv uv, t_object object)
 {
 	int	x;
 	int	y;
@@ -61,7 +61,7 @@ t_xyz	image_color_at(t_uv uv, t_object object)
 	return (object.texture_map.map[y][x]);
 }
 
-t_xyz	bump_map_at(t_uv uv, t_object object)
+static t_xyz	bump_map_at(t_uv uv, t_object object)
 {
 	int	x;
 	int	y;

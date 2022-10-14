@@ -25,7 +25,7 @@
 #include "parse_scene/ps_utils.h"
 #include "parse_scene/ps_.h"
 
-void	parse_plane(t_object *object, char **line)
+static void	parse_plane(t_object *object, char **line)
 {
 	*line += 2;
 	object->type = PLANE;
@@ -33,7 +33,7 @@ void	parse_plane(t_object *object, char **line)
 	object->orientation = parse_orientation(line);
 }
 
-void	parse_sphere(t_object *object, char **line)
+static void	parse_sphere(t_object *object, char **line)
 {
 	*line += 2;
 	object->type = SPHERE;
@@ -41,7 +41,7 @@ void	parse_sphere(t_object *object, char **line)
 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 }
 
-void	parse_cylinder(t_object *object, char **line)
+static void	parse_cylinder(t_object *object, char **line)
 {
 	*line += 2;
 	object->type = CYLINDER;
