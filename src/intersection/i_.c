@@ -50,6 +50,8 @@ double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 		return (get_intersection_ray_sphere(ray, mlx->object[i]));
 	if (mlx->object[i].type == CYLINDER)
 		return (get_intersection_ray_cylinder(ray, &mlx->object[i]));
+	if (mlx->object[i].type == CONE)
+		return (get_intersection_ray_cone(ray, mlx->object[i]));
 	return (RAY_T_MAX);
 }
 

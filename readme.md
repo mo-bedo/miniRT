@@ -2,6 +2,23 @@
 ![plot](./cone_formula.png)
 
 
+
+D = ray direction
+
+V = cone orientation
+
+C = cone center (which is the tip point)
+
+O = ray origin
+
+CO = O - C
+
+
+
+
+
+
+
     t_vec3  pdp = vec3_substract(cp.direction, cp.position);
     t_vec3  eyexpdp = vec3_cross(vec3_substract(r.origin, cp.position), pdp);
     t_vec3  rdxpdp = vec3_cross(r.direction, pdp);

@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	false
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
@@ -27,7 +27,7 @@ endif
 
 SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=	
 
 # STATIC
 RM				:=	rm
@@ -57,6 +57,7 @@ SRC				:=	main.c \
 					utils/u_.c \
 					utils/u_conversion.c \
 					utils/u_compare.c \
+					utils/u_identify.c \
 					utils/u_vector_math.c \
 					utils/u_vector_operators.c \
 					utils/u_rotate_vector.c \

@@ -14,7 +14,8 @@
 # define I_CONE_H
 
 # include "main.h"
+# include "ray_trace/rt_.h"
 
-float	get_intersect_ray_cone(t_ray ray, t_object cone);
+float	get_intersection_ray_cone(t_ray ray, t_object cone);
 
 #endif			// I_CONE_H
