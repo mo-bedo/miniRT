@@ -5,6 +5,7 @@
 
 # TO DO
 - textures: cylinder & cone
+- extra textures/bump maps importeren
 - sneller maken
 
 # ONDUIDELIJK
@@ -13,10 +14,7 @@
 # BUGS
 - gaat iets mis met camera orientation als z 0 is
 - checkerboard en textures werken niet op plane als plane horizontaal staat ipv verticaal
-- textures importeren plots heel traag... get_length_of_file(path) is super sloom
 - user_input: eerste klik wordt genegeerd?
-- user_input: cylinder selecteren gaat soms mis?
-- user_input: selecteren van objecten werkt niet goed meer als de camera omhoog of naar beneden is gedraaid
 
 # WRITE TESTS FOR:
 # parser

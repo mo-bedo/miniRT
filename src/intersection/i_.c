@@ -19,8 +19,6 @@
 #include "utils/u_.h"
 #include "utils/u_vector_math.h"
 
-#define BUMP_SCALE 30
-
 // sebastiandang.github.io/docs/cse168/RayTracing.pdf
 static void	compute_normal(t_object *object)
 {
@@ -60,10 +58,11 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray, float max_distance)
 	int			i;
 	double		t;
 
-	t = 0;
+	t = RAY_T_MAX;
 	i = 0;
 	closest_object.t = RAY_T_MAX;
 	closest_object.type = NONE;
+	closest_object.id = -1;
 	while (i < mlx.object_count)
 	{
 		t = get_distance_to_intersection(&mlx, i, ray);

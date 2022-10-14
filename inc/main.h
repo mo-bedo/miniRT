@@ -134,7 +134,8 @@ enum e_values{
 	CONE				= 4,
 	CHECKERS			= 0,
 	TEXTURE				= 1,
-	BUMP_MAP			= 2
+	BUMP_MAP			= 2,
+	BUMP_SCALE			= 30
 };
 
 void	print_time(char *action);

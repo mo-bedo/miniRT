@@ -34,8 +34,8 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	normalize_vector(&cylinder->orientation);
 	t = ft_min_float(t_.t1, t_.t2);
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	t = get_dot_product(substract_vectors(
-				intersect, cylinder->center), cylinder->orientation);
+	t = get_dot_product(substract_vectors(intersect, cylinder->center),
+					cylinder->orientation);
 	point_t = add_vectors(cylinder->center,
 			multiply_vector(cylinder->orientation, t));
 	cylinder->normal = substract_vectors(intersect, point_t);
@@ -154,7 +154,6 @@ static float	get_intersect_with_cap_planes(t_ray ray,
 	float		capcenter_to_intersect;
 	float		t;
 
-	normalize_vector(&cylinder.orientation);
 	cap.orientation = cylinder.orientation;
 	cap.center = add_vectors(cylinder.center, multiply_vector(
 				cylinder.orientation, (cylinder.height / 2) * flag));

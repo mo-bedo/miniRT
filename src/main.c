@@ -69,13 +69,13 @@ int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
 
-	print_time("start\t");
+	// print_time("start\t");
 	init(&mlx);
 	parse_scene(&mlx, argc, argv[1]);
-	print_time("parse_scene");
+	// print_time("parse_scene");
 	user_input(&mlx);
 	ray_trace(&mlx);
-	print_time("ray_trace");
+	// print_time("ray_trace");
 	mlx_loop(mlx.mlx);
 	exit(EXIT_SUCCESS);
 }

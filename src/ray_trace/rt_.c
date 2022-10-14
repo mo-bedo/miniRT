@@ -23,12 +23,10 @@
 
 // fastgraph.com/makegames/3drotation
 // tutorialandexample.com/3d-rotation
-t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y)
+t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
 {
 	t_xyz	vector;
 
-	// if (x == 0 && y == 0)
-		// DEBUG_DOUBLE(camera.rotation_angles.x);
 	vector.x = x;
 	vector.y = y;
 	vector.z = camera.canvas_distance;
@@ -69,9 +67,7 @@ static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
 	reflected_ray = compute_ray(*mlx, ray.object.intersect,
 			compute_reflected_ray(view, ray.object.normal));
 	reflected_color = get_color(mlx, reflected_ray, --depth);
-	reflected_color.x = reflected_color.x * ray.object.reflective;
-	reflected_color.y = reflected_color.y * ray.object.reflective;
-	reflected_color.z = reflected_color.z * ray.object.reflective;
+	reflected_color = multiply_vector(reflected_color, ray.object.reflective);
 	reflectivenes_of_object = multiply_vector(ray.object.color,
 			1 - ray.object.reflective);
 	return (add_vectors(reflectivenes_of_object, reflected_color));
@@ -104,20 +100,20 @@ void	ray_trace(t_mlx *mlx)
 		y = -HALF_WINDOW_HEIGHT;
 		while (y < HALF_WINDOW_HEIGHT)
 		{
-			if (x == 0 && y == 0)
-				print_time("rt_start_ray");
+			// if (x == 0 && y == 0)
+				// print_time("rt_start_ray");
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			if (x == 0 && y == 0)
-				print_time("rt_direction");
+			// if (x == 0 && y == 0)
+				// print_time("rt_direction");
 			ray = compute_ray(*mlx, mlx->camera.center, direction);
-			if (x == 0 && y == 0)
-				print_time("rt_compute_ray");
+			// if (x == 0 && y == 0)
+				// print_time("rt_compute_ray");
 			color = get_color(mlx, ray, RECURSION_DEPTH);
-			if (x == 0 && y == 0)
-				print_time("rt_get_color");
+			// if (x == 0 && y == 0)
+				// print_time("rt_get_color");
 			pixel_put(&mlx->img, x, y, color);
-			if (x == 0 && y == 0)
-				print_time("rt_pixel_put");
+			// if (x == 0 && y == 0)
+				// print_time("rt_pixel_put");
 			y++;
 		}
 		x++;

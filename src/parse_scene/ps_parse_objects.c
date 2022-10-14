@@ -64,6 +64,7 @@ void	parse_objects(t_mlx *mlx, char *line)
 		parse_sphere(&mlx->object[i], &line);
 	if (str_is_equal(line, "cy", 2))
 		parse_cylinder(&mlx->object[i], &line);
+	normalize_vector(&mlx->object[i].orientation);
 	mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
