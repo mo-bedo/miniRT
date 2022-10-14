@@ -10,16 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "parse_scene/ps_parse_line.h"
-#include "parse_scene/ps_parse_objects.h"
-#include "parse_scene/ps_utils.h"
-#include "utils/u_vector_math.h"
-#include "utils/u_.h"
 #include <stdlib.h>
 #include <fcntl.h>
-#include <math.h>
 #include <unistd.h>
+
+#include "main.h"
+#include "parse_scene/ps_parse_line.h"
+#include "utils/u_.h"
 
 bool	has_valid_extension(char *filename, char *valid_ext)
 {

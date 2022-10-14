@@ -16,7 +16,6 @@
 #include "intersection/i_utils.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 // plaatst midden van sphere in het midden van xyz
 static t_ray	transpose_ray(t_ray ray, t_xyz centre)

@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "main.h"
-#include "ray_trace/rt_.h"
 #include "ray_trace/rt_uv_map_to_2d.h"
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
-
-#include <math.h>
 
 static t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
 {

@@ -10,13 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 static void	skip_chars_of_parsed_number(char **str)
 {

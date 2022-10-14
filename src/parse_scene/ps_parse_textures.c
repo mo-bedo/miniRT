@@ -10,18 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "parse_scene/ps_.h"
-#include "parse_scene/ps_parse_textures_utils.h"
-#include "parse_scene/ps_utils.h"
-#include "utils/u_vector_math.h"
-#include "utils/u_.h"
-#include "ray_trace/rt_.h"
-
 #include <stdlib.h>
 #include <fcntl.h>
-#include <math.h>
 #include <unistd.h>
+
+#include "main.h"
+#include "parse_scene/ps_parse_textures_utils.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 static void	parse_texture_data(t_map *map, char *data)
 {

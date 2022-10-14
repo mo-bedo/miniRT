@@ -12,10 +12,8 @@
 
 #include <stdbool.h>
 
-#include "math.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 static bool	ray_is_parallel_to_object(t_ray ray, t_xyz orientation)
 {

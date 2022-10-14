@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "mlx.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <math.h>
+
+#include "main.h"
+#include "utils/u_rotate_vector.h"
 
 void	ft_putstr(char *s)
 {
@@ -53,4 +52,14 @@ void	initialize_vector(t_xyz *vector, float x, float y, float z)
 	vector->x = x;
 	vector->y = y;
 	vector->z = z;
+}
+
+t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
+{
+	t_xyz	vector;
+
+	vector.x = x;
+	vector.y = y;
+	vector.z = camera.canvas_distance;
+	return (rotate_vector(vector, camera.rotation_angles));
 }

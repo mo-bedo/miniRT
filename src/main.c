@@ -10,21 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_scene/ps_.h"
-#include "parse_scene/ps_utils.h"
-#include "main.h"
-#include "mlx.h"
-#include "ray_trace/rt_.h"
-#include "user_input/ui_.h"
-#include "utils/u_.h"
-#include "utils/u_vector_math.h"
-
+#include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <locale.h>
+
+#include "parse_scene/ps_.h"
+#include "parse_scene/ps_utils.h"
+#include "main.h"
+#include "ray_trace/rt_.h"
+#include "user_input/ui_.h"
+#include "utils/u_.h"
 
 void	error_message_and_exit(char *message)
 {

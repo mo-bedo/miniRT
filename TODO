@@ -12,7 +12,6 @@
 - we includen float.h mag dat?
 
 # BUGS
-- gaat iets mis met camera orientation als z 0 is
 - checkerboard en textures werken niet op plane als plane horizontaal staat ipv verticaal
 - user_input: eerste klik wordt genegeerd?
 

@@ -18,36 +18,8 @@
 #include "ray_trace/rt_pixel_put.h"
 #include "intersection/i_.h"
 #include "utils/u_.h"
-#include "utils/u_rotate_vector.h"
-#include "utils/u_vector_math.h"
 
-// fastgraph.com/makegames/3drotation
-// tutorialandexample.com/3d-rotation
-t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
-{
-	t_xyz	vector;
-
-	vector.x = x;
-	vector.y = y;
-	vector.z = camera.canvas_distance;
-	return (rotate_vector(vector, camera.rotation_angles));
-}
-
-// t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, float x, float y)
-// {
-// 	t_xyz	vector;
-
-// 	vector.x = x;
-// 	vector.y = y;
-// 	vector.z = camera.canvas_distance;
-// 	normalize_vector(&vector);
-// 	vector.x += camera.orientation.x;
-// 	vector.y += camera.orientation.y;
-// 	vector.z += camera.orientation.z;
-// 	return (vector);
-// }
-
-t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
+static t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 {
 	t_ray	ray;
 

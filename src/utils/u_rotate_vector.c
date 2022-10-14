@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <math.h>
 
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 // fastgraph.com/makegames/3drotation
 // tutorialandexample.com/3d-rotation

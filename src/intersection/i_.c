@@ -10,14 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <math.h>
 
 #include "ray_trace/rt_.h"
 #include "ray_trace/rt_uv_pattern.h"
 #include "intersection/i_.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 // sebastiandang.github.io/docs/cse168/RayTracing.pdf
 static void	compute_normal(t_object *object)

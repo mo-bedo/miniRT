@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "main.h"
-#include "mlx.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <math.h>
 
 bool	str_is_equal(const char *s1, const char *s2, size_t n)
 {

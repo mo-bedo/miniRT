@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "main.h"
-#include "mlx.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <math.h>
 
 int	ft_strlen(char *s)
 {

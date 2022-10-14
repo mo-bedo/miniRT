@@ -10,17 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #include "main.h"
 #include "parse_scene/ps_.h"
 #include "parse_scene/ps_utils.h"
-#include "utils/u_vector_math.h"
 #include "utils/u_.h"
-#include "ray_trace/rt_.h"
-
-#include <stdlib.h>
-#include <fcntl.h>
-#include <math.h>
-#include <unistd.h>
 
 // HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN???
 t_xyz	**allocate_map(int width, int height)

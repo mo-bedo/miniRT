@@ -10,42 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <mlx.h>
+#include <stdlib.h>
+
 #include "main.h"
 #include "user_input/ui_.h"
 #include "user_input/ui_mouse_hook.h"
 #include "user_input/ui_adjust_object.h"
 #include "ray_trace/rt_.h"
-#include "mlx.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
-
-#include <stdlib.h>
 
 static int	close_window(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->mlx, mlx->window);
 	exit(EXIT_SUCCESS);
 }
-
-// static void	rotate_camera(t_mlx *mlx, int keycode)
-// {
-// 	double	rotation_speed;
-
-// 	rotation_speed = 0.20;
-// 	if (keycode == LEFT)
-// 		mlx->camera.orientation.x -= rotation_speed;
-// 	if (keycode == RIGHT)
-// 		mlx->camera.orientation.x += rotation_speed;
-// 	if (keycode == DOWN)
-// 		mlx->camera.orientation.y -= rotation_speed;
-// 	if (keycode == UP)
-// 		mlx->camera.orientation.y += rotation_speed;
-// 	DEBUG_DOUBLE(mlx->camera.orientation.y);
-// 	normalize_vector(&mlx->camera.orientation);
-// 	if (keycode == LEFT || keycode == RIGHT
-// 		|| keycode == DOWN || keycode == UP)
-// 		ray_trace(mlx);
-// }
 
 static void	rotate_camera(t_mlx *mlx, int keycode)
 {

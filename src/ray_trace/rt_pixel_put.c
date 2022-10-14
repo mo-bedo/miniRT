@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-
 #include "utils/u_.h"
 
 // Clamps a color to the canonical color range.

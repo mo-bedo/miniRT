@@ -13,10 +13,11 @@
 // goede uitleg!
 // https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
 
-#include "main.h"
-#include "utils/u_vector_math.h"
-
 #include <math.h>
+
+#include "main.h"
+#include "utils/u_.h"
+
 
 /*
 	theta

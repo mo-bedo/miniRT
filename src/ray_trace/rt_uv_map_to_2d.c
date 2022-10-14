@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
-#include "utils/u_vector_math.h"
-
 #include <math.h>
+
+#include "main.h"
+#include "utils/u_.h"
 
 static t_uv	map_plane_to_2d(t_xyz intersect)
 {

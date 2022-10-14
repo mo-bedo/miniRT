@@ -14,7 +14,7 @@
 
 #include "main.h"
 #include "intersection/i_utils.h"
-#include "utils/u_vector_math.h"
+#include "utils/u_.h"
 
 t_t4	check_t_values(t_t4 t)
 {

@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "main.h"
 #include "utils/u_vector_math.h"
-#include <math.h>
 
 double	get_vector_length(t_xyz vector)
 {

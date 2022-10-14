@@ -13,12 +13,7 @@
 #include "main.h"
 #include "user_input/ui_.h"
 #include "ray_trace/rt_.h"
-#include "mlx.h"
 #include "utils/u_.h"
-#include "utils/u_rotate_vector.h"
-#include "utils/u_vector_math.h"
-
-#include <stdlib.h>
 
 static void	adjust_radius(t_mlx *mlx, int id, int keycode)
 {

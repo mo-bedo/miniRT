@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "main.h"
 #include "utils/u_vector_math.h"
-#include <math.h>
 
 //    			B
 //	

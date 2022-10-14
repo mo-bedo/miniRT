@@ -138,6 +138,7 @@ enum e_values{
 	BUMP_SCALE			= 30
 };
 
+void	error_message_and_exit(char *message);
 void	print_time(char *action);
 
 #endif				// MAIN_H

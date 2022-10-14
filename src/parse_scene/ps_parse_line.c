@@ -10,21 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+
 #include "main.h"
 #include "parse_scene/ps_parse_objects.h"
-#include "parse_scene/ps_parse_textures.h"
 #include "parse_scene/ps_utils.h"
-#include "utils/u_vector_math.h"
 #include "utils/u_.h"
-#include "ray_trace/rt_.h"
-
-#include <stdlib.h>
-#include <fcntl.h>
-#include <math.h>
-#include <unistd.h>
-
-#include "parse_scene/ps_utils.h"
-#include "parse_scene/ps_.h"
 
 static t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
 {

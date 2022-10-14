@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/u_.h"
-#include "parse_scene/ps_utils.h"
-
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 #include <math.h>
 #include <float.h>
+
+#include "utils/u_.h"
+#include "parse_scene/ps_utils.h"
 
 int	ft_char_to_digit(int c)
 {

@@ -11,13 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdbool.h>
+#include <math.h>
 
-#include "math.h"
 #include "intersection/i_plane.h"
 #include "intersection/i_utils.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
 
 // the hit_pt is on the SIDE of the cylinder. We can use dot product to
 // find the point 'pt' on the center line of the cylinder, so that the vector 

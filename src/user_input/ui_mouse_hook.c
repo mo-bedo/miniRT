@@ -11,28 +11,20 @@
 /* ************************************************************************** */
 
 #include "main.h"
-#include "user_input/ui_.h"
-#include "user_input/ui_adjust_object.h"
-#include "ray_trace/rt_.h"
 #include "intersection/i_.h"
-#include "mlx.h"
+#include "ray_trace/rt_.h"
+#include "user_input/ui_.h"
 #include "utils/u_.h"
-#include "utils/u_vector_math.h"
-
-#include <stdlib.h>
 
 static t_object	get_selected_object(t_mlx *mlx, int x, int y)
 {
 	t_ray	ray;
-	int		adj_x;
-	int		adj_y;
 
-	adj_x = x - HALF_WINDOW_WIDTH;
-	adj_y = HALF_WINDOW_HEIGHT - y;
+	x -= HALF_WINDOW_WIDTH;
+	y = HALF_WINDOW_HEIGHT - y;
 	ray.origin = mlx->camera.center;
-	ray.direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, adj_x, adj_y);
+	ray.direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
 	ray.object = get_closest_intersection(*mlx, ray, RAY_T_MAX);
-	adj_y +=1;
 	return (ray.object);
 }
 
