@@ -11,12 +11,7 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include <math.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <locale.h>
 
 #include "parse_scene/ps_.h"
 #include "parse_scene/ps_utils.h"
@@ -49,6 +44,7 @@ static void	init(t_mlx	*mlx)
 	mlx->selected_action = -1;
 }
 
+#include <locale.h>
 void	print_time(char *action)
 {
 	clock_t			time;
