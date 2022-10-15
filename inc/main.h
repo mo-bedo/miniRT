@@ -22,12 +22,14 @@
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
 # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
-# define PI 3.14f
+# define PI 3.14159f
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
+// # define WINDOW_WIDTH 1280
+// # define WINDOW_HEIGHT 960
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
 # define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
 # define MAX_OBJECTS 100
@@ -122,11 +124,11 @@ typedef struct s_mlx {
 }	t_mlx;
 
 enum e_values{
+	RECURSION_DEPTH		= 3,
 	X					= 0,
 	Y					= 1,
 	Z					= 2,
 	LENGTH_NORMAL		= 1,
-	RECURSION_DEPTH		= 3,
 	NONE				= 0,
 	PLANE				= 1,
 	SPHERE				= 2,

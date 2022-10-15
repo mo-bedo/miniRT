@@ -15,6 +15,38 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 
+// static t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
+// {
+// 	t_xyz	angles;
+// 	t_xyz	v1;
+// 	t_xyz	v2;
+
+// 	if (vector2.y < 0)
+// 		vector2 = multiply_vector(vector2, -1);
+// 	angles.x = 0;
+// 	angles.y = 0;
+// 	angles.z = 0;
+
+// 	// Rotation over X axis
+// 	v1 = vector1;
+// 	v1.x = 0;
+// 	v2 = vector2;
+// 	v2.x = 0;
+// 	angles.x = get_angle_between_vectors(v1, v2);
+// 	if (v2.z > 0)
+// 		angles.x *= -1;
+
+// 	// Rotation over Z axis
+// 	v1 = vector1;
+// 	v1.z = 0;
+// 	v2 = vector2;
+// 	v2.z = 0;
+// 	angles.z = get_angle_between_vectors(v1, v2);
+// 	if (v2.x < 0)
+// 		angles.z *= -1;
+// 	return (angles);
+// }
+
 static void	parse_plane(t_object *object, char **line)
 {
 	*line += 2;
@@ -39,6 +71,10 @@ static void	parse_cylinder(t_object *object, char **line)
 	object->orientation = parse_orientation(line);
 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+	// t_xyz new;
+	// initialize_vector(&new, 1, -1, 0);
+	// t_xyz rotation = get_angle_over_the_axes(object->orientation, new);
+	// object->orientation = rotate_vector(object->orientation, rotation);
 }
 
 void	parse_objects(t_mlx *mlx, char *line)

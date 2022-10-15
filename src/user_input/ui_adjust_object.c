@@ -92,6 +92,7 @@ static void	rotate_object(t_mlx *mlx, int id, int keycode)
 	{
 		mlx->object[id].orientation = rotate_vector(
 				mlx->object[id].orientation, rotation_angles);
+		normalize_vector(&mlx->object[id].orientation);
 		ray_trace(mlx);
 	}
 }

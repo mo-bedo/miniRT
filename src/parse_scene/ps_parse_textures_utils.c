@@ -19,7 +19,6 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 
-// HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN???
 t_xyz	**allocate_map(int width, int height)
 {
 	t_xyz	**map;
@@ -27,6 +26,7 @@ t_xyz	**allocate_map(int width, int height)
 
 	i = 0;
 	map = (t_xyz **)ft_calloc(width, sizeof(t_xyz **));
+	// HOEZO MOET HEIGHT ZOVEEL GROTER ZIJN???
 	while (i < width)
 		map[i++] = (t_xyz *)ft_calloc(height * 10, sizeof(t_xyz *));
 	return (map);

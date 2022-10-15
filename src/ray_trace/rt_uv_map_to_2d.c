@@ -45,6 +45,35 @@ static t_uv	map_sphere_to_2d(t_object object)
 	return (uv);
 }
 
+
+static t_xyz	get_angle_over_the_axes(t_xyz orientation)
+{
+	t_xyz	angles;
+	t_xyz	v1;
+	t_xyz	v2;
+
+	initialize_vector(&angles, 0, 0, 0);
+	if(orientation.x == 0 && orientation.y == 0)
+	{
+		angles.x = PI / 2;
+		if (orientation.z < 0)
+			angles.x *= -1;
+		return (angles);
+	}
+	initialize_vector(&v1, 0, 1, 0);
+	if (orientation.y < 0)
+		orientation = multiply_vector(orientation, -1);
+	initialize_vector(&v2, 0, orientation.y, orientation.z);
+	angles.x = get_angle_between_vectors(v1, v2);
+	if (v2.z > 0)
+		angles.x *= -1;
+	initialize_vector(&v2, orientation.x, orientation.y, 0);
+	angles.z = get_angle_between_vectors(v1, v2);
+	if (v2.x < 0)
+		angles.z *= -1;
+	return (angles);
+}
+
 // irisa.fr/prive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
 // sphere
 // acos( z / r) / PI
@@ -53,14 +82,16 @@ static t_uv	map_sphere_to_2d(t_object object)
 // cylinder
 // (acos (object.intersect.x / r ) - theta_a) / (theta_b - theta_a)
 // acos (object.intersect.z - za)/(zb - za)
-
 static t_uv	map_cylinder_to_2d(t_object object)
 {
 	t_uv	uv;
 	t_xyz	radius_vector;
+	t_xyz	rotation;
 	float	azimuthal_angle;
 
 	radius_vector = substract_vectors(object.center, object.intersect);
+	rotation = get_angle_over_the_axes(object.orientation);
+	radius_vector = rotate_vector(radius_vector, rotation);
 	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
 	uv.u = 1 - (azimuthal_angle / (2 * PI));
 	uv.v = radius_vector.y + object.height;

@@ -17,31 +17,28 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 
-static t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
+static t_xyz	get_angle_over_the_axes(t_xyz orientation)
 {
 	t_xyz	angles;
 	t_xyz	v1;
 	t_xyz	v2;
 
-	v1 = vector1;
-	v1.x = 0;
-	v2 = vector2;
-	v2.x = 0;
+	initialize_vector(&v1, 0, 0, 1);
+	initialize_vector(&v2, 0, orientation.y, orientation.z);
 	angles.x = get_angle_between_vectors(v1, v2);
-	if ((v2.z >= 0 && v1.y < v2.y) || (v2.z < 0 && v1.y > v2.y))
+	if ((orientation.z >= 0 && orientation.y > 0)
+		|| (orientation.z < 0 && orientation.y < 0))
 		angles.x *= -1;
-	v1 = vector1;
-	v1.y = 0;
-	v2 = vector2;
-	v2.y = 0;
+	initialize_vector(&v2, orientation.x, 0, orientation.z);
 	angles.y = get_angle_between_vectors(v1, v2);
-	if ((v2.z >= 0 && v1.x > v2.x) || (v2.z < 0 && v1.x < v2.x))
+	if ((orientation.z >= 0 && orientation.x < 0)
+		|| (orientation.z < 0 && orientation.x > 0))
 		angles.y *= -1;
 	angles.z = 0;
-	if (v2.z < 0)
+	if (orientation.z < 0)
 	{
-		angles.y -= (180 * (3.14 / 180));
-		angles.z -= -180 * (3.14 / 180);
+		angles.y -= (180 * (PI / 180));
+		angles.z -= -180 * (PI / 180);
 	}
 	return (angles);
 }
@@ -58,7 +55,6 @@ static t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2)
 // 	The distance to the canvas = BC / tan(CAB)
 static void	parse_camera(t_mlx *mlx, char *line)
 {
-	t_xyz	std_camera_orientation;
 	float	field_of_view;
 	t_xyz	orientation;
 
@@ -66,11 +62,9 @@ static void	parse_camera(t_mlx *mlx, char *line)
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
 	orientation = parse_orientation(&line);
 	normalize_vector(&orientation);
-	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (3.14 / 180);
+	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (PI / 180);
 	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2) * WINDOW_HEIGHT;
-	initialize_vector(&std_camera_orientation, 0, 0, 1);
-	mlx->camera.rotation_angles = get_angle_over_the_axes(
-			std_camera_orientation, orientation);
+	mlx->camera.rotation_angles = get_angle_over_the_axes(orientation);
 }
 
 static void	parse_lights(t_mlx *mlx, char *line)
