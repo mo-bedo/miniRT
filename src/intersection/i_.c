@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 16:29:16 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/16 16:55:49 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	compute_normal(t_object *object)
 	if (!object->type)
 		return ;
 	if (object->type == SPHERE)
-		object->normal = substract_vectors(object->intersect, object->center);
+		object->normal = subtract_vectors(object->intersect, object->center);
 	else if (object->type == PLANE)
 		object->normal = object->orientation;
 	if (object->type != NONE && object->bump)
@@ -51,7 +51,7 @@ double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 	if (mlx->object[i].type == CYLINDER)
 		return (get_intersection_ray_cylinder(ray, &mlx->object[i]));
 	if (mlx->object[i].type == CONE)
-		return (get_intersection_ray_cone(ray, mlx->object[i]));
+		return (get_intersection_ray_cone(ray, &mlx->object[i]));
 	return (RAY_T_MAX);
 }
 

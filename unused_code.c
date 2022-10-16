@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:30:25 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 // 	if (d_dot_n == 0.0)
 // 		return (false);
 // 	//// vindt het punt van intersectie
-// 	t = get_dot_product(substract_vectors(plane.xyz, \
+// 	t = get_dot_product(subtract_vectors(plane.xyz, \
 // 			ray.origin), plane.orientation) / d_dot_n;
 // 	if (t < RAY_T_MIN || t > ray.t_max)
 // 		return (false);
@@ -86,7 +86,7 @@
 // {
 // 	t_ray	local_ray;
 // 	local_ray = ray;
-// 	local_ray.origin = substract_vectors(local_ray.origin, sphere.centre);
+// 	local_ray.origin = subtract_vectors(local_ray.origin, sphere.centre);
 // 	// quadratic
 // 	double	a = get_2d_vector_magnitude(local_ray.direction);
 // 	double	b = 2 * get_dot_product(local_ray.direction, local_ray.origin);

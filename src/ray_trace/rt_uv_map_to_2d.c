@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_uv_map_to_2d.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:47:10 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rt_uv_map_to_2d.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_uv	map_sphere_to_2d(t_object object)
 	float	theta;
 	float	polar_angle;
 
-	radius_vector = substract_vectors(object.center, object.intersect);
+	radius_vector = subtract_vectors(object.center, object.intersect);
 	theta = atan2(radius_vector.x, radius_vector.z) + PI;
 	polar_angle = acos(radius_vector.y / object.radius);
 	uv.u = 1 - (theta / (2 * PI));
@@ -55,7 +55,7 @@ t_uv	map_cylinder_to_2d(t_object object)
 	t_xyz	radius_vector;
 	float	theta;
 
-	radius_vector = substract_vectors(object.center, object.intersect);
+	radius_vector = subtract_vectors(object.center, object.intersect);
 	// normalize_vector(&radius_vector);
 	theta = atan2(radius_vector.x, radius_vector.z) + PI;
 	uv.u = 1 - (theta / (2 * PI));

@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 13:59:36 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 	return (add);
 }
 
+
+// A negative vector simply reverses the factor.
+//  AC  =    A-->-->-->-->--C
+//	-AC = 	 A--<--<--<--<--C
+t_xyz	get_negative_vector(t_xyz v1)
+{
+	v1.x *= -1;
+	v1.y *= -1;
+	v1.z *= -1;
+	return (v1);
+}
+
 //    			B
 //	
 //        A-->-->-->-->--C
@@ -39,7 +51,7 @@ t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 //				Y
 //
 //	vector X->Y = Y - X
-t_xyz	substract_vectors(t_xyz v1, t_xyz v2)
+t_xyz	subtract_vectors(t_xyz v1, t_xyz v2)
 {
 	t_xyz	sub;
 

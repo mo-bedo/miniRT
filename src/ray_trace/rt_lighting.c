@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 17:42:20 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 16:28:32 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	light_is_blocked_by_another_object(t_mlx mlx, t_ray ray)
 //     - the direction of the lightray
 t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal)
 {
-	return (substract_vectors(multiply_vector(normal,
+	return (subtract_vectors(multiply_vector(normal,
 				2 * get_dot_product(ray_direction, normal)),
 			ray_direction));
 }
@@ -110,7 +110,7 @@ void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 	while (++i < mlx->light_count)
 	{
 		light_ray.origin = object->intersect;
-		light_ray.direction = substract_vectors(
+		light_ray.direction = subtract_vectors(
 				mlx->light[i].origin, object->intersect);
 		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
