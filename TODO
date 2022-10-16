@@ -7,13 +7,13 @@
 - textures: cylinder & cone
 - extra textures/bump maps importeren
 - sneller maken
+- foutmelding als texture file niet bestaat
 
 # ONDUIDELIJK
 - we includen float.h mag dat?
 
 # BUGS
-- checkerboard en textures werken niet op plane als plane horizontaal staat ipv verticaal
-- user_input: eerste klik wordt genegeerd?
+- user_input: eerste klik wordt (soms?) genegeerd?
 
 # WRITE TESTS FOR:
 # parser

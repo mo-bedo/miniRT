@@ -15,37 +15,6 @@
 #include "main.h"
 #include "utils/u_.h"
 
-static t_uv	map_plane_to_2d(t_xyz intersect)
-{
-	t_uv	uv;
-
-	uv.u = intersect.x + WINDOW_WIDTH;
-	uv.v = intersect.z + WINDOW_HEIGHT;
-	return (uv);
-}
-
-// www.raytracerchallenge.com/bonus/texture-mapping.html
-// compute the azimuthal angle (0 < azimuthal_angle <= 2π)
-// compute the polar angle (0 <= polar_angle <= π)
-// 0 <= uv.u < 1
-// Subtract uv.u from 1, so it increases counterclockwise viewed from above.
-// Subtract uv.v from 1, so 0 is at the south pole of the sphere
-static t_uv	map_sphere_to_2d(t_object object)
-{
-	t_uv	uv;
-	t_xyz	radius_vector;
-	float	azimuthal_angle;
-	float	polar_angle;
-
-	radius_vector = substract_vectors(object.center, object.intersect);
-	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
-	polar_angle = acos(radius_vector.y / object.radius);
-	uv.u = 1 - (azimuthal_angle / (2 * PI));
-	uv.v = 1 - polar_angle / PI;
-	return (uv);
-}
-
-
 static t_xyz	get_angle_over_the_axes(t_xyz orientation)
 {
 	t_xyz	angles;
@@ -74,6 +43,39 @@ static t_xyz	get_angle_over_the_axes(t_xyz orientation)
 	return (angles);
 }
 
+static t_uv	map_plane_to_2d(t_object object)
+{
+	t_uv	uv;
+	t_xyz	rotation;
+
+	rotation = get_angle_over_the_axes(object.orientation);
+	object.intersect = rotate_vector(object.intersect, rotation);
+	uv.u = object.intersect.x + WINDOW_WIDTH;
+	uv.v = object.intersect.z + WINDOW_HEIGHT;
+	return (uv);
+}
+
+// www.raytracerchallenge.com/bonus/texture-mapping.html
+// compute the azimuthal angle (0 < azimuthal_angle <= 2π)
+// compute the polar angle (0 <= polar_angle <= π)
+// 0 <= uv.u < 1
+// Subtract uv.u from 1, so it increases counterclockwise viewed from above.
+// Subtract uv.v from 1, so 0 is at the south pole of the sphere
+static t_uv	map_sphere_to_2d(t_object object)
+{
+	t_uv	uv;
+	t_xyz	radius_vector;
+	float	azimuthal_angle;
+	float	polar_angle;
+
+	radius_vector = substract_vectors(object.center, object.intersect);
+	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
+	polar_angle = acos(radius_vector.y / object.radius);
+	uv.u = 1 - (azimuthal_angle / (2 * PI));
+	uv.v = 1 - polar_angle / PI;
+	return (uv);
+}
+
 // irisa.fr/prive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
 // sphere
 // acos( z / r) / PI
@@ -89,6 +91,11 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	t_xyz	rotation;
 	float	azimuthal_angle;
 
+	if (object.normal.x == object.orientation.x
+		&& object.normal.z == object.orientation.z
+		&& (object.normal.y == object.orientation.y
+			|| object.normal.y == -object.orientation.y))
+		return (map_plane_to_2d(object));
 	radius_vector = substract_vectors(object.center, object.intersect);
 	rotation = get_angle_over_the_axes(object.orientation);
 	radius_vector = rotate_vector(radius_vector, rotation);
@@ -108,7 +115,7 @@ t_uv	map_to_2d(t_object object)
 	uv.u = 0;
 	uv.v = 0;
 	if (object.type == PLANE)
-		return (map_plane_to_2d(object.intersect));
+		return (map_plane_to_2d(object));
 	if (object.type == SPHERE)
 		return (map_sphere_to_2d(object));
 	if (object.type == CYLINDER)

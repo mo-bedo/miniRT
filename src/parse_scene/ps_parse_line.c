@@ -37,8 +37,8 @@ static t_xyz	get_angle_over_the_axes(t_xyz orientation)
 	angles.z = 0;
 	if (orientation.z < 0)
 	{
-		angles.y -= (180 * (PI / 180));
-		angles.z -= -180 * (PI / 180);
+		angles.y -= PI;
+		angles.z += PI;
 	}
 	return (angles);
 }

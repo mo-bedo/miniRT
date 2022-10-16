@@ -17,23 +17,29 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 
-static t_xyz	checkers_pattern_at(t_uv uv, int type, t_xyz original_color)
+static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 {
 	t_xyz	white;
 	int		tiles;
 
 	initialize_vector(&white, 255, 255, 255);
-	tiles = 2;
+	tiles = 4;
 	uv.u *= tiles;
 	uv.v *= tiles;
-	if (type == SPHERE || type == CYLINDER)
+	if (object.type == SPHERE || object.type == CYLINDER)
 	{
-		uv.u *= tiles * 10;
-		uv.v *= tiles * 5;
+		if (!(object.normal.x == object.orientation.x
+		&& object.normal.z == object.orientation.z
+		&& (object.normal.y == object.orientation.y
+			|| object.normal.y == -object.orientation.y)))
+		{
+			uv.u *= tiles;
+			uv.v *= tiles / 2;
+		}
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
 		return (white);
-	return (original_color);
+	return (object.color);
 }
 
 static t_xyz	image_color_at(t_uv uv, t_object object)
@@ -89,7 +95,7 @@ t_xyz	get_uv_pattern(int pattern, t_object object)
 
 	uv = map_to_2d(object);
 	if (pattern == CHECKERS)
-		return (checkers_pattern_at(uv, object.type, object.color));
+		return (checkers_pattern_at(uv, object));
 	if (pattern == TEXTURE)
 		return (image_color_at(uv, object));
 	if (pattern == BUMP_MAP)
