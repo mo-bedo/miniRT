@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ui_mouse_hook.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 20:31:29 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ui_mouse_hook.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	restore_colors_deselected_object(t_mlx *mlx, t_xyz color)
 	prev_id = mlx->selected_object;
 	deselected_obj = &mlx->object[prev_id];
 	if (mlx->selected_object >= 0)
-		deselected_obj->color = substract_vectors(deselected_obj->color, color);
+		deselected_obj->color = subtract_vectors(deselected_obj->color, color);
 }
 
 static void	adjust_colors_selected_object(t_mlx *mlx,

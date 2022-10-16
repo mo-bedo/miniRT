@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_uv_map_to_2d.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 17:47:10 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   rt_uv_map_to_2d.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_uv	map_sphere_to_2d(t_object object)
 	float	azimuthal_angle;
 	float	polar_angle;
 
-	radius_vector = substract_vectors(object.center, object.intersect);
+	radius_vector = subtract_vectors(object.center, object.intersect);
 	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
 	polar_angle = acos(radius_vector.y / object.radius);
 	uv.u = 1 - (azimuthal_angle / (2 * PI));
@@ -96,7 +96,7 @@ static t_uv	map_cylinder_to_2d(t_object object)
 		&& (object.normal.y == object.orientation.y
 			|| object.normal.y == -object.orientation.y))
 		return (map_plane_to_2d(object));
-	radius_vector = substract_vectors(object.center, object.intersect);
+	radius_vector = subtract_vectors(object.center, object.intersect);
 	rotation = get_angle_over_the_axes(object.orientation);
 	radius_vector = rotate_vector(radius_vector, rotation);
 	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;

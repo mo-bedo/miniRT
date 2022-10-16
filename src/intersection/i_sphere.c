@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_sphere.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:23:02 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_sphere.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // plaatst midden van sphere in het midden van xyz
 static t_ray	transpose_ray(t_ray ray, t_xyz centre)
 {
-	ray.origin = substract_vectors(ray.origin, centre);
+	ray.origin = subtract_vectors(ray.origin, centre);
 	return (ray);
 }
 

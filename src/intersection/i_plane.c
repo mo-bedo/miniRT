@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/13 13:32:25 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	get_distance_to_intersection(t_ray ray, t_object plane)
 	dot_product = get_dot_product(
 			ray.direction, plane.orientation);
 	t = get_dot_product(
-			substract_vectors(plane.center, ray.origin),
+			subtract_vectors(plane.center, ray.origin),
 			plane.orientation) / dot_product;
 	return (t);
 }

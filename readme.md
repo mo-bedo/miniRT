@@ -1,9 +1,34 @@
+PAS OP
+
+Omdat normalize_vector nu met een pointer werkt wordt de cylinder orientation genormaliseerd en overschreven
+want object cylinder komt functies binnen als pointer (zie i_cylinder.c)
+
+
+
+
 
 ![plot](./cone_formula.png)
 
 
-    t_vec3  pdp = vec3_substract(cp.direction, cp.position);
-    t_vec3  eyexpdp = vec3_cross(vec3_substract(r.origin, cp.position), pdp);
+
+D = ray direction
+
+V = cone orientation
+
+C = cone center (which is the tip point)
+
+O = ray origin
+
+CO = O - C
+
+
+
+
+
+
+
+    t_vec3  pdp = vec3_subtract(cp.direction, cp.position);
+    t_vec3  eyexpdp = vec3_cross(vec3_subtract(r.origin, cp.position), pdp);
     t_vec3  rdxpdp = vec3_cross(r.direction, pdp);
     float   a = vec3_dot(rdxpdp, rdxpdp);
     float   b = 2 * vec3_dot(rdxpdp, eyexpdp);

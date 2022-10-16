@@ -1,12 +1,12 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_cylinder.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 21:14:59 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_cylinder.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	normalize_vector(&cylinder->orientation);
 	t = ft_min_float(t_.t1, t_.t2);
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	t = get_dot_product(substract_vectors(intersect, cylinder->center),
-					cylinder->orientation);
+	t = get_dot_product(subtract_vectors(
+				intersect, cylinder->center), cylinder->orientation);
 	point_t = add_vectors(cylinder->center,
 			multiply_vector(cylinder->orientation, t));
-	cylinder->normal = substract_vectors(intersect, point_t);
+	cylinder->normal = subtract_vectors(intersect, point_t);
 	normalize_vector(&cylinder->normal);
 }
 
@@ -103,7 +103,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 	double	ab2;
 	t_t4	t;
 
-	ao = substract_vectors(ray.origin, cylinder.center);
+	ao = subtract_vectors(ray.origin, cylinder.center);
 	vxab = get_cross_product(ray.direction, cylinder.orientation);
 	aoxab = get_cross_product(ao, cylinder.orientation);
 	ab2 = get_dot_product(cylinder.orientation, cylinder.orientation);
@@ -128,41 +128,13 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 
 	max_len = sqrt(pow(cylinder.height / 2, 2) + pow(cylinder.radius, 2));
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
-	len = substract_vectors(intersect, cylinder.center);
+	len = subtract_vectors(intersect, cylinder.center);
 	if (get_vector_length(len) > max_len)
 		t.t1 = RAY_T_MAX;
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
-	len = substract_vectors(intersect, cylinder.center);
+	len = subtract_vectors(intersect, cylinder.center);
 	if (get_vector_length(len) > max_len)
 		t.t2 = RAY_T_MAX;
-	return (t);
-}
-
-//	formules die gelden voor de cap
-//	(Q3 - P1)^2 < R^2
-//	(Q4 - P2)^2 < R^2
-//	Qi = p + v Ti 
-//	P1 = bottomcap center
-//	dus (lengte van Q3 - P1)^2 < R^2 anders is plane_intersectie niet op de cap
-//	met flag geef je aan of het de top of de bottom cap is
-static float	get_intersect_with_cap_planes(t_ray ray,
-	t_object cylinder, float flag)
-{
-	t_object	cap;
-	t_xyz		plane_intersect;
-	float		capcenter_to_intersect;
-	float		t;
-
-	cap.orientation = cylinder.orientation;
-	cap.center = add_vectors(cylinder.center, multiply_vector(
-				cylinder.orientation, (cylinder.height / 2) * flag));
-	t = get_intersection_ray_plane(ray, cap);
-	plane_intersect = add_vectors(ray.origin,
-			multiply_vector(ray.direction, t));
-	capcenter_to_intersect = get_vector_length(
-			substract_vectors(plane_intersect, cap.center));
-	if ((t < 0) || (capcenter_to_intersect > cylinder.radius))
-		t = RAY_T_MAX;
 	return (t);
 }
 

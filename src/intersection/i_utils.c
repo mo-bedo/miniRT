@@ -13,6 +13,7 @@
 #include <math.h>
 
 #include "main.h"
+#include "intersection/i_plane.h"
 #include "intersection/i_utils.h"
 #include "utils/u_.h"
 
@@ -56,5 +57,31 @@ t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
 	discriminant = sqrt(discriminant);
 	t.t1 = (-b - discriminant) / a;
 	t.t2 = (-b + discriminant) / a;
+	return (t);
+}
+
+//	formules die gelden voor de cap
+//	(Q3 - bottomcap)^2 < R^2
+//	(Q4 - topcap)^2 < R^2
+//	Qi = p + v Ti 
+//	dus (lengte van Qi - cap)^2 < R^2 anders is plane_intersectie niet op de cap
+//	met flag geef je aan of het de top of de bottom cap is
+float	get_intersect_with_cap_planes(t_ray ray, t_object cylinder, float flag)
+{
+	t_object	cap;
+	t_xyz		plane_intersect;
+	float		capcenter_to_intersect;
+	float		t;
+
+	cap.orientation = cylinder.orientation;
+	cap.center = add_vectors(cylinder.center, multiply_vector(
+				cylinder.orientation, (cylinder.height / 2) * flag));
+	t = get_intersection_ray_plane(ray, cap);
+	plane_intersect = add_vectors(ray.origin,
+			multiply_vector(ray.direction, t));
+	capcenter_to_intersect = get_vector_length(
+			subtract_vectors(plane_intersect, cap.center));
+	if ((t < 0) || (capcenter_to_intersect > cylinder.radius))
+		t = RAY_T_MAX;
 	return (t);
 }

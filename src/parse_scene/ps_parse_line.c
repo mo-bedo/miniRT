@@ -109,7 +109,7 @@ void	parse_line(t_mlx *mlx, char *line)
 	else if (str_is_equal(line, "A", 1) || str_is_equal(line, "L", 1))
 		parse_lights(mlx, line);
 	else if (str_is_equal(line, "pl", 2) || str_is_equal(line, "sp", 2)
-		|| str_is_equal(line, "cy", 2))
+		|| str_is_equal(line, "cy", 2) || str_is_equal(line, "co", 2))
 		parse_objects(mlx, line);
 	else
 		error_message_and_exit("Unknown type identifier");
