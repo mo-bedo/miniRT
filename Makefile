@@ -6,12 +6,12 @@
 #    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/16 17:01:00 by jbedaux          ###   ########.fr        #
+#    Updated: 2022/10/17 11:54:44 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -27,7 +27,7 @@ endif
 
 SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=	
 
 # STATIC
 RM				:=	rm

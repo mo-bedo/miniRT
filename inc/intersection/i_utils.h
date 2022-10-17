@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_utils.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:23:19 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_utils.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 17:42:08 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/17 12:07:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 typedef struct s_t4
 {
-	float	t1;
-	float	t2;
-	float	t3;
-	float	t4;
+	double	t1;
+	double	t2;
+	double	t3;
+	double	t4;
 }	t_t4;
 
 t_t4	check_t_values(t_t4 t);
