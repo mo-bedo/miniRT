@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/17 16:07:39 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:57:33 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
-	a = get_dot_product(ray_direction, ray_direction) - (1.0 + theta * theta) *
-				powf(get_dot_product(ray_direction, cone_orientation), 2);
-	b = 2 * (get_dot_product(ray_direction, c_o) - (1.0 + theta * theta) * 
+	theta = 1 + theta * theta;
+	a = get_dot_product(ray_direction, ray_direction) - (theta) *
+				pow(get_dot_product(ray_direction, cone_orientation), 2);
+	b = 2 * (get_dot_product(ray_direction, c_o) - (theta) * 
 				get_dot_product(ray_direction, cone_orientation) * 
 				get_dot_product(c_o, cone_orientation)); 
-	c = get_dot_product(c_o, c_o) - (1.0 + theta * theta) * 
-				powf(get_dot_product(c_o, cone_orientation), 2.0);
+	c = get_dot_product(c_o, c_o) - (theta) * 
+				pow(get_dot_product(c_o, cone_orientation), 2.0);
 	discriminant = pow(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
@@ -229,6 +230,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)
 	{
+		cone->color.z = 255;
 		cone->normal = cone->orientation;
 		return (t.t3);
 	}

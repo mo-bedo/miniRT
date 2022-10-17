@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/17 16:07:50 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:33:43 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
 
-// # define WINDOW_WIDTH 640
-// # define WINDOW_HEIGHT 480
+# define WINDOW_WIDTH 640
+# define WINDOW_HEIGHT 480
 // # define WINDOW_WIDTH 1280
 // # define WINDOW_HEIGHT 960
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+// # define WINDOW_WIDTH 1920
+// # define WINDOW_HEIGHT 1080
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
 # define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
 # define MAX_OBJECTS 100
