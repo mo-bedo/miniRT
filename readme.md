@@ -3,7 +3,8 @@ PAS OP
 Omdat normalize_vector nu met een pointer werkt wordt de cylinder orientation genormaliseerd en overschreven
 want object cylinder komt functies binnen als pointer (zie i_cylinder.c)
 
-
+Elke keer als we een float bewerken (in cone, het verplaatsen van center), verliezen we accuracy. Waardoor
+uiteindelijk veel rare pixels (nu veel opgeschoond door niet 3x cone.center te verplaatsen)
 
 
 

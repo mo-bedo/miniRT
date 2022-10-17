@@ -6,9 +6,12 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/17 13:51:33 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/17 16:07:39 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 // goede uitleg!
 //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
@@ -17,8 +20,24 @@
 
 #include "main.h"
 #include "intersection/i_utils.h"
+#include "intersection/i_plane.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
+
+
+
+
+// static	t_xyz	get_normal_vector(t_xyz vector)
+// {
+// 	double	magnitude;
+
+// 	magnitude = get_vector_length(vector);
+// 	vector = divide_vector(vector, magnitude);
+// 	return (vector);
+// }
+
+
+
 
 /*
 			  \    /
@@ -78,6 +97,27 @@ static float	check_cone_top_bottom(t_ray ray, t_object cone, float t)
 	return (RAY_T_MAX);	
 }
 
+
+float	get_intersect_with_cap_planes_cones(t_ray ray, t_object cylinder)
+{
+	t_object	cap;
+	t_xyz		plane_intersect;
+	float		capcenter_to_intersect;
+	float		t;
+
+	cap.orientation = cylinder.orientation;
+	cap.center = add_vectors(cylinder.center, multiply_vector(
+				cylinder.orientation, (cylinder.height / 2) * -1));
+	t = get_intersection_ray_plane(ray, cap);
+	plane_intersect = add_vectors(ray.origin,
+			multiply_vector(ray.direction, t));
+	capcenter_to_intersect = get_vector_length(
+			subtract_vectors(plane_intersect, cap.center));
+	if ((t < 0) || (capcenter_to_intersect > (cylinder.radius / 2)))
+		t = RAY_T_MAX;
+	return (t);
+}
+
 /*
 	theta
 	 |\
@@ -90,21 +130,17 @@ static float	check_cone_top_bottom(t_ray ray, t_object cone, float t)
 	
 	so theta = tanˆ-1(r/h)
 	
-				/|\
-		       / | \
-			  /  |  \	
-			 /   |   \	
-		    /    |    \			
-		   /     |     \	
-		  /      \/d    \		d = cone orientation, so orientation points 
-		 /       |       \			from tip the bottom
-				c				c = cone center (is now at the bottom)
+	In the first line we reset to center, so it's located at the 'bottom' 
+	cap center. 
 */
 static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 {
 	t_t4	t;
 	t_xyz	c_o;
-
+	
+	t_xyz	center;
+	
+	center = cone.center;
 	cone.center = add_vectors(cone.center, 
 				multiply_vector(cone.orientation, cone.height / 2));
 	c_o = subtract_vectors(ray.origin, cone.center);
@@ -113,12 +149,10 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 	t.t1 = check_cone_top_bottom(ray, cone, t.t1);		
 	t.t2 = check_cone_top_bottom(ray, cone, t.t2);
 	cone.center = add_vectors(cone.center, 
-				multiply_vector(get_negative_vector(cone.orientation), 
-				cone.height / 2));
-	t.t3 = get_intersect_with_cap_planes(ray, cone, -1);
+				multiply_vector(get_negative_vector(cone.orientation), cone.height / 2));
+	t.t3 = get_intersect_with_cap_planes_cones(ray, cone);
 	return (t);
 }
-
 
 /*
 				theta + cone_tip
@@ -190,7 +224,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	t_xyz	non_normalized_orientation;
 	
 	non_normalized_orientation = cone->orientation;
-	normalize_vector(&cone->orientation);
+	// normalize_vector(&cone->orientation);
 	t = compute_t_for_cone(ray, *cone);
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)
@@ -201,7 +235,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	else
 	{
 		cone->orientation = non_normalized_orientation;
-		compute_cone_normal(ray, cone, smallest_t, atan(cone->radius / cone->height));	
+		compute_cone_normal(ray, cone, smallest_t, atan(cone->radius / cone->height));
 	}	
 	return (smallest_t);
 }
