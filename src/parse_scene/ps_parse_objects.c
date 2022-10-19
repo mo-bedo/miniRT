@@ -39,6 +39,17 @@ static void	parse_cylinder(t_object *object, char **line)
 	object->orientation = parse_orientation(line);
 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+	// t_xyz orientation;
+	// initialize_vector(&orientation, 0,0,1);
+	// normalize_vector(&orientation);
+	// t_xyz point;
+	// initialize_vector(&point, 0,1,0);
+	// // normalize_vector(&orientation);
+	// object->orientation = rotate_vector(point, object->orientation, orientation);
+	// DEBUG_STR("");
+	// DEBUG_DOUBLE(object->orientation.x);
+	// DEBUG_DOUBLE(object->orientation.y);
+	// DEBUG_DOUBLE(object->orientation.z);
 }
 
 static void	parse_cone(t_object *object, char **line)

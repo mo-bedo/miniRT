@@ -46,6 +46,14 @@ typedef struct s_img
 }	t_img;
 
 // COORDINATES
+typedef struct s_wxyz
+{
+	float		w;
+	float		x;
+	float		y;
+	float		z;
+}	t_wxyz;
+
 typedef struct s_xyz
 {
 	float		x;
@@ -62,7 +70,7 @@ typedef struct s_uv
 // CAMERA
 typedef struct s_camera {
 	t_xyz		center;
-	t_xyz		rotation_angles;
+	t_xyz		orientation;
 	float		canvas_distance;
 }	t_camera;
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "ray_trace/rt_uv_map_to_2d.h"
@@ -28,10 +29,9 @@ static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 	uv.v *= tiles;
 	if (object.type == SPHERE || object.type == CYLINDER)
 	{
-		if (!(object.normal.x == object.orientation.x
-		&& object.normal.z == object.orientation.z
-		&& (object.normal.y == object.orientation.y
-			|| object.normal.y == -object.orientation.y)))
+		if (!((object.normal.x) == (object.orientation.x)
+			&& (object.normal.z) == (object.orientation.z)
+			&& abs(object.normal.y) == abs(object.orientation.y)))
 		{
 			uv.u *= tiles;
 			uv.v *= tiles / 2;

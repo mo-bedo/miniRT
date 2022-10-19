@@ -57,9 +57,9 @@ void	initialize_vector(t_xyz *vector, float x, float y, float z)
 t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
 {
 	t_xyz	vector;
+	t_xyz	orientation;
 
-	vector.x = x;
-	vector.y = y;
-	vector.z = camera.canvas_distance;
-	return (rotate_vector(vector, camera.rotation_angles));
+	initialize_vector(&vector, x, y, camera.canvas_distance);
+	initialize_vector(&orientation, 0, 0, 1);
+	return (rotate_vector(vector, orientation, camera.orientation));
 }

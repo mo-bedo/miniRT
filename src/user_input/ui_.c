@@ -28,20 +28,22 @@ static int	close_window(t_mlx *mlx)
 
 static void	rotate_camera(t_mlx *mlx, int keycode)
 {
-	double	rotation_speed;
+	float	rotation_speed;
+	float	angle;
+	t_xyz	orientation;
 
-	rotation_speed = 0.20;
-	if (keycode == LEFT)
-		mlx->camera.rotation_angles.y -= rotation_speed;
-	if (keycode == RIGHT)
-		mlx->camera.rotation_angles.y += rotation_speed;
-	if (keycode == DOWN)
-		mlx->camera.rotation_angles.x += rotation_speed;
-	if (keycode == UP)
-		mlx->camera.rotation_angles.x -= rotation_speed;
-	if (keycode == LEFT || keycode == RIGHT
-		|| keycode == DOWN || keycode == UP)
-		ray_trace(mlx);
+	rotation_speed = PI / 4;
+	if (keycode == LEFT || keycode == UP)
+		angle = -rotation_speed;
+	if (keycode == RIGHT || keycode == DOWN)
+		angle = rotation_speed;
+	if (keycode == LEFT || keycode == RIGHT)
+		initialize_vector(&orientation, 0, 1, 0);
+	if (keycode == DOWN || keycode == UP)
+		initialize_vector(&orientation, 1, 0, 0);
+	mlx->camera.orientation = rotate_vector_by_angle(mlx->camera.orientation,
+				orientation, angle);
+	ray_trace(mlx);
 }
 
 static void	catch_action(t_mlx *mlx, int type, int keycode)
@@ -72,7 +74,8 @@ static int	key_hook(int keycode, t_mlx *mlx)
 	int		id;
 
 	id = mlx->selected_object;
-	if (id < 0)
+	if (id < 0 && (keycode == LEFT || keycode == RIGHT
+		|| keycode == DOWN || keycode == UP))
 		rotate_camera(mlx, keycode);
 	if (id >= 0)
 	{

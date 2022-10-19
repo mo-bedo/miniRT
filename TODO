@@ -1,5 +1,4 @@
 # NOG VERWERKEN UIT SUBJECT
-- cone toevoegen
 - checkerboard: cylinder & cone
 - bumpmap: cylinder & cone
 
@@ -13,6 +12,7 @@
 - we includen float.h mag dat?
 
 # BUGS
+- cone reflectivenes?
 - user_input: eerste klik wordt (soms?) genegeerd?
 
 # WRITE TESTS FOR:
