@@ -225,7 +225,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	t_xyz	non_normalized_orientation;
 	
 	non_normalized_orientation = cone->orientation;
-	// normalize_vector(&cone->orientation);
+	normalize_vector(&cone->orientation);
 	t = compute_t_for_cone(ray, *cone);
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)

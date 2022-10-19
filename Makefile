@@ -11,15 +11,15 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	false
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
 
 # -L geeft aan in welke directory hij zoekt naar lib file. -l specificeert naam van library die hij moet includen
 ifeq ($(LINUX), true)
-CFLAGS 			:= -g -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
-MLX				:= -g -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz
+CFLAGS 			:= -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror
+MLX				:= -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz
 else
 CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -85,7 +85,7 @@ fclean			:	clean
 re				: 	fclean all
 
 test			:	re
-					./$(NAME) scenes/gambetta.rt
+					./$(NAME) scenes/oefen.rt
 
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
