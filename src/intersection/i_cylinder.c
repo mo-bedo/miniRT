@@ -100,7 +100,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 	t_xyz	vxab;
 	t_xyz	aoxab;
 	t_xyz	ao;
-	double	ab2;
+	float	ab2;
 	t_t4	t;
 
 	ao = subtract_vectors(ray.origin, cylinder.center);
@@ -122,7 +122,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 // - t.t2 is bottom cap
 static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 {
-	double	max_len;
+	float	max_len;
 	t_xyz	intersect;
 	t_xyz	len;
 

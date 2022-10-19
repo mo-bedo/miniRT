@@ -8,7 +8,17 @@ uiteindelijk veel rare pixels (nu veel opgeschoond door niet 3x cone.center te v
 
 
 
+Pixelation like this could occur due to numerical instability. An example: Suppose you calculate an intersection point that lies on a curved surface. You then use that point as the origin of a ray (a shadow ray, for example). You would assume that the ray wouldn't intersect that curved surface, but in practice it sometimes can. You could check for this by discarding such self intersections, but that could cause problems if you decide to implement concave shapes. Another approach could be to move the origin of the generated ray along its direction vector by some infinitesimally small amount, so that no unwanted self-intersection occurs.
+
+
 ![plot](./cone_formula.png)
+
+
+normalized :
+parse_orientation()
+compute_ray()
+
+
 
 
 

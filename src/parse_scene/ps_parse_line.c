@@ -70,7 +70,7 @@ static void	parse_camera(t_mlx *mlx, char *line)
 static void	parse_lights(t_mlx *mlx, char *line)
 {
 	static int	i = 0;
-	double		brightness;
+	float		brightness;
 	t_xyz		color;
 
 	if (str_is_equal(line, "A", 1))

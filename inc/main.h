@@ -28,10 +28,10 @@
 
 // # define WINDOW_WIDTH 640
 // # define WINDOW_HEIGHT 480
-// # define WINDOW_WIDTH 1280
-// # define WINDOW_HEIGHT 960
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 960
+// # define WINDOW_WIDTH 1920
+// # define WINDOW_HEIGHT 1080
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
 # define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
 # define MAX_OBJECTS 100
@@ -104,7 +104,7 @@ typedef struct s_object
 	bool		bump;
 	t_map		bump_map;
 	t_xyz		intersect;
-	double		t;
+	float		t;
 	int			id;
 	t_xyz		normal;
 }	t_object;

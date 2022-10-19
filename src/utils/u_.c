@@ -15,6 +15,7 @@
 
 #include "main.h"
 #include "utils/u_rotate_vector.h"
+#include "utils/u_.h"
 
 void	ft_putstr(char *s)
 {

@@ -28,7 +28,7 @@ static int	close_window(t_mlx *mlx)
 
 static void	rotate_camera(t_mlx *mlx, int keycode)
 {
-	double	rotation_speed;
+	float	rotation_speed;
 
 	rotation_speed = 0.20;
 	if (keycode == LEFT)

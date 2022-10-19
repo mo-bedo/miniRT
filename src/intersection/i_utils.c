@@ -37,7 +37,7 @@ t_t4	check_t_values(t_t4 t)
 // if discriminant is smaller than zero it means there is no intersection;
 // ray intersects two times with a 3D object
 t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
-	double input3, double input4)
+	float input3, float input4)
 {
 	float	a;
 	float	b;

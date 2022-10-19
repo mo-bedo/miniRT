@@ -16,11 +16,11 @@
 
 // fastgraph.com/makegames/3drotation
 // tutorialandexample.com/3d-rotation
-t_xyz	rotate_along_x_axis(t_xyz old, double angle)
+t_xyz	rotate_along_x_axis(t_xyz old, float angle)
 {
 	t_xyz	new;
-	double	sin_angle;
-	double	cos_angle;
+	float	sin_angle;
+	float	cos_angle;
 
 	sin_angle = sin(angle);
 	cos_angle = cos(angle);
@@ -30,11 +30,11 @@ t_xyz	rotate_along_x_axis(t_xyz old, double angle)
 	return (new);
 }
 
-t_xyz	rotate_along_y_axis(t_xyz old, double angle)
+t_xyz	rotate_along_y_axis(t_xyz old, float angle)
 {
 	t_xyz	new;
-	double	sin_angle;
-	double	cos_angle;
+	float	sin_angle;
+	float	cos_angle;
 
 	sin_angle = sin(angle);
 	cos_angle = cos(angle);
@@ -44,11 +44,11 @@ t_xyz	rotate_along_y_axis(t_xyz old, double angle)
 	return (new);
 }
 
-t_xyz	rotate_along_z_axis(t_xyz old, double angle)
+t_xyz	rotate_along_z_axis(t_xyz old, float angle)
 {
 	t_xyz	new;
-	double	sin_angle;
-	double	cos_angle;
+	float	sin_angle;
+	float	cos_angle;
 
 	sin_angle = sin(angle);
 	cos_angle = cos(angle);

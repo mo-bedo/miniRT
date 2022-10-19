@@ -29,7 +29,7 @@
 
 // static	t_xyz	get_normal_vector(t_xyz vector)
 // {
-// 	double	magnitude;
+// 	float	magnitude;
 
 // 	magnitude = get_vector_length(vector);
 // 	vector = divide_vector(vector, magnitude);
@@ -49,7 +49,7 @@
 	Computes t values for a infinite mirrored cone
 */
 static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction, 
-		t_xyz cone_orientation,	double theta, t_xyz c_o)
+		t_xyz cone_orientation,	float theta, t_xyz c_o)
 {
 	float	a;
 	float	b;
@@ -59,6 +59,7 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
+
 	theta = 1 + theta * theta;
 	a = get_dot_product(ray_direction, ray_direction) - (theta) *
 				pow(get_dot_product(ray_direction, cone_orientation), 2);
@@ -139,9 +140,6 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 	t_t4	t;
 	t_xyz	c_o;
 	
-	t_xyz	center;
-	
-	center = cone.center;
 	cone.center = add_vectors(cone.center, 
 				multiply_vector(cone.orientation, cone.height / 2));
 	c_o = subtract_vectors(ray.origin, cone.center);
@@ -222,23 +220,16 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 {
 	t_t4	t;
 	float	smallest_t;
-	t_xyz	non_normalized_orientation;
 	
-	cone->height *= 2;
-	non_normalized_orientation = cone->orientation;
-	normalize_vector(&cone->orientation);
+	// cone->height *= 2;
 	t = compute_t_for_cone(ray, *cone);
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)
 	{
-		cone->color.z = 255;
 		cone->normal = cone->orientation;
 		return (t.t3);
 	}
 	else
-	{
-		cone->orientation = non_normalized_orientation;
 		compute_cone_normal(ray, cone, smallest_t, atan(cone->radius / cone->height));
-	}	
 	return (smallest_t);
 }

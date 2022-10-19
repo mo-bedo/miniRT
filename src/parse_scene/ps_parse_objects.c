@@ -36,7 +36,6 @@ static void	parse_cylinder(t_object *object, char **line)
 	*line += 2;
 	object->type = CYLINDER;
 	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
-	object->orientation = parse_orientation(line);
 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
 	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
 }
