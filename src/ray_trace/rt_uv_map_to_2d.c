@@ -82,7 +82,7 @@ t_uv	map_to_2d(t_object object)
 		return (map_plane_to_2d(object));
 	if (object.type == SPHERE)
 		return (map_sphere_to_2d(object));
-	if (object.type == CYLINDER)
+	if (object.type == CYLINDER || object.type == CONE)
 		return (map_cylinder_to_2d(object));
 	return (uv);
 }

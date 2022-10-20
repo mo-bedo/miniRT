@@ -1,5 +1,4 @@
 # NOG VERWERKEN UIT SUBJECT
-- checkerboard: cone
 - bumpmap: cylinder & cone
 
 # TO DO
@@ -14,7 +13,7 @@
 - we includen float.h mag dat?
 
 # BUGS
-- checkerboard cylinder cap werkt soms niet
+gi- checkerboard cap van cylinder/cone werkt soms niet
 - user_input: eerste klik wordt (soms?) genegeerd?
 
 # WRITE TESTS FOR:

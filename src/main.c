@@ -13,9 +13,9 @@
 #include <mlx.h>
 #include <stdlib.h>
 
+#include "main.h"
 #include "parse_scene/ps_.h"
 #include "parse_scene/ps_utils.h"
-#include "main.h"
 #include "ray_trace/rt_.h"
 #include "user_input/ui_.h"
 #include "utils/u_.h"

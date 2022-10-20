@@ -27,12 +27,15 @@ static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 	tiles = 4;
 	uv.u *= tiles;
 	uv.v *= tiles;
-	if (object.type == SPHERE || object.type == CYLINDER)
+	if (object.type == SPHERE || object.type == CYLINDER || object.type == CONE)
 	{
 		if (!is_cap(object.normal, object.orientation))
 		{
 			uv.u *= tiles;
-			uv.v *= tiles / 2;
+			if (object.type == SPHERE)
+				uv.v *= tiles / 2;
+			else
+				uv.v *= tiles;
 		}
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
