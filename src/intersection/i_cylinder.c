@@ -30,7 +30,6 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	t_xyz	intersect;
 	t_xyz	point_t;
 
-	normalize_vector(&cylinder->orientation);
 	t = ft_min_float(t_.t1, t_.t2);
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
 	t = get_dot_product(subtract_vectors(
@@ -38,7 +37,6 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	point_t = add_vectors(cylinder->center,
 			multiply_vector(cylinder->orientation, t));
 	cylinder->normal = subtract_vectors(intersect, point_t);
-	normalize_vector(&cylinder->normal);
 }
 
 //	ray : P(t) = P + V * t

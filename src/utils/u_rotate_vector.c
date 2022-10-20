@@ -102,4 +102,3 @@ t_xyz	rotate_vector_by_angle(t_xyz vector, t_xyz orientation, float angle)
 	normalize_vector(&result);
 	return (result);
 }
-

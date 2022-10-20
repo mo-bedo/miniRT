@@ -107,10 +107,8 @@ void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 	while (++i < mlx->light_count)
 	{
 		light_ray.origin = object->intersect;
-		light_ray.direction = subtract_vectors(
-				mlx->light[i].origin, object->intersect);
-		normalize_vector(&light_ray.direction);		
-		light_ray.origin = add_vectors(light_ray.origin, multiply_vector(light_ray.direction, 1.0001));		
+		light_ray.direction = subtract_vectors(mlx->light[i].origin, object->intersect);
+		// light_ray.origin = add_vectors(light_ray.origin, multiply_vector(light_ray.direction, 1.0001));		
 		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(

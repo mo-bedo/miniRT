@@ -34,7 +34,6 @@ static void	parse_camera(t_mlx *mlx, char *line)
 	line++;
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
 	mlx->camera.orientation = parse_orientation(&line);
-	normalize_vector(&mlx->camera.orientation);
 	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (PI / 180);
 	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2) * WINDOW_HEIGHT;
 }

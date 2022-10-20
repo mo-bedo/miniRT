@@ -24,9 +24,6 @@
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
 
-
-
-
 // static	t_xyz	get_normal_vector(t_xyz vector)
 // {
 // 	float	magnitude;
@@ -35,9 +32,6 @@
 // 	vector = divide_vector(vector, magnitude);
 // 	return (vector);
 // }
-
-
-
 
 /*
 			  \    /
@@ -59,7 +53,6 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
-
 	theta = 1 + theta * theta;
 	a = get_dot_product(ray_direction, ray_direction) - (theta) *
 				pow(get_dot_product(ray_direction, cone_orientation), 2);
@@ -98,7 +91,6 @@ static float	check_cone_top_bottom(t_ray ray, t_object cone, float t)
 		return (t);
 	return (RAY_T_MAX);	
 }
-
 
 float	get_intersect_with_cap_planes_cones(t_ray ray, t_object cylinder)
 {
@@ -147,8 +139,8 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 				atan(cone.radius / cone.height), c_o);
 	t.t1 = check_cone_top_bottom(ray, cone, t.t1);		
 	t.t2 = check_cone_top_bottom(ray, cone, t.t2);
-	cone.center = add_vectors(cone.center, 
-				multiply_vector(get_negative_vector(cone.orientation), cone.height / 2));
+	cone.center = add_vectors(cone.center, multiply_vector(
+				get_negative_vector(cone.orientation), cone.height / 2));
 	t.t3 = get_intersect_with_cap_planes_cones(ray, cone);
 	return (t);
 }
@@ -203,7 +195,6 @@ static void	compute_cone_normal(t_ray ray, t_object *cone, float t, float theta)
 	axis_intersect = add_vectors(cone_tip, multiply_vector(cone->orientation, 
 						axis_to_intersect));
 	cone->normal = subtract_vectors(cone->intersect, axis_intersect);
-	normalize_vector(&cone->normal);
 }
 
 /*
