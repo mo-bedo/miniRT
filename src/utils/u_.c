@@ -54,7 +54,7 @@ t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
 
 	initialize_vector(&vector, x, y, camera.canvas_distance);
 	initialize_vector(&orientation, 0, 0, 1);
-	return (rotate_vector(vector, orientation, camera.orientation));
+	return (rotate_vector(vector, camera.orientation, orientation));
 }
 
 void	initialize_quaternion(t_wxyz *q, float w, float x, float y, float z)
