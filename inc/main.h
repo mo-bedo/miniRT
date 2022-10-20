@@ -152,7 +152,10 @@ void	error_message_and_exit(char *message);
 void	print_time(char *action);
 
 #endif				// MAIN_H
+
+// convert to ppm
+// mogrify -format ppm name.png
 // resize image;
-// convert earth.ppm -resize 300x150 earth_small.ppm
+// convert name.ppm -resize 300x150 name.ppm
 // convert P6 to P3
-// convert earth_small.ppm -compress none earth_small.ppm
+// convert name.ppm -compress none name.ppm

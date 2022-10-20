@@ -1,18 +1,20 @@
 # NOG VERWERKEN UIT SUBJECT
-- checkerboard: cylinder & cone
+- checkerboard: cone
 - bumpmap: cylinder & cone
 
 # TO DO
 - textures: cylinder & cone
 - extra textures/bump maps importeren
-- sneller maken
+- sneller maken: normal pas berekenen als object het meest dichtbij is
+- sneller maken: threading
+- sneller maken: herkennen als bump/texturemap al ingeladen is (parsing gedeelte)
 - foutmelding als texture file niet bestaat
 
 # ONDUIDELIJK
 - we includen float.h mag dat?
 
 # BUGS
-- cone reflectivenes?
+- checkerboard cylinder cap werkt soms niet
 - user_input: eerste klik wordt (soms?) genegeerd?
 
 # WRITE TESTS FOR:

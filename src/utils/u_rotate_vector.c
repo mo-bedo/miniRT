@@ -16,39 +16,7 @@
 #include "main.h"
 #include "utils/u_.h"
 
-static void	initialize_quaternion(t_wxyz *q, float w, float x, float y, float z)
-{
-	q->w = w;
-	q->x = x;
-	q->y = y;
-	q->z = z;
-}
-
-static t_wxyz	multiply_quaternion(t_wxyz q1, t_wxyz q2)
-{
-	t_wxyz	result;
-
-	result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z; 
-	result.x = q1.w * q2.x + q1.x * q2.w - q1.y * q2.z + q1.z * q2.y; 
-	result.y = q1.w * q2.y + q1.x * q2.z + q1.y * q2.w - q1.z * q2.x; 
-	result.z = q1.w * q2.z - q1.x * q2.y + q1.y * q2.x + q1.z * q2.w;
-	return (result);
-}
-
-// lolengine.net/blog/2014/02/24/quaternion-from-two-vectors-final
-// static t_wxyz	normalize_unit_quaternion(t_wxyz quaternion)
-// {
-// 	float m;
-
-// 	m = sqrt(2 + 2 * quaternion.w);
-// 	quaternion.w = 0.5 * m;
-// 	quaternion.x = (1 / m) * quaternion.x;
-// 	quaternion.y = (1 / m) * quaternion.y;
-// 	quaternion.z = (1 / m) * quaternion.z;
-// 	return (quaternion);
-// }
-
-t_xyz	get_orthogonal(t_xyz vec)
+static t_xyz	get_orthogonal(t_xyz vec)
 {
 	float x = abs(vec.x);
 	float y = abs(vec.y);
@@ -71,22 +39,6 @@ static t_wxyz	get_rotation_quaternion_by_vector(t_xyz v1, t_xyz v2)
 	float	real_part;
 	t_wxyz	quaternion;
 
-	normalize_vector(&v1);
-	normalize_vector(&v2);
-	// real_part = get_dot_product(v1, v2);
-	// if (real_part < 0.01)
-	// {
-	// 	real_part = 0;
-	// 	if (abs(v1.x) > abs(v1.z))
-	// 		initialize_vector(&imaginary_part, -v1.y, v1.x, 0);
-	// 	else
-	// 		initialize_vector(&imaginary_part, 0, -v1.z, v1.y);
-	// }
-	// else
-	// 	imaginary_part = get_cross_product(v1, v2);
-	// initialize_quaternion(&quaternion, real_part,
-	// 		imaginary_part.x, imaginary_part.y, imaginary_part.z);
-	// return (normalize_unit_quaternion(quaternion));
 	if (v1.x == -v2.x && v1.y == -v2.y && v1.z == -v2.z)
 	{
 		real_part = 0;
@@ -117,7 +69,7 @@ t_xyz	rotate_vector(t_xyz vector, t_xyz old_orientation, t_xyz new_orientation)
 	initialize_quaternion(&p, 0, vector.x, vector.y, vector.z);
 	q = get_rotation_quaternion_by_vector(old_orientation, new_orientation);
 	initialize_quaternion(&q_, q.w, -q.x, -q.y, -q.z);
-	p_ = multiply_quaternion(multiply_quaternion(q_, p), q);
+	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
 	initialize_vector(&result, p_.x, p_.y, p_.z);
 	return (result);
 }

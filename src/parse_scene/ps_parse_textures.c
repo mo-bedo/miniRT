@@ -59,6 +59,7 @@ static void	parse_texture_map(t_map *map, char **line)
 
 	path = get_path(*line);
 	file_length = get_length_of_file(path);
+	DEBUG_INT(file_length);
 	ppm_file = open(path, O_RDONLY);
 	free(path);
 	map_data = (char *)ft_calloc(sizeof(char), file_length);

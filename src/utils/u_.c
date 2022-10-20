@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 #include "main.h"
-#include "utils/u_rotate_vector.h"
+#include "utils/u_.h"
 
 void	ft_putstr(char *s)
 {
@@ -47,13 +47,6 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ft_memset(ret, 0, count * size));
 }
 
-void	initialize_vector(t_xyz *vector, float x, float y, float z)
-{
-	vector->x = x;
-	vector->y = y;
-	vector->z = z;
-}
-
 t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
 {
 	t_xyz	vector;
@@ -62,4 +55,23 @@ t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y)
 	initialize_vector(&vector, x, y, camera.canvas_distance);
 	initialize_vector(&orientation, 0, 0, 1);
 	return (rotate_vector(vector, orientation, camera.orientation));
+}
+
+void	initialize_quaternion(t_wxyz *q, float w, float x, float y, float z)
+{
+	q->w = w;
+	q->x = x;
+	q->y = y;
+	q->z = z;
+}
+
+t_wxyz	multiply_quaternion(t_wxyz q1, t_wxyz q2)
+{
+	t_wxyz	result;
+
+	result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z; 
+	result.x = q1.w * q2.x + q1.x * q2.w - q1.y * q2.z + q1.z * q2.y; 
+	result.y = q1.w * q2.y + q1.x * q2.z + q1.y * q2.w - q1.z * q2.x; 
+	result.z = q1.w * q2.z - q1.x * q2.y + q1.y * q2.x + q1.z * q2.w;
+	return (result);
 }

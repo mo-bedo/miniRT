@@ -22,7 +22,8 @@ static t_uv	map_plane_to_2d(t_object object)
 	t_xyz	orientation;
 
 	initialize_vector(&orientation, 0, 1, 0);
-	object.intersect = rotate_vector(object.intersect, object.orientation, orientation);
+	object.intersect = rotate_vector(object.intersect,
+			orientation, object.orientation);
 	uv.u = object.intersect.x + WINDOW_WIDTH;
 	uv.v = object.intersect.z + WINDOW_HEIGHT;
 	return (uv);
@@ -53,20 +54,18 @@ static t_uv	map_sphere_to_2d(t_object object)
 static t_uv	map_cylinder_to_2d(t_object object)
 {
 	t_uv	uv;
-	t_xyz	radius_vector;
+	t_xyz	radius;
 	t_xyz	orientation;
 	float	azimuthal_angle;
 
-	radius_vector = subtract_vectors(object.center, object.intersect);
+	radius = subtract_vectors(object.center, object.intersect);
 	initialize_vector(&orientation, 0, 1, 0);
-	radius_vector = rotate_vector(radius_vector, object.orientation, orientation);
-	if ((object.normal.x) == (object.orientation.x)
-		&& (object.normal.z) == (object.orientation.z)
-		&& abs(object.normal.y) == abs(object.orientation.y))
+	radius = rotate_vector(radius, orientation, object.orientation);
+	if (is_cap(object.normal, object.orientation))
 		return (map_plane_to_2d(object));
-	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
+	azimuthal_angle = atan2(radius.x, radius.z) + PI;
 	uv.u = 1 - (azimuthal_angle / (2 * PI));
-	uv.v = radius_vector.y + object.height;
+	uv.v = radius.y + object.height;
 	while (uv.v > PI)
 		uv.v -= PI;
 	uv.v /= PI;

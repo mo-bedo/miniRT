@@ -19,7 +19,7 @@
 double	get_vector_length(t_xyz vector);
 double	get_dot_product(t_xyz v1, t_xyz v2);
 void	normalize_vector(t_xyz *vector);
-double	get_angle_between_vectors(t_xyz v1, t_xyz v2);
 t_xyz	get_cross_product(t_xyz v1, t_xyz v2);
+void	initialize_vector(t_xyz *vector, float x, float y, float z);
 
 #endif 		// VECTOR_MATH

@@ -29,9 +29,7 @@ static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 	uv.v *= tiles;
 	if (object.type == SPHERE || object.type == CYLINDER)
 	{
-		if (!((object.normal.x) == (object.orientation.x)
-			&& (object.normal.z) == (object.orientation.z)
-			&& abs(object.normal.y) == abs(object.orientation.y)))
+		if (!is_cap(object.normal, object.orientation))
 		{
 			uv.u *= tiles;
 			uv.v *= tiles / 2;
