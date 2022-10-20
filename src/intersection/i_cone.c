@@ -31,7 +31,7 @@
 	Computes t values for a infinite mirrored cone
 */
 static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
-		t_xyz cone_orientation,	float theta, t_xyz c_o)
+		t_xyz orientation,	float theta, t_xyz c_o)
 {
 	float	a;
 	float	b;
@@ -43,12 +43,12 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	t.t2 = RAY_T_MAX;
 	theta = 1 + theta * theta;
 	a = get_dot_product(ray_direction, ray_direction) - (theta)
-		* pow(get_dot_product(ray_direction, cone_orientation), 2);
+		* pow(get_dot_product(ray_direction, orientation), 2);
 	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
-			* get_dot_product(ray_direction, cone_orientation)
-			* get_dot_product(c_o, cone_orientation));
+			* get_dot_product(ray_direction, orientation)
+			* get_dot_product(c_o, orientation));
 	c = get_dot_product(c_o, c_o) - (theta)
-		* pow(get_dot_product(c_o, cone_orientation), 2.0);
+		* pow(get_dot_product(c_o, orientation), 2.0);
 	discriminant = pow(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
@@ -79,9 +79,8 @@ static float	check_cone_top_bottom(t_ray ray, t_object cone,
 	if (t < RAY_T_MIN || t == RAY_T_MAX)
 		return (RAY_T_MAX);
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	height_vector = multiply_vector(
-			get_negative_vector(cone.orientation), cone.height);
-	cone_tip = add_vectors(temp_center, height_vector);
+	height_vector = multiply_vector(cone.orientation, cone.height);
+	cone_tip = add_vectors(temp_center, get_negative_vector(height_vector));
 	tip_to_intersect = subtract_vectors(cone_tip, intersect);
 	center_to_intersect = subtract_vectors(temp_center, intersect);
 	if ((get_dot_product(cone.orientation, tip_to_intersect) < 0)
@@ -125,16 +124,16 @@ float	get_intersect_with_cap_cone(t_ray ray, t_object cone)
 static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 {
 	t_t4	t;
-	t_xyz	center_of_cone_to_origin;
+	t_xyz	from_center_of_cone_to_origin;
 	t_xyz	temp_center;
 	float	theta;
 
 	temp_center = add_vectors(cone.center,
 			multiply_vector(cone.orientation, cone.height / 2));
-	center_of_cone_to_origin = subtract_vectors(ray.origin, temp_center);
+	from_center_of_cone_to_origin = subtract_vectors(ray.origin, temp_center);
 	theta = atan(cone.radius / cone.height);
 	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
-			theta, center_of_cone_to_origin);
+			theta, from_center_of_cone_to_origin);
 	t.t1 = check_cone_top_bottom(ray, cone, t.t1, temp_center);
 	t.t2 = check_cone_top_bottom(ray, cone, t.t2, temp_center);
 	t.t3 = get_intersect_with_cap_cone(ray, cone);
@@ -170,24 +169,22 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 	Since we know theta and tip_to_intersect we can get axis_to_intersect.
 	axis_to_intersect = cos(theta) * tip_to_intersect
 */
-static void	compute_cone_normal(t_ray ray, t_object *cone, float t, float theta)
+static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 {
 	float	tip_to_intersect;
 	float	axis_to_intersect;
 	t_xyz	axis_intersect;
 	t_xyz	height_vector;
-	t_xyz	cone_tip;
+	t_xyz	tip;
 
-	height_vector = multiply_vector(cone->orientation, cone->height);
-	cone_tip = add_vectors(cone->center, get_negative_vector(height_vector));
-	cone->intersect = add_vectors(ray.origin,
-			multiply_vector(ray.direction, t));
-	tip_to_intersect = get_vector_length(
-			subtract_vectors(cone->intersect, cone_tip));
+	height_vector = multiply_vector(c->orientation, c->height);
+	tip = add_vectors(c->center, get_negative_vector(height_vector));
+	c->intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
+	tip_to_intersect = get_vector_length(subtract_vectors(c->intersect, tip));
 	axis_to_intersect = tip_to_intersect * cos(theta);
-	axis_intersect = add_vectors(cone_tip,
-			multiply_vector(cone->orientation, axis_to_intersect));
-	cone->normal = subtract_vectors(cone->intersect, axis_intersect);
+	axis_intersect = add_vectors(tip,
+			multiply_vector(c->orientation, axis_to_intersect));
+	c->normal = subtract_vectors(c->intersect, axis_intersect);
 }
 
 /*
