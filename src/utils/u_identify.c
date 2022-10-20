@@ -36,11 +36,3 @@ bool	ft_is_space(char c)
 		return (true);
 	return (false);
 }
-
-bool is_cap(t_xyz normal, t_xyz orientation)
-{
-	if (normal.x == orientation.x && normal.z == orientation.z
-		&& (normal.y == orientation.y || normal.y == -orientation.y))
-		return (true);
-	return (false);
-}

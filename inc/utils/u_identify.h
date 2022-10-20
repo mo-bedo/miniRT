@@ -15,9 +15,8 @@
 
 # include "main.h"
 
-int     ft_strlen(char *s);
+int		ft_strlen(char *s);
 bool	ft_is_digit(int c);
 bool	ft_is_space(char c);
-bool    is_cap(t_xyz normal, t_xyz orientation);
 
 #endif

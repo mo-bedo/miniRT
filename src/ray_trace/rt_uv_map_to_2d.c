@@ -50,7 +50,7 @@ static t_uv	map_sphere_to_2d(t_object object)
 	return (uv);
 }
 
-// irisa.fr/prive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
+// irisa.fr/pnorive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
 static t_uv	map_cylinder_to_2d(t_object object)
 {
 	t_uv	uv;
@@ -61,7 +61,7 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	radius = subtract_vectors(object.center, object.intersect);
 	initialize_vector(&orientation, 0, 1, 0);
 	radius = rotate_vector(radius, orientation, object.orientation);
-	if (is_cap(object.normal, object.orientation))
+	if (object.is_cap)
 		return (map_plane_to_2d(object));
 	azimuthal_angle = atan2(radius.x, radius.z) + PI;
 	uv.u = 1 - (azimuthal_angle / (2 * PI));

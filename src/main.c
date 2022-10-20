@@ -43,8 +43,8 @@ static void	init(t_mlx	*mlx)
 	mlx->selected_object = -1;
 	mlx->selected_action = -1;
 }
-
 #include <locale.h>
+
 void	print_time(char *action)
 {
 	clock_t			time;

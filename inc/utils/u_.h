@@ -24,7 +24,7 @@
 void	ft_putstr(char *s);
 void	*ft_calloc(size_t count, size_t size);
 t_xyz	convert_2d_canvas_to_3d_coordinates(t_camera camera, int x, int y);
-void	initialize_quaternion(t_wxyz *q, float w, float x, float y, float z);
+void	initialize_quaternion(t_wxyz *q, float w, t_xyz vector);
 t_wxyz	multiply_quaternion(t_wxyz q1, t_wxyz q2);
 
 #endif

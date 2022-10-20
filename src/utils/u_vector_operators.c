@@ -29,7 +29,6 @@ t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 	return (add);
 }
 
-
 // A negative vector simply reverses the factor.
 //  AC  =    A-->-->-->-->--C
 //	-AC = 	 A--<--<--<--<--C

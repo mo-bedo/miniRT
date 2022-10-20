@@ -1,10 +1,10 @@
 B   160,220,220
-C   0,4,-5 		0,-0.6,1 	180
+C   0,4,-5 		0,-0.5,1 	180
 A   0.2 				    	        255,255,255
 L   5,5,-5 		0.8						255,255,255
-sp -3,1,2		2						160,220,220		1000	0.8 maps/texture/bark.ppm maps/bump/bark.ppm
-# co  0,1,0		0,1,0		2		3	160,180,220		0		0.0	#maps/texture/gravel.ppm maps/bump/gravel.ppm
-# cy  3,1,2		0.5,1,-1	1.5		4	0,40,140		0		0.4	maps/texture/gravel.ppm maps/bump/gravel.ppm
-# pl  0,0,0 		0,1,0					25,50,100		500		0.4 maps/texture/tiles.ppm maps/bump/tiles.ppm
+sp -3,2,2		4						160,220,220		0   	0.2 maps/texture/earth_small.ppm maps/bump/earth_small.ppm
+# co  0,1,0		0,1,0		2		3	160,180,220		0		0.2	maps/texture/gravel_small.ppm maps/bump/gravel_small.ppm
+cy  3,1,2		0,1,0	    1.5		6	0,40,140		0		0.0	maps/texture/bark_small.ppm maps/bump/bark_small.ppm
+pl  0,0,0 		0,1,0					25,50,100		0		0.2 maps/texture/gravel_small.ppm maps/bump/gravel_small.ppm
+pl  0,0,5 		0,0,-1					25,50,100		0		0.4 maps/texture/tiles_small.ppm maps/bump/tiles_small.ppm
 
-# sp -4,1,5		2						160,220,220		1000	0.8 maps/texture/bark.ppm maps/bump/bark_normal.ppm

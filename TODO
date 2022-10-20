@@ -1,9 +1,7 @@
 # NOG VERWERKEN UIT SUBJECT
-- bumpmap: cylinder & cone
+- Niets!
 
 # TO DO
-- textures: cylinder & cone
-- extra textures/bump maps importeren
 - sneller maken: normal pas berekenen als object het meest dichtbij is
 - sneller maken: threading
 - sneller maken: herkennen als bump/texturemap al ingeladen is (parsing gedeelte)
@@ -13,8 +11,9 @@
 - we includen float.h mag dat?
 
 # BUGS
-gi- checkerboard cap van cylinder/cone werkt soms niet
-- user_input: eerste klik wordt (soms?) genegeerd?
+- soms verdwijnt object uit beeld?
+- ps_parse_textures_utils.c: waarom moet height keer 10 in allocate_map(int width, int height) ?
+- ui_.c: als je rotation_speed = PI / 4; veranderd in rotation_speed = PI / 8; gebeurt er soms iets raars met het draaien van de camera
 
 # WRITE TESTS FOR:
 # parser

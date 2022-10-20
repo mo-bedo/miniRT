@@ -31,9 +31,9 @@ static void	compute_normal(t_object *object)
 	if (object->type != NONE && object->bump)
 	{
 		bump = get_uv_pattern(BUMP_MAP, *object);
-		object->normal.x += BUMP_SCALE * bump.x;
-		object->normal.y += BUMP_SCALE * bump.x;
-		object->normal.z += BUMP_SCALE * bump.x;
+		object->normal.x += bump.x;
+		object->normal.y += bump.y;
+		object->normal.z += bump.z;
 	}
 	normalize_vector(&object->normal);
 }

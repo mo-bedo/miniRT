@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 // goede uitleg!
 //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
 
@@ -24,15 +21,6 @@
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
 
-// static	t_xyz	get_normal_vector(t_xyz vector)
-// {
-// 	float	magnitude;
-
-// 	magnitude = get_vector_length(vector);
-// 	vector = divide_vector(vector, magnitude);
-// 	return (vector);
-// }
-
 /*
 			  \    /
 			   \  /
@@ -42,7 +30,7 @@
 			  /    \
 	Computes t values for a infinite mirrored cone
 */
-static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction, 
+static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 		t_xyz cone_orientation,	float theta, t_xyz c_o)
 {
 	float	a;
@@ -54,13 +42,13 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
 	theta = 1 + theta * theta;
-	a = get_dot_product(ray_direction, ray_direction) - (theta) *
-				pow(get_dot_product(ray_direction, cone_orientation), 2);
-	b = 2 * (get_dot_product(ray_direction, c_o) - (theta) * 
-				get_dot_product(ray_direction, cone_orientation) * 
-				get_dot_product(c_o, cone_orientation)); 
-	c = get_dot_product(c_o, c_o) - (theta) * 
-				pow(get_dot_product(c_o, cone_orientation), 2.0);
+	a = get_dot_product(ray_direction, ray_direction) - (theta)
+		* pow(get_dot_product(ray_direction, cone_orientation), 2);
+	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
+			* get_dot_product(ray_direction, cone_orientation)
+			* get_dot_product(c_o, cone_orientation));
+	c = get_dot_product(c_o, c_o) - (theta)
+		* pow(get_dot_product(c_o, cone_orientation), 2.0);
 	discriminant = pow(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
@@ -82,12 +70,12 @@ static float	check_cone_top_bottom(t_ray ray, t_object cone, float t)
 
 	if (t <= 0 || t == RAY_T_MAX)
 		return (RAY_T_MAX);
-	cone_tip = add_vectors(cone.center, multiply_vector(
-			get_negative_vector(cone.orientation), cone.height));
+	cone_tip = add_vectors(cone.center, multiply_vector(get_negative_vector(
+					cone.orientation), cone.height));
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	if ((get_dot_product(cone.orientation, 
-			subtract_vectors(intersect, cone_tip)) > 0.0) && (get_dot_product(
-				cone.orientation, subtract_vectors(intersect, cone.center)) < 0.0))
+	if ((get_dot_product(cone.orientation, subtract_vectors(intersect,
+					cone_tip)) > 0.0) && (get_dot_product(cone.orientation,
+				subtract_vectors(intersect, cone.center)) < 0.0))
 		return (t);
 	return (RAY_T_MAX);	
 }
@@ -121,23 +109,21 @@ float	get_intersect_with_cap_planes_cones(t_ray ray, t_object cylinder)
 	 |____\
         r
 	To get theta we simple use tan = r / h, since we know height and radius
-	
 	so theta = tanˆ-1(r/h)
-	
-	In the first line we reset to center, so it's located at the 'bottom' 
-	cap center. 
+	In the first line we reset to center, so it's located at the 'bottom'
+	cap center.
 */
 static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 {
 	t_t4	t;
 	t_xyz	c_o;
-	
-	cone.center = add_vectors(cone.center, 
-				multiply_vector(cone.orientation, cone.height / 2));
+
+	cone.center = add_vectors(cone.center,
+			multiply_vector(cone.orientation, cone.height / 2));
 	c_o = subtract_vectors(ray.origin, cone.center);
-	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation, 
+	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
 				atan(cone.radius / cone.height), c_o);
-	t.t1 = check_cone_top_bottom(ray, cone, t.t1);		
+	t.t1 = check_cone_top_bottom(ray, cone, t.t1);
 	t.t2 = check_cone_top_bottom(ray, cone, t.t2);
 	cone.center = add_vectors(cone.center, multiply_vector(
 				get_negative_vector(cone.orientation), cone.height / 2));
@@ -170,37 +156,33 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone)
 
 	We get there by calculating the lenght of the axis up to the point at the 
 	same height as the intersect (axis_to_intersect) by using 
-	
 	cos(theta) = axis_to_intersect / tip_to_intersect,
-	 
 	Since we know theta and tip_to_intersect we can get axis_to_intersect.
-
 	axis_to_intersect = cos(theta) * tip_to_intersect
 */
 static void	compute_cone_normal(t_ray ray, t_object *cone, float t, float theta)
 {
-
 	t_xyz	cone_tip;
 	float	tip_to_intersect;
-	float 	axis_to_intersect;
+	float	axis_to_intersect;
 	t_xyz	axis_intersect;
-	
-	cone->intersect = add_vectors(ray.origin, multiply_vector(ray.direction, 
-						t));
+
+	cone->intersect = add_vectors(ray.origin,
+			multiply_vector(ray.direction, t));
 	cone_tip = add_vectors(cone->center, multiply_vector(
-			get_negative_vector(cone->orientation), cone->height));
-	tip_to_intersect = get_vector_length(subtract_vectors(cone->intersect, 
-						cone_tip));
+				get_negative_vector(cone->orientation), cone->height));
+	tip_to_intersect = get_vector_length(
+			subtract_vectors(cone->intersect, cone_tip));
 	axis_to_intersect = tip_to_intersect * cos(theta);
-	axis_intersect = add_vectors(cone_tip, multiply_vector(cone->orientation, 
-						axis_to_intersect));
+	axis_intersect = add_vectors(cone_tip, multiply_vector(cone->orientation,
+				axis_to_intersect));
 	cone->normal = subtract_vectors(cone->intersect, axis_intersect);
 }
 
 /*
 				/|\
 		       / | \
-			  /  |  \	
+			  /  |  \
 			 /   |   \	
 		    /    |c   \			c = cone center
 		   /     |     \	
@@ -211,16 +193,17 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 {
 	t_t4	t;
 	float	smallest_t;
-	
-	// cone->height *= 2;
+
 	t = compute_t_for_cone(ray, *cone);
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)
 	{
 		cone->normal = cone->orientation;
+		cone->is_cap = true;
 		return (t.t3);
 	}
 	else
-		compute_cone_normal(ray, cone, smallest_t, atan(cone->radius / cone->height));
+		compute_cone_normal(ray, cone, smallest_t,
+			atan(cone->radius / cone->height));
 	return (smallest_t);
 }

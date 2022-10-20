@@ -35,7 +35,7 @@
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
 # define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
 # define MAX_OBJECTS 100
-# define PLANE_MAP_SCALE 20
+# define PLANE_MAP_SCALE 100
 
 // IMAGE
 typedef struct s_img
@@ -68,6 +68,12 @@ typedef struct s_uv
 	float		u;
 	float		v;
 }	t_uv;
+
+typedef struct s_xy
+{
+	int		x;
+	int		y;
+}	t_xy;
 
 // CAMERA
 typedef struct s_camera {
@@ -106,6 +112,7 @@ typedef struct s_object
 	t_xyz		color;
 	float		specular;
 	float		reflective;
+	bool		is_cap;
 	bool		checkerboard;
 	bool		texture;
 	t_map		texture_map;
@@ -146,8 +153,7 @@ enum e_values{
 	CONE				= 4,
 	CHECKERS			= 0,
 	TEXTURE				= 1,
-	BUMP_MAP			= 2,
-	BUMP_SCALE			= 30
+	BUMP_MAP			= 2
 };
 
 void	error_message_and_exit(char *message);

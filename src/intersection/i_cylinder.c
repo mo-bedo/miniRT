@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   i_cylinder.c                                       :+:      :+:    :+:   */
@@ -150,7 +150,10 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	t.t4 = get_intersect_with_cap_planes(ray, *cylinder, 1);
 	t = check_t_values(t);
 	if (ft_min_float(t.t1, t.t2) > ft_min_float(t.t3, t.t4))
+	{
+		cylinder->is_cap = true;
 		cylinder->normal = cylinder->orientation;
+	}
 	else
 		get_cylinder_normal(ray, cylinder, t);
 	return (ft_min_float(ft_min_float(t.t1, t.t2), ft_min_float(t.t3, t.t4)));

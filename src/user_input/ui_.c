@@ -42,7 +42,7 @@ static void	rotate_camera(t_mlx *mlx, int keycode)
 	if (keycode == DOWN || keycode == UP)
 		initialize_vector(&orientation, 1, 0, 0);
 	mlx->camera.orientation = rotate_vector_by_angle(mlx->camera.orientation,
-				orientation, angle);
+			orientation, angle);
 	ray_trace(mlx);
 }
 
@@ -75,7 +75,7 @@ static int	key_hook(int keycode, t_mlx *mlx)
 
 	id = mlx->selected_object;
 	if (id < 0 && (keycode == LEFT || keycode == RIGHT
-		|| keycode == DOWN || keycode == UP))
+			|| keycode == DOWN || keycode == UP))
 		rotate_camera(mlx, keycode);
 	if (id >= 0)
 	{

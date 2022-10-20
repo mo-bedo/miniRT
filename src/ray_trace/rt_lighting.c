@@ -98,7 +98,7 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 
 void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 {
-	t_ray	light_ray;
+	t_ray	r;
 	t_xyz	intensity;
 	int		i;
 
@@ -106,15 +106,15 @@ void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 	i = -1;
 	while (++i < mlx->light_count)
 	{
-		light_ray.origin = object->intersect;
-		light_ray.direction = subtract_vectors(mlx->light[i].origin, object->intersect);
-		light_ray.origin = add_vectors(light_ray.origin, multiply_vector(light_ray.direction, 1.0001));		
-		if (light_is_blocked_by_another_object(*mlx, light_ray))
+		r.origin = object->intersect;
+		r.direction = subtract_vectors(mlx->light[i].origin, object->intersect);
+		r.origin = add_vectors(r.origin, multiply_vector(r.direction, 1.0001));
+		if (light_is_blocked_by_another_object(*mlx, r))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(
-					object->normal, light_ray, mlx->light[i].color));
+					object->normal, r, mlx->light[i].color));
 		intensity = add_vectors(intensity, compute_specular_reflection(
-					light_ray, view, *object, mlx->light[i].color));
+					r, view, *object, mlx->light[i].color));
 	}
 	if (object->checkerboard)
 		object->color = get_uv_pattern(CHECKERS, *object);
