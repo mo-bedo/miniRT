@@ -81,7 +81,7 @@ float	get_intersect_with_cap_planes(t_ray ray, t_object cylinder, float flag)
 			multiply_vector(ray.direction, t));
 	capcenter_to_intersect = get_vector_length(
 			subtract_vectors(plane_intersect, cap.center));
-	if ((t < 0) || (capcenter_to_intersect > cylinder.radius))
+	if ((t < RAY_T_MIN) || (capcenter_to_intersect > cylinder.radius))
 		t = RAY_T_MAX;
 	return (t);
 }
