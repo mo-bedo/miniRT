@@ -44,10 +44,10 @@ t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal)
 static t_xyz	compute_diffuse_reflection(t_xyz normal,
 	t_ray light_ray, t_xyz color)
 {
-	double	denominator;
-	double	divisor;
+	float	denominator;
+	float	divisor;
 	t_xyz	intensity;
-	double	diffuse_reflection;
+	float	diffuse_reflection;
 
 	initialize_vector(&intensity, 0, 0, 0);
 	denominator = get_dot_product(normal, light_ray.direction);
@@ -75,10 +75,10 @@ static t_xyz	compute_diffuse_reflection(t_xyz normal,
 static t_xyz	compute_specular_reflection(t_ray light_ray,
 	t_xyz view, t_object object, t_xyz color)
 {
-	double	denominator;
-	double	divisor;
+	float	denominator;
+	float	divisor;
 	t_xyz	reflection;
-	double	specular_reflection;
+	float	specular_reflection;
 	t_xyz	intensity;
 
 	initialize_vector(&intensity, 0, 0, 0);
@@ -109,6 +109,8 @@ void	compute_lighting(t_object *object, t_mlx *mlx, t_xyz view)
 		light_ray.origin = object->intersect;
 		light_ray.direction = subtract_vectors(
 				mlx->light[i].origin, object->intersect);
+		normalize_vector(&light_ray.direction);		
+		light_ray.origin = add_vectors(light_ray.origin, multiply_vector(light_ray.direction, 1.0001));		
 		if (light_is_blocked_by_another_object(*mlx, light_ray))
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(

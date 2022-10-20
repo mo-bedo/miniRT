@@ -56,8 +56,8 @@ int	ft_atoi(const char *str)
 float	ft_atof(const char *str)
 {
 	int		polarity;
-	double	nbr;
-	double	i;
+	float	nbr;
+	float	i;
 
 	nbr = 0;
 	i = 0;
@@ -73,11 +73,11 @@ float	ft_atof(const char *str)
 		while (*str >= '0' && *str <= '9')
 		{
 			i++;
-			nbr += (double)((*str++ - '0') / pow(10, i));
+			nbr += (float)((*str++ - '0') / pow(10, i));
 		}
 	}
 	if (i > 6 || nbr > FLT_MAX)
-		error_message_and_exit("Float overflow");
+		error_message_and_exit("float overflow");
 	nbr *= polarity;
 	return ((float)nbr);
 }

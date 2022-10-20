@@ -30,7 +30,6 @@
 static void	parse_camera(t_mlx *mlx, char *line)
 {
 	float	field_of_view;
-	t_xyz	orientation;
 
 	line++;
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
@@ -43,7 +42,7 @@ static void	parse_camera(t_mlx *mlx, char *line)
 static void	parse_lights(t_mlx *mlx, char *line)
 {
 	static int	i = 0;
-	double		brightness;
+	float		brightness;
 	t_xyz		color;
 
 	if (str_is_equal(line, "A", 1))
