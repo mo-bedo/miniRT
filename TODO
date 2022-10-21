@@ -6,6 +6,9 @@
 - sneller maken: threading
 - sneller maken: herkennen als bump/texturemap al ingeladen is (parsing gedeelte)
 - foutmelding als texture file niet bestaat
+- PPM6 omzetten naar PPM3
+- cone fixen
+- normproof
 
 # ONDUIDELIJK
 - we includen float.h mag dat?

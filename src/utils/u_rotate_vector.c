@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/05 20:08:42 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/21 13:42:25 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static t_xyz	get_orthogonal(t_xyz vec)
 	float	z;
 	t_xyz	basis_vector;
 
-	x = abs(vec.x);
-	y = abs(vec.y);
-	z = abs(vec.z);
+	x = fabsf(vec.x);
+	y = fabsf(vec.y);
+	z = fabsf(vec.z);
 	if (x < y && x < z)
 		initialize_vector(&basis_vector, 1, 0, 0);
 	if (y < x && y < z)
