@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:08:23 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/17 17:30:36 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
 
+#include "main.h"
 #include "parse_scene/ps_.h"
 #include "parse_scene/ps_utils.h"
-#include "main.h"
 #include "ray_trace/rt_.h"
 #include "user_input/ui_.h"
 #include "utils/u_.h"
@@ -43,8 +43,8 @@ static void	init(t_mlx	*mlx)
 	mlx->selected_object = -1;
 	mlx->selected_action = -1;
 }
-
 #include <locale.h>
+
 void	print_time(char *action)
 {
 	clock_t			time;

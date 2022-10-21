@@ -15,8 +15,8 @@
 
 # include "main.h"
 
-int	ft_strlen(char *s);
-int	ft_is_digit(int c);
-int	ft_is_space(char c);
+int		ft_strlen(char *s);
+bool	ft_is_digit(int c);
+bool	ft_is_space(char c);
 
 #endif

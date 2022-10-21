@@ -1,19 +1,22 @@
 # NOG VERWERKEN UIT SUBJECT
-- cone toevoegen
-- checkerboard: cylinder & cone
-- bumpmap: cylinder & cone
+- Niets!
 
 # TO DO
-- textures: cylinder & cone
-- extra textures/bump maps importeren
-- sneller maken
+- sneller maken: normal pas berekenen als object het meest dichtbij is
+- sneller maken: threading
+- sneller maken: herkennen als bump/texturemap al ingeladen is (parsing gedeelte)
 - foutmelding als texture file niet bestaat
+- PPM6 omzetten naar PPM3
+- cone fixen
+- normproof
 
 # ONDUIDELIJK
 - we includen float.h mag dat?
 
 # BUGS
-- user_input: eerste klik wordt (soms?) genegeerd?
+- soms verdwijnt object uit beeld?
+- ps_parse_textures_utils.c: waarom moet height keer 10 in allocate_map(int width, int height) ?
+- ui_.c: als je rotation_speed = PI / 4; veranderd in rotation_speed = PI / 8; gebeurt er soms iets raars met het draaien van de camera
 
 # WRITE TESTS FOR:
 # parser

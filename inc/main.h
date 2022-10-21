@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.h                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:16:53 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/17 17:33:43 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@
 # define WINDOW_HEIGHT 480
 // # define WINDOW_WIDTH 1280
 // # define WINDOW_HEIGHT 960
+// # define WINDOW_WIDTH 1920
+// # define WINDOW_HEIGHT 1080
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
 # define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
 # define MAX_OBJECTS 100
-# define PLANE_MAP_SCALE 20
+# define PLANE_MAP_SCALE 100
 
 // IMAGE
 typedef struct s_img
@@ -46,6 +48,14 @@ typedef struct s_img
 }	t_img;
 
 // COORDINATES
+typedef struct s_wxyz
+{
+	float		w;
+	float		x;
+	float		y;
+	float		z;
+}	t_wxyz;
+
 typedef struct s_xyz
 {
 	float		x;
@@ -59,10 +69,16 @@ typedef struct s_uv
 	float		v;
 }	t_uv;
 
+typedef struct s_xy
+{
+	int		x;
+	int		y;
+}	t_xy;
+
 // CAMERA
 typedef struct s_camera {
 	t_xyz		center;
-	t_xyz		rotation_angles;
+	t_xyz		orientation;
 	float		canvas_distance;
 }	t_camera;
 
@@ -96,13 +112,14 @@ typedef struct s_object
 	t_xyz		color;
 	float		specular;
 	float		reflective;
+	bool		is_cap;
 	bool		checkerboard;
 	bool		texture;
 	t_map		texture_map;
 	bool		bump;
 	t_map		bump_map;
 	t_xyz		intersect;
-	double		t;
+	float		t;
 	int			id;
 	t_xyz		normal;
 }	t_object;
@@ -136,15 +153,17 @@ enum e_values{
 	CONE				= 4,
 	CHECKERS			= 0,
 	TEXTURE				= 1,
-	BUMP_MAP			= 2,
-	BUMP_SCALE			= 30
+	BUMP_MAP			= 2
 };
 
 void	error_message_and_exit(char *message);
 void	print_time(char *action);
 
 #endif				// MAIN_H
+
+// convert to ppm
+// mogrify -format ppm name.png
 // resize image;
-// convert earth.ppm -resize 300x150 earth_small.ppm
+// convert name.ppm -resize 300x150 name.ppm
 // convert P6 to P3
-// convert earth_small.ppm -compress none earth_small.ppm
+// convert name.ppm -compress none name.ppm

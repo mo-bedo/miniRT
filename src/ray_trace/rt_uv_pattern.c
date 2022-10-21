@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "ray_trace/rt_uv_map_to_2d.h"
@@ -26,15 +27,15 @@ static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 	tiles = 4;
 	uv.u *= tiles;
 	uv.v *= tiles;
-	if (object.type == SPHERE || object.type == CYLINDER)
+	if (object.type == SPHERE || object.type == CYLINDER || object.type == CONE)
 	{
-		if (!(object.normal.x == object.orientation.x
-		&& object.normal.z == object.orientation.z
-		&& (object.normal.y == object.orientation.y
-			|| object.normal.y == -object.orientation.y)))
+		if (!object.is_cap)
 		{
 			uv.u *= tiles;
-			uv.v *= tiles / 2;
+			if (object.type == SPHERE)
+				uv.v *= tiles / 2;
+			else
+				uv.v *= tiles;
 		}
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
@@ -42,50 +43,56 @@ static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 	return (object.color);
 }
 
-static t_xyz	image_color_at(t_uv uv, t_object object)
+static t_xy	translate_to_flat_surface(t_uv uv, t_map map)
 {
-	int	x;
-	int	y;
+	t_xy	xy;
 
-	x = (int)((uv.u) * (object.texture_map.width - 1));
-	y = (int)((uv.v) * (object.texture_map.height - 1));
-	if (object.type == PLANE)
-	{
-		x = (int)(uv.u * PLANE_MAP_SCALE);
-		y = (int)(uv.v * PLANE_MAP_SCALE);
-		if (x < 0)
-			x *= -1;
-		while (x >= (int)object.texture_map.width)
-			x -= (int)object.texture_map.width;
-		if (y < 0)
-			y *= -1;
-		while (y >= (int)object.texture_map.height)
-			y -= (int)object.texture_map.height;
-	}
-	return (object.texture_map.map[y][x]);
+	xy.x = (int)(uv.u * PLANE_MAP_SCALE);
+	xy.y = (int)(uv.v * PLANE_MAP_SCALE);
+	if (xy.x < 0)
+		xy.x *= -1;
+	while (xy.x >= (int)map.width)
+		xy.x -= (int)map.width;
+	if (xy.y < 0)
+		xy.y *= -1;
+	while (xy.y >= (int)map.height)
+		xy.y -= (int)map.height;
+	return (xy);
 }
 
+static t_xyz	image_color_at(t_uv uv, t_object object)
+{
+	t_xy	xy;
+
+	if (object.is_cap)
+		xy = translate_to_flat_surface(uv, object.texture_map);
+	else
+	{
+		xy.x = (int)((uv.u) * (object.texture_map.width - 1));
+		xy.y = (int)((uv.v) * (object.texture_map.height - 1));
+	}
+	return (object.texture_map.map[xy.y][xy.x]);
+}
+
+// devide vector by 255 so we get a value between 0 and 1
+// substract 0.5 so we get a value between -0.5 and 0.5
 static t_xyz	bump_map_at(t_uv uv, t_object object)
 {
-	int	x;
-	int	y;
+	t_xy	xy;
+	t_xyz	bump;
 
-	x = (int)((uv.u) * (object.bump_map.width - 1));
-	y = (int)((uv.v) * (object.bump_map.height - 1));
-	if (object.type == PLANE)
+	if (object.is_cap)
+		xy = translate_to_flat_surface(uv, object.bump_map);
+	else
 	{
-		x = (int)(uv.u * PLANE_MAP_SCALE);
-		y = (int)(uv.v * PLANE_MAP_SCALE);
-		if (x < 0)
-			x *= -1;
-		while (x >= (int)object.bump_map.width)
-			x -= (int)object.bump_map.width;
-		if (y < 0)
-			y *= -1;
-		while (y >= (int)object.bump_map.height)
-			y -= (int)object.bump_map.height;
+		xy.x = (int)((uv.u) * (object.bump_map.width - 1));
+		xy.y = (int)((uv.v) * (object.bump_map.height - 1));
 	}
-	return (divide_vector(object.bump_map.map[y][x], (float)MAX_COLOR));
+	bump = divide_vector(object.bump_map.map[xy.y][xy.x], (float)MAX_COLOR);
+	bump.x -= 0.5;
+	bump.y -= 0.5;
+	bump.z -= 0.5;
+	return (bump);
 }
 
 t_xyz	get_uv_pattern(int pattern, t_object object)

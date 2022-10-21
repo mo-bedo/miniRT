@@ -31,14 +31,14 @@ static void	compute_normal(t_object *object)
 	if (object->type != NONE && object->bump)
 	{
 		bump = get_uv_pattern(BUMP_MAP, *object);
-		object->normal.x += BUMP_SCALE * bump.x;
-		object->normal.y += BUMP_SCALE * bump.x;
-		object->normal.z += BUMP_SCALE * bump.x;
+		object->normal.x += bump.x;
+		object->normal.y += bump.y;
+		object->normal.z += bump.z;
 	}
 	normalize_vector(&object->normal);
 }
 
-static double	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
+static float	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 {
 	if (mlx->object[i].type == PLANE)
 		return (get_intersection_ray_plane(ray, mlx->object[i]));
@@ -56,7 +56,7 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray, float max_distance)
 {
 	t_object	closest_object;
 	int			i;
-	double		t;
+	float		t;
 
 	t = RAY_T_MAX;
 	i = 0;

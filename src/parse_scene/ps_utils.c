@@ -55,7 +55,10 @@ float	parse_float(char **str, int min, int max)
 
 	number = ft_atof(*str);
 	if (number < min || number > max)
+	{
+		DEBUG_FLOAT(number);
 		error_message_and_exit("Float value input error");
+	}
 	skip_chars_of_parsed_number(str);
 	return (number);
 }
@@ -79,5 +82,6 @@ t_xyz	parse_orientation(char **str)
 	xyz.z = parse_float(str, MIN_3D, MAX_3D);
 	if (xyz.x == 0 && xyz.y == 0 && xyz.z == 0)
 		error_message_and_exit("Orientation vector cannot be 0,0,0");
+	normalize_vector(&xyz);
 	return (xyz);
 }

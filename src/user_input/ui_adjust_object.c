@@ -74,27 +74,22 @@ static void	adjust_scale(t_mlx *mlx, int id, int keycode)
 
 static void	rotate_object(t_mlx *mlx, int id, int keycode)
 {
-	t_xyz	rotation_angles;
 	float	rotation_speed;
+	float	angle;
+	t_xyz	orientation;
 
-	rotation_speed = 0.3;
-	initialize_vector(&rotation_angles, 0, 0, 0);
-	if (keycode == LEFT)
-		rotation_angles.y = -rotation_speed;
-	if (keycode == RIGHT)
-		rotation_angles.y = rotation_speed;
-	if (keycode == UP)
-		rotation_angles.x = rotation_speed;
-	if (keycode == DOWN)
-		rotation_angles.x = -rotation_speed;
-	if (keycode == LEFT || keycode == RIGHT
-		|| keycode == DOWN || keycode == UP)
-	{
-		mlx->object[id].orientation = rotate_vector(
-				mlx->object[id].orientation, rotation_angles);
-		normalize_vector(&mlx->object[id].orientation);
-		ray_trace(mlx);
-	}
+	rotation_speed = PI / 6;
+	if (keycode == LEFT || keycode == UP)
+		angle = -rotation_speed;
+	if (keycode == RIGHT || keycode == DOWN)
+		angle = rotation_speed;
+	if (keycode == LEFT || keycode == RIGHT)
+		initialize_vector(&orientation, 0, 1, 0);
+	if (keycode == DOWN || keycode == UP)
+		initialize_vector(&orientation, 0, 0, 1);
+	mlx->object[id].orientation = rotate_vector_by_angle(
+			mlx->object[id].orientation, orientation, angle);
+	ray_trace(mlx);
 }
 
 void	adjust_object(t_mlx *mlx, int id, int keycode)

@@ -17,32 +17,6 @@
 #include "parse_scene/ps_utils.h"
 #include "utils/u_.h"
 
-static t_xyz	get_angle_over_the_axes(t_xyz orientation)
-{
-	t_xyz	angles;
-	t_xyz	v1;
-	t_xyz	v2;
-
-	initialize_vector(&v1, 0, 0, 1);
-	initialize_vector(&v2, 0, orientation.y, orientation.z);
-	angles.x = get_angle_between_vectors(v1, v2);
-	if ((orientation.z >= 0 && orientation.y > 0)
-		|| (orientation.z < 0 && orientation.y < 0))
-		angles.x *= -1;
-	initialize_vector(&v2, orientation.x, 0, orientation.z);
-	angles.y = get_angle_between_vectors(v1, v2);
-	if ((orientation.z >= 0 && orientation.x < 0)
-		|| (orientation.z < 0 && orientation.x > 0))
-		angles.y *= -1;
-	angles.z = 0;
-	if (orientation.z < 0)
-	{
-		angles.y -= PI;
-		angles.z += PI;
-	}
-	return (angles);
-}
-
 // 					C
 // 
 // 
@@ -56,21 +30,18 @@ static t_xyz	get_angle_over_the_axes(t_xyz orientation)
 static void	parse_camera(t_mlx *mlx, char *line)
 {
 	float	field_of_view;
-	t_xyz	orientation;
 
 	line++;
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
-	orientation = parse_orientation(&line);
-	normalize_vector(&orientation);
+	mlx->camera.orientation = parse_orientation(&line);
 	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (PI / 180);
 	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2) * WINDOW_HEIGHT;
-	mlx->camera.rotation_angles = get_angle_over_the_axes(orientation);
 }
 
 static void	parse_lights(t_mlx *mlx, char *line)
 {
 	static int	i = 0;
-	double		brightness;
+	float		brightness;
 	t_xyz		color;
 
 	if (str_is_equal(line, "A", 1))

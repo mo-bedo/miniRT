@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   i_cylinder.c                                       :+:      :+:    :+:   */
@@ -30,7 +30,6 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	t_xyz	intersect;
 	t_xyz	point_t;
 
-	normalize_vector(&cylinder->orientation);
 	t = ft_min_float(t_.t1, t_.t2);
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
 	t = get_dot_product(subtract_vectors(
@@ -38,7 +37,6 @@ static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
 	point_t = add_vectors(cylinder->center,
 			multiply_vector(cylinder->orientation, t));
 	cylinder->normal = subtract_vectors(intersect, point_t);
-	normalize_vector(&cylinder->normal);
 }
 
 //	ray : P(t) = P + V * t
@@ -100,7 +98,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 	t_xyz	vxab;
 	t_xyz	aoxab;
 	t_xyz	ao;
-	double	ab2;
+	float	ab2;
 	t_t4	t;
 
 	ao = subtract_vectors(ray.origin, cylinder.center);
@@ -122,7 +120,7 @@ static t_t4	create_infinite_cylinder(t_ray ray, t_object cylinder)
 // - t.t2 is bottom cap
 static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 {
-	double	max_len;
+	float	max_len;
 	t_xyz	intersect;
 	t_xyz	len;
 
@@ -152,7 +150,10 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	t.t4 = get_intersect_with_cap_planes(ray, *cylinder, 1);
 	t = check_t_values(t);
 	if (ft_min_float(t.t1, t.t2) > ft_min_float(t.t3, t.t4))
+	{
+		cylinder->is_cap = true;
 		cylinder->normal = cylinder->orientation;
+	}
 	else
 		get_cylinder_normal(ray, cylinder, t);
 	return (ft_min_float(ft_min_float(t.t1, t.t2), ft_min_float(t.t3, t.t4)));

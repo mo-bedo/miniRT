@@ -22,17 +22,17 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-int	ft_is_digit(int c)
+bool	ft_is_digit(int c)
 {
 	if (c && c >= '0' && c <= '9')
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
-int	ft_is_space(char c)
+bool	ft_is_space(char c)
 {
 	if (c && (c == ' ' || c == '\f' || c == '\n'
 			|| c == '\r' || c == '\t' || c == '\v'))
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }

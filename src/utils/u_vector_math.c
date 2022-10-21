@@ -15,7 +15,7 @@
 #include "main.h"
 #include "utils/u_vector_math.h"
 
-double	get_vector_length(t_xyz vector)
+float	get_vector_length(t_xyz vector)
 {
 	return (sqrt(get_dot_product(vector, vector)));
 }
@@ -25,7 +25,7 @@ double	get_vector_length(t_xyz vector)
 //  1 = same direction
 //  0 = at angle of 90 degrees
 // -1 = opposite direction
-double	get_dot_product(t_xyz v1, t_xyz v2)
+float	get_dot_product(t_xyz v1, t_xyz v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -33,27 +33,10 @@ double	get_dot_product(t_xyz v1, t_xyz v2)
 // normal vector or unit vector is de vector gedeeld door zijn eigen magnitude.
 void	normalize_vector(t_xyz *vector)
 {
-	double	magnitude;
+	float	magnitude;
 
 	magnitude = get_vector_length(*vector);
 	*vector = divide_vector(*vector, magnitude);
-}
-
-// 												-1
-// angle tussen 2 vectors berekenen je door cosˆ   (dot van vector_normal,
-// 													dot van vector_normal 2)
-// cos tot de macht -1 == acos()
-// if (angle != angle) checkt of er sprake is van NaN waarde
-double	get_angle_between_vectors(t_xyz v1, t_xyz v2)
-{
-	double	angle;
-
-	normalize_vector(&v1);
-	normalize_vector(&v2);
-	angle = get_dot_product(v1, v2);
-	if (angle != angle)
-		return (0);
-	return (acos(angle));
 }
 
 // cross product
@@ -69,4 +52,11 @@ t_xyz	get_cross_product(t_xyz v1, t_xyz v2)
 	cross.y = v1.z * v2.x - v1.x * v2.z;
 	cross.z = v1.x * v2.y - v1.y * v2.x;
 	return (cross);
+}
+
+void	initialize_vector(t_xyz *vector, float x, float y, float z)
+{
+	vector->x = x;
+	vector->y = y;
+	vector->z = z;
 }

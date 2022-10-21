@@ -40,7 +40,7 @@ char	*ft_strrchr(const char *s, int c)
 	return (0);
 }
 
-double	get_smallest_double(double a, double b)
+float	get_smallest_float(float a, float b)
 {
 	if (a < b)
 		return (a);

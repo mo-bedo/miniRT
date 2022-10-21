@@ -29,7 +29,6 @@ t_xyz	add_vectors(t_xyz v1, t_xyz v2)
 	return (add);
 }
 
-
 // A negative vector simply reverses the factor.
 //  AC  =    A-->-->-->-->--C
 //	-AC = 	 A--<--<--<--<--C
@@ -68,7 +67,7 @@ t_xyz	subtract_vectors(t_xyz v1, t_xyz v2)
 // multiplication of number and vector
 // multiplies the length of the vector
 // Vector A->C = 2 x Vector A->B
-t_xyz	multiply_vector(t_xyz vector, double number)
+t_xyz	multiply_vector(t_xyz vector, float number)
 {
 	vector.x *= number;
 	vector.y *= number;
@@ -83,9 +82,9 @@ t_xyz	multiply_vector(t_xyz vector, double number)
 // Vector A->B = Vector A->C / 2
 // 
 // omdat / veel meer rekenkracht kost dan * gebruken we hier een inverted number
-t_xyz	divide_vector(t_xyz vector, double number)
+t_xyz	divide_vector(t_xyz vector, float number)
 {
-	double	inverted_number;
+	float	inverted_number;
 
 	if (number == 0)
 		return (vector);
