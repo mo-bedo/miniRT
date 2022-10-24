@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/17 17:57:33 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/10/24 14:46:40 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 	t_xyz	height_vector;
 	t_xyz	tip;
 
-	height_vector = multiply_vector(c->orientation, c->height);
+	height_vector = multiply_vector(c->orientation, c->height / 2);
 	tip = add_vectors(c->center, get_negative_vector(height_vector));
 	c->intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
 	tip_to_intersect = get_vector_length(subtract_vectors(c->intersect, tip));
