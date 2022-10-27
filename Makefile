@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	false
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
@@ -27,7 +27,7 @@ endif
 
 SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=	
 
 # STATIC
 RM				:=	rm
@@ -70,6 +70,9 @@ OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 all				:	$(NAME)
 
 $(NAME)			: 	$(OBJ)
+					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
+
+cone			: 	$(OBJ)
 					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
