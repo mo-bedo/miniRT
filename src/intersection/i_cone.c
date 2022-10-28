@@ -41,6 +41,7 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
+	theta = 1 + (theta * theta);
 	a = get_dot_product(ray_direction, ray_direction) - (theta)
 		* pow(get_dot_product(ray_direction, orientation), 2);
 	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
@@ -57,7 +58,6 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	t.t2 = (-b + discriminant) / a;
 	return (t);
 }
-
 
 
 static bool		intersect_below_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz cone_tip)
@@ -82,6 +82,19 @@ static bool		intersect_above_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz
 		return (true);	
 }
 
+
+static void	make_t1_smallest(t_t4 *t)
+{
+	float	temp;
+
+	if (t->t1 > t->t2)
+	{
+		temp = t->t1;
+		t->t1 = t->t2;
+		t->t2 = t->t1;
+	}	
+}
+
 /*
 	Checks if intersect points are between the top and bottom of cone.
 	If yes, t = valid.
@@ -100,13 +113,7 @@ static t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
 	t_xyz	tip_to_intersect;
 	t_xyz	bottom_to_intersect;
 
-	float	swaps;
-	if (t.t1 > t.t2)
-	{
-		swaps = t.t1;
-		t.t1 = t.t2;
-		t.t2 = swaps;
-	}
+	make_t1_smallest(&t);
 	intersect_t1 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
 	intersect_t2 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
 	height_vector = multiply_vector(cone.orientation, cone.height);
@@ -138,15 +145,14 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta)
 	return (t);
 }
 
-float	get_intersect_with_cap_cone(t_ray ray, t_object cone, float scale)
+float	get_intersect_with_cap_cone(t_ray ray, t_object cone, float theta)
 {
 	t_object	cap;
 	t_xyz		intersect;
 	float		capcenter_to_intersect;
 	float		t;
 
-	scale = 1 + (scale *  scale * scale);
-	cone.radius /= scale;
+	cone.radius /= 1 + theta * theta * theta;
 	cap.orientation = cone.orientation;
 	cap.center = add_vectors(cone.center, multiply_vector(
 				cone.orientation, (cone.height / 2) * -1));
@@ -160,35 +166,24 @@ float	get_intersect_with_cap_cone(t_ray ray, t_object cone, float scale)
 }
 
 
-// /*
-// 				theta + cone_tip
-// 				/|\
-// 		       / | \
-// 			  /  |  \	
-// 			 /   |   \	
-// 		    /    |    \			
-// 		   /     |     \	
-// 		  /      \/d    \		d = cone orientation, so orientation points 
-// 		 /       |       \			from tip the bottom
-// 				c				c = cone center (is now at the bottom)
-	
-// 	To get the normal we need to calculate the point on the axis with the same 
-// 	height as the intersect(axis_intersect).  
-// 	Then it's just normal = intersect - axis_intersect
+/*
+ 	To get the normal we need to calculate the point on the axis with the same 
+ 	height as the intersect(axis_intersect).  
+ 	Then it's just normal = intersect - axis_intersect
 		
-// 						tip, theta		theta = atan(radius / heigth)
-// 						   /|
-// 	    tip_to_intersect  / | 			tip_to_intersect = ||tip - intersect||
-// 						 /  | axis_to_intersect	
-// 						/___|
-// 				intersect	 ?(axis_intersect)
+ 						tip, theta		theta = atan(radius / heigth)
+ 						   /|
+ 	    tip_to_intersect  / | 			tip_to_intersect = ||tip - intersect||
+ 						 /  | axis_to_intersect	
+ 						/___|
+ 				intersect	 ?(axis_intersect)
 
-// 	We get there by calculating the lenght of the axis up to the point at the 
-// 	same height as the intersect (axis_to_intersect) by using 
-// 	cos(theta) = axis_to_intersect / tip_to_intersect,
-// 	Since we know theta and tip_to_intersect we can get axis_to_intersect.
-// 	axis_to_intersect = cos(theta) * tip_to_intersect
-// */
+ 	We get there by calculating the lenght of the axis up to the point at the 
+ 	same height as the intersect (axis_to_intersect) by using 
+ 	cos(theta) = axis_to_intersect / tip_to_intersect,
+ 	Since we know theta and tip_to_intersect we can get axis_to_intersect.
+ 	axis_to_intersect = cos(theta) * tip_to_intersect
+*/
 static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 {
 	float	tip_to_intersect;
@@ -208,7 +203,6 @@ static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 }
 
 
-
 /*
 				/|\
 		       / | \
@@ -225,12 +219,10 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	t_t4	t;
 	float	smallest_t;
 	float	theta;
-	float	scale;
 
-	scale = atan(cone->radius / cone->height);
-	theta = 1 + (scale * scale);
+	theta = atan(cone->radius / cone->height);
 	t = compute_t_for_cone(ray, *cone, theta);
-	t.t3 = get_intersect_with_cap_cone(ray, *cone, scale);
+	t.t3 = get_intersect_with_cap_cone(ray, *cone, theta);
 	smallest_t = ft_min_float(t.t1, t.t2);
 	if (smallest_t > t.t3)
 	{
