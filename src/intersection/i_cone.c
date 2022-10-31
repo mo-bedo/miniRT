@@ -1,17 +1,17 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   i_cone.c                                           :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-// /*   Updated: 2022/10/24 14:46:40 by jbedaux          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   i_cone.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/10/31 10:17:48 by jbedaux          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// // goede uitleg!
-// //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
+// goede uitleg!
+//https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
 
 #include <math.h>
 
@@ -59,7 +59,6 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	return (t);
 }
 
-
 static bool		intersect_below_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz cone_tip)
 {
 	t_xyz	tip_to_intersect;
@@ -67,11 +66,11 @@ static bool		intersect_below_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz
 	tip_to_intersect = subtract_vectors(cone_tip, intersect);
 	if (get_dot_product(cone_orientation, tip_to_intersect) < 0)
 		return (false);
-	else 
-		return (true);	
+	else
+		return (true);
 }
 
-static bool		intersect_above_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz bottom_center)
+static bool	intersect_above_cone(t_xyz cone_orientation, t_xyz intersect, t_xyz bottom_center)
 {
 	t_xyz	bottom_to_intersect;
 
@@ -95,6 +94,27 @@ static void	make_t1_smallest(t_t4 *t)
 	}	
 }
 
+
+t_t4	intersect_above_below(t_xyz intersect_t1, t_xyz intersect_t2, t_object cone, t_xyz bottom_center, t_t4 t)
+{
+	t_xyz	cone_tip;
+
+	cone_tip = add_vectors(bottom_center, get_negative_vector(multiply_vector(
+										cone.orientation, cone.height)));
+	if (intersect_below_cone(cone.orientation, intersect_t1, cone_tip) 
+		|| intersect_above_cone(cone.orientation, intersect_t1, bottom_center))
+	{
+		t.t1 = RAY_T_MAX;
+		if (intersect_below_cone(cone.orientation, intersect_t2, cone_tip) 
+			|| intersect_above_cone(cone.orientation, intersect_t2, bottom_center))
+			t.t2 = RAY_T_MAX;
+	}
+	else if (!intersect_below_cone(cone.orientation, intersect_t1, cone_tip) &&
+		 !intersect_above_cone(cone.orientation, intersect_t1, bottom_center))
+		t.t2 = RAY_T_MAX;
+	return (t);
+}
+
 /*
 	Checks if intersect points are between the top and bottom of cone.
 	If yes, t = valid.
@@ -106,26 +126,13 @@ static void	make_t1_smallest(t_t4 *t)
 static t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
 	t_t4 t, t_xyz bottom_center)
 {
-	t_xyz	height_vector;
-	t_xyz	cone_tip;
 	t_xyz	intersect_t1;
 	t_xyz	intersect_t2;
-	t_xyz	tip_to_intersect;
-	t_xyz	bottom_to_intersect;
 
 	make_t1_smallest(&t);
 	intersect_t1 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
 	intersect_t2 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
-	height_vector = multiply_vector(cone.orientation, cone.height);
-	cone_tip = add_vectors(bottom_center, get_negative_vector(height_vector));
-	if (intersect_below_cone(cone.orientation, intersect_t1, cone_tip) || intersect_above_cone(cone.orientation, intersect_t1, bottom_center))
-	{
-		t.t1 = RAY_T_MAX;
-		if (intersect_below_cone(cone.orientation, intersect_t2, cone_tip) || intersect_above_cone(cone.orientation, intersect_t2, bottom_center))
-			t.t2 = RAY_T_MAX;
-	}
-	else if (!intersect_below_cone(cone.orientation, intersect_t1, cone_tip) && !intersect_above_cone(cone.orientation, intersect_t1, bottom_center))
-		t.t2 = RAY_T_MAX;
+	t = intersect_above_below(intersect_t1, intersect_t2, cone, bottom_center, t);	
 	return (t);
 }
 

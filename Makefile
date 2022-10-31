@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/10/21 13:41:57 by mweitenb      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
+#    Updated: 2022/10/31 10:00:33 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
