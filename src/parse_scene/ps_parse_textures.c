@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:21:50 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/02 15:55:32 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	parse_texture_map(t_map *map, char **line)
 
 	path = get_path(*line);
 	file_length = get_length_of_file(path);
-	DEBUG_INT(file_length);
+	// DEBUG_INT(file_length);
 	ppm_file = open(path, O_RDONLY);
 	free(path);
 	map_data = (char *)ft_calloc(sizeof(char), file_length);

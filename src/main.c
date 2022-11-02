@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:20:58 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/17 17:30:36 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/11/02 15:56:59 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ static void	init(t_mlx	*mlx)
 	mlx->selected_object = -1;
 	mlx->selected_action = -1;
 }
-#include <locale.h>
 
+#include <locale.h>
+# include <time.h>
+# include <stdio.h>
 void	print_time(char *action)
 {
 	clock_t			time;
