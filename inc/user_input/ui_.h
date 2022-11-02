@@ -6,14 +6,14 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/02 13:00:18 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/02 13:51:53 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UI__H
 # define UI__H
 
-enum e_key_codes{
+enum e_key_codes {
 	MOUSE_CLICK		= 1,
 	SCROLL_UP		= 4,
 	SCROLL_DOWN		= 5,

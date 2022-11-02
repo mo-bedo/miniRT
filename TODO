@@ -12,6 +12,7 @@
 
 # ONDUIDELIJK
 - we includen float.h mag dat?
+- -.6	geeft float error, hoort dat?
 
 # BUGS
 - bij rotation verdwijnen objecten

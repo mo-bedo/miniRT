@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/10/21 13:41:57 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/02 13:52:48 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,9 @@ OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 all				:	$(NAME)
 
 $(NAME)			: 	$(OBJ)
+					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
+
+cone			: 	$(OBJ)
 					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
 
 $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
