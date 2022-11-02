@@ -2,9 +2,16 @@ B   160,220,220
 C   0,4,-5 		0,-0.5,1 	180
 A   0.2 				    	        255,255,255
 L   5,5,-5 		0.8						255,255,255
-sp -3,2,2		4						160,220,220		0   	0.2 maps/texture/earth.ppm maps/bump/earth.ppm
-# co  0,1,0		0,1,0		2		3	160,180,220		0		0.2	maps/texture/gravel_small.ppm maps/bump/gravel_small.ppm
-cy  3,1,2		0,1,0	    1.5		6	0,40,140		0		0.0	maps/texture/bark.ppm maps/bump/bark.ppm
-pl  0,0,0 		0,1,0					25,50,100		0		0.2 maps/texture/gravel.ppm maps/bump/gravel.ppm
+# sp -3,2,2		4						160,220,220		0   	0.2 maps/texture/earth.ppm maps/bump/earth.ppm
+# # co  0,1,0		0,1,0		2		3	160,180,220		0		0.2	maps/texture/gravel_small.ppm maps/bump/gravel_small.ppm
+# cy  3,1,2		0,1,0	    1.5		6	0,40,140		0		0.0	maps/texture/bark.ppm maps/bump/bark.ppm
+# pl  0,0,0 		0,1,0					25,50,100		0		0.2 maps/texture/gravel.ppm maps/bump/gravel.ppm
+# pl  0,0,5 		0,0,-1					25,50,100		0		0.4 maps/texture/tiles.ppm maps/bump/tiles.ppm
+
+# sp -3,2,2		4						160,220,220		0   	0.2 maps/texture/earth.ppm maps/bump/gravel.ppm
+# co  0,1,0		0,1,0		2		3	160,180,220		0		0.2	maps/texture/gravel.ppm maps/bump/gravel.ppm
+cy  3,1,2		0,1,0	    1.5		6	0,40,140		0		0.0	maps/texture/gravel.ppm maps/bump/gravel.ppm
+# pl  0,0,0 		0,1,0					25,50,100		0		0.4 maps/texture/gravel.ppm maps/bump/gravel.ppm
 pl  0,0,5 		0,0,-1					25,50,100		0		0.4 maps/texture/tiles.ppm maps/bump/tiles.ppm
 
+sp -3,2,2		4						0,40,140		0   	0.7 checkerboard
