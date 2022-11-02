@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/02 15:58:05 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/02 17:51:39 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-// # define DEBUG_STR(X) printf(#X" = %s\n", X);
-// # define DEBUG_INT(X) printf(#X" = %d\n", X);
-// # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
-// # define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
+# define DEBUG_STR(X) printf(#X" = %s\n", X);
+# define DEBUG_INT(X) printf(#X" = %d\n", X);
+# define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
+# define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
 
 # define PI 3.14159f
 # define RAY_T_MIN 0.0001f
