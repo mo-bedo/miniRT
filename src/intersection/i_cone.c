@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   i_cone.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/11/07 12:57:06 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   i_cone.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/11/07 13:55:17 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
 	t_xyz	intersect_1;
 	t_xyz	intersect_2;
 	t_xyz	cone_tip;
-	
+
 	intersect_1 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
 	intersect_2 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
 	cone_tip = add_vectors(bottom_center, get_negative_vector(multiply_vector(
@@ -169,8 +169,6 @@ static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 	t_xyz	tip;
 
 	height_vector = multiply_vector(c->orientation, c->height * 2);					//// waarom * 2 	?
-	
-	
 	tip = add_vectors(c->center, get_negative_vector(height_vector));
 	c->intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
 	tip_to_intersect = get_vector_length(subtract_vectors(c->intersect, tip));

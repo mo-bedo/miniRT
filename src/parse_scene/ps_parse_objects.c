@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ps_parse_objects.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:39:26 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/13 16:28:14 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ps_parse_objects.c                                 :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/11/07 13:55:01 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	parse_objects(t_mlx *mlx, char *line)
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
-	mlx->object[i].reflective
+	mlx->object[i].reflective 
 		= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
 	parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;

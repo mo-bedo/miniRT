@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:13:54 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 14:13:34 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ static void	rotate_object(t_mlx *mlx, int id, int keycode)
 		initialize_vector(&orientation, 0, 1, 0);
 	if (keycode == DOWN || keycode == UP)
 		initialize_vector(&orientation, 0, 0, 1);
-	mlx->object[id].orientation = rotate_vector_by_angle(
-			mlx->object[id].orientation, orientation, angle);
+	if (keycode == LEFT || keycode == RIGHT || keycode == DOWN || keycode == UP)
+		mlx->object[id].orientation = rotate_vector_by_angle(
+				mlx->object[id].orientation, orientation, angle);
 	ray_trace(mlx);
 }
 
