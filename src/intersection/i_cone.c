@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/11/07 12:57:06 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:18:47 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,184 @@
 #include "intersection/i_plane.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
+
+
+
+
+
+
+static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta);
+
+
+
+
+
+static t_t4	NEW_quadratic_formula_infinite_cone(t_xyz ray_direction,
+		t_xyz orientation,	float theta, t_xyz c_o)
+{
+	float	a;
+	float	b;
+	float	c;
+	float	discriminant;
+	t_t4	t;
+
+	t.t1 = RAY_T_MAX;
+	t.t2 = RAY_T_MAX;
+
+	// theta *= 2;
+
+	theta = (theta * theta);
+	a = pow(get_dot_product(ray_direction, orientation), 2) - (theta);
+//								(D . V)					 					(CO . V)		 -						D . CO				
+	b = 2 * (get_dot_product(ray_direction, orientation) * get_dot_product(c_o, orientation) - get_dot_product(ray_direction, c_o) * theta);
+	c = pow(get_dot_product(c_o, orientation), 2) - get_dot_product(c_o, c_o) * theta;
+	discriminant = pow(b, 2) - (4 * a * c);
+	if (discriminant < 0)
+		return (t);
+	a = 2 * a;
+	discriminant = sqrt(discriminant);
+	t.t1 = (-b - discriminant) / a;
+	t.t2 = (-b + discriminant) / a;
+	return (t);
+}
+
+t_t4 	NEW_compute_t_for_cone(t_ray ray, t_object cone, float theta)
+{
+	t_t4	t;
+	t_xyz	cone_tip;
+	t_xyz	cone_tip_to_origin;
+
+	cone_tip = add_vectors(cone.center,
+			multiply_vector(cone.orientation, - cone.height / 2));
+	cone_tip_to_origin = subtract_vectors(ray.origin, cone_tip);
+	t = NEW_quadratic_formula_infinite_cone(ray.direction, cone.orientation, theta, cone_tip_to_origin);
+	return (t);	
+}
+
+
+// t_t4 	get_intersect_with_cap_cone(t_ray ray, t_object cone, float theta)
+// {
+// 	t_t4	t;
+
+// 	return (t);
+// }
+
+
+t_xyz	return_normal_vector(t_xyz vector)
+{
+	float	magnitude;
+
+	magnitude = get_vector_length(vector);
+	vector = divide_vector(vector, magnitude);
+	return (vector);
+}
+
+
+//														
+// angle tussen 2 vectors (A en B) berekenen je door acos ((A . B) / (vector_length(A) * (vector_length(B)))
+// cos tot de macht -1 == acos()
+float	get_angle_between_vectors(t_xyz v1, t_xyz v2)
+{
+	float	unit_v1;
+	float	unit_v2;
+	float	angle;
+
+	unit_v1 = get_vector_length(v1);
+	unit_v2 = get_vector_length(v2);
+	angle = acos(get_dot_product(v1, v2) / (unit_v1 * unit_v2));
+	return (angle);
+}
+
+static t_ray	transpose_cone_ray(t_ray ray, t_xyz center)
+{
+	ray.origin = subtract_vectors(ray.origin, center);
+	return (ray);
+}
+
+
+
+// verschuif cone.center naar 0.0.0 punt op de as
+
+float	get_intersection_ray_cone(t_ray ray, t_object *cone)
+{
+	t_t4	t;
+	float	smallest_t;
+	float	theta;
+
+	t_xyz	save_cone_orientation = cone->orientation;
+	t_xyz	save_ray_direction = ray.direction;
+
+	
+	// ray = transpose_cone_ray(ray, cone->center);
+
+	t_xyz	y_axis;
+	
+	y_axis.x = 0;
+	y_axis.y = 1;
+	y_axis.z = 0;
+
+	float angle = get_angle_between_vectors(y_axis, cone->orientation);
+	// printf("%f\n", angle * (180 / PI));
+	// cone->orientation = rotate_vector(cone->orientation, y_axis,  cone->orientation);
+
+	cone->orientation = rotate_vector_by_angle(cone->orientation, y_axis, angle);
+	ray.direction = rotate_vector_by_angle(ray.direction, y_axis, angle);
+
+	theta = atan(cone->radius / cone->height);
+
+	
+	t = compute_t_for_cone(ray, *cone, theta);
+	// t = NEW_compute_t_for_cone(ray,  *cone, theta);
+	
+
+	cone->orientation = save_cone_orientation;
+	
+	
+
+	// t.t3 = get_intersect_with_cap_cone(ray, *cone, theta);
+	smallest_t = ft_min_float(t.t1, t.t2);
+	// if (smallest_t > t.t3)
+	// {
+	// 	cone->normal = cone->orientation;
+	// 	cone->is_cap = true;
+	// 	return (t.t3);
+	// }
+	// compute_cone_normal(ray, cone, smallest_t, theta);
+	return (smallest_t);
+}
+
+
+
+/*
+
+		PROBEREN
+
+		https://stackoverflow.com/questions/34157690/points-of-intersection-of-vector-with-cone
+		of
+		http://www.illusioncatalyst.com/notes_files/mathematics/line_cone_intersection.php
+		
+		'ray cone intersect'
+		
+
+*/
+
+
+
+
+
+
+
+
+
+//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////
+//////////////////////////																						//////////////////////////
+//////////////////////////									OUDE CODE											//////////////////////////
+//////////////////////////																						//////////////////////////
+//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////
+
+
+
+
 
 // goede uitleg!
 //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
@@ -193,22 +371,34 @@ static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta)
 if (smallest_t > t.t3)
 	this means the ray hits the cone on it's cap
 */
-float	get_intersection_ray_cone(t_ray ray, t_object *cone)
-{
-	t_t4	t;
-	float	smallest_t;
-	float	theta;
+// float	get_intersection_ray_cone(t_ray ray, t_object *cone)
+// {
+// 	t_t4	t;
+// 	float	smallest_t;
+// 	float	theta;
 
-	theta = atan(cone->radius / cone->height);
-	t = compute_t_for_cone(ray, *cone, theta);
-	t.t3 = get_intersect_with_cap_cone(ray, *cone, theta);
-	smallest_t = ft_min_float(t.t1, t.t2);
-	if (smallest_t > t.t3)
-	{
-		cone->normal = cone->orientation;
-		cone->is_cap = true;
-		return (t.t3);
-	}
-	compute_cone_normal(ray, cone, smallest_t, theta);
-	return (smallest_t);
-}
+// 	t_xyz	save_cone_orientation = cone->orientation;
+
+// 	t_xyz	y_axis;
+	
+// 	y_axis.x = 0;
+// 	y_axis.y = 1;
+// 	y_axis.z = 0;
+
+
+// 	cone->orientation = rotate_vector(cone->orientation, y_axis,  cone->orientation);
+
+
+// 	theta = atan(cone->radius / cone->height);
+// 	t = compute_t_for_cone(ray, *cone, theta);
+// 	t.t3 = get_intersect_with_cap_cone(ray, *cone, theta);
+// 	smallest_t = ft_min_float(t.t1, t.t2);
+// 	if (smallest_t > t.t3)
+// 	{
+// 		cone->normal = cone->orientation;
+// 		cone->is_cap = true;
+// 		return (t.t3);
+// 	}
+// 	compute_cone_normal(ray, cone, smallest_t, theta);
+// 	return (smallest_t);
+// }
