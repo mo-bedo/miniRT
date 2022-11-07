@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 13:55:01 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 16:45:01 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ void	parse_objects(t_mlx *mlx, char *line)
 		parse_cylinder(&mlx->object[i], &line);
 	if (str_is_equal(line, "co", 2))
 		parse_cone(&mlx->object[i], &line);
+	mlx->object[i].is_inside = false;
 	mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
-	mlx->object[i].reflective 
+	mlx->object[i].reflective
 		= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
 	parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;

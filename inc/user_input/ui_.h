@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/02 15:55:03 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 14:16:39 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ enum e_key_codes {
 	ESC				= 53
 };
 
+// LINUX:
 // enum e_key_codes{
 // 	MOUSE_CLICK		= 1,
 // 	SCROLL_UP		= 4,

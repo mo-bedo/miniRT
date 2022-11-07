@@ -1,5 +1,5 @@
 # NOG VERWERKEN UIT SUBJECT
-- Niets!
+- inside of objects
 
 # TO DO
 - sneller maken: normal pas berekenen als object het meest dichtbij is
@@ -8,6 +8,8 @@
 - PPM6 omzetten naar PPM3
 - cone fixen
 - normproof
+- cylinder checkerboard wordt soms raar gestretched
+- cone inside no reflections
 
 # ONDUIDELIJK
 - we includen float.h mag dat?

@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/02 15:56:59 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 14:43:40 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int argc, char **argv)
 	t_mlx		mlx;
 
 	print_time("start\t");
+	ft_putstr("\e[1;1H\e[2J");
 	init(&mlx);
 	parse_scene(&mlx, argc, argv[1]);
 	print_time("parse_scene");
