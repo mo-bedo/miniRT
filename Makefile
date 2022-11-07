@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/02 13:52:48 by mweitenb      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
+#    Updated: 2022/11/07 11:19:58 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,13 @@ ifeq ($(LINUX), true)
 CFLAGS 			:=  -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror 
 MLX				:= -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
 else
-CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
+CFLAGS			:= 	-Iinc -Imlx -O3 #-Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
 SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=	
 
 # STATIC
 RM				:=	rm
