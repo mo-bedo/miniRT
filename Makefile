@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
-#    Updated: 2022/10/31 10:00:33 by jbedaux          ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: jbedaux <jbedaux@student.codam.nl>           +#+                      #
+#                                                    +#+                       #
+#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
+#    Updated: 2022/11/02 13:52:48 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ endif
 
 SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm

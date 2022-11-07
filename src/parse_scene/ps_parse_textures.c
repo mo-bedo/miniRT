@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:21:50 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/02 18:02:22 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ static void	parse_ppm_file(t_map *map, char *data)
 	parse_texture_data(map, data);
 }
 
-static void	parse_texture_map(t_map *map, char **line)
+static bool	parse_texture_map(t_map *map, char **line)
 {
 	int		ppm_file;
 	int		file_length;
 	char	*path;
 	char	*map_data;
 
+	if (!(**line) || **line == '#')
+		return (false);
 	path = get_path(*line);
 	file_length = get_length_of_file(path);
 	DEBUG_INT(file_length);
@@ -70,6 +72,7 @@ static void	parse_texture_map(t_map *map, char **line)
 	while (**line && ft_is_space(**line))
 		*line += 1;
 	free(map_data);
+	return (true);
 }
 
 void	parse_textures(t_object *object, char **line)
@@ -80,16 +83,13 @@ void	parse_textures(t_object *object, char **line)
 	if (str_is_equal(*line, "checkerboard", 12))
 	{
 		object->checkerboard = true;
-		return ;
+		while (**line && !ft_is_space(**line))
+			*line += 1;
+		while (**line && ft_is_space(**line))
+			*line += 1;
 	}
-	if (str_is_equal(*line, "maps/texture/", 13))
-	{
-		parse_texture_map(&object->texture_map, line);
+	else if (parse_texture_map(&object->texture_map, line))
 		object->texture = true;
-	}
-	if (str_is_equal(*line, "maps/bump/", 10))
-	{
-		parse_texture_map(&object->bump_map, line);
+	if (parse_texture_map(&object->bump_map, line))
 		object->bump = true;
-	}
 }

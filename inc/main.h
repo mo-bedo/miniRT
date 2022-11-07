@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/31 09:58:41 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.h                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/11/02 17:51:39 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define MAIN_H
 
 # include <stdbool.h>
-
-# include <time.h>
 # include <stdio.h>
+
 # define DEBUG_STR(X) printf(#X" = %s\n", X);
 # define DEBUG_INT(X) printf(#X" = %d\n", X);
 # define DEBUG_FLOAT(X) printf(#X" = %f\n", X);

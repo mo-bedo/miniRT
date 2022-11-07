@@ -55,10 +55,7 @@ float	parse_float(char **str, int min, int max)
 
 	number = ft_atof(*str);
 	if (number < min || number > max)
-	{
-		DEBUG_FLOAT(number);
 		error_message_and_exit("Float value input error");
-	}
 	skip_chars_of_parsed_number(str);
 	return (number);
 }
