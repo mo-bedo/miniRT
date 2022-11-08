@@ -24,6 +24,10 @@
 # define PI 3.14159f
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
+# define ADJUSTMENT_SIZE 0.2f
+# define ADJUSTMENT_SCALE 1.2f
+# define MIN_OBJECT_SIZE 0.1f
+
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
@@ -153,7 +157,10 @@ enum e_values{
 	CONE				= 4,
 	CHECKERS			= 0,
 	TEXTURE				= 1,
-	BUMP_MAP			= 2
+	BUMP_MAP			= 2,
+	TILE_SIZE			= 16,
+	TILE_SIZE_PLANE		= 4,
+	ROTATION_SPEED		= 6
 };
 
 void	error_message_and_exit(char *message);

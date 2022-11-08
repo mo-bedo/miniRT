@@ -17,57 +17,46 @@
 
 static void	adjust_radius(t_mlx *mlx, int id, int keycode)
 {
-	float	adjustment_scale;
-
-	adjustment_scale = 0.2;
-	if (keycode == DOWN && mlx->object[id].radius > adjustment_scale)
+	if (keycode == DOWN && mlx->object[id].radius > ADJUSTMENT_SIZE)
 	{
-		mlx->object[id].radius -= adjustment_scale;
+		mlx->object[id].radius -= ADJUSTMENT_SIZE;
 		ray_trace(mlx);
 	}
 	if (keycode == UP)
 	{
-		mlx->object[id].radius += adjustment_scale;
+		mlx->object[id].radius += ADJUSTMENT_SIZE;
 		ray_trace(mlx);
 	}
 }
 
 static void	adjust_height(t_mlx *mlx, int id, int keycode)
 {
-	float	adjustment_scale;
-
-	adjustment_scale = 0.2;
-	if (keycode == DOWN && mlx->object[id].height > adjustment_scale)
+	if (keycode == DOWN && mlx->object[id].height > ADJUSTMENT_SIZE)
 	{
-		mlx->object[id].height -= adjustment_scale;
+		mlx->object[id].height -= ADJUSTMENT_SIZE;
 		ray_trace(mlx);
 	}
 	if (keycode == UP)
 	{
-		mlx->object[id].height += adjustment_scale;
+		mlx->object[id].height += ADJUSTMENT_SIZE;
 		ray_trace(mlx);
 	}
 }
 
 static void	adjust_scale(t_mlx *mlx, int id, int keycode)
 {
-	float	adjustment_scale;
-	float	min_size;
-
-	adjustment_scale = 1.2;
-	min_size = 0.1;
 	if (keycode == DOWN
-		&& mlx->object[id].radius > min_size
-		&& mlx->object[id].height > min_size)
+		&& mlx->object[id].radius > MIN_OBJECT_SIZE
+		&& mlx->object[id].height > MIN_OBJECT_SIZE)
 	{
-		mlx->object[id].radius /= adjustment_scale;
-		mlx->object[id].height /= adjustment_scale;
+		mlx->object[id].radius /= ADJUSTMENT_SCALE;
+		mlx->object[id].height /= ADJUSTMENT_SCALE;
 		ray_trace(mlx);
 	}
 	if (keycode == UP)
 	{
-		mlx->object[id].radius *= adjustment_scale;
-		mlx->object[id].height *= adjustment_scale;
+		mlx->object[id].radius *= ADJUSTMENT_SCALE;
+		mlx->object[id].height *= ADJUSTMENT_SCALE;
 		ray_trace(mlx);
 	}
 }
@@ -78,7 +67,7 @@ static void	rotate_object(t_mlx *mlx, int id, int keycode)
 	float	angle;
 	t_xyz	orientation;
 
-	rotation_speed = PI / 6;
+	rotation_speed = PI / ROTATION_SPEED;
 	if (keycode == LEFT || keycode == UP)
 		angle = -rotation_speed;
 	if (keycode == RIGHT || keycode == DOWN)

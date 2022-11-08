@@ -24,8 +24,10 @@ static t_uv	map_plane_to_2d(t_object object)
 	initialize_vector(&orientation, 0, 1, 0);
 	object.intersect = rotate_vector(object.intersect,
 			orientation, object.orientation);
-	uv.u = object.intersect.x + WINDOW_WIDTH;
-	uv.v = object.intersect.z + WINDOW_HEIGHT;
+	uv.u = (object.intersect.x + WINDOW_WIDTH)
+		/ (object.radius * TILE_SIZE_PLANE);
+	uv.v = (object.intersect.z + WINDOW_HEIGHT)
+		/ (object.radius * TILE_SIZE_PLANE);
 	return (uv);
 }
 
@@ -64,7 +66,7 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	if (object.is_cap)
 		return (map_plane_to_2d(object));
 	azimuthal_angle = atan2(radius.x, radius.z) + PI;
-	uv.u = 1 - (azimuthal_angle / (2 * PI));
+	uv.u = 1 - ((azimuthal_angle + PI) / PI);
 	uv.v = (radius.y + object.height);
 	while (uv.v > object.height)
 		uv.v -= object.height;

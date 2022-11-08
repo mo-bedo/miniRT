@@ -5,10 +5,8 @@
 - sneller maken: normal pas berekenen als object het meest dichtbij is
 - sneller maken: threading
 - sneller maken: herkennen als bump/texturemap al ingeladen is (parsing gedeelte)
-- PPM6 omzetten naar PPM3
 - cone fixen
 - normproof
-- cylinder checkerboard wordt soms raar gestretched
 - cone inside no reflections
 
 # ONDUIDELIJK

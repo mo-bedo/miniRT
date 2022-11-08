@@ -21,27 +21,19 @@
 static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 {
 	t_xyz	white;
-	int		tiles;
 
 	initialize_vector(&white, 255, 255, 255);
 	if (object.type == PLANE)
 	{
-		tiles = 16;
-		uv.u *= tiles;
-		uv.v *= tiles;
+		uv.u *= TILE_SIZE_PLANE;
+		uv.v *= TILE_SIZE_PLANE;
 	}
 	else
 	{
-		if (!object.is_cap)
-		{
-			uv.u *= tiles;
-			if (object.type == SPHERE)
-				uv.v *= tiles / 2;
-			else if (object.type == CYLINDER)
-				uv.v *= tiles;
-			else
-				uv.v *= tiles;
-		}
+		uv.u *= TILE_SIZE;
+		uv.v *= TILE_SIZE;
+		if (object.type == SPHERE)
+			uv.v /= 2;
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
 		return (white);
