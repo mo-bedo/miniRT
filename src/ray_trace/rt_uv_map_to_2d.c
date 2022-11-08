@@ -24,10 +24,13 @@ static t_uv	map_plane_to_2d(t_object object)
 	initialize_vector(&orientation, 0, 1, 0);
 	object.intersect = rotate_vector(object.intersect,
 			orientation, object.orientation);
-	uv.u = (object.intersect.x + WINDOW_WIDTH)
-		/ (object.radius * TILE_SIZE_PLANE);
-	uv.v = (object.intersect.z + WINDOW_HEIGHT)
-		/ (object.radius * TILE_SIZE_PLANE);
+	uv.u = object.intersect.x + WINDOW_WIDTH;
+	uv.v = object.intersect.z + WINDOW_HEIGHT;
+	if (object.type != PLANE)
+	{
+		uv.u /= (object.radius * TILE_SIZE_PLANE);
+		uv.v /= (object.radius * TILE_SIZE_PLANE);
+	}
 	return (uv);
 }
 
