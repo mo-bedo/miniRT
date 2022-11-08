@@ -22,7 +22,8 @@
 
 void	error_message_and_exit(char *message)
 {
-	ft_putstr("\nError\n");
+	ft_putstr("\e[1;1H\e[2J");
+	ft_putstr("Error\n");
 	ft_putstr(message);
 	ft_putstr("\n\n");
 	exit(EXIT_FAILURE);
