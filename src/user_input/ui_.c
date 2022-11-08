@@ -34,10 +34,10 @@ static void	rotate_camera(t_mlx *mlx, int keycode)
 	float	angle;
 	t_xyz	orientation;
 
-	rotation_speed = PI / 4;
-	if (keycode == LEFT || keycode == UP)
+	rotation_speed = PI / ROTATION_SPEED;
+	if ((keycode == LEFT || keycode == UP))
 		angle = -rotation_speed;
-	if (keycode == RIGHT || keycode == DOWN)
+	if ((keycode == RIGHT || keycode == DOWN))
 		angle = rotation_speed;
 	if (keycode == LEFT || keycode == RIGHT)
 		initialize_vector(&orientation, 0, 1, 0);
@@ -45,6 +45,10 @@ static void	rotate_camera(t_mlx *mlx, int keycode)
 		initialize_vector(&orientation, 1, 0, 0);
 	mlx->camera.orientation = rotate_vector_by_angle(mlx->camera.orientation,
 			orientation, angle);
+	// DEBUG_STR("");
+	// DEBUG_FLOAT(mlx->camera.orientation.x);
+	// DEBUG_FLOAT(mlx->camera.orientation.y);
+	// DEBUG_FLOAT(mlx->camera.orientation.z);
 	ray_trace(mlx);
 }
 
