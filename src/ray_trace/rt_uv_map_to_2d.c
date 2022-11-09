@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 18:41:21 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 18:58:18 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_uv	map_sphere_to_2d(t_object object)
 
 	radius_vector = subtract_vectors(object.center, object.intersect);
 	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
-	polar_angle = acos(radius_vector.y / object.radius);
+	polar_angle = acosf(radius_vector.y / object.radius);
 	uv.u = 1 - (azimuthal_angle / (2 * PI));
 	uv.v = 1 - polar_angle / PI;
 	return (uv);

@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 14:00:40 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 19:01:59 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ static void	rotate_camera(t_mlx *mlx, int keycode)
 		initialize_vector(&orientation, 1, 0, 0);
 	mlx->camera.orientation = rotate_vector_by_angle(mlx->camera.orientation,
 			orientation, angle);
-	// DEBUG_STR("");
-	// DEBUG_FLOAT(mlx->camera.orientation.x);
-	// DEBUG_FLOAT(mlx->camera.orientation.y);
-	// DEBUG_FLOAT(mlx->camera.orientation.z);
 	ray_trace(mlx);
 }
 

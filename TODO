@@ -18,7 +18,6 @@
 # BUGS
 - soms verdwijnt object uit beeld? #volgens mij gefixt?
 - ps_parse_textures_utils.c: waarom moet height keer 10 in allocate_map(int width, int height) ?
-- ui_.c: als je rotation_speed = PI / 4; veranderd in rotation_speed = PI / 8; gebeurt er soms iets raars met het draaien van de camera
 
 # WRITE TESTS FOR:
 # parser

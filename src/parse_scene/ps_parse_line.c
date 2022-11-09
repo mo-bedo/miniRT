@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:17:08 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 18:57:02 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	parse_camera(t_mlx *mlx, char *line)
 	mlx->camera.center = parse_xyz(&line, MIN_XYZ, MAX_XYZ);
 	mlx->camera.orientation = parse_orientation(&line);
 	field_of_view = parse_float(&line, MIN_FOV, MAX_FOV) / 2 * (PI / 180);
-	mlx->camera.canvas_distance = 1.0 / tan(field_of_view / 2) * WINDOW_HEIGHT;
+	mlx->camera.canvas_distance = 1.0 / tanf(field_of_view / 2) * WINDOW_HEIGHT;
 }
 
 static void	parse_lights(t_mlx *mlx, char *line)

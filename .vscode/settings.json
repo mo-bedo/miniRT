@@ -5,7 +5,8 @@
 		"random": "c",
 		"u_.h": "c",
 		"complex": "c",
-		"ps_utils.h": "c"
+		"ps_utils.h": "c",
+		"ui_.h": "c"
 	},
 	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

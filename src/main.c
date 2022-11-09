@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 14:43:40 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 19:02:57 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,15 @@ static void	init(t_mlx	*mlx)
 	mlx->selected_action = -1;
 }
 
-#include <locale.h>
-# include <time.h>
-# include <stdio.h>
-void	print_time(char *action)
-{
-	clock_t			time;
-	static long int	start_time = 0;
-
-	time = clock();
-	setlocale(LC_NUMERIC, "");
-	printf("%s", action);
-	if (str_is_equal(action, "rt_", 2))
-		printf("\t: %'12.ld\n", time - start_time);
-	else
-		printf("\t: %'12.ld\n", time);
-	start_time = time;
-}
-
 int	main(int argc, char **argv)
 {
 	t_mlx		mlx;
 
-	print_time("start\t");
 	ft_putstr("\e[1;1H\e[2J");
 	init(&mlx);
 	parse_scene(&mlx, argc, argv[1]);
-	print_time("parse_scene");
 	user_input(&mlx);
 	ray_trace(&mlx);
-	print_time("ray_trace");
 	mlx_loop(mlx.mlx);
 	exit(EXIT_SUCCESS);
 }

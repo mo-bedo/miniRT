@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/21 13:42:25 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 18:58:46 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ static t_wxyz	get_rotation_quaternion_by_angle(t_xyz orientation, float angle)
 {
 	t_wxyz	result;
 
-	result.w = cos(angle / 2);
-	result.x = orientation.x * sin(angle / 2);
-	result.y = orientation.y * sin(angle / 2);
-	result.z = orientation.z * sin(angle / 2);
+	result.w = cosf(angle / 2);
+	result.x = orientation.x * sinf(angle / 2);
+	result.y = orientation.y * sinf(angle / 2);
+	result.z = orientation.z * sinf(angle / 2);
 	return (result);
 }
 

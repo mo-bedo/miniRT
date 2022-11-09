@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/07 16:40:07 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 19:02:29 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,10 @@ void	ray_trace(t_mlx *mlx)
 		y = -HALF_WINDOW_HEIGHT;
 		while (y < HALF_WINDOW_HEIGHT)
 		{
-			// if (x == 0 && y == 0)
-				// print_time("rt_start_ray");
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
-			// if (x == 0 && y == 0)
-				// print_time("rt_direction");
 			ray = compute_ray(*mlx, mlx->camera.center, direction);
-			// if (x == 0 && y == 0)
-				// print_time("rt_compute_ray");
 			color = get_color(mlx, ray, RECURSION_DEPTH);
-			// if (x == 0 && y == 0)
-				// print_time("rt_get_color");
 			pixel_put(&mlx->img, x, y, color);
-			// if (x == 0 && y == 0)
-				// print_time("rt_pixel_put");
 			y++;
 		}
 		x++;
