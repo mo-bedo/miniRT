@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
-#                                                    +#+                       #
-#    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/07 13:56:30 by mweitenb      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/21 13:09:25 by mweitenb          #+#    #+#              #
+#    Updated: 2022/11/09 13:45:22 by jbedaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -39,6 +39,7 @@ OBJ_DIR			:=	./obj
 SRC				:=	main.c \
 					intersection/i_.c \
 					intersection/i_cone.c \
+					intersection/i_cone_utils.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
 					intersection/i_cylinder.c \
