@@ -16,7 +16,7 @@
   # float error betekent dat er sprake is van een incorrect input (is geen float value zoals de subject float values volgens mij specificeert)
 
 # BUGS
-- soms verdwijnt object uit beeld? #volgens mij gefixt?
+- als je een plane de andere kant op orienteert is de kleur donkerder
 - ps_parse_textures_utils.c: waarom moet height keer 10 in allocate_map(int width, int height) ?
 
 # WRITE TESTS FOR:

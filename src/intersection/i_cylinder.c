@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/07 17:11:33 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 20:00:54 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@
 #include "intersection/i_utils.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
-
-// the hit_pt is on the SIDE of the cylinder. We can use dot product to
-// find the point 'pt' on the center line of the cylinder, so that the vector 
-// (hit_pt - pt) is orthogonal to the cylinder's orientation.
-// t = dot((hit_pt - cy.bottom_center), cy.ori); 
-// pt = cy.bottom_center + t * cy.ori;
-// surface_normal = normalize(hit_pt - pt)));
-static void	get_cylinder_normal(t_ray ray, t_object *cylinder, t_t4 t_)
-{
-	float	t;
-	t_xyz	intersect;
-	t_xyz	point_t;
-
-	t = ft_min_float(t_.t1, t_.t2);
-	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t));
-	t = get_dot_product(subtract_vectors(
-				intersect, cylinder->center), cylinder->orientation);
-	point_t = add_vectors(cylinder->center,
-			multiply_vector(cylinder->orientation, t));
-	cylinder->normal = subtract_vectors(intersect, point_t);
-}
 
 //	ray : P(t) = P + V * t
 //	cyl : (((P(t) - O) x D)^2 = r^2
@@ -136,17 +115,6 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 	return (t);
 }
 
-static void	check_if_camera_is_inside_cylinder(t_object *cylinder, t_ray ray)
-{
-	t_xyz	vector_origin_to_cylinder;
-
-	vector_origin_to_cylinder = subtract_vectors(ray.origin, cylinder->center);
-	if (fabs(vector_origin_to_cylinder.x) <= cylinder->radius
-		&& fabs(vector_origin_to_cylinder.y) <= cylinder->radius
-		&& fabs(vector_origin_to_cylinder.z) <= cylinder->radius)
-		cylinder->is_inside = true;
-}
-
 // Cylinder.center is the exact middle of the cylinder 
 // (so not the center of either one of the sides)
 // t.t3 is bottom cap
@@ -164,13 +132,11 @@ float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 	t = check_t_values(t);
 	closest_cylinderwall = ft_min_float(t.t1, t.t2);
 	closest_cap = ft_min_float(t.t3, t.t4);
-	check_if_camera_is_inside_cylinder(cylinder, ray);
+	check_if_camera_is_inside_object(cylinder, ray);
 	if (closest_cap < closest_cylinderwall)
 	{
 		cylinder->is_cap = true;
-		cylinder->normal = cylinder->orientation;
 		return (closest_cap);
 	}
-	get_cylinder_normal(ray, cylinder, t);
 	return (closest_cylinderwall);
 }

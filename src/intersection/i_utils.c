@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 17:38:30 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/09 20:00:13 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,15 @@ float	get_intersect_with_cap_planes(t_ray ray, t_object cylinder, float flag)
 	if ((t < RAY_T_MIN) || (capcenter_to_intersect > cylinder.radius))
 		t = RAY_T_MAX;
 	return (t);
+}
+
+void	check_if_camera_is_inside_object(t_object *object, t_ray ray)
+{
+	t_xyz	vector_origin_to_object;
+
+	vector_origin_to_object = subtract_vectors(ray.origin, object->center);
+	if (fabs(vector_origin_to_object.x) <= object->radius
+		&& fabs(vector_origin_to_object.y) <= object->radius
+		&& fabs(vector_origin_to_object.z) <= object->radius)
+		object->is_inside = true;
 }

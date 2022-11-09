@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/09 18:56:31 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/09 20:11:16 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ifeq ($(LINUX), true)
 CFLAGS 			:=  -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror 
 MLX				:= -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
 else
-CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
+CFLAGS			:= 	-Iinc -Imlx -O3 #-Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 

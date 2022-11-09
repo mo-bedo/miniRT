@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   i_plane.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   i_plane.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/11/09 20:53:10 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ static float	get_distance_to_intersection(t_ray ray, t_object plane)
 	float	dot_product;
 	float	t;
 
-	dot_product = get_dot_product(
-			ray.direction, plane.orientation);
-	t = get_dot_product(
-			subtract_vectors(plane.center, ray.origin),
+	dot_product = get_dot_product(ray.direction, plane.orientation);
+	t = get_dot_product(subtract_vectors(plane.center, ray.origin),
 			plane.orientation) / dot_product;
 	return (t);
 }
