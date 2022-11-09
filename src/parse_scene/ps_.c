@@ -97,7 +97,7 @@ void	parse_scene(t_mlx *mlx, int argc, char *input)
 	rt_file = open(input, O_RDONLY);
 	if (rt_file < 0)
 		error_message_and_exit(
-			"File does not exist or user doesn't have read rights");
+			"File does not exist or the user doesn't have reading rights");
 	while (1)
 	{
 		line = (char *)ft_calloc(sizeof(char), 1);

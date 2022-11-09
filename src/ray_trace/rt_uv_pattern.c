@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 18:26:30 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 18:22:55 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,19 @@
 static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 {
 	t_xyz	white;
-	int		tiles;
 
 	initialize_vector(&white, 255, 255, 255);
-	tiles = 4;
-	uv.u *= tiles;
-	uv.v *= tiles;
-	if (object.type == SPHERE || object.type == CYLINDER || object.type == CONE)
+	if (object.type == PLANE)
 	{
-		if (!object.is_cap)
-		{
-			uv.u *= tiles;
-			if (object.type == SPHERE)
-				uv.v *= tiles / 2;
-			else
-				uv.v *= tiles;
-		}
+		uv.u *= TILE_SIZE_PLANE;
+		uv.v *= TILE_SIZE_PLANE;
+	}
+	else
+	{
+		uv.u *= TILE_SIZE;
+		uv.v *= TILE_SIZE;
+		if (object.type == SPHERE)
+			uv.v /= 2;
 	}
 	if (((int)uv.u + (int)uv.v) % 2)
 		return (white);

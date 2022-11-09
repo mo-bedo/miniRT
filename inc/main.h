@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/02 17:51:39 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 16:35:31 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,15 @@
 # define PI 3.14159f
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
+# define ADJUSTMENT_SIZE 0.2f
+# define ADJUSTMENT_SCALE 1.2f
+# define MIN_OBJECT_SIZE 0.1f
 
-// # define WINDOW_WIDTH 640
-// # define WINDOW_HEIGHT 480
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 960
+
+# define WINDOW_WIDTH 640
+# define WINDOW_HEIGHT 480
+// # define WINDOW_WIDTH 1280
+// # define WINDOW_HEIGHT 960
 // # define WINDOW_WIDTH 1920
 // # define WINDOW_HEIGHT 1080
 # define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
@@ -112,6 +116,7 @@ typedef struct s_object
 	float		specular;
 	float		reflective;
 	bool		is_cap;
+	bool		is_inside;
 	bool		checkerboard;
 	bool		texture;
 	t_map		texture_map;
@@ -152,7 +157,10 @@ enum e_values{
 	CONE				= 4,
 	CHECKERS			= 0,
 	TEXTURE				= 1,
-	BUMP_MAP			= 2
+	BUMP_MAP			= 2,
+	TILE_SIZE			= 16,
+	TILE_SIZE_PLANE		= 4,
+	ROTATION_SPEED		= 6
 };
 
 void	error_message_and_exit(char *message);

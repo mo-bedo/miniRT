@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 20:59:24 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 14:00:40 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 static int	close_window(t_mlx *mlx)
 {
+	ft_putstr("\e[1;1H\e[2J");
+	ft_putstr("Goodbye, hope you had fun!\n");
 	mlx_destroy_window(mlx->mlx, mlx->window);
 	exit(EXIT_SUCCESS);
 }
@@ -61,7 +63,7 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
 		ft_putstr("Adjust height with up/down keys\n");
 	else if (keycode != UP && keycode != DOWN
-		&& keycode != LEFT && keycode != RIGHT)
+		&& keycode != LEFT && keycode != RIGHT && keycode != ESC)
 		ft_putstr("Invalid action\n");
 	if (keycode == DIAMETER || keycode == SCALE
 		|| ((type == CYLINDER || type == CONE)

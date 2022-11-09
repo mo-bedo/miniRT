@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/02 15:59:20 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/07 16:38:17 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static float	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 	if (mlx->object[i].type == PLANE)
 		return (get_intersection_ray_plane(ray, mlx->object[i]));
 	if (mlx->object[i].type == SPHERE)
-		return (get_intersection_ray_sphere(ray, mlx->object[i]));
+		return (get_intersection_ray_sphere(ray, &mlx->object[i]));
 	if (mlx->object[i].type == CYLINDER)
 		return (get_intersection_ray_cylinder(ray, &mlx->object[i]));
 	if (mlx->object[i].type == CONE)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rt_uv_map_to_2d.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   rt_uv_map_to_2d.c                                  :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/11/07 18:41:21 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static t_uv	map_plane_to_2d(t_object object)
 			orientation, object.orientation);
 	uv.u = object.intersect.x + WINDOW_WIDTH;
 	uv.v = object.intersect.z + WINDOW_HEIGHT;
+	if (object.type != PLANE)
+	{
+		uv.u /= (object.radius * TILE_SIZE_PLANE);
+		uv.v /= (object.radius * TILE_SIZE_PLANE);
+	}
 	return (uv);
 }
 
@@ -50,7 +55,7 @@ static t_uv	map_sphere_to_2d(t_object object)
 	return (uv);
 }
 
-// irisa.fr/pnorive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
+// https://www.irisa.fr/prive/kadi/Cours_LR2V/Cours/RayTracing_Texturing.pdf
 static t_uv	map_cylinder_to_2d(t_object object)
 {
 	t_uv	uv;
@@ -64,11 +69,11 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	if (object.is_cap)
 		return (map_plane_to_2d(object));
 	azimuthal_angle = atan2(radius.x, radius.z) + PI;
-	uv.u = 1 - (azimuthal_angle / (2 * PI));
-	uv.v = radius.y + object.height;
-	while (uv.v > PI)
-		uv.v -= PI;
-	uv.v /= PI;
+	uv.u = 1 - ((azimuthal_angle + PI) / PI);
+	uv.v = (radius.y + object.height);
+	while (uv.v > object.height)
+		uv.v -= object.height;
+	uv.v /= object.height;
 	return (uv);
 }
 

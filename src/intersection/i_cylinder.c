@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   i_cylinder.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   i_cylinder.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/11/07 17:11:33 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,17 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 	return (t);
 }
 
+static void	check_if_camera_is_inside_cylinder(t_object *cylinder, t_ray ray)
+{
+	t_xyz	vector_origin_to_cylinder;
+
+	vector_origin_to_cylinder = subtract_vectors(ray.origin, cylinder->center);
+	if (fabs(vector_origin_to_cylinder.x) <= cylinder->radius
+		&& fabs(vector_origin_to_cylinder.y) <= cylinder->radius
+		&& fabs(vector_origin_to_cylinder.z) <= cylinder->radius)
+		cylinder->is_inside = true;
+}
+
 // Cylinder.center is the exact middle of the cylinder 
 // (so not the center of either one of the sides)
 // t.t3 is bottom cap
@@ -143,18 +154,23 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 float	get_intersection_ray_cylinder(t_ray ray, t_object *cylinder)
 {
 	t_t4	t;
+	float	closest_cylinderwall;
+	float	closest_cap;
 
 	t = create_infinite_cylinder(ray, *cylinder);
 	t = create_finite_cylinder_no_caps(ray, *cylinder, t);
 	t.t3 = get_intersect_with_cap_planes(ray, *cylinder, -1);
 	t.t4 = get_intersect_with_cap_planes(ray, *cylinder, 1);
 	t = check_t_values(t);
-	if (ft_min_float(t.t1, t.t2) > ft_min_float(t.t3, t.t4))
+	closest_cylinderwall = ft_min_float(t.t1, t.t2);
+	closest_cap = ft_min_float(t.t3, t.t4);
+	check_if_camera_is_inside_cylinder(cylinder, ray);
+	if (closest_cap < closest_cylinderwall)
 	{
 		cylinder->is_cap = true;
 		cylinder->normal = cylinder->orientation;
+		return (closest_cap);
 	}
-	else
-		get_cylinder_normal(ray, cylinder, t);
-	return (ft_min_float(ft_min_float(t.t1, t.t2), ft_min_float(t.t3, t.t4)));
+	get_cylinder_normal(ray, cylinder, t);
+	return (closest_cylinderwall);
 }
