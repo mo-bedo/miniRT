@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/11/09 14:47:45 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/11/09 16:16:44 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,94 @@
 #include "main.h"
 #include "utils/u_.h"
 
+
+// Computes t values for a infinite mirrored cone
+static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
+		t_xyz orientation,	float theta, t_xyz c_o)
+{
+	float	a;
+	float	b;
+	float	c;
+	float	discriminant;
+	t_t4	t;
+
+	t.t1 = RAY_T_MAX;
+	t.t2 = RAY_T_MAX;
+	theta = 1 + (theta * theta);
+	a = get_dot_product(ray_direction, ray_direction) - (theta)
+		* pow(get_dot_product(ray_direction, orientation), 2);
+	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
+			* get_dot_product(ray_direction, orientation)
+			* get_dot_product(c_o, orientation));
+	c = get_dot_product(c_o, c_o) - (theta)
+		* pow(get_dot_product(c_o, orientation), 2.0);
+	discriminant = pow(b, 2) - (4 * a * c);
+	if (discriminant < 0)
+		return (t);
+	a = 2 * a;
+	discriminant = sqrt(discriminant);
+	t.t1 = (-b - discriminant) / a;
+	t.t2 = (-b + discriminant) / a;
+	return (t);
+}
+
+// dot product is a measure of similarity 
+//  1 = same direction
+//  0 = at angle of 90 degrees
+// -1 = opposite direction
+
+// cone_orientation points from tip of cone to bottom, so:
+// if cone_orientation and tip_to_intersect > 0:
+// 		ray hits cone below the tip
+static bool	intersect_below_tip(t_xyz cone_orientation,
+	t_xyz intersect, t_xyz cone_tip)
+{
+	t_xyz	tip_to_intersect;
+
+	tip_to_intersect = subtract_vectors(intersect, cone_tip);
+	if (get_dot_product(cone_orientation, tip_to_intersect) > 0)
+		return (true);
+	return (false);
+}
+
+// cone_orientation points from tip of cone to bottom, so:
+// if cone_orientation and bottom_to_intersect < 0:
+// 		ray hits cone above the bottom
+static bool	intersect_above_bottom(t_xyz cone_orientation,
+	t_xyz intersect, t_xyz bottom_center)
+{
+	t_xyz	bottom_to_intersect;
+
+	bottom_to_intersect = subtract_vectors(intersect, bottom_center);
+	if (get_dot_product(cone_orientation, bottom_to_intersect) < 0)
+		return (true);
+	return (false);
+}
+
+// // Checks if intersect points are between the top and bottom of cone.
+// // if (ray hits cone below tip and above center)
+// // 		ray hits cone
+// // else
+// // 		ray goes over/under cone, therefoe t = RAY_T_MAX
+static t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
+	t_t4 t, t_xyz bottom_center)
+{
+	t_xyz	intersect_1;
+	t_xyz	intersect_2;
+	t_xyz	cone_tip;
+
+	intersect_1 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
+	intersect_2 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
+	cone_tip = add_vectors(bottom_center, get_negative_vector(multiply_vector(
+					cone.orientation, cone.height)));
+	if (!(intersect_above_bottom(cone.orientation, intersect_1, bottom_center)
+			&& intersect_below_tip(cone.orientation, intersect_1, cone_tip)))
+		t.t1 = RAY_T_MAX;
+	if (!(intersect_above_bottom(cone.orientation, intersect_2, bottom_center)
+			&& intersect_below_tip(cone.orientation, intersect_2, cone_tip)))
+		t.t2 = RAY_T_MAX;
+	return (t);
+}
 
 static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta);
 
@@ -126,38 +214,41 @@ static t_xyz	NEW_rotate_vector_by_angle(t_xyz vector, t_xyz orientation, float a
 	return (result);
 }
 
-
-
-
-
-
-
-
-static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta);
-
-
-
-
-
 static t_t4	NEW_quadratic_formula_infinite_cone(t_xyz ray_direction,
-		t_xyz orientation,	float theta, t_xyz c_o)
+		t_xyz orientation,	float theta, t_xyz c_o, t_xyz cone_center, t_xyz ray_pos, t_object cone)
 {
 	float	a;
 	float	b;
 	float	c;
 	float	discriminant;
 	t_t4	t;
-
+	
 	t.t1 = RAY_T_MAX;
 	t.t2 = RAY_T_MAX;
 
-	// theta *= 2;
+	t_xyz	tip_of_cone = add_vectors(cone.center, multiply_vector(cone.orientation, -cone.height));
+	t_xyz	bottom_of_cone = add_vectors(cone.center, multiply_vector(cone.orientation, cone.height));
 
-	theta = (theta * theta);
-	a = pow(get_dot_product(ray_direction, orientation), 2) - (theta);
-//								(D . V)					 					(CO . V)		 -						D . CO				
-	b = 2 * (get_dot_product(ray_direction, orientation) * get_dot_product(c_o, orientation) - get_dot_product(ray_direction, c_o) * theta);
-	c = pow(get_dot_product(c_o, orientation), 2) - get_dot_product(c_o, c_o) * theta;
+	t_xyz h = subtract_vectors(bottom_of_cone, tip_of_cone);
+	t_xyz v = ray_direction;
+	t_xyz w = subtract_vectors(ray_pos, tip_of_cone);
+	float m = (cone.radius * cone.radius) / (get_vector_length(h) * get_vector_length(h));
+
+
+	h = divide_vector(subtract_vectors(bottom_of_cone, tip_of_cone), get_vector_length(subtract_vectors(bottom_of_cone, tip_of_cone)));
+
+	a = get_dot_product(v, v) - m * (pow(get_dot_product(v, h), 2)) - pow(get_dot_product(v, h), 2);
+	b = 2 * (get_dot_product(v, w) - m * get_dot_product(v, h) * get_dot_product(w, h) - get_dot_product(v, h) * get_dot_product(w, h));
+	c = get_dot_product(w, w) - m * (pow(get_dot_product(w, h), 2)) - (pow(get_dot_product(w, h), 2));
+
+	// theta = 1 + (theta * theta);
+	// theta =  theta * (180 / PI);
+
+// 	theta = (theta * theta);
+// 	a = pow(get_dot_product(ray_direction, orientation), 2) - (theta);
+// //								(D . V)					 					(CO . V)		 -						D . CO				
+// 	b = 2 * (get_dot_product(ray_direction, orientation) * get_dot_product(c_o, orientation) - get_dot_product(ray_direction, c_o) * theta);
+// 	c = pow(get_dot_product(c_o, orientation), 2) - get_dot_product(c_o, c_o) * theta;
 	discriminant = pow(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
@@ -177,7 +268,7 @@ t_t4 	NEW_compute_t_for_cone(t_ray ray, t_object cone, float theta)
 	cone_tip = add_vectors(cone.center,
 			multiply_vector(cone.orientation, - cone.height / 2));
 	cone_tip_to_origin = subtract_vectors(ray.origin, cone_tip);
-	t = NEW_quadratic_formula_infinite_cone(ray.direction, cone.orientation, theta, cone_tip_to_origin);
+	t = NEW_quadratic_formula_infinite_cone(ray.direction, cone.orientation, theta, cone_tip_to_origin, cone.center, ray.origin, cone);
 	return (t);	
 }
 
@@ -197,6 +288,28 @@ t_xyz	return_normal_vector(t_xyz vector)
 	magnitude = get_vector_length(vector);
 	vector = divide_vector(vector, magnitude);
 	return (vector);
+}
+
+
+
+
+static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta)
+{
+	t_t4	t;
+	t_xyz	from_center_of_cone_to_origin;
+	t_xyz	bottom_center;
+
+	bottom_center = add_vectors(cone.center,
+			multiply_vector(cone.orientation, cone.height / 2));
+	from_center_of_cone_to_origin = subtract_vectors(ray.origin, bottom_center);
+	t = NEW_quadratic_formula_infinite_cone(ray.direction, cone.orientation,
+			theta, from_center_of_cone_to_origin, cone.center, ray.origin, cone);
+	// t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
+	// 		theta, from_center_of_cone_to_origin);
+	t = check_cone_top_bottom(ray, cone, t, bottom_center);
+
+
+	return (t);
 }
 
 
@@ -268,21 +381,21 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	t_xyz	rotated_cone;
 	t_xyz	rotated_ray_direction;
 	
-	initialize_quaternion(&p, 0, cone->orientation);
-	q = get_rotation_quaternion_by_vector(cone->orientation, y_axis);
-	q_.w = q.w;
-	q_.x = -q.x;
-	q_.y = -q.y;
-	q_.z = -q.z;
-	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
-	initialize_vector(&rotated_cone, p_.x, p_.y, p_.z);
-	cone->orientation = rotated_cone;		
-	initialize_quaternion(&p, 0, ray.direction);
-	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
-	initialize_vector(&rotated_ray_direction, p_.x, p_.y, p_.z);
-	ray.direction = rotated_ray_direction;
+	// initialize_quaternion(&p, 0, cone->orientation);
+	// q = get_rotation_quaternion_by_vector(cone->orientation, y_axis);
+	// q_.w = q.w;
+	// q_.x = -q.x;
+	// q_.y = -q.y;
+	// q_.z = -q.z;
+	// p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
+	// initialize_vector(&rotated_cone, p_.x, p_.y, p_.z);
+	// cone->orientation = rotated_cone;		
+	// initialize_quaternion(&p, 0, ray.direction);
+	// p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
+	// initialize_vector(&rotated_ray_direction, p_.x, p_.y, p_.z);
+	// ray.direction = rotated_ray_direction;
 	
-	ray = transpose_cone_ray(ray, cone->center);
+	// ray = transpose_cone_ray(ray, cone->center);
 
 
 	// t_xyz normalized_cone_orientation = cone->orientation;
@@ -321,6 +434,9 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	// 	return (t.t3);
 	// }
 	compute_cone_normal(ray, cone, smallest_t, theta);
+	
+	// cone->orientation = save_cone_orientation;
+	
 	return (smallest_t);
 }
 
@@ -380,112 +496,26 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 // goede uitleg!
 //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone
 
-// Computes t values for a infinite mirrored cone
-static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
-		t_xyz orientation,	float theta, t_xyz c_o)
-{
-	float	a;
-	float	b;
-	float	c;
-	float	discriminant;
-	t_t4	t;
 
-	t.t1 = RAY_T_MAX;
-	t.t2 = RAY_T_MAX;
-	theta = 1 + (theta * theta);
-	a = get_dot_product(ray_direction, ray_direction) - (theta)
-		* pow(get_dot_product(ray_direction, orientation), 2);
-	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
-			* get_dot_product(ray_direction, orientation)
-			* get_dot_product(c_o, orientation));
-	c = get_dot_product(c_o, c_o) - (theta)
-		* pow(get_dot_product(c_o, orientation), 2.0);
-	discriminant = pow(b, 2) - (4 * a * c);
-	if (discriminant < 0)
-		return (t);
-	a = 2 * a;
-	discriminant = sqrt(discriminant);
-	t.t1 = (-b - discriminant) / a;
-	t.t2 = (-b + discriminant) / a;
-	return (t);
-}
 
-// dot product is a measure of similarity 
-//  1 = same direction
-//  0 = at angle of 90 degrees
-// -1 = opposite direction
+// static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta)
+// {
+// 	t_t4	t;
+// 	t_xyz	from_center_of_cone_to_origin;
+// 	t_xyz	bottom_center;
 
-// cone_orientation points from tip of cone to bottom, so:
-// if cone_orientation and tip_to_intersect > 0:
-// 		ray hits cone below the tip
-static bool	intersect_below_tip(t_xyz cone_orientation,
-	t_xyz intersect, t_xyz cone_tip)
-{
-	t_xyz	tip_to_intersect;
+// 	bottom_center = add_vectors(cone.center,
+// 			multiply_vector(cone.orientation, cone.height / 2));
+// 	from_center_of_cone_to_origin = subtract_vectors(ray.origin, bottom_center);
+// 	t = NEW_quadratic_formula_infinite_cone(ray.direction, cone.orientation,
+// 			theta, from_center_of_cone_to_origin);
+// 	t = check_cone_top_bottom(ray, cone, t, bottom_center);
 
-	tip_to_intersect = subtract_vectors(intersect, cone_tip);
-	if (get_dot_product(cone_orientation, tip_to_intersect) > 0)
-		return (true);
-	return (false);
-}
+// 	// if (t.t1 != RAY_T_MAX || t.t2 != RAY_T_MAX)
+// 	// 	printf("%f\t\t\t%f\n", t.t1, t.t2);
 
-// cone_orientation points from tip of cone to bottom, so:
-// if cone_orientation and bottom_to_intersect < 0:
-// 		ray hits cone above the bottom
-static bool	intersect_above_bottom(t_xyz cone_orientation,
-	t_xyz intersect, t_xyz bottom_center)
-{
-	t_xyz	bottom_to_intersect;
-
-	bottom_to_intersect = subtract_vectors(intersect, bottom_center);
-	if (get_dot_product(cone_orientation, bottom_to_intersect) < 0)
-		return (true);
-	return (false);
-}
-
-// Checks if intersect points are between the top and bottom of cone.
-// if (ray hits cone below tip and above center)
-// 		ray hits cone
-// else
-// 		ray goes over/under cone, therefoe t = RAY_T_MAX
-static t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
-	t_t4 t, t_xyz bottom_center)
-{
-	t_xyz	intersect_1;
-	t_xyz	intersect_2;
-	t_xyz	cone_tip;
-
-	intersect_1 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
-	intersect_2 = add_vectors(ray.origin, multiply_vector(ray.direction, t.t2));
-	cone_tip = add_vectors(bottom_center, get_negative_vector(multiply_vector(
-					cone.orientation, cone.height)));
-	if (!(intersect_above_bottom(cone.orientation, intersect_1, bottom_center)
-			&& intersect_below_tip(cone.orientation, intersect_1, cone_tip)))
-		t.t1 = RAY_T_MAX;
-	if (!(intersect_above_bottom(cone.orientation, intersect_2, bottom_center)
-			&& intersect_below_tip(cone.orientation, intersect_2, cone_tip)))
-		t.t2 = RAY_T_MAX;
-	return (t);
-}
-
-static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta)
-{
-	t_t4	t;
-	t_xyz	from_center_of_cone_to_origin;
-	t_xyz	bottom_center;
-
-	bottom_center = add_vectors(cone.center,
-			multiply_vector(cone.orientation, cone.height / 2));
-	from_center_of_cone_to_origin = subtract_vectors(ray.origin, bottom_center);
-	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
-			theta, from_center_of_cone_to_origin);
-	t = check_cone_top_bottom(ray, cone, t, bottom_center);
-
-	// if (t.t1 != RAY_T_MAX || t.t2 != RAY_T_MAX)
-	// 	printf("%f\t\t\t%f\n", t.t1, t.t2);
-
-	return (t);
-}
+// 	return (t);
+// }
 
 // Hoe werkt de cone.radius resize?
 // Waarom if ((t < 0) en niet: if ((t < RAY_T_MIN) ?
