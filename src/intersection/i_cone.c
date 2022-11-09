@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   i_cone.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/07 14:23:17 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   i_cone.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
+/*   Updated: 2022/11/09 14:47:45 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,116 @@
 #include "intersection/i_plane.h"
 #include "ray_trace/rt_.h"
 #include "utils/u_.h"
+
+
+#include <math.h>
+#include <stdlib.h>
+
+#include "main.h"
+#include "utils/u_.h"
+
+
+static void	compute_cone_normal(t_ray ray, t_object *c, float t, float theta);
+
+static t_xyz	get_orthogonal(t_xyz vec)
+{
+	float	x;
+	float	y;
+	float	z;
+	t_xyz	basis_vector;
+
+	x = fabsf(vec.x);
+	y = fabsf(vec.y);
+	z = fabsf(vec.z);
+	if (x < y && x < z)
+		initialize_vector(&basis_vector, 1, 0, 0);
+	if (y < x && y < z)
+		initialize_vector(&basis_vector, 0, 1, 0);
+	else
+		initialize_vector(&basis_vector, 0, 0, 1);
+	return (get_cross_product(vec, basis_vector));
+}
+
+// stackoverflow.com/question/1171849/
+// finding-quaternion-representing-the-rotation-from-one-vector-to-another
+static t_wxyz	get_rotation_quaternion_by_vector(t_xyz v1, t_xyz v2)
+{
+	t_xyz	imaginary_part;
+	float	real_part;
+	t_wxyz	quaternion;
+	t_xyz	half;
+
+	if (v1.x == -v2.x && v1.y == -v2.y && v1.z == -v2.z)
+	{
+		real_part = 0;
+		imaginary_part = get_orthogonal(v1);
+		normalize_vector(&imaginary_part);
+	}
+	else
+	{
+		half = add_vectors(v1, v2);
+		normalize_vector(&half);
+		real_part = get_dot_product(v1, half);
+		imaginary_part = get_cross_product(v1, half);
+	}
+	initialize_quaternion(&quaternion, real_part, imaginary_part);
+	return (quaternion);
+}
+
+// danceswihtcode.net/engineeringnotes/quaternions/quaternions.html
+static t_xyz	NEW_rotate_vector(t_xyz vector,
+	t_xyz old_orientation, t_xyz new_orientation)
+{
+	t_wxyz	p;
+	t_wxyz	q;
+	t_wxyz	q_;
+	t_wxyz	p_;
+	t_xyz	result;
+
+	initialize_quaternion(&p, 0, vector);
+	q = get_rotation_quaternion_by_vector(old_orientation, new_orientation);
+	q_.w = q.w;
+	q_.x = -q.x;
+	q_.y = -q.y;
+	q_.z = -q.z;
+	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
+	initialize_vector(&result, p_.x, p_.y, p_.z);
+	return (result);
+}
+
+static t_wxyz	get_rotation_quaternion_by_angle(t_xyz orientation, float angle)
+{
+	t_wxyz	result;
+
+	result.w = cos(angle / 2);
+	result.x = orientation.x * sin(angle / 2);
+	result.y = orientation.y * sin(angle / 2);
+	result.z = orientation.z * sin(angle / 2);
+	return (result);
+}
+
+// danceswihtcode.net/engineeringnotes/quaternions/quaternions.html
+static t_xyz	NEW_rotate_vector_by_angle(t_xyz vector, t_xyz orientation, float angle)
+{
+	t_wxyz	p;
+	t_wxyz	q;
+	t_wxyz	q_;
+	t_wxyz	p_;
+	t_xyz	result;
+
+	initialize_quaternion(&p, 0, vector);
+	q = get_rotation_quaternion_by_angle(orientation, angle);
+	q_.w = q.w;
+	q_.x = -q.x;
+	q_.y = -q.y;
+	q_.z = -q.z;
+	p_ = multiply_quaternion(multiply_quaternion(q_, p), q);
+	initialize_vector(&result, p_.x, p_.y, p_.z);
+	normalize_vector(&result);
+	return (result);
+}
+
+
 
 
 
@@ -125,7 +235,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	t_xyz	save_ray_direction = ray.direction;
 
 	
-	// ray = transpose_cone_ray(ray, cone->center);
+
 
 	t_xyz	y_axis;
 	
@@ -133,18 +243,63 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	y_axis.y = 1;
 	y_axis.z = 0;
 
-	t_xyz normalized_cone_orientation = cone->orientation;
+
+
+	/*
+	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////
+	//////////////////////////																						//////////////////////////
+	//////////////////////////									ROTATION											//////////////////////////
+	//////////////////////////																						//////////////////////////
+	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////	//////////////////////////
+	
+	zet cone parralel aan y-as. Draait vervolgens ray.direction conform zelfde draai.
+
+	Lijkt te werken
+	
+	*/
+
+
+	t_wxyz	p;
+	t_wxyz	q;
+	t_wxyz	q_;
+	t_wxyz	p_;
+	t_xyz	result;
+
+	t_xyz	rotated_cone;
+	t_xyz	rotated_ray_direction;
+	
+	initialize_quaternion(&p, 0, cone->orientation);
+	q = get_rotation_quaternion_by_vector(cone->orientation, y_axis);
+	q_.w = q.w;
+	q_.x = -q.x;
+	q_.y = -q.y;
+	q_.z = -q.z;
+	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
+	initialize_vector(&rotated_cone, p_.x, p_.y, p_.z);
+	cone->orientation = rotated_cone;		
+	initialize_quaternion(&p, 0, ray.direction);
+	p_ = multiply_quaternion(multiply_quaternion(q, p), q_);
+	initialize_vector(&rotated_ray_direction, p_.x, p_.y, p_.z);
+	ray.direction = rotated_ray_direction;
+	
+	ray = transpose_cone_ray(ray, cone->center);
+
+
+	// t_xyz normalized_cone_orientation = cone->orientation;
 	// normalize_vector(&normalized_cone_orientation);
 	// normalize_vector(&y_axis);
 
 	// float angle = get_angle_between_vectors(y_axis, normalized_cone_orientation);
 
-	float angle = get_angle_between_vectors(y_axis, cone->orientation);
+	// float angle = get_angle_between_vectors(y_axis, cone->orientation);
 	// printf("%f\n", angle * (180 / PI));
-	cone->orientation = rotate_vector(cone->orientation, y_axis, cone->orientation);				// zet cone parralel aan y-axis
+	// cone->orientation = rotate_vector(cone->orientation, y_axis, cone->orientation);				// zet cone parralel aan y-axis
+
+
 
 	// cone->orientation = rotate_vector_by_angle(cone->orientation, y_axis, angle);
-	ray.direction = rotate_vector_by_angle(ray.direction, y_axis, angle);
+	// ray.direction = rotate_vector_by_angle(ray.direction, y_axis, angle);
+
 
 	theta = atan(cone->radius / cone->height);
 
@@ -153,7 +308,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	// t = NEW_compute_t_for_cone(ray,  *cone, theta);
 	
 
-	cone->orientation = save_cone_orientation;
+	// cone->orientation = save_cone_orientation;
 	
 	
 
@@ -165,7 +320,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	// 	cone->is_cap = true;
 	// 	return (t.t3);
 	// }
-	// compute_cone_normal(ray, cone, smallest_t, theta);
+	compute_cone_normal(ray, cone, smallest_t, theta);
 	return (smallest_t);
 }
 
@@ -183,6 +338,26 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 		
 
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -305,6 +480,10 @@ static t_t4	compute_t_for_cone(t_ray ray, t_object cone, float theta)
 	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
 			theta, from_center_of_cone_to_origin);
 	t = check_cone_top_bottom(ray, cone, t, bottom_center);
+
+	// if (t.t1 != RAY_T_MAX || t.t2 != RAY_T_MAX)
+	// 	printf("%f\t\t\t%f\n", t.t1, t.t2);
+
 	return (t);
 }
 
