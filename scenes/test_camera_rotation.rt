@@ -23,21 +23,21 @@ C	0,0,0 	    0,0,1 		180
 # C	0,0,0 	    0,-1,-1 		180
 
 
-# below
+# below orange
 sp	 0,-4,0				4 			    255,180,100	
 
-# left
+# left purple
 cy	 -8,0,0		1,1,0	4		10		255,0,255
 
-# front
+# front red
 sp	 0,0,4				4 			    255,0,0
 
-# right
+# right green
 cy	 8,0,0		1,1,0	4		10		0,255,0
 
-# back
+# back blue
 sp	 0,0,-4				4 			    0,0,255
 
-# above
+# above light blue
 sp	 0,4,0				4 			    100,180,255	
 
