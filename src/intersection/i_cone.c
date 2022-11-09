@@ -133,11 +133,17 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	y_axis.y = 1;
 	y_axis.z = 0;
 
+	t_xyz normalized_cone_orientation = cone->orientation;
+	// normalize_vector(&normalized_cone_orientation);
+	// normalize_vector(&y_axis);
+
+	// float angle = get_angle_between_vectors(y_axis, normalized_cone_orientation);
+
 	float angle = get_angle_between_vectors(y_axis, cone->orientation);
 	// printf("%f\n", angle * (180 / PI));
-	// cone->orientation = rotate_vector(cone->orientation, y_axis,  cone->orientation);
+	cone->orientation = rotate_vector(cone->orientation, y_axis, cone->orientation);				// zet cone parralel aan y-axis
 
-	cone->orientation = rotate_vector_by_angle(cone->orientation, y_axis, angle);
+	// cone->orientation = rotate_vector_by_angle(cone->orientation, y_axis, angle);
 	ray.direction = rotate_vector_by_angle(ray.direction, y_axis, angle);
 
 	theta = atan(cone->radius / cone->height);
