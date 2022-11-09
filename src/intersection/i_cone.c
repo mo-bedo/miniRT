@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:52:18 by jbedaux           #+#    #+#             */
-/*   Updated: 2022/11/09 17:15:16 by jbedaux          ###   ########.fr       */
+/*   Updated: 2022/11/09 17:17:04 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 	theta = atan(cone->radius / cone->height);
 
 	
-	t = compute_t_for_cone(ray, *cone, theta);
+	t = NEW_compute_t_for_cone(ray, *cone, theta);
 	
 
 	// cone->orientation = save_cone_orientation;
