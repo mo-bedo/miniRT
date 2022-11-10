@@ -33,17 +33,17 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	t.t2 = RAY_T_MAX;
 	theta = 1 + (theta * theta);
 	a = get_dot_product(ray_direction, ray_direction) - (theta)
-		* pow(get_dot_product(ray_direction, orientation), 2);
+		* powf(get_dot_product(ray_direction, orientation), 2);
 	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
 			* get_dot_product(ray_direction, orientation)
 			* get_dot_product(c_o, orientation));
 	c = get_dot_product(c_o, c_o) - (theta)
-		* pow(get_dot_product(c_o, orientation), 2.0);
-	discriminant = pow(b, 2) - (4 * a * c);
+		* powf(get_dot_product(c_o, orientation), 2);
+	discriminant = powf(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
 	a = 2 * a;
-	discriminant = sqrt(discriminant);
+	discriminant = sqrtf(discriminant);
 	t.t1 = (-b - discriminant) / a;
 	t.t2 = (-b + discriminant) / a;
 	return (t);
@@ -53,14 +53,14 @@ static float	get_intersect_with_cone_side(t_ray ray,
 	t_object cone, float theta)
 {
 	t_t4	t;
-	t_xyz	from_center_of_cone_to_origin;
+	t_xyz	from_cap_center_to_intersect;
 	t_xyz	cap_center;
 
 	cap_center = add_vectors(cone.center,
 			multiply_vector(cone.orientation, cone.height / 2));
-	from_center_of_cone_to_origin = subtract_vectors(ray.origin, cap_center);
+	from_cap_center_to_intersect = subtract_vectors(ray.origin, cap_center);
 	t = quadratic_formula_infinite_cone(ray.direction, cone.orientation,
-			theta, from_center_of_cone_to_origin);
+			theta, from_cap_center_to_intersect);
 	t = check_cone_top_bottom(ray, cone, t, cap_center);
 	return (ft_min_float(t.t1, t.t2));
 }
