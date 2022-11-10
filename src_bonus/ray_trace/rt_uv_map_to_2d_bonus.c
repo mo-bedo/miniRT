@@ -48,7 +48,7 @@ static t_uv	map_sphere_to_2d(t_object object)
 	float	polar_angle;
 
 	radius_vector = subtract_vectors(object.center, object.intersect);
-	azimuthal_angle = atan2(radius_vector.x, radius_vector.z) + PI;
+	azimuthal_angle = atan2f(radius_vector.x, radius_vector.z) + PI;
 	polar_angle = acosf(radius_vector.y / object.radius);
 	uv.u = 1 - (azimuthal_angle / (2 * PI));
 	uv.v = 1 - polar_angle / PI;
@@ -68,7 +68,7 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	radius = rotate_vector(radius, orientation, object.orientation);
 	if (object.is_cap)
 		return (map_plane_to_2d(object));
-	azimuthal_angle = atan2(radius.x, radius.z) + PI;
+	azimuthal_angle = atan2f(radius.x, radius.z) + PI;
 	uv.u = 1 - ((azimuthal_angle + PI) / PI);
 	uv.v = (radius.y + object.height);
 	while (uv.v > object.height)

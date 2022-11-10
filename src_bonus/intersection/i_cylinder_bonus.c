@@ -103,7 +103,7 @@ static t_t4	create_finite_cylinder_no_caps(t_ray ray, t_object cylinder, t_t4 t)
 	t_xyz	intersect;
 	t_xyz	len;
 
-	max_len = sqrt(pow(cylinder.height / 2, 2) + pow(cylinder.radius, 2));
+	max_len = sqrtf(powf(cylinder.height / 2, 2) + powf(cylinder.radius, 2));
 	intersect = add_vectors(ray.origin, multiply_vector(ray.direction, t.t1));
 	len = subtract_vectors(intersect, cylinder.center);
 	if (get_vector_length(len) > max_len)

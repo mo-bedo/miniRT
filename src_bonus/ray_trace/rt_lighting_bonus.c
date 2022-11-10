@@ -89,7 +89,7 @@ static t_xyz	compute_specular_reflection(t_ray light_ray,
 	if (denominator <= 0)
 		return (intensity);
 	divisor = get_vector_length(reflection) * get_vector_length(view);
-	specular_reflection = pow(denominator / divisor, object.specular);
+	specular_reflection = powf(denominator / divisor, object.specular);
 	intensity.x = color.x * specular_reflection;
 	intensity.y = color.y * specular_reflection;
 	intensity.z = color.z * specular_reflection;

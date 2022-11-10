@@ -16,18 +16,14 @@
 # include <stdbool.h>
 # include <stdio.h>
 
-# define DEBUG_STR(X) printf(#X" = %s\n", X);
-# define DEBUG_INT(X) printf(#X" = %d\n", X);
-# define DEBUG_FLOAT(X) printf(#X" = %f\n", X);
-# define DEBUG_DOUBLE(X) printf(#X" = %lf\n", X);
-
 # define PI 3.14159f
 # define RAY_T_MIN 0.0001f
 # define RAY_T_MAX 1.0e30f
 # define ADJUSTMENT_SIZE 0.2f
 # define ADJUSTMENT_SCALE 1.2f
 # define MIN_OBJECT_SIZE 0.1f
-
+# define MAX_OBJECTS 100
+# define PLANE_MAP_SCALE 100
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
@@ -35,10 +31,10 @@
 // # define WINDOW_HEIGHT 960
 // # define WINDOW_WIDTH 1920
 // # define WINDOW_HEIGHT 1080
-# define HALF_WINDOW_WIDTH WINDOW_WIDTH / 2
-# define HALF_WINDOW_HEIGHT	WINDOW_HEIGHT / 2
-# define MAX_OBJECTS 100
-# define PLANE_MAP_SCALE 100
+// PAS OP HALF_WINDOW_WIDTH handmatig aanpassen!
+# define HALF_WINDOW_WIDTH 320
+// PAS OP HALF_WINDOW_HEIGHT handmatig aanpassen!
+# define HALF_WINDOW_HEIGHT	240
 
 // IMAGE
 typedef struct s_img

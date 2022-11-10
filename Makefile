@@ -22,13 +22,13 @@ ifeq ($(LINUX), true)
 CFLAGS 			:=  -Iinc -Iinc_bonus -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror 
 MLX				:= -Iinc -Iinc_bonus -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
 else
-CFLAGS			:= 	-Iinc -Iinc_bonus -Imlx -O3 #-Wall -Wextra -Werror
+CFLAGS			:= 	-Iinc -Iinc_bonus -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Iincbonus -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
+SANIT			:=	-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	
+PRINT			:=	@
 
 # STATIC
 RM				:=	rm
@@ -136,6 +136,6 @@ test			:	re
 					./$(NAME) scenes/oefen.rt
 
 norm			:
-					@norminette $(SRC_DIR) $(INC_DIR)
+					@norminette $(SRC_DIR) $(INC_DIR) $(SRC_DIR_BONUS) $(INC_DIR_BONUS)
 
 .PHONY			:	all bonus clean fclean re norm test

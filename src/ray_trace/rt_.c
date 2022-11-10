@@ -29,31 +29,12 @@ static t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 	return (ray);
 }
 
-// static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
-// 	t_ray ray, t_xyz view, int depth)
-// {
-// 	t_ray	reflected_ray;
-// 	t_xyz	reflected_color;
-// 	t_xyz	reflectivenes_of_object;
-
-// 	reflected_ray = compute_ray(*mlx, ray.object.intersect,
-// 			compute_reflected_ray(view, ray.object.normal));
-// 	reflected_color = get_color(mlx, reflected_ray, --depth);
-// 	reflected_color = multiply_vector(reflected_color, ray.object.reflective);					// remove
-// 	reflectivenes_of_object = multiply_vector(ray.object.color,
-// 			1 - ray.object.reflective);
-// 	return (add_vectors(reflectivenes_of_object, reflected_color));
-// }
-
 t_xyz	get_color(t_mlx *mlx, t_ray ray)
 {
 	if (!ray.object.type)
 		return (mlx->background_color);
 	compute_lighting(&ray.object, mlx);
 	return (ray.object.color);
-	// if (ray.object.reflective <= 0 || depth <= 0 || ray.object.is_inside)
-	// 	return (ray.object.color);
-	// return (compute_reflections_of_reflections(mlx, ray, view, depth));
 }
 
 void	ray_trace(t_mlx *mlx)

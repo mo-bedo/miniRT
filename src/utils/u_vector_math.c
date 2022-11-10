@@ -17,7 +17,7 @@
 
 float	get_vector_length(t_xyz vector)
 {
-	return (sqrt(get_dot_product(vector, vector)));
+	return (sqrtf(get_dot_product(vector, vector)));
 }
 
 // dot product

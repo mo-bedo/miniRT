@@ -20,9 +20,9 @@
 static bool	camera_is_inside_sphere(t_object *sphere,
 	t_xyz vector_origin_to_sphere)
 {
-	if (fabs(vector_origin_to_sphere.x) <= sphere->radius
-		&& fabs(vector_origin_to_sphere.y) <= sphere->radius
-		&& fabs(vector_origin_to_sphere.z) <= sphere->radius)
+	if (fabsf(vector_origin_to_sphere.x) <= sphere->radius
+		&& fabsf(vector_origin_to_sphere.y) <= sphere->radius
+		&& fabsf(vector_origin_to_sphere.z) <= sphere->radius)
 	{
 		sphere->is_inside = true;
 		return (true);

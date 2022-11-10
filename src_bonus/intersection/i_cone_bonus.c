@@ -33,17 +33,17 @@ static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,
 	t.t2 = RAY_T_MAX;
 	theta = 1 + (theta * theta);
 	a = get_dot_product(ray_direction, ray_direction) - (theta)
-		* pow(get_dot_product(ray_direction, orientation), 2);
+		* powf(get_dot_product(ray_direction, orientation), 2);
 	b = 2 * (get_dot_product(ray_direction, c_o) - (theta)
 			* get_dot_product(ray_direction, orientation)
 			* get_dot_product(c_o, orientation));
 	c = get_dot_product(c_o, c_o) - (theta)
-		* pow(get_dot_product(c_o, orientation), 2.0);
-	discriminant = pow(b, 2) - (4 * a * c);
+		* powf(get_dot_product(c_o, orientation), 2.0);
+	discriminant = powf(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
 	a = 2 * a;
-	discriminant = sqrt(discriminant);
+	discriminant = sqrtf(discriminant);
 	t.t1 = (-b - discriminant) / a;
 	t.t2 = (-b + discriminant) / a;
 	return (t);

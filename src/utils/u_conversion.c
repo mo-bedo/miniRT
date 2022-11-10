@@ -73,7 +73,7 @@ float	ft_atof(const char *str)
 		while (*str >= '0' && *str <= '9')
 		{
 			i++;
-			nbr += (float)((*str++ - '0') / pow(10, i));
+			nbr += (float)((*str++ - '0') / powf(10, i));
 		}
 	}
 	if (i > 6 || nbr > FLT_MAX)

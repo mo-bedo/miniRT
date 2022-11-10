@@ -32,8 +32,8 @@ t_t4	check_t_values(t_t4 t)
 
 // Quadratic Formula:
 // when ax^2 + bx + c = 0
-// 	  x = -b+sqrt((b)^2 - 4ac)) / 2 a
-// or x = -b-sqrt((b)^2 - 4ac)) / 2 a
+// 	  x = -b+sqrtf((b)^2 - 4ac)) / 2 a
+// or x = -b-sqrtf((b)^2 - 4ac)) / 2 a
 // if discriminant is smaller than zero it means there is no intersection;
 // ray intersects two times with a 3D object
 t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
@@ -49,12 +49,12 @@ t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
 	t.t2 = RAY_T_MAX;
 	a = get_dot_product(input1, input1);
 	b = 2 * get_dot_product(input1, input2);
-	c = get_dot_product(input2, input2) - (pow(input3, 2) * input4);
-	discriminant = pow(b, 2) - (4 * a * c);
+	c = get_dot_product(input2, input2) - (powf(input3, 2) * input4);
+	discriminant = powf(b, 2) - (4 * a * c);
 	if (discriminant < 0)
 		return (t);
 	a = 2 * a;
-	discriminant = sqrt(discriminant);
+	discriminant = sqrtf(discriminant);
 	t.t1 = (-b - discriminant) / a;
 	t.t2 = (-b + discriminant) / a;
 	return (t);
@@ -91,8 +91,8 @@ void	check_if_camera_is_inside_object(t_object *object, t_ray ray)
 	t_xyz	vector_origin_to_object;
 
 	vector_origin_to_object = subtract_vectors(ray.origin, object->center);
-	if (fabs(vector_origin_to_object.x) <= object->radius
-		&& fabs(vector_origin_to_object.y) <= object->radius
-		&& fabs(vector_origin_to_object.z) <= object->radius)
+	if (fabsf(vector_origin_to_object.x) <= object->radius
+		&& fabsf(vector_origin_to_object.y) <= object->radius
+		&& fabsf(vector_origin_to_object.z) <= object->radius)
 		object->is_inside = true;
 }

@@ -72,16 +72,13 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 {
 	static int	a = 0;
 	static int	c = 0;
-	static int	l = 0;
 
 	if (str_is_equal(line, "A", 1))
 		a++;
 	else if (str_is_equal(line, "C", 1))
 		c++;
-	// else if (str_is_equal(line, "L", 1))
-		// l++;
-	if (a > 1 || l > 1)
-		error_message_and_exit("Scene declares multiple lights");
+	if (a > 1)
+		error_message_and_exit("Scene declares multiple ambient lights");
 	if (c > 1)
 		error_message_and_exit("Scene declares multiple cameras");
 }

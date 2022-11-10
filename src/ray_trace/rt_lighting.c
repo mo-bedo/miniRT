@@ -25,17 +25,6 @@ static bool	light_is_blocked_by_another_object(t_mlx mlx, t_ray ray)
 	return (object.type);
 }
 
-// computes how ray would reflect from surface
-//   = 2 * the direction of the normal
-// 	   * the dot product of the direction of the normal and the lightray
-//     - the direction of the lightray
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal)
-{
-	return (subtract_vectors(multiply_vector(normal,
-				2 * get_dot_product(ray_direction, normal)),
-			ray_direction));
-}
-
 // the fraction of diffuse light that is reflected
 //  	= dot product of the direction of the normal and the lightray /
 // 				length of normal * length of lightray
@@ -61,41 +50,6 @@ static t_xyz	compute_diffuse_reflection(t_xyz normal,
 	return (intensity);
 }
 
-// the fraction of specular light that is reflected
-//  	= (dot product of the direction of R and view /
-// 				length of R * length of view) ^ specular value
-// where R = the reflected ray
-//   = 2 * the direction of the normal
-// 	   * the dot product of the direction of the normal and the lightray
-//     - the direction of the lightray
-// specular = -1 means that the object is matte and therefor no
-// specular reflection should be computed
-// if denominator is negative, we need to treat it as if it was 0 (just
-// as with the diffuse reflection).
-// static t_xyz	compute_specular_reflection(t_ray light_ray,
-// 	t_xyz view, t_object object, t_xyz color)
-// {
-// 	float	denominator;
-// 	float	divisor;
-// 	t_xyz	reflection;
-// 	float	specular_reflection;
-// 	t_xyz	intensity;
-
-// 	initialize_vector(&intensity, 0, 0, 0);
-// 	if (object.specular == 0)
-// 		return (intensity);
-// 	reflection = compute_reflected_ray(light_ray.direction, object.normal);				// remove
-// 	denominator = get_dot_product(reflection, view);
-// 	if (denominator <= 0)
-// 		return (intensity);
-// 	divisor = get_vector_length(reflection) * get_vector_length(view);
-// 	specular_reflection = pow(denominator / divisor, object.specular);
-// 	intensity.x = color.x * specular_reflection;
-// 	intensity.y = color.y * specular_reflection;
-// 	intensity.z = color.z * specular_reflection;
-// 	return (intensity);
-// }
-
 void	compute_lighting(t_object *object, t_mlx *mlx)
 {
 	t_ray	r;
@@ -112,13 +66,7 @@ void	compute_lighting(t_object *object, t_mlx *mlx)
 			continue ;
 		intensity = add_vectors(intensity, compute_diffuse_reflection(
 					object->normal, r, mlx->light[i].color));
-		// intensity = add_vectors(intensity, compute_specular_reflection(
-		// 			r, view, *object, mlx->light[i].color));
 	}
-	// if (object->checkerboard)
-	// 	object->color = get_uv_pattern(CHECKERS, *object);
-	// else if (object->texture)
-	// 	object->color = get_uv_pattern(TEXTURE, *object);
 	object->color.x *= (mlx->ambient_light.color.x + intensity.x);
 	object->color.y *= (mlx->ambient_light.color.y + intensity.y);
 	object->color.z *= (mlx->ambient_light.color.z + intensity.z);

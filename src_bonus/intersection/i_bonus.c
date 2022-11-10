@@ -146,14 +146,5 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray, float max_distance)
 	closest_object.intersect = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
-	// if (closest_object.type == CONE)
-	// {
-	// 	if (closest_object.is_inside)
-	// 		ft_putstr(".");
-	// 	else
-	// 		ft_putstr("|");
-	// }
-	// else
-		// ft_putstr("-");
 	return (closest_object);
 }

@@ -44,17 +44,6 @@ static void	parse_cylinder(t_object *object, char **line)
 	object->is_cap = false;
 }
 
-// static void	parse_cone(t_object *object, char **line)
-// {
-// 	*line += 2;
-// 	object->type = CONE;
-// 	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
-// 	object->orientation = parse_orientation(line);
-// 	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
-// 	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
-// 	object->is_cap = false;
-// }
-
 void	parse_objects(t_mlx *mlx, char *line)
 {
 	int	i;
@@ -73,9 +62,6 @@ void	parse_objects(t_mlx *mlx, char *line)
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
-	// mlx->object[i].reflective
-	// 	= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
-	// parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;
 	mlx->object_count += 1;
 }
