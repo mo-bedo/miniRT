@@ -104,7 +104,6 @@ if (smallest_t > t.t3)
 */
 float	get_intersection_ray_cone(t_ray ray, t_object *cone)
 {
-	t_t4	t;
 	float	t_of_closest_side;
 	float	t_of_cap;
 	float	theta;
