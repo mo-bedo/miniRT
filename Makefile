@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	false
+LINUX 			=	true
 
 # VARIABLES
 NAME			:=	miniRT
@@ -21,13 +21,13 @@ ifeq ($(LINUX), true)
 CFLAGS 			:=  -Iinc -I/usr/include -Imlx_linux -O3 #-Wall -Wextra -Werror 
 MLX				:= -Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
 else
-CFLAGS			:= 	-Iinc -Imlx -O3 #-Wall -Wextra -Werror
+CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-g -fsanitize=undefined -fsanitize=address 
+SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
-PRINT			:=	@
+PRINT			:=	
 
 # STATIC
 RM				:=	rm

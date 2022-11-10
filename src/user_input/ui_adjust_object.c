@@ -87,7 +87,7 @@ void	adjust_object(t_mlx *mlx, int id, int keycode)
 	if (mlx->selected_action == DIAMETER
 		|| (mlx->selected_action == SCALE && mlx->object[id].type == SPHERE))
 		adjust_radius(mlx, id, keycode);
-	if (mlx->object[id].type == CYLINDER || mlx->object[id].type == CONE)
+	if (mlx->object[id].type == CYLINDER)
 	{
 		if (mlx->selected_action == HEIGHT)
 			adjust_height(mlx, id, keycode);

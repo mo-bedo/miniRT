@@ -48,7 +48,7 @@ static void	adjust_colors_selected_object(t_mlx *mlx,
 	ft_putstr("Press the following keys to select an action\n");
 	ft_putstr("D\t: Adjust the diameter\n");
 	ft_putstr("S\t: Scale the object\n");
-	if (selected.type == CYLINDER || selected.type == CONE)
+	if (selected.type == CYLINDER)
 	{
 		ft_putstr("H\t: Adjust the height\n");
 		ft_putstr("R\t: Rotate the object\n");

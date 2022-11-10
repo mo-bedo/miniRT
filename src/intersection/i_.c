@@ -95,15 +95,6 @@ static void	compute_normal(t_object *object)
 		object->normal = object->orientation;
 	else if (object->type == CYLINDER)
 		compute_cylinder_normal(object);
-	else if (object->type == CONE)
-		compute_cone_normal(object);
-	if (object->type != NONE && object->bump)
-	{
-		bump = get_uv_pattern(BUMP_MAP, *object);
-		object->normal.x += bump.x;
-		object->normal.y += bump.y;
-		object->normal.z += bump.z;
-	}
 	normalize_vector(&object->normal);
 }
 
@@ -115,8 +106,6 @@ static float	get_distance_to_intersection(t_mlx *mlx, int i, t_ray ray)
 		return (get_intersection_ray_sphere(ray, &mlx->object[i]));
 	if (mlx->object[i].type == CYLINDER)
 		return (get_intersection_ray_cylinder(ray, &mlx->object[i]));
-	if (mlx->object[i].type == CONE)
-		return (get_intersection_ray_cone(ray, &mlx->object[i]));
 	return (RAY_T_MAX);
 }
 
@@ -146,14 +135,5 @@ t_object	get_closest_intersection(t_mlx mlx, t_ray ray, float max_distance)
 	closest_object.intersect = add_vectors(ray.origin,
 			multiply_vector(ray.direction, closest_object.t));
 	compute_normal(&closest_object);
-	// if (closest_object.type == CONE)
-	// {
-	// 	if (closest_object.is_inside)
-	// 		ft_putstr(".");
-	// 	else
-	// 		ft_putstr("|");
-	// }
-	// else
-		// ft_putstr("-");
 	return (closest_object);
 }

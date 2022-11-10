@@ -55,18 +55,18 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 	else if (keycode == SCALE)
 		ft_putstr("Adjust scale with up/down keys\n");
 	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
-		ft_putstr("Rotation is only possible with a sphere or a cone\n");
+		ft_putstr("Rotation is only possible with a sphere\n");
 	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
-		ft_putstr("Adjusting height is only possible with a sphere or a cone\n");
-	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
+		ft_putstr("Adjusting height is only possible with a sphere\n");
+	else if (keycode == ROTATE && (type == CYLINDER))
 		ft_putstr("Adjust orientation with left/right/up/down keys\n");
-	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
+	else if (keycode == HEIGHT && (type == CYLINDER))
 		ft_putstr("Adjust height with up/down keys\n");
 	else if (keycode != UP && keycode != DOWN
 		&& keycode != LEFT && keycode != RIGHT && keycode != ESC)
 		ft_putstr("Invalid action\n");
 	if (keycode == DIAMETER || keycode == SCALE
-		|| ((type == CYLINDER || type == CONE)
+		|| ((type == CYLINDER)
 			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
 		mlx->selected_action = keycode;
 }
