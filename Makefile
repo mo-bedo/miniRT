@@ -25,7 +25,7 @@ CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-g -fsanitize=undefined -fsanitize=address 
+SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
 PRINT			:=	@
 
