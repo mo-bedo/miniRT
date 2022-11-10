@@ -43,8 +43,6 @@ OBJ_DIR_BONUS	:= ./obj_bonus
 
 SRC				:=	main.c \
 					intersection/i_.c \
-					intersection/i_cone.c \
-					intersection/i_cone_utils.c \
 					intersection/i_plane.c \
 					intersection/i_sphere.c \
 					intersection/i_cylinder.c \
@@ -55,8 +53,6 @@ SRC				:=	main.c \
 					parse_scene/ps_utils.c \
 					ray_trace/rt_.c \
 					ray_trace/rt_lighting.c \
-					ray_trace/rt_uv_pattern.c \
-					ray_trace/rt_uv_map_to_2d.c \
 					ray_trace/rt_pixel_put.c \
 					utils/u_.c \
 					utils/u_conversion.c \
