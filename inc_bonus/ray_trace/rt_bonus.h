@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_lighting.h                                      :+:    :+:            */
+/*   rt_bonus.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:01 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/10/13 15:12:06 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_LIGHTING_H
-# define RT_LIGHTING_H
+#ifndef RT_BONUS_H
+# define RT_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-void	compute_lighting(t_object *object, t_mlx *mlx);
+typedef struct s_ray {
+	t_xyz		direction;
+	t_xyz		origin;
+	t_object	object;
+}	t_ray;
+
+t_xyz	get_color(t_mlx *mlx, t_ray ray, int recursion_depth);
+void	ray_trace(t_mlx *mlx);
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cone.c                                           :+:    :+:            */
+/*   i_cone_bonus.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
@@ -12,12 +12,12 @@
 
 #include <math.h>
 
-#include "intersection/i_cone_utils.h"
-#include "intersection/i_plane.h"
-#include "intersection/i_utils.h"
-#include "main.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "intersection/i_cone_utils_bonus.h"
+#include "intersection/i_plane_bonus.h"
+#include "intersection/i_utils_bonus.h"
+#include "main_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 // Computes t values for a infinite mirrored cone
 static t_t4	quadratic_formula_infinite_cone(t_xyz ray_direction,

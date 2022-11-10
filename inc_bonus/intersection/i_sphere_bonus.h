@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_lighting.h                                      :+:    :+:            */
+/*   i_sphere_bonus.h                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:01 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/22 15:52:28 by jbedaux       #+#    #+#                 */
+/*   Updated: 2022/11/07 16:38:07 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_LIGHTING_H
-# define RT_LIGHTING_H
+#ifndef I_SPHERE_BONUS_H
+# define I_SPHERE_BONUS_H
 
-# include "main.h"
+# include <stdbool.h>
+# include "main_bonus.h"
+# include "ray_trace/rt_bonus.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-void	compute_lighting(t_object *object, t_mlx *mlx);
+float	get_intersection_ray_sphere(t_ray ray, t_object *sphere);
 
 #endif

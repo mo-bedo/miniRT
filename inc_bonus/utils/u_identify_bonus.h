@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_lighting.h                                      :+:    :+:            */
+/*   u_identify_bonus.h                                 :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:01 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 21:25:53 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_LIGHTING_H
-# define RT_LIGHTING_H
+#ifndef U_IDENTIFY_BONUS_H
+# define U_IDENTIFY_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-void	compute_lighting(t_object *object, t_mlx *mlx);
+int		ft_strlen(char *s);
+bool	ft_is_digit(int c);
+bool	ft_is_space(char c);
 
 #endif

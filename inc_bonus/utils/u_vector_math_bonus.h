@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_lighting.h                                      :+:    :+:            */
+/*   u_vector_math_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:01 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 14:58:56 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_LIGHTING_H
-# define RT_LIGHTING_H
+#ifndef U_VECTOR_MATH_BONUS_H
+# define U_VECTOR_MATH_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
+# include "utils/u_vector_operators_bonus.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-void	compute_lighting(t_object *object, t_mlx *mlx);
+float	get_vector_length(t_xyz vector);
+float	get_dot_product(t_xyz v1, t_xyz v2);
+void	normalize_vector(t_xyz *vector);
+t_xyz	get_cross_product(t_xyz v1, t_xyz v2);
+void	initialize_vector(t_xyz *vector, float x, float y, float z);
 
-#endif
+#endif 		

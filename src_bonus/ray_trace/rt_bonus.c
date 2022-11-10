@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_.c                                              :+:    :+:            */
+/*   rt_bonus.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -13,11 +13,11 @@
 #include <mlx.h>
 #include <math.h>
 
-#include "ray_trace/rt_.h"
-#include "ray_trace/rt_lighting.h"
-#include "ray_trace/rt_pixel_put.h"
-#include "intersection/i_.h"
-#include "utils/u_.h"
+#include "ray_trace/rt_bonus.h"
+#include "ray_trace/rt_lighting_bonus.h"
+#include "ray_trace/rt_pixel_put_bonus.h"
+#include "intersection/i_bonus.h"
+#include "utils/u_bonus.h"
 
 static t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 {
@@ -29,31 +29,33 @@ static t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 	return (ray);
 }
 
-// static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
-// 	t_ray ray, t_xyz view, int depth)
-// {
-// 	t_ray	reflected_ray;
-// 	t_xyz	reflected_color;
-// 	t_xyz	reflectivenes_of_object;
-
-// 	reflected_ray = compute_ray(*mlx, ray.object.intersect,
-// 			compute_reflected_ray(view, ray.object.normal));
-// 	reflected_color = get_color(mlx, reflected_ray, --depth);
-// 	reflected_color = multiply_vector(reflected_color, ray.object.reflective);					// remove
-// 	reflectivenes_of_object = multiply_vector(ray.object.color,
-// 			1 - ray.object.reflective);
-// 	return (add_vectors(reflectivenes_of_object, reflected_color));
-// }
-
-t_xyz	get_color(t_mlx *mlx, t_ray ray)
+static t_xyz	compute_reflections_of_reflections(t_mlx *mlx,
+	t_ray ray, t_xyz view, int depth)
 {
+	t_ray	reflected_ray;
+	t_xyz	reflected_color;
+	t_xyz	reflectivenes_of_object;
+
+	reflected_ray = compute_ray(*mlx, ray.object.intersect,
+			compute_reflected_ray(view, ray.object.normal));
+	reflected_color = get_color(mlx, reflected_ray, --depth);
+	reflected_color = multiply_vector(reflected_color, ray.object.reflective);
+	reflectivenes_of_object = multiply_vector(ray.object.color,
+			1 - ray.object.reflective);
+	return (add_vectors(reflectivenes_of_object, reflected_color));
+}
+
+t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
+{
+	t_xyz	view;
+
 	if (!ray.object.type)
 		return (mlx->background_color);
-	compute_lighting(&ray.object, mlx);
-	return (ray.object.color);
-	// if (ray.object.reflective <= 0 || depth <= 0 || ray.object.is_inside)
-	// 	return (ray.object.color);
-	// return (compute_reflections_of_reflections(mlx, ray, view, depth));
+	view = multiply_vector(ray.direction, -1);
+	compute_lighting(&ray.object, mlx, view);
+	if (ray.object.reflective <= 0 || depth <= 0 || ray.object.is_inside)
+		return (ray.object.color);
+	return (compute_reflections_of_reflections(mlx, ray, view, depth));
 }
 
 void	ray_trace(t_mlx *mlx)
@@ -72,7 +74,7 @@ void	ray_trace(t_mlx *mlx)
 		{
 			direction = convert_2d_canvas_to_3d_coordinates(mlx->camera, x, y);
 			ray = compute_ray(*mlx, mlx->camera.center, direction);
-			color = get_color(mlx, ray);
+			color = get_color(mlx, ray, RECURSION_DEPTH);
 			pixel_put(&mlx->img, x, y, color);
 			y++;
 		}

@@ -6,7 +6,9 @@
 		"u_.h": "c",
 		"complex": "c",
 		"ps_utils.h": "c",
-		"ui_.h": "c"
+		"ui_.h": "c",
+		"ps_parse_textures.h": "c",
+		"ps_parse_textures_utils.h": "c"
 	},
 	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

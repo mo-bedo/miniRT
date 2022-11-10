@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_lighting.h                                      :+:    :+:            */
+/*   ui_mouse_hook_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 14:01:01 by mweitenb      ########   odam.nl         */
+/*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/10/13 18:04:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_LIGHTING_H
-# define RT_LIGHTING_H
+#ifndef UI_MOUSE_HOOK_BONUS_H
+# define UI_MOUSE_HOOK_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
-t_xyz	compute_reflected_ray(t_xyz ray_direction, t_xyz normal);
-void	compute_lighting(t_object *object, t_mlx *mlx);
+int	mouse_hook(int keycode, int x, int y, t_mlx *mlx);
 
 #endif

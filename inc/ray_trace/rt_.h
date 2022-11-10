@@ -21,7 +21,7 @@ typedef struct s_ray {
 	t_object	object;
 }	t_ray;
 
-t_xyz	get_color(t_mlx *mlx, t_ray ray, int recursion_depth);
+t_xyz	get_color(t_mlx *mlx, t_ray ray);
 void	ray_trace(t_mlx *mlx);
 
 #endif
