@@ -43,7 +43,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	ret = malloc(count * size);
 	if (!ret)
-		return (0);
+		error_message_and_exit("Malloc failure in ft_calloc");
 	return (ft_memset(ret, 0, count * size));
 }
 

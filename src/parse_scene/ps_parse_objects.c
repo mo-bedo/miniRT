@@ -75,7 +75,7 @@ void	parse_objects(t_mlx *mlx, char *line)
 	mlx->object[i].reflective = 0;
 	// mlx->object[i].reflective
 	// 	= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
-	parse_textures(&mlx->object[i], &line);
+	// parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;
 	mlx->object_count += 1;
 }

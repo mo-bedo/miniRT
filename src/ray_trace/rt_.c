@@ -53,9 +53,10 @@ t_xyz	get_color(t_mlx *mlx, t_ray ray, int depth)
 		return (mlx->background_color);
 	view = multiply_vector(ray.direction, -1);
 	compute_lighting(&ray.object, mlx, view);
-	if (ray.object.reflective <= 0 || depth <= 0 || ray.object.is_inside)
-		return (ray.object.color);
-	return (compute_reflections_of_reflections(mlx, ray, view, depth));
+	return (ray.object.color);
+	// if (ray.object.reflective <= 0 || depth <= 0 || ray.object.is_inside)
+	// 	return (ray.object.color);
+	// return (compute_reflections_of_reflections(mlx, ray, view, depth));
 }
 
 void	ray_trace(t_mlx *mlx)
