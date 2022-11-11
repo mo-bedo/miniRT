@@ -44,7 +44,10 @@ int	parse_int(char **str, int min, int max)
 
 	number = ft_atoi(*str);
 	if (number < min || number > max)
+	{
+		printf("%d", number);
 		error_message_and_exit("Integer value input error");
+	}
 	skip_chars_of_parsed_number(str);
 	return (number);
 }

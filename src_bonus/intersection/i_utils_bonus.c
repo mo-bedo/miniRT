@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:00:13 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:27:44 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_t4	quadratic_formula(t_xyz input1, t_xyz input2,
 	b = 2 * get_dot_product(input1, input2);
 	c = get_dot_product(input2, input2) - (powf(input3, 2) * input4);
 	discriminant = powf(b, 2) - (4 * a * c);
-	if (discriminant < 0)
+	if (discriminant < 0 || a == 0)
 		return (t);
 	a = 2 * a;
 	discriminant = sqrtf(discriminant);

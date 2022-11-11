@@ -6,12 +6,12 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/09 20:11:16 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/11 13:04:40 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -128,10 +128,7 @@ fclean			:	clean
 
 re				: 	fclean all
 
-test			:	re
-					./$(NAME) scenes/oefen.rt
-
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR) $(SRC_DIR_BONUS) $(INC_DIR_BONUS)
 
-.PHONY			:	all bonus clean fclean re norm test
+.PHONY			:	all bonus clean fclean re norm

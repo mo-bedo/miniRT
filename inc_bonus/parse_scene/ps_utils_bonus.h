@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:11:36 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:48:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ enum e_xyz_range {
 	MIN_CY_HEIGHT		= 0,
 	MAX_CY_HEIGHT		= 600,
 	MIN_PPM_SIZE		= 10,
-	MAX_PPM_SIZE		= 2000
+	MAX_PPM_SIZE		= 5000
 };
 
 #endif

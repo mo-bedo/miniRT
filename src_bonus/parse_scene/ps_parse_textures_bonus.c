@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 17:17:14 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 13:08:52 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ static bool	parse_texture_map(t_map *map, char **line)
 	if (!(**line) || **line == '#')
 		return (false);
 	path = get_path(*line);
+	ft_putstr("loading texture: ");
+	ft_putstr(path);
+	ft_putstr("\n");
 	file_length = get_length_of_file(path);
 	ppm_file = open(path, O_RDONLY);
 	free(path);
