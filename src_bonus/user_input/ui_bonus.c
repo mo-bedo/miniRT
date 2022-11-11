@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:01:59 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 14:00:55 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static int	key_hook(int keycode, t_mlx *mlx)
 {
 	int		id;
 
+	if (keycode == ESC)
+		close_window(mlx);
 	id = mlx->selected_object;
 	if (id < 0 && (keycode == LEFT || keycode == RIGHT
 			|| keycode == DOWN || keycode == UP))
@@ -84,8 +86,6 @@ static int	key_hook(int keycode, t_mlx *mlx)
 		catch_action(mlx, mlx->object[id].type, keycode);
 		adjust_object(mlx, id, keycode);
 	}
-	if (keycode == ESC)
-		close_window(mlx);
 	return (0);
 }
 
