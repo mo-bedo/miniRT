@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/11 13:04:40 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/11 14:14:35 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFLAGS			:= 	-Iinc -Iinc_bonus -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Iincbonus -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-g -fsanitize=undefined -fsanitize=address 
+SANIT			:=	-fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
 PRINT			:=	@
 
@@ -99,8 +99,11 @@ OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 OBJ_BONUS		:=	$(SRC_BONUS:%.c=$(OBJ_DIR_BONUS)/%.o)
 
 
-all				:	$(NAME)
+all				:	libmlx.dylib $(NAME)
 
+libmlx.dylib	:
+					cd mlx && make && cp libmlx.dylib ../
+					
 $(NAME)			: 	$(OBJ)
 					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
 
@@ -108,7 +111,7 @@ $(OBJ_DIR)/%.o	:	$(SRC_DIR)/%.c $(INC_DIR)/%.h
 					$(PRINT)$(MKDIR_P) $(dir $@)
 					$(PRINT)$(CC) $(CFLAGS) $(SANIT) -c $< -o $@ 
 
-bonus			:	$(NAME_BONUS)
+bonus			:	libmlx.dylib $(NAME_BONUS)
 
 $(NAME_BONUS)	:	$(OBJ_BONUS)
 					$(PRINT)$(CC) $(OBJ_BONUS) $(MLX) -o $@ $(SANIT) -lm
@@ -125,6 +128,7 @@ clean			:
 fclean			:	clean
 					$(PRINT)$(RM) -f $(NAME)
 					$(PRINT)$(RM) -f $(NAME_BONUS)
+					$(PRINT)$(RM) -f libmlx.dylib
 
 re				: 	fclean all
 
