@@ -6,12 +6,12 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/09 20:11:16 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/11 12:02:11 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # linux or macos
-LINUX 			=	true
+LINUX 			=	false
 
 # VARIABLES
 NAME			:=	miniRT
@@ -25,7 +25,7 @@ CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	#-g -fsanitize=undefined -fsanitize=address 
+SANIT			:=	-g -fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
 PRINT			:=	@
 

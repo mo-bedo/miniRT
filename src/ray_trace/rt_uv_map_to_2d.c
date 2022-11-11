@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/09 18:58:18 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:15:03 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_uv	map_cylinder_to_2d(t_object object)
 	if (object.is_cap)
 		return (map_plane_to_2d(object));
 	azimuthal_angle = atan2f(radius.x, radius.z) + PI;
-	uv.u = 1 - ((azimuthal_angle + PI) / PI);
+	uv.u = 1 - (azimuthal_angle / (2 * PI));
 	uv.v = (radius.y + object.height);
 	while (uv.v > object.height)
 		uv.v -= object.height;
