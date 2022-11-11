@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/11 14:14:35 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/11 14:19:57 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFLAGS			:= 	-Iinc -Iinc_bonus -Imlx -O3 -Wall -Wextra -Werror
 MLX				:=	-Iinc -Iincbonus -Lmlx -lmlx -framework OpenGL -framework AppKit
 endif
 
-SANIT			:=	-fsanitize=undefined -fsanitize=address 
+SANIT			:=	#-fsanitize=undefined -fsanitize=address 
 CC				:=	gcc
 PRINT			:=	@
 

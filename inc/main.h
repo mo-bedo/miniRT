@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 16:35:31 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 14:19:32 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
-// # define WINDOW_WIDTH 1280
-// # define WINDOW_HEIGHT 960
-// # define WINDOW_WIDTH 1920
-// # define WINDOW_HEIGHT 1080
 // PAS OP HALF_WINDOW_WIDTH handmatig aanpassen!
 # define HALF_WINDOW_WIDTH 320
 // PAS OP HALF_WINDOW_HEIGHT handmatig aanpassen!
