@@ -6,7 +6,7 @@
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 12:30:57 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 17:24:56 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ enum e_key_codes {
 	RIGHT			= 124,
 	DOWN			= 125,
 	UP				= 126,
+	CLOSER			= 27,
+	FURTHER			= 24,
 	DIAMETER		= 2,
 	SCALE			= 1,
 	ROTATE			= 15,
 	HEIGHT			= 4,
+	TRANSLATE		= 17,
 	ESC				= 53
 };
 

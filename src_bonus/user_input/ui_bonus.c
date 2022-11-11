@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 14:00:55 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 18:15:55 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,22 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 		ft_putstr("Adjust diameter with up/down keys\n");
 	else if (keycode == SCALE)
 		ft_putstr("Adjust scale with up/down keys\n");
+	else if (keycode == TRANSLATE)
+		ft_putstr("Translate object with left/right/up/down/-/+ keys\n");
 	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
-		ft_putstr("Rotation is only possible with a sphere or a cone\n");
+		ft_putstr("Rotation is only possible with a sphere\n");
 	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
-		ft_putstr("Adjusting height is only possible with a sphere or a cone\n");
-	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
+		ft_putstr("Adjusting height is only possible with a sphere\n");
+	else if (keycode == ROTATE && (type == CYLINDER))
 		ft_putstr("Adjust orientation with left/right/up/down keys\n");
-	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
+	else if (keycode == HEIGHT && (type == CYLINDER))
 		ft_putstr("Adjust height with up/down keys\n");
-	else if (keycode != UP && keycode != DOWN
-		&& keycode != LEFT && keycode != RIGHT && keycode != ESC)
+	else if (keycode != CLOSER && keycode != FURTHER && keycode != ESC
+		&& keycode != UP && keycode != DOWN
+		&& keycode != LEFT && keycode != RIGHT)
 		ft_putstr("Invalid action\n");
-	if (keycode == DIAMETER || keycode == SCALE
-		|| ((type == CYLINDER || type == CONE)
+	if (keycode == TRANSLATE || keycode == DIAMETER || keycode == SCALE
+		|| ((type == CYLINDER)
 			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
 		mlx->selected_action = keycode;
 }
@@ -75,8 +78,6 @@ static int	key_hook(int keycode, t_mlx *mlx)
 {
 	int		id;
 
-	if (keycode == ESC)
-		close_window(mlx);
 	id = mlx->selected_object;
 	if (id < 0 && (keycode == LEFT || keycode == RIGHT
 			|| keycode == DOWN || keycode == UP))
@@ -86,13 +87,14 @@ static int	key_hook(int keycode, t_mlx *mlx)
 		catch_action(mlx, mlx->object[id].type, keycode);
 		adjust_object(mlx, id, keycode);
 	}
+	if (keycode == ESC)
+		close_window(mlx);
 	return (0);
 }
 
 void	user_input(t_mlx *mlx)
 {
-	ft_putstr("Rotate camera with up/down/left/right keys\n");
-	ft_putstr("Or click on an object to select it\n");
+	ft_putstr("Click on an object to select it\n");
 	mlx_hook(mlx->window, 17, 0, close_window, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
 	mlx_key_hook(mlx->window, key_hook, mlx);

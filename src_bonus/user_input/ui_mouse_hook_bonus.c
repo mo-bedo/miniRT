@@ -48,7 +48,8 @@ static void	adjust_colors_selected_object(t_mlx *mlx,
 	ft_putstr("Press the following keys to select an action\n");
 	ft_putstr("D\t: Adjust the diameter\n");
 	ft_putstr("S\t: Scale the object\n");
-	if (selected.type == CYLINDER || selected.type == CONE)
+	ft_putstr("T\t: Translate the object\n");
+	if (selected.type == CYLINDER)
 	{
 		ft_putstr("H\t: Adjust the height\n");
 		ft_putstr("R\t: Rotate the object\n");
@@ -74,8 +75,7 @@ int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 		{
 			mlx->selected_object = -1;
 			ft_putstr("\e[1;1H\e[2J");
-			ft_putstr("Rotate camera with up/down/left/right keys\n");
-			ft_putstr("Or click on an object to select it\n");
+			ft_putstr("Click on an object to select it\n");
 		}
 		ray_trace(mlx);
 	}
