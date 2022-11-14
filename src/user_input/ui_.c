@@ -59,7 +59,7 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
 		ft_putstr("Rotation is only possible with a sphere\n");
 	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
-		ft_putstr("Adjusting height is only possible with a sphere\n");
+		ft_putstr("Adjusting height is only possible with a cylinder\n");
 	else if (keycode == ROTATE && (type == CYLINDER))
 		ft_putstr("Adjust orientation with left/right/up/down keys\n");
 	else if (keycode == HEIGHT && (type == CYLINDER))
