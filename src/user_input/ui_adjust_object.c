@@ -60,20 +60,23 @@ static void	adjust_height_scale(t_mlx *mlx, int id, int keycode)
 
 static void	rotate_object(t_mlx *mlx, int id, int keycode)
 {
-	if (keycode == DOWN
-		&& mlx->object[id].radius > MIN_OBJECT_SIZE
-		&& mlx->object[id].height > MIN_OBJECT_SIZE)
-	{
-		mlx->object[id].radius /= ADJUSTMENT_SCALE;
-		mlx->object[id].height /= ADJUSTMENT_SCALE;
-		ray_trace(mlx);
-	}
-	if (keycode == UP)
-	{
-		mlx->object[id].radius *= ADJUSTMENT_SCALE;
-		mlx->object[id].height *= ADJUSTMENT_SCALE;
-		ray_trace(mlx);
-	}
+	float	rotation_speed;
+	float	angle;
+	t_xyz	orientation;
+
+	rotation_speed = PI / ROTATION_SPEED;
+	if (keycode == LEFT || keycode == UP)
+		angle = -rotation_speed;
+	if (keycode == RIGHT || keycode == DOWN)
+		angle = rotation_speed;
+	if (keycode == LEFT || keycode == RIGHT)
+		initialize_vector(&orientation, 0, 1, 0);
+	if (keycode == DOWN || keycode == UP)
+		initialize_vector(&orientation, 0, 0, 1);
+	if (keycode == LEFT || keycode == RIGHT || keycode == DOWN || keycode == UP)
+		mlx->object[id].orientation = rotate_vector_by_angle(
+				mlx->object[id].orientation, orientation, angle);
+	ray_trace(mlx);
 }
 
 static void	translate_object(t_mlx *mlx, int id, int keycode)
