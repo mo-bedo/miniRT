@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 18:51:51 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:21:30 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ static int	key_hook(int keycode, t_mlx *mlx)
 
 void	user_input(t_mlx *mlx)
 {
-	ft_putstr("Click on an object to select it\n");
+	if (mlx->object_count <= 0)
+		ft_putstr("There are no objects in the scene\n");
+	else
+		ft_putstr("Click on an object to select it\n");
 	mlx_hook(mlx->window, 17, 0, close_window, mlx);
 	mlx_mouse_hook(mlx->window, mouse_hook, mlx);
 	mlx_key_hook(mlx->window, key_hook, mlx);

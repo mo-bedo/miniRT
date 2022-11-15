@@ -75,7 +75,10 @@ int	mouse_hook(int keycode, int x, int y, t_mlx *mlx)
 		{
 			mlx->selected_object = -1;
 			ft_putstr("\e[1;1H\e[2J");
-			ft_putstr("Click on an object to select it\n");
+			if (mlx->object_count <= 0)
+				ft_putstr("There are no objects in the scene\n");
+			else
+				ft_putstr("Click on an object to select it\n");
 		}
 		ray_trace(mlx);
 	}
