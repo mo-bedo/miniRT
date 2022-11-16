@@ -6,7 +6,7 @@
 #    By: jbedaux <jbedaux@student.42.fr>              +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/09/21 13:09:25 by mweitenb      #+#    #+#                  #
-#    Updated: 2022/11/11 14:19:57 by mweitenb      ########   odam.nl          #
+#    Updated: 2022/11/16 18:54:57 by mweitenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,7 +132,9 @@ fclean			:	clean
 
 re				: 	fclean all
 
+re_bonus		: 	fclean bonus
+
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR) $(SRC_DIR_BONUS) $(INC_DIR_BONUS)
 
-.PHONY			:	all bonus clean fclean re norm
+.PHONY			:	all bonus clean fclean re re_bonus norm

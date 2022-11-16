@@ -6,7 +6,7 @@
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:11:23 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:50:16 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ bool	has_valid_extension(char *filename, char *valid_ext)
 	char	*ext;
 
 	ext = ft_strrchr(filename, '.');
-	if (!ext || !str_is_equal(ext, valid_ext, ft_strlen(valid_ext)))
+	if (!ext || !str_is_equal(ext, valid_ext, ft_strlen(valid_ext))
+		|| ft_strlen(ext) != ft_strlen(valid_ext))
 		return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/15 14:26:31 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:51:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	str_is_equal(const char *s1, const char *s2, size_t n)
 		s1++;
 		s2++;
 	}
-	return (*s1 == *s2);
+	return (true);
 }
 
 char	*ft_strrchr(const char *s, int c)
