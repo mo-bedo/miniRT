@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_.c                                              :+:    :+:            */
+/*   ps_bonus.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/16 18:50:28 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:50:16 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "main.h"
-#include "parse_scene/ps_parse_line.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "parse_scene/ps_parse_line_bonus.h"
+#include "utils/u_bonus.h"
 
 bool	has_valid_extension(char *filename, char *valid_ext)
 {
@@ -73,16 +73,13 @@ static void	check_if_capital_elements_are_declared_multiple_times(char *line)
 {
 	static int	a = 0;
 	static int	c = 0;
-	static int	l = 0;
 
 	if (str_is_equal(line, "A", 1))
 		a++;
 	else if (str_is_equal(line, "C", 1))
 		c++;
-	else if (str_is_equal(line, "L", 1))
-		l++;
-	if (a > 1 || l > 1)
-		error_message_and_exit("Scene declares multiple lights");
+	if (a > 1)
+		error_message_and_exit("Scene declares multiple ambient lights");
 	if (c > 1)
 		error_message_and_exit("Scene declares multiple cameras");
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_plane.h                                          :+:    :+:            */
+/*   i_plane_bonus.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_PLANE_H
-# define I_PLANE_H
+#ifndef I_PLANE_BONUS_H
+# define I_PLANE_BONUS_H
 
 # include <stdbool.h>
-# include "main.h"
-# include "ray_trace/rt_.h"
+# include "main_bonus.h"
+# include "ray_trace/rt_bonus.h"
 
 float	get_intersection_ray_plane(t_ray ray, t_object plane);
 

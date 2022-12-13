@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ui_mouse_hook.h                                    :+:    :+:            */
+/*   ui_mouse_hook_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI_MOUSE_HOOK_H
-# define UI_MOUSE_HOOK_H
+#ifndef UI_MOUSE_HOOK_BONUS_H
+# define UI_MOUSE_HOOK_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 int	mouse_hook(int keycode, int x, int y, t_mlx *mlx);
 

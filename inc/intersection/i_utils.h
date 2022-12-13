@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_utils.h                                          :+:    :+:            */
+/*   i_utils_bonus.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_UTILS_H
-# define I_UTILS_H
+#ifndef I_UTILS_BONUS_H
+# define I_UTILS_BONUS_H
 
-# include "main.h"
-# include "ray_trace/rt_.h"
+# include "main_bonus.h"
+# include "ray_trace/rt_bonus.h"
 
 typedef struct s_t4
 {

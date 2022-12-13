@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_textures_utils.h                          :+:    :+:            */
+/*   ps_parse_textures_utils_bonus.h                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_PARSE_TEXTURES_UTILS_H
-# define PS_PARSE_TEXTURES_UTILS_H
+#ifndef PS_PARSE_TEXTURES_UTILS_BONUS_H
+# define PS_PARSE_TEXTURES_UTILS_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 t_xyz	**allocate_map(int width, int height);
 int		ft_strlcpy(char *dst, char *src, int size);

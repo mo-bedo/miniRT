@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_identify.c                                       :+:    :+:            */
+/*   u_identify_bonus.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:25:03 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 13:23:24 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "main_bonus.h"
 
 int	ft_strlen(char *s)
 {
 	int	i;
 
-	if (!s)
-		return (0);
 	i = 0;
 	while (s[i])
 		++i;

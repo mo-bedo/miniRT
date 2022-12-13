@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_pixel_put.c                                     :+:    :+:            */
+/*   rt_pixel_put_bonus.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/u_.h"
+#include "utils/u_bonus.h"
 
 // Clamps a color to the canonical color range.
 static int	create_color(int transparancy, int red, int green, int blue)

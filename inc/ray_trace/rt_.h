@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_.h                                              :+:    :+:            */
+/*   rt_bonus.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT__H
-# define RT__H
+#ifndef RT_BONUS_H
+# define RT_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 typedef struct s_ray {
 	t_xyz		direction;
@@ -21,7 +21,7 @@ typedef struct s_ray {
 	t_object	object;
 }	t_ray;
 
-t_xyz	get_color(t_mlx *mlx, t_ray ray);
+t_xyz	get_color(t_mlx *mlx, t_ray ray, int recursion_depth);
 void	ray_trace(t_mlx *mlx);
 
 #endif

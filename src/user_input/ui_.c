@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ui_.c                                              :+:    :+:            */
+/*   ui_bonus.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/15 12:21:30 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:25:07 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
 
-#include "main.h"
-#include "user_input/ui_.h"
-#include "user_input/ui_mouse_hook.h"
-#include "user_input/ui_adjust_object.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "user_input/ui_bonus.h"
+#include "user_input/ui_mouse_hook_bonus.h"
+#include "user_input/ui_adjust_object_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 static int	close_window(t_mlx *mlx)
 {
@@ -57,19 +57,20 @@ static void	catch_action(t_mlx *mlx, int type, int keycode)
 	else if (keycode == TRANSLATE)
 		ft_putstr("Translate object with left/right/up/down/-/+ keys\n");
 	else if (keycode == ROTATE && (type == PLANE || type == SPHERE))
-		ft_putstr("Rotation is only possible with a sphere\n");
+		ft_putstr("Rotation is only possible with a cylinder or cone\n");
 	else if (keycode == HEIGHT && (type == PLANE || type == SPHERE))
-		ft_putstr("Adjusting height is only possible with a cylinder\n");
-	else if (keycode == ROTATE && (type == CYLINDER))
+		ft_putstr("Adjusting height is only possible with a cylinder or \
+			 cone\n");
+	else if (keycode == ROTATE && (type == CYLINDER || type == CONE))
 		ft_putstr("Adjust orientation with left/right/up/down keys\n");
-	else if (keycode == HEIGHT && (type == CYLINDER))
+	else if (keycode == HEIGHT && (type == CYLINDER || type == CONE))
 		ft_putstr("Adjust height with up/down keys\n");
 	else if (keycode != CLOSER && keycode != FURTHER && keycode != ESC
 		&& keycode != UP && keycode != DOWN
 		&& keycode != LEFT && keycode != RIGHT)
 		ft_putstr("Invalid action\n");
 	if (keycode == TRANSLATE || keycode == DIAMETER || keycode == SCALE
-		|| ((type == CYLINDER)
+		|| ((type == CYLINDER || type == CONE)
 			&& (keycode == ROTATE || keycode == HEIGHT || keycode == ROTATE)))
 		mlx->selected_action = keycode;
 }

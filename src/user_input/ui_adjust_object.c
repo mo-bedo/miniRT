@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ui_adjust_object.c                                 :+:    :+:            */
+/*   ui_adjust_object_bonus.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 18:12:05 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 18:15:40 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "user_input/ui_.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "user_input/ui_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 static void	adjust_radius(t_mlx *mlx, int id, int keycode)
 {
@@ -103,7 +103,7 @@ void	adjust_object(t_mlx *mlx, int id, int keycode)
 	if (mlx->selected_action == DIAMETER
 		|| (mlx->selected_action == SCALE && mlx->object[id].type == SPHERE))
 		adjust_radius(mlx, id, keycode);
-	if (mlx->object[id].type == CYLINDER)
+	if (mlx->object[id].type == CYLINDER || mlx->object[id].type == CONE)
 	{
 		if (mlx->selected_action == HEIGHT || mlx->selected_action == SCALE)
 			adjust_height_scale(mlx, id, keycode);

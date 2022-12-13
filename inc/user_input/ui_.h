@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ui_.h                                              :+:    :+:            */
+/*   ui_bonus.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 17:24:56 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 18:16:14 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI__H
-# define UI__H
+#ifndef UI_BONUS_H
+# define UI_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 enum e_key_codes {
 	MOUSE_CLICK		= 1,
@@ -35,7 +35,7 @@ enum e_key_codes {
 	ESC				= 53
 };
 
-// // LINUX:
+// LINUX:
 // enum e_key_codes{
 // 	MOUSE_CLICK		= 1,
 // 	SCROLL_UP		= 4,

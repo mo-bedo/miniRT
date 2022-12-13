@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_line.c                                    :+:    :+:            */
+/*   ps_parse_line_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/09 18:57:02 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:46:42 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
-#include "main.h"
-#include "parse_scene/ps_parse_objects.h"
-#include "parse_scene/ps_utils.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "parse_scene/ps_parse_objects_bonus.h"
+#include "parse_scene/ps_utils_bonus.h"
+#include "utils/u_bonus.h"
 
 // 					C
 // 
@@ -80,7 +80,7 @@ void	parse_line(t_mlx *mlx, char *line)
 	else if (str_is_equal(line, "A", 1) || str_is_equal(line, "L", 1))
 		parse_lights(mlx, line);
 	else if (str_is_equal(line, "pl", 2) || str_is_equal(line, "sp", 2)
-		|| str_is_equal(line, "cy", 2))
+		|| str_is_equal(line, "cy", 2) || str_is_equal(line, "co", 2))
 		parse_objects(mlx, line);
 	else
 		error_message_and_exit("Unknown type identifier");

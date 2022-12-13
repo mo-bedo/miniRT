@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main_bonus.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 12:20:58 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 17:20:54 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/16 18:46:50 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdlib.h>
 
-#include "main.h"
-#include "parse_scene/ps_.h"
-#include "parse_scene/ps_utils.h"
-#include "ray_trace/rt_.h"
-#include "user_input/ui_.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "parse_scene/ps_bonus.h"
+#include "parse_scene/ps_utils_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "user_input/ui_bonus.h"
+#include "utils/u_bonus.h"
 
 void	error_message_and_exit(char *message)
 {

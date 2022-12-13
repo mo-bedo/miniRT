@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cone_utils.h                                     :+:    :+:            */
+/*   i_cone_utils_bonus.h                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_CONE_UTILS_H
-# define I_CONE_UTILS_H
+#ifndef I_CONE_UTILS_BONUS_H
+# define I_CONE_UTILS_BONUS_H
 
-# include "main.h"
-# include "ray_trace/rt_.h"
-# include "intersection/i_utils.h"
+# include "main_bonus.h"
+# include "ray_trace/rt_bonus.h"
+# include "intersection/i_utils_bonus.h"
 
 t_t4	check_cone_top_bottom(t_ray ray, t_object cone,
 			t_t4 t, t_xyz bottom_center);

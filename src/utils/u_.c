@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_.c                                               :+:    :+:            */
+/*   u_bonus.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "main.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "utils/u_bonus.h"
 
 void	ft_putstr(char *s)
 {
@@ -43,7 +43,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	ret = malloc(count * size);
 	if (!ret)
-		error_message_and_exit("Malloc failure in ft_calloc");
+		return (0);
 	return (ft_memset(ret, 0, count * size));
 }
 

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   u_vector_operators.h                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   u_vector_operators_bonus.h                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
+/*   Updated: 2022/11/11 12:31:33 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_VECTOR_OPERATORS_H
-# define U_VECTOR_OPERATORS_H
+#ifndef U_VECTOR_OPERATORS_BONUS_H
+# define U_VECTOR_OPERATORS_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 t_xyz	add_vectors(t_xyz v1, t_xyz v2);
 t_xyz	subtract_vectors(t_xyz v1, t_xyz v2);
@@ -21,4 +21,4 @@ t_xyz	get_negative_vector(t_xyz v1);
 t_xyz	multiply_vector(t_xyz vector, float number);
 t_xyz	divide_vector(t_xyz vector, float number);
 
-#endif 		// VECTOR_MATH
+#endif 		

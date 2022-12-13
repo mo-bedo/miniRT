@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_cylinder.c                                       :+:    :+:            */
+/*   i_cylinder_bonus.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -13,10 +13,10 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "intersection/i_plane.h"
-#include "intersection/i_utils.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "intersection/i_plane_bonus.h"
+#include "intersection/i_utils_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 //	ray : P(t) = P + V * t
 //	cyl : (((P(t) - O) x D)^2 = r^2

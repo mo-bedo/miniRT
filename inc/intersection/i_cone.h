@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_cone.h                                           :+:      :+:    :+:   */
+/*   i_cone_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef I_CONE_H
-# define I_CONE_H
+#ifndef I_CONE_BONUS_H
+# define I_CONE_BONUS_H
 
-# include "main.h"
-# include "ray_trace/rt_.h"
+# include "main_bonus.h"
+# include "ray_trace/rt_bonus.h"
 
 float	get_intersection_ray_cone(t_ray ray, t_object *cone);
 
-#endif			// I_CONE_H
+#endif			

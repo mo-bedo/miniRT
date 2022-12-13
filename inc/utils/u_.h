@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_.h                                               :+:    :+:            */
+/*   u_bonus.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U__H
-# define U__H
+#ifndef U_BONUS_H
+# define U_BONUS_H
 
-# include "main.h"
-# include "utils/u_compare.h"
-# include "utils/u_conversion.h"
-# include "utils/u_identify.h"
-# include "utils/u_rotate_vector.h"
-# include "utils/u_vector_math.h"
-# include "utils/u_vector_operators.h"
+# include "main_bonus.h"
+# include "utils/u_compare_bonus.h"
+# include "utils/u_conversion_bonus.h"
+# include "utils/u_identify_bonus.h"
+# include "utils/u_rotate_vector_bonus.h"
+# include "utils/u_vector_math_bonus.h"
+# include "utils/u_vector_operators_bonus.h"
 
 void	ft_putstr(char *s);
 void	*ft_calloc(size_t count, size_t size);

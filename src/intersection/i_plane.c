@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_plane.c                                          :+:    :+:            */
+/*   i_plane_bonus.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -12,8 +12,8 @@
 
 #include <stdbool.h>
 
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 static bool	ray_is_parallel_to_object(t_ray ray, t_xyz orientation)
 {

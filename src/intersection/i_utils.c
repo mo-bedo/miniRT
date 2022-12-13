@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_utils.c                                          :+:    :+:            */
+/*   i_utils_bonus.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/11 12:27:16 by mweitenb      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:27:44 by mweitenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
-#include "main.h"
-#include "intersection/i_plane.h"
-#include "intersection/i_utils.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "intersection/i_plane_bonus.h"
+#include "intersection/i_utils_bonus.h"
+#include "utils/u_bonus.h"
 
 t_t4	check_t_values(t_t4 t)
 {

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ui_mouse_hook.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/15 12:25:41 by mweitenb      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ui_mouse_hook_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 19:54:51 by mweitenb          #+#    #+#             */
+/*   Updated: 2022/10/16 15:29:42 by jbedaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "intersection/i_.h"
-#include "ray_trace/rt_.h"
-#include "user_input/ui_.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "intersection/i_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "user_input/ui_bonus.h"
+#include "utils/u_bonus.h"
 
 static t_object	get_selected_object(t_mlx *mlx, int x, int y)
 {
@@ -49,7 +49,7 @@ static void	adjust_colors_selected_object(t_mlx *mlx,
 	ft_putstr("D\t: Adjust the diameter\n");
 	ft_putstr("S\t: Scale the object\n");
 	ft_putstr("T\t: Translate the object\n");
-	if (selected.type == CYLINDER)
+	if (selected.type == CYLINDER || selected.type == CONE)
 	{
 		ft_putstr("H\t: Adjust the height\n");
 		ft_putstr("R\t: Rotate the object\n");

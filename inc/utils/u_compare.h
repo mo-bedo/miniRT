@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_compare.h                                        :+:    :+:            */
+/*   u_compare_bonus.h                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_COMPARE_H
-# define U_COMPARE_H
+#ifndef U_COMPARE_BONUS_H
+# define U_COMPARE_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 bool	str_is_equal(const char *s1, const char *s2, size_t n);
 char	*ft_strrchr(const char *s, int c);

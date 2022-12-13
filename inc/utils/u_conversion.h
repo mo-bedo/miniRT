@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_conversion.h                                     :+:    :+:            */
+/*   u_conversion_bonus.h                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_CONVERSION_H
-# define U_CONVERSION_H
+#ifndef U_CONVERSION_BONUS_H
+# define U_CONVERSION_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 int		ft_char_to_digit(int c);
 int		ft_atoi(const char *str);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_objects.c                                 :+:    :+:            */
+/*   ps_parse_objects_bonus.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "parse_scene/ps_parse_textures.h"
-#include "parse_scene/ps_utils.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "parse_scene/ps_parse_textures_bonus.h"
+#include "parse_scene/ps_utils_bonus.h"
+#include "utils/u_bonus.h"
 
 static void	parse_plane(t_object *object, char **line)
 {
@@ -44,6 +44,17 @@ static void	parse_cylinder(t_object *object, char **line)
 	object->is_cap = false;
 }
 
+static void	parse_cone(t_object *object, char **line)
+{
+	*line += 2;
+	object->type = CONE;
+	object->center = parse_xyz(line, MIN_XYZ, MAX_XYZ);
+	object->orientation = parse_orientation(line);
+	object->radius = parse_float(line, MIN_DIAMETER, MAX_DIAMETER) / 2;
+	object->height = parse_float(line, MIN_CY_HEIGHT, MAX_CY_HEIGHT);
+	object->is_cap = false;
+}
+
 void	parse_objects(t_mlx *mlx, char *line)
 {
 	int	i;
@@ -57,11 +68,16 @@ void	parse_objects(t_mlx *mlx, char *line)
 		parse_sphere(&mlx->object[i], &line);
 	if (str_is_equal(line, "cy", 2))
 		parse_cylinder(&mlx->object[i], &line);
+	if (str_is_equal(line, "co", 2))
+		parse_cone(&mlx->object[i], &line);
 	mlx->object[i].is_inside = false;
 	mlx->object[i].color = parse_xyz(&line, MIN_COLOR, MAX_COLOR);
 	mlx->object[i].specular = 0;
 	mlx->object[i].specular = parse_float(&line, MIN_SPECULAR, MAX_SPECULAR);
 	mlx->object[i].reflective = 0;
+	mlx->object[i].reflective
+		= parse_float(&line, MIN_REFLECTIVE, MAX_REFLECTIVE);
+	parse_textures(&mlx->object[i], &line);
 	mlx->object[i].t = RAY_T_MAX;
 	mlx->object_count += 1;
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_vector_operators.c                               :+:      :+:    :+:   */
+/*   u_vector_operators_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbedaux <jbedaux@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,8 @@
 
 #include <math.h>
 
-#include "main.h"
-#include "utils/u_vector_math.h"
+#include "main_bonus.h"
+#include "utils/u_vector_math_bonus.h"
 
 //    			B
 //	

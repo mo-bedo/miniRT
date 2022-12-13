@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_uv_map_to_2d.h                                  :+:    :+:            */
+/*   rt_uv_map_to_2d_bonus.h                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_UV_MAP_TO_2D_H
-# define RT_UV_MAP_TO_2D_H
+#ifndef RT_UV_MAP_TO_2D_BONUS_H
+# define RT_UV_MAP_TO_2D_BONUS_H
 
-# include "ray_trace/rt_.h"
+# include "ray_trace/rt_bonus.h"
 
 t_uv	map_to_2d(t_object object);
 

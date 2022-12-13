@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_uv_pattern.h                                    :+:    :+:            */
+/*   rt_uv_pattern_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_UV_PATTERN_H
-# define RT_UV_PATTERN_H
+#ifndef RT_UV_PATTERN_BONUS_H
+# define RT_UV_PATTERN_BONUS_H
 
-# include "ray_trace/rt_.h"
+# include "ray_trace/rt_bonus.h"
 
 t_xyz	get_uv_pattern(int pattern, t_object object);
 

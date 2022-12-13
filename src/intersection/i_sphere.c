@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_sphere.c                                         :+:    :+:            */
+/*   i_sphere_bonus.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -13,9 +13,9 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "intersection/i_utils.h"
-#include "ray_trace/rt_.h"
-#include "utils/u_.h"
+#include "intersection/i_utils_bonus.h"
+#include "ray_trace/rt_bonus.h"
+#include "utils/u_bonus.h"
 
 static bool	camera_is_inside_sphere(t_object *sphere,
 	t_xyz vector_origin_to_sphere)

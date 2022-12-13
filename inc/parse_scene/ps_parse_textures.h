@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_textures.h                                :+:    :+:            */
+/*   ps_parse_textures_bonus.h                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_PARSE_TEXTURES_H
-# define PS_PARSE_TEXTURES_H
+#ifndef PS_PARSE_TEXTURES_BONUS_H
+# define PS_PARSE_TEXTURES_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 void	parse_textures(t_object *object, char **input);
 

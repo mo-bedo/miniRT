@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_objects.h                                 :+:    :+:            */
+/*   ps_parse_objects_bonus.h                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_PARSE_OBJECTS_H
-# define PS_PARSE_OBJECTS_H
+#ifndef PS_PARSE_OBJECTS_BONUS_H
+# define PS_PARSE_OBJECTS_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 void	parse_objects(t_mlx *mlx, char *line);
 

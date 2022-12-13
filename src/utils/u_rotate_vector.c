@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_rotate_vector.c                                  :+:    :+:            */
+/*   u_rotate_vector_bonus.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -13,8 +13,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "main.h"
-#include "utils/u_.h"
+#include "main_bonus.h"
+#include "utils/u_bonus.h"
 
 static t_xyz	get_orthogonal(t_xyz vec)
 {

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   u_rotate_vector.h                                  :+:    :+:            */
+/*   u_rotate_vector_bonus.h                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef U_ROTATE_VECTOR_H
-# define U_ROTATE_VECTOR_H
+#ifndef U_ROTATE_VECTOR_BONUS_H
+# define U_ROTATE_VECTOR_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
-// t_xyz	rotate_vector(t_xyz old, t_xyz angles);
 t_xyz	rotate_vector(t_xyz vector,
 			t_xyz old_orientation, t_xyz new_orientation);
 t_xyz	rotate_vector_by_angle(t_xyz vector, t_xyz orientation, float angle);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ui_adjust_object.h                                 :+:    :+:            */
+/*   ui_adjust_object_bonus.h                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UI_ADJUST_OBJECT_H
-# define UI_ADJUST_OBJECT_H
+#ifndef UI_ADJUST_OBJECT_BONUS_H
+# define UI_ADJUST_OBJECT_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 void	adjust_object(t_mlx *mlx, int id, int keycode);
 

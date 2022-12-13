@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_utils.c                                         :+:    :+:            */
+/*   ps_utils_bonus.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_scene/ps_utils.h"
-#include "utils/u_.h"
+#include "parse_scene/ps_utils_bonus.h"
+#include "utils/u_bonus.h"
 
 static void	skip_chars_of_parsed_number(char **str)
 {
@@ -44,7 +44,10 @@ int	parse_int(char **str, int min, int max)
 
 	number = ft_atoi(*str);
 	if (number < min || number > max)
+	{
+		printf("%d", number);
 		error_message_and_exit("Integer value input error");
+	}
 	skip_chars_of_parsed_number(str);
 	return (number);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_.h                                              :+:    :+:            */
+/*   ps_bonus.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS__H
-# define PS__H
+#ifndef PS_BONUS_H
+# define PS_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 bool	has_valid_extension(char *filename, char *valid_ext);
 void	parse_scene(t_mlx	*mlx, int argc, char *input);

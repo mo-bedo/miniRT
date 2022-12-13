@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_pixel_put.h                                     :+:    :+:            */
+/*   rt_pixel_put_bonus.h                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_PIXEL_PUT_H
-# define RT_PIXEL_PUT_H
+#ifndef RT_PIXEL_PUT_BONUS_H
+# define RT_PIXEL_PUT_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 void	pixel_put(t_img *img, int x, int y, t_xyz color);
 

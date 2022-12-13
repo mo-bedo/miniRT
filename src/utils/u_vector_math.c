@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_vector_math.c                                    :+:      :+:    :+:   */
+/*   u_vector_math_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,8 @@
 
 #include <math.h>
 
-#include "main.h"
-#include "utils/u_vector_math.h"
+#include "main_bonus.h"
+#include "utils/u_vector_math_bonus.h"
 
 float	get_vector_length(t_xyz vector)
 {

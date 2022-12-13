@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_parse_line.h                                    :+:    :+:            */
+/*   ps_parse_line_bonus.h                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: marvin <marvin@student.42.fr>                +#+                     */
 /*                                                   +#+                      */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PS_PARSE_LINE_H
-# define PS_PARSE_LINE_H
+#ifndef PS_PARSE_LINE_BONUS_H
+# define PS_PARSE_LINE_BONUS_H
 
-# include "main.h"
+# include "main_bonus.h"
 
 void	parse_line(t_mlx *mlx, char *line);
 
