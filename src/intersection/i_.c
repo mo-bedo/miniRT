@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_bonus.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:36:01 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 
-#include "ray_trace/rt_bonus.h"
-#include "ray_trace/rt_uv_pattern_bonus.h"
-#include "intersection/i_bonus.h"
-#include "utils/u_bonus.h"
+#include "ray_trace/rt_.h"
+#include "ray_trace/rt_uv_pattern.h"
+#include "intersection/i_.h"
+#include "utils/u_.h"
 
 // To get the normal we need to calculate the point on the axis with the same 
 // height as the intersect(axis_intersect).  

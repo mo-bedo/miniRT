@@ -1,24 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ui_bonus.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/28 17:42:31 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 18:16:14 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef UI__H
+# define UI__H
 
-#ifndef UI_BONUS_H
-# define UI_BONUS_H
+# include "main.h"
 
-# include "main_bonus.h"
-
-enum e_key_codes {
+enum e_key_codes_common {
 	MOUSE_CLICK		= 1,
 	SCROLL_UP		= 4,
-	SCROLL_DOWN		= 5,
+	SCROLL_DOWN		= 5
+};
+
+enum e_key_codes_macos {
 	MINUS			= 27,
 	PLUS			= 24,
 	LEFT			= 123,
@@ -35,23 +26,22 @@ enum e_key_codes {
 	ESC				= 53
 };
 
-// LINUX:
-// enum e_key_codes{
-// 	MOUSE_CLICK		= 1,
-// 	SCROLL_UP		= 4,
-// 	SCROLL_DOWN		= 5,
-// 	MINUS			= 45,
-// 	PLUS			= 61,
-// 	LEFT			= 65361,
-// 	RIGHT			= 65363,
-// 	DOWN			= 65364,
-// 	UP				= 65362,
-// 	DIAMETER		= 100,
-// 	SCALE			= 115,
-// 	ROTATE			= 114,
-// 	HEIGHT			= 104,
-// 	ESC				= 65307
-// };
+enum e_key_codes_linux {
+	MINUS_LINUX		= 45,
+	PLUS_LINUX		= 61,
+	LEFT_LINUX		= 65361,
+	RIGHT_LINUX		= 65363,
+	DOWN_LINUX		= 65364,
+	UP_LINUX		= 65362,
+	CLOSER_LINUX	= 45,
+	FURTHER_LINUX	= 61,
+	DIAMETER_LINUX	= 100,
+	SCALE_LINUX		= 115,
+	ROTATE_LINUX	= 114,
+	HEIGHT_LINUX	= 104,
+	TRANSLATE_LINUX	= 116,
+	ESC_LINUX		= 65307
+};
 
 void	user_input(t_mlx *mlx);
 

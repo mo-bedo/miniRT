@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   u_bonus.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:01:26 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "main_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "utils/u_.h"
 
 void	ft_putstr(char *s)
 {

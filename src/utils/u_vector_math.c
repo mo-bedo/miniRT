@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   u_vector_math_bonus.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jbedaux <jbedaux@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 12:36:14 by mweitenb          #+#    #+#             */
-/*   Updated: 2022/11/07 12:03:35 by jbedaux          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 
-#include "main_bonus.h"
-#include "utils/u_vector_math_bonus.h"
+#include "main.h"
+#include "utils/u_vector_math.h"
 
 float	get_vector_length(t_xyz vector)
 {

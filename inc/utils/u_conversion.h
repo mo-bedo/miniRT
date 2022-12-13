@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   u_conversion_bonus.h                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/09 19:01:46 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef U_CONVERSION_H
+# define U_CONVERSION_H
 
-#ifndef U_CONVERSION_BONUS_H
-# define U_CONVERSION_BONUS_H
-
-# include "main_bonus.h"
+# include "main.h"
 
 int		ft_char_to_digit(int c);
 int		ft_atoi(const char *str);

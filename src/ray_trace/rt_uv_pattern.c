@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_uv_pattern_bonus.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 13:38:15 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 #include <stdlib.h>
 
-#include "main_bonus.h"
-#include "ray_trace/rt_uv_map_to_2d_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "ray_trace/rt_uv_map_to_2d.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 static t_xyz	checkers_pattern_at(t_uv uv, t_object object)
 {

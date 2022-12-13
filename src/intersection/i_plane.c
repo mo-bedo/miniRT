@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_plane_bonus.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:53:10 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdbool.h>
 
-#include "ray_trace/rt_bonus.h"
-#include "utils/u_bonus.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_.h"
 
 static bool	ray_is_parallel_to_object(t_ray ray, t_xyz orientation)
 {

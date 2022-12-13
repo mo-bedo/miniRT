@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_bonus.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:15:32 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <mlx.h>
 #include <math.h>
 
-#include "ray_trace/rt_bonus.h"
-#include "ray_trace/rt_lighting_bonus.h"
-#include "ray_trace/rt_pixel_put_bonus.h"
-#include "intersection/i_bonus.h"
-#include "utils/u_bonus.h"
+#include "ray_trace/rt_.h"
+#include "ray_trace/rt_lighting.h"
+#include "ray_trace/rt_pixel_put.h"
+#include "intersection/i_.h"
+#include "utils/u_.h"
 
 static t_ray	compute_ray(t_mlx mlx, t_xyz origin, t_xyz direction)
 {

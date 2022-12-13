@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_parse_objects_bonus.c                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/07 16:45:01 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "main_bonus.h"
-#include "parse_scene/ps_parse_textures_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "parse_scene/ps_parse_textures.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 static void	parse_plane(t_object *object, char **line)
 {

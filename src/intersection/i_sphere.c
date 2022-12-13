@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_sphere_bonus.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/07 16:45:10 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdbool.h>
 #include <math.h>
 
-#include "intersection/i_utils_bonus.h"
-#include "ray_trace/rt_bonus.h"
-#include "utils/u_bonus.h"
+#include "intersection/i_utils.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_.h"
 
 static bool	camera_is_inside_sphere(t_object *sphere,
 	t_xyz vector_origin_to_sphere)

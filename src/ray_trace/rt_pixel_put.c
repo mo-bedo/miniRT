@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_pixel_put_bonus.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 19:01:00 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "utils/u_bonus.h"
+#include "utils/u_.h"
 
 // Clamps a color to the canonical color range.
 static int	create_color(int transparancy, int red, int green, int blue)

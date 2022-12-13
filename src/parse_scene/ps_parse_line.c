@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_parse_line_bonus.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/16 18:46:42 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 
-#include "main_bonus.h"
-#include "parse_scene/ps_parse_objects_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "parse_scene/ps_parse_objects.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 // 					C
 // 
@@ -68,7 +56,8 @@ static void	parse_lights(t_mlx *mlx, char *line)
 
 void	parse_line(t_mlx *mlx, char *line)
 {
-	if (str_is_equal(line, "#", 1) || str_is_equal(line, "\n", 1) || !line[0])
+	if (str_is_equal(line, "#", 1) || str_is_equal(line, "\n", 1) || !line[0]
+		|| line[0] == 13)
 		return ;
 	else if (str_is_equal(line, "B", 1))
 	{

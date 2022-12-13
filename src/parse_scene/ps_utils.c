@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_utils_bonus.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: mweitenb <mweitenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/28 14:42:25 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/09/28 14:42:25 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 static void	skip_chars_of_parsed_number(char **str)
 {

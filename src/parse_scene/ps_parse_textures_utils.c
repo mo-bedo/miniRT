@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_parse_textures_utils_bonus.c                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/10/13 21:20:34 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "main_bonus.h"
-#include "parse_scene/ps_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "parse_scene/ps_.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 t_xyz	**allocate_map(int width, int height)
 {

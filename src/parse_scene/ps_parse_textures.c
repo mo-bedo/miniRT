@@ -1,23 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_parse_textures_bonus.c                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 13:08:52 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "main_bonus.h"
-#include "parse_scene/ps_parse_textures_utils_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "parse_scene/ps_parse_textures_utils.h"
+#include "parse_scene/ps_utils.h"
+#include "utils/u_.h"
 
 static void	parse_texture_data(t_map *map, char *data)
 {

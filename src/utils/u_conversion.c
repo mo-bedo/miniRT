@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   u_conversion_bonus.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 18:55:03 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 #include <float.h>
 
-#include "utils/u_bonus.h"
-#include "parse_scene/ps_utils_bonus.h"
+#include "utils/u_.h"
+#include "parse_scene/ps_utils.h"
 
 int	ft_char_to_digit(int c)
 {

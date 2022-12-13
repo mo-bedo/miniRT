@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_cone_utils_bonus.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/11/09 13:35:45 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:01:20 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 
-#include "main_bonus.h"
-#include "intersection/i_utils_bonus.h"
-#include "ray_trace/rt_bonus.h"
-#include "utils/u_vector_math_bonus.h"
+#include "main.h"
+#include "intersection/i_utils.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_vector_math.h"
 
 // dot product is a measure of similarity 
 //  1 = same direction

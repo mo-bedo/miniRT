@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   u_rotate_vector_bonus.c                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 18:58:46 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 #include <stdlib.h>
 
-#include "main_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "utils/u_.h"
 
 static t_xyz	get_orthogonal(t_xyz vec)
 {

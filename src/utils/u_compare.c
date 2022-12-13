@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   u_compare_bonus.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: marvin <marvin@student.42.fr>                +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 15:39:26 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/16 18:45:53 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "main_bonus.h"
+#include "main.h"
 
 bool	str_is_equal(const char *s1, const char *s2, size_t n)
 {

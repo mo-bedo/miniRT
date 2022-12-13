@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_lighting_bonus.c                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:20 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:16:29 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 
-#include "main_bonus.h"
-#include "ray_trace/rt_uv_pattern_bonus.h"
-#include "intersection/i_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "ray_trace/rt_uv_pattern.h"
+#include "intersection/i_.h"
+#include "utils/u_.h"
 
 static bool	light_is_blocked_by_another_object(t_mlx mlx, t_ray ray)
 {

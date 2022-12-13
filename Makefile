@@ -17,11 +17,13 @@ LINUX 			=	true
 NAME			:=	miniRT
 
 ifeq ($(LINUX), true)
-CFLAGS 			:=  -Iinc -Iinc_bonus -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror 
-MLX				:= -Iinc -Iinc_bonus -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
+CFLAGS 			:=  -Iinc -I/usr/include -Imlx_linux -O3 -Wall -Wextra -Werror 
+MLX				:=	-Iinc -I/usr/include -Imlx_linux -Lmlx_linux -L/usr/lib -lmlx -lXext -lX11 -lm -lz 
+MLX_LIB			:=	libmlx.a
 else
-CFLAGS			:= 	-Iinc -Iinc_bonus -Imlx -O3 -Wall -Wextra -Werror
-MLX				:=	-Iinc -Iincbonus -Lmlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS			:= 	-Iinc -Imlx -O3 -Wall -Wextra -Werror
+MLX				:=	-Iinc -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX_LIB			:=	libmlx.dylib
 endif
 
 SANIT			:=	#-fsanitize=undefined -fsanitize=address 
@@ -35,7 +37,7 @@ INC_DIR			:=	./inc
 SRC_DIR			:=	./src
 OBJ_DIR			:=	./obj
 
-SRC_BONUS		:=	main.c \
+SRC				:=	main.c \
 					intersection/i_.c \
 					intersection/i_cone.c \
 					intersection/i_cone_utils.c \
@@ -43,7 +45,7 @@ SRC_BONUS		:=	main.c \
 					intersection/i_sphere.c \
 					intersection/i_cylinder.c \
 					intersection/i_utils.c \
-					parse_scene/ps.c \
+					parse_scene/ps_.c \
 					parse_scene/ps_parse_line.c \
 					parse_scene/ps_parse_objects.c \
 					parse_scene/ps_parse_textures.c \
@@ -67,15 +69,11 @@ SRC_BONUS		:=	main.c \
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
 
-all				:	libmlx.dylib $(NAME)
 
-ifeq ($(LINUX), true)
-libmlx.dylib	:
-					cd mlx_linux && make && cp libmlx.dylib ../
-else
-libmlx.dylib	:
-					cd mlx && make && cp libmlx.dylib ../
-endif
+all				:	$(MLX_LIB) $(NAME)
+
+$(MLX_LIB)		:
+					cd mlx_linux && make && cp $(MLX_LIB) ../
 					
 $(NAME)			: 	$(OBJ)
 					$(PRINT)$(CC) $(OBJ) $(MLX) -o $@ $(SANIT) -lm
@@ -89,11 +87,11 @@ clean			:
 
 fclean			:	clean
 					$(PRINT)$(RM) -f $(NAME)
-					$(PRINT)$(RM) -f libmlx.dylib
+					$(PRINT)$(RM) -f $(MLX_LIB)
 
 re				: 	fclean all
 
 norm			:
 					@norminette $(SRC_DIR) $(INC_DIR)
 
-.PHONY			:	all bonus clean fclean re re_bonus norm
+.PHONY			:	all clean fclean re norm

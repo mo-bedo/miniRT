@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_bonus.h                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/10/13 15:12:06 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef RT__H
+# define RT__H
 
-#ifndef RT_BONUS_H
-# define RT_BONUS_H
-
-# include "main_bonus.h"
+# include "main.h"
 
 typedef struct s_ray {
 	t_xyz		direction;

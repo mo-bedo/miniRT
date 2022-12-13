@@ -1,29 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   ps_utils_bonus.h                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 12:48:42 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef PS_UTILS_H
+# define PS_UTILS_H
 
-#ifndef PS_UTILS_BONUS_H
-# define PS_UTILS_BONUS_H
-
-# include "main_bonus.h"
+# include "main.h"
 
 void	error_message_and_exit(char *message);
 int		parse_int(char **str, int min, int max);
 float	parse_float(char **str, int min, int max);
 t_xyz	parse_xyz(char **str, int min, int max);
 t_xyz	parse_orientation(char **str);
-// bool	has_valid_extension(char *filename, char *valid_ext);
-// int		ft_strlcpy(char *dst, char *src, int size);
-// int		get_length_of_file(char *path);
-// t_xyz	get_angle_over_the_axes(t_xyz vector1, t_xyz vector2);
 
 enum e_xyz_range {
 	MIN_COLOR			= 0,

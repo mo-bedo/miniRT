@@ -1,22 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_cylinder_bonus.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 15:52:18 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:00:54 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdbool.h>
 #include <math.h>
 
-#include "intersection/i_plane_bonus.h"
-#include "intersection/i_utils_bonus.h"
-#include "ray_trace/rt_bonus.h"
-#include "utils/u_bonus.h"
+#include "intersection/i_plane.h"
+#include "intersection/i_utils.h"
+#include "ray_trace/rt_.h"
+#include "utils/u_.h"
 
 //	ray : P(t) = P + V * t
 //	cyl : (((P(t) - O) x D)^2 = r^2

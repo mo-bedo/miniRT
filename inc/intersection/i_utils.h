@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   i_utils_bonus.h                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/22 17:42:08 by jbedaux       #+#    #+#                 */
-/*   Updated: 2022/11/09 20:00:23 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef I_UTILS_H
+# define I_UTILS_H
 
-#ifndef I_UTILS_BONUS_H
-# define I_UTILS_BONUS_H
-
-# include "main_bonus.h"
-# include "ray_trace/rt_bonus.h"
+# include "main.h"
+# include "ray_trace/rt_.h"
 
 typedef struct s_t4
 {

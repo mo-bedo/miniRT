@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   main_bonus.h                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/09/21 12:36:14 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/16 18:52:16 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#ifndef MAIN_BONUS_H
-# define MAIN_BONUS_H
+#ifndef MAIN_H
+# define MAIN_H
 
 # include <stdbool.h>
 # include <stdio.h>
@@ -24,6 +12,11 @@
 # define MIN_OBJECT_SIZE 0.1f
 # define MAX_OBJECTS 100
 # define PLANE_MAP_SCALE 100
+# define RECURSION_DEPTH 3
+# define LENGTH_NORMAL 1
+# define TILE_SIZE 16
+# define TILE_SIZE_PLANE 4
+# define ROTATION_SPEED 6
 
 # define WINDOW_WIDTH 640
 # define WINDOW_HEIGHT 480
@@ -58,17 +51,17 @@ typedef struct s_xyz
 	float		z;
 }	t_xyz;
 
+typedef struct s_xy
+{
+	int			x;
+	int			y;
+}	t_xy;
+
 typedef struct s_uv
 {
 	float		u;
 	float		v;
 }	t_uv;
-
-typedef struct s_xy
-{
-	int		x;
-	int		y;
-}	t_xy;
 
 // CAMERA
 typedef struct s_camera {
@@ -136,33 +129,11 @@ typedef struct s_mlx {
 	int				selected_action;
 }	t_mlx;
 
-enum e_values{
-	RECURSION_DEPTH		= 3,
-	X					= 0,
-	Y					= 1,
-	Z					= 2,
-	LENGTH_NORMAL		= 1,
-	NONE				= 0,
-	PLANE				= 1,
-	SPHERE				= 2,
-	CYLINDER			= 3,
-	CONE				= 4,
-	CHECKERS			= 0,
-	TEXTURE				= 1,
-	BUMP_MAP			= 2,
-	TILE_SIZE			= 16,
-	TILE_SIZE_PLANE		= 4,
-	ROTATION_SPEED		= 6
-};
+enum e_coordinates { X, Y, Z };
+enum e_objects { NONE, PLANE, SPHERE, CYLINDER, CONE };
+enum e_textures { CHECKERS, TEXTURE, BUMP_MAP };
 
 void	error_message_and_exit(char *message);
 void	print_time(char *action);
 
 #endif				// MAIN_H
-
-// convert to ppm
-// mogrify -format ppm name.png
-// resize image;
-// convert name.ppm -resize 300x150 name.ppm
-// convert P6 to P3
-// convert name.ppm -compress none name.ppm

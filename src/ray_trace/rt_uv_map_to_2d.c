@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   rt_uv_map_to_2d_bonus.c                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jbedaux <jbedaux@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/27 19:54:51 by mweitenb      #+#    #+#                 */
-/*   Updated: 2022/11/11 13:38:03 by mweitenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <math.h>
 #include <stdlib.h>
 
-#include "main_bonus.h"
-#include "utils/u_bonus.h"
+#include "main.h"
+#include "utils/u_.h"
 
 static t_uv	map_plane_to_2d(t_object object)
 {
